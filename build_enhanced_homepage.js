@@ -258,208 +258,210 @@ const additionalStyles = `
     transform: translateY(-1px);
   }
 
-  /* ─── SURYA NAMASKAR SCROLLYTELLING PINNED SECTION ─── */
-  .surya-track {
-    position: relative;
-    height: 380vh;
-    background: #081427;
-  }
-  .surya-stage {
-    position: sticky;
+  /* ─── AMBIENT SCROLL-DRIVEN SURYA NAMASKAR BACKGROUND ─── */
+  .ambient-surya-bg {
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100vw;
     height: 100vh;
-    width: 100%;
+    height: 100dvh;
+    z-index: -2;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: radial-gradient(circle at 45% 45%, rgba(19, 39, 79, 0.7) 0%, #061020 85%);
-  }
-  .surya-header-bar {
-    position: absolute;
-    top: 2rem;
-    left: 4rem;
-    right: 4rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 20;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
-    padding-bottom: 1rem;
-  }
-  .surya-header-tag {
-    font-size: 0.68rem;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 600;
-  }
-  .surya-header-title {
-    font-family: var(--serif);
-    font-size: 1.4rem;
-    color: var(--ivory);
-  }
-  .surya-grid {
-    display: grid;
-    grid-template-columns: 55% 45%;
-    height: 80vh;
-    margin-top: 5vh;
-    padding: 0 4rem;
-    align-items: center;
-    position: relative;
-    z-index: 10;
-  }
-  .surya-visual-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 100%;
-  }
-  .surya-breath-indicator {
-    position: absolute;
-    width: 380px;
-    height: 380px;
-    border-radius: 50%;
-    border: 1px dashed rgba(201, 168, 76, 0.35);
-    box-shadow: 0 0 60px rgba(201, 168, 76, 0.12);
     pointer-events: none;
-    transition: transform 0.6s var(--ease-spring), border-color 0.4s;
+  }
+  .surya-bg-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 25%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transform: scale(1.03);
+    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .surya-bg-slide.active {
+    opacity: 0.34;
     transform: scale(1);
   }
-  .surya-breath-indicator.inhale {
-    transform: scale(1.18);
-    border-color: rgba(201, 168, 76, 0.7);
-    box-shadow: 0 0 90px rgba(201, 168, 76, 0.25);
+  .surya-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 25%, rgba(10, 25, 49, 0.72) 0%, rgba(7, 18, 36, 0.94) 85%);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    z-index: 1;
   }
-  .surya-breath-indicator.exhale {
-    transform: scale(0.86);
-    border-color: rgba(201, 168, 76, 0.25);
-    box-shadow: 0 0 40px rgba(201, 168, 76, 0.08);
+
+  /* ─── FLOATING CIRCADIAN ASANA COMPANION ─── */
+  .surya-companion {
+    position: fixed;
+    bottom: 2rem;
+    right: 2.5rem;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: var(--sans);
   }
-  .surya-yogi-svg-stage {
-    width: 340px;
-    height: 340px;
+  .companion-pill {
+    background: rgba(10, 25, 49, 0.92);
+    border: 1px solid rgba(201, 168, 76, 0.45);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 168, 76, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 9999px;
+    padding: 6px 14px 6px 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+  }
+  .companion-pill:hover, .companion-pill:focus-visible {
+    border-color: var(--gold);
+    background: rgba(19, 39, 79, 0.96);
+    transform: translateY(-2px);
+    outline: none;
+  }
+  .companion-ring-wrap {
     position: relative;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 5;
+    flex-shrink: 0;
   }
-  .surya-yogi-svg-stage svg {
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.6));
-    transition: transform 0.5s var(--ease-spring), opacity 0.4s;
+  .companion-ring {
+    transform: rotate(-90deg);
   }
-  .surya-dial-row {
+  .companion-sun {
     position: absolute;
-    bottom: 1.5rem;
-    left: 4rem;
-    right: 4rem;
+    font-size: 0.65rem;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  .companion-label {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.15;
+  }
+  .companion-step-txt {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .companion-pose-name {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: var(--ivory);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .companion-chevron {
+    font-size: 0.68rem;
+    color: var(--gold-light);
+    transition: transform 0.3s;
+  }
+  .companion-pill[aria-expanded="true"] .companion-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Collapsible Mini Guide Card */
+  .companion-card {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    right: 0;
+    width: min(90vw, 340px);
+    background: linear-gradient(180deg, #0A1931 0%, #071224 100%);
+    border: 1px solid var(--gold);
+    border-radius: 8px;
+    padding: 1.4rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+    pointer-events: none;
+    z-index: 1000;
+  }
+  .companion-card.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .companion-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(201, 168, 76, 0.15);
-    padding-top: 1rem;
-    z-index: 20;
+    align-items: flex-start;
+    margin-bottom: 0.6rem;
   }
-  .surya-dots {
+  .companion-card-sub {
+    font-family: var(--serif);
+    font-size: 0.82rem;
+    color: var(--gold-light);
+    font-style: italic;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .companion-card-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--ivory);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .companion-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--gold-light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 6px;
+  }
+  .companion-card-breath {
+    font-size: 0.72rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .companion-card-desc {
+    font-size: 0.8rem;
+    color: rgba(250, 247, 240, 0.72);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .companion-scrubber {
     display: flex;
-    gap: 12px;
-    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(201, 168, 76, 0.2);
   }
-  .surya-dot-btn {
-    width: 28px;
-    height: 28px;
+  .comp-dot {
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: rgba(19, 39, 79, 0.8);
     border: 1px solid rgba(201, 168, 76, 0.3);
-    color: rgba(250, 247, 240, 0.5);
-    font-size: 0.62rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--sans);
-    transition: all 0.25s;
+    transition: all 0.2s;
+    padding: 0;
   }
-  .surya-dot-btn.active, .surya-dot-btn:hover {
+  .comp-dot.active, .comp-dot:hover {
     background: var(--gold);
-    color: var(--royal-deep);
     border-color: var(--gold);
-    font-weight: 700;
-    transform: scale(1.15);
-  }
-  .surya-info-card {
-    background: rgba(10, 25, 49, 0.85);
-    border: 1px solid rgba(201, 168, 76, 0.35);
-    border-radius: 8px;
-    padding: 2.5rem 3rem;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-  }
-  .surya-step-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-  }
-  .surya-step-idx {
-    font-family: var(--serif);
-    font-size: 1.8rem;
-    color: var(--gold);
-    font-weight: 600;
-  }
-  .surya-step-mantra {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    color: var(--gold-light);
-    font-style: italic;
-    letter-spacing: 0.05em;
-  }
-  .surya-step-name {
-    font-family: var(--serif);
-    font-size: 2.2rem;
-    color: var(--ivory);
-    font-weight: 500;
-    line-height: 1.15;
-    margin-bottom: 0.4rem;
-  }
-  .surya-step-english {
-    font-size: 0.82rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(250, 247, 240, 0.5);
-    margin-bottom: 1.4rem;
-  }
-  .surya-breath-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(201, 168, 76, 0.12);
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    padding: 6px 14px;
-    border-radius: 9999px;
-    font-size: 0.76rem;
-    color: var(--gold-light);
-    font-weight: 600;
-    margin-bottom: 1.6rem;
-  }
-  .surya-clinical-p {
-    font-size: 0.92rem;
-    color: rgba(250, 247, 240, 0.8);
-    line-height: 1.75;
-    margin-bottom: 1.6rem;
-  }
-  .surya-doc-advice {
-    border-left: 2px solid var(--gold);
-    padding-left: 1.2rem;
-    font-size: 0.82rem;
-    color: rgba(250, 247, 240, 0.65);
-    font-style: italic;
-    line-height: 1.65;
+    transform: scale(1.2);
   }
 
   /* ─── WHAT YOU WILL EXPERIENCE (5 IMMERSIVE PILLARS) ─── */
@@ -884,9 +886,6 @@ const additionalStyles = `
 
   /* Responsive refinements */
   @media (max-width: 1024px) {
-    .surya-grid { grid-template-columns: 1fr; height: auto; padding: 0 2rem; }
-    .surya-yogi-svg-stage { width: 260px; height: 260px; }
-    .surya-breath-indicator { width: 280px; height: 280px; }
     .flyout-grid { grid-template-columns: 1fr; }
     .exp-panel { grid-template-columns: 1fr; padding: 2rem; }
     .exp-img-frame { height: 280px; }
@@ -896,10 +895,6 @@ const additionalStyles = `
   }
   @media (max-width: 768px) {
     .clinical-grid { grid-template-columns: 1fr; }
-    .surya-header-bar { left: 1.5rem; right: 1.5rem; }
-    .surya-dial-row { left: 1.5rem; right: 1.5rem; }
-    .surya-dots { overflow-x: auto; max-width: 100%; padding-bottom: 6px; }
-    .surya-dot-btn { flex-shrink: 0; min-width: 28px; }
     .upcoming-strip { font-size: 0.72rem; }
     .upcoming-inner { padding: 0.4rem 1rem; }
     .upcoming-trigger { font-size: 0.72rem; padding: 4px 8px; }
@@ -908,6 +903,29 @@ const additionalStyles = `
     .conduct-agreement-card { padding: 1.8rem 1.2rem; }
     .inclusions-table-card { padding: 0.5rem; }
     .inc-table th, .inc-table td { padding: 0.75rem 0.6rem; font-size: 0.75rem; }
+    .surya-companion {
+      bottom: 1.2rem;
+      right: 1.2rem;
+    }
+    .companion-pill {
+      padding: 5px 12px 5px 6px;
+      gap: 8px;
+    }
+    .companion-pose-name {
+      font-size: 0.82rem;
+    }
+    .companion-card {
+      width: calc(100vw - 2.4rem);
+      right: 0;
+      padding: 1.1rem;
+    }
+    .surya-bg-slide.active {
+      opacity: 0.24;
+      background-position: 60% 20%;
+    }
+    .surya-bg-overlay {
+      background: radial-gradient(circle at 50% 20%, rgba(10, 25, 49, 0.88) 0%, rgba(7, 18, 36, 0.98) 85%);
+    }
   }
 
   /* Calm Aesthetic & Interaction Overrides */
@@ -1068,99 +1086,78 @@ html = html.replace('<nav id="mainNav"', `${headerOpen}<nav id="mainNav"`);
 html = html.replace('</nav>', '</nav>\n</header>');
 console.log('Injected site-header wrapper and upcoming retreat flyout banner.');
 
-// 4. Prepare the Surya Namaskar Scrollytelling Pinned Section HTML
-const suryaNamaskarHtml = `
-<!-- SECTION: SURYA NAMASKAR 12-STEP SCROLLYTELLING COMPONENT -->
-<div class="surya-track" id="suryaTrack" aria-label="12-Beat Surya Namaskar Scrollytelling">
-  <div class="surya-stage" id="suryaStage">
-    <!-- Top Meta Bar -->
-    <div class="surya-header-bar">
-      <div>
-        <div class="surya-header-tag">Brahma Muhurta Protocol &bull; Solar Awakening</div>
-        <div class="surya-header-title">The 12-Beat Circadian Surya Namaskar</div>
-      </div>
-      <div style="font-size:0.75rem; color:rgba(250,247,240,0.5); letter-spacing:0.12em;">
-        SCROLL TO SCRUB POSTURES &darr;
-      </div>
-    </div>
-
-    <!-- Central Interactive Split Stage -->
-    <div class="surya-grid">
-      <!-- Left Yogi Figure & Breath Ring -->
-      <div class="surya-visual-wrap">
-        <div class="surya-breath-indicator" id="suryaBreathRing"></div>
-        <div class="surya-yogi-svg-stage" id="suryaSvgStage">
-          <!-- Dynamic SVG Yogi Silhouettes with Sacred Gold Geometry -->
-          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" id="suryaYogiSvg">
-            <!-- Outer Sacred Aura Circle -->
-            <circle cx="100" cy="100" r="90" stroke="rgba(201,168,76,0.3)" stroke-width="1.5" stroke-dasharray="3 3"/>
-            <circle cx="100" cy="100" r="75" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-            <!-- Posture Path (Dynamically swapped by JS) -->
-            <path id="suryaPath" d="M100 40 A10 10 0 1 0 100 20 A10 10 0 1 0 100 40 Z M95 45 L105 45 L105 110 L95 110 Z M95 55 L75 80 L82 85 L95 65 Z M105 55 L125 80 L118 85 L105 65 Z M95 110 L85 175 L93 175 L100 120 L107 175 L115 175 L105 110 Z" fill="#C9A84C" stroke="#FFE082" stroke-width="1.2"/>
-            <!-- Marma Centers (Heart & Third Eye) -->
-            <circle cx="100" cy="30" r="2.5" fill="#FFF"/>
-            <circle cx="100" cy="65" r="3" fill="#FFE082" stroke="#C9A84C"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- Right Step Information Card -->
-      <div class="surya-info-wrap">
-        <div class="surya-info-card" id="suryaInfoCard">
-          <div class="surya-step-meta">
-            <div class="surya-step-idx" id="suryaIdx">[ 01 / 12 ]</div>
-            <div class="surya-step-mantra" id="suryaMantra">&#2384; मित्राय नमः &bull; Om Mitraya Namaha</div>
-          </div>
-          <h3 class="surya-step-name" id="suryaName">Pranamasana</h3>
-          <div class="surya-step-english" id="suryaEnglish">Salutation Pose &bull; Standing Anjali Mudra</div>
-          
-          <div class="surya-breath-badge" id="suryaBreath">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8M8 12h8"></path></svg>
-            <span id="suryaBreathText">Exhale (Rechaka) &bull; Solar Plexus Centering</span>
-          </div>
-
-          <p class="surya-clinical-p" id="suryaClinical">
-            Establishes autonomic equilibrium by lowering sympathetic nervous tone. Palms pressed in Anjali Mudra at the sternum gently stimulate the Anahata cardiac nerve plexus, creating respiratory stillness before dynamic spinal extension.
-          </p>
-
-          <div class="surya-doc-advice" id="suryaDoc">
-            <strong>BAMS Clinical Guidance:</strong> Keep weight evenly distributed through all four corners of the feet. Ground the sacrum downward to decompress the L4-L5 lumbar vertebrae.
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bottom 12-Step Solar Dial Scrubber -->
-    <div class="surya-dial-row">
-      <div style="font-size:0.75rem; color:var(--gold); font-weight:600; letter-spacing:0.15em; text-transform:uppercase;">
-        Solar Asana Dial
-      </div>
-      <div class="surya-dots" id="suryaDots">
-        <!-- 12 Buttons generated by JS or static -->
-        <button class="surya-dot-btn active" data-step="0">01</button>
-        <button class="surya-dot-btn" data-step="1">02</button>
-        <button class="surya-dot-btn" data-step="2">03</button>
-        <button class="surya-dot-btn" data-step="3">04</button>
-        <button class="surya-dot-btn" data-step="4">05</button>
-        <button class="surya-dot-btn" data-step="5">06</button>
-        <button class="surya-dot-btn" data-step="6">07</button>
-        <button class="surya-dot-btn" data-step="7">08</button>
-        <button class="surya-dot-btn" data-step="8">09</button>
-        <button class="surya-dot-btn" data-step="9">10</button>
-        <button class="surya-dot-btn" data-step="10">11</button>
-        <button class="surya-dot-btn" data-step="11">12</button>
-      </div>
-      <div style="font-size:0.72rem; color:rgba(250,247,240,0.5);">
-        Click any step or scroll page
-      </div>
-    </div>
-  </div>
+// 4. Prepare Ambient Surya Namaskar Background & Floating Asana Companion HTML
+const ambientSuryaBgHtml = `
+<!-- AMBIENT SCROLL-DRIVEN SURYA NAMASKAR BACKGROUND CANVAS -->
+<div class="ambient-surya-bg" id="ambientSuryaBg" aria-hidden="true">
+  <div class="surya-bg-slide active" id="suryaSlide-1" style="background-image: url('images/surya_pose1.jpg');"></div>
+  <div class="surya-bg-slide" id="suryaSlide-2" style="background-image: url('images/surya_pose2.jpg');"></div>
+  <div class="surya-bg-slide" id="suryaSlide-3" style="background-image: url('images/surya_pose3.jpg');"></div>
+  <div class="surya-bg-slide" id="suryaSlide-4" style="background-image: url('images/surya_pose4.jpg');"></div>
+  <div class="surya-bg-slide" id="suryaSlide-5" style="background-image: url('images/surya_pose5.jpg');"></div>
+  <div class="surya-bg-slide" id="suryaSlide-6" style="background-image: url('images/surya_pose6.jpg');"></div>
+  <div class="surya-bg-slide" id="suryaSlide-7" style="background-image: url('images/surya_pose7.jpg');"></div>
+  <div class="surya-bg-slide" id="suryaSlide-8" style="background-image: url('images/surya_pose8.jpg');"></div>
+  <div class="surya-bg-overlay"></div>
 </div>
 `;
 
-// Inject Surya Namaskar right after </section> of disciplines
-html = html.replace('<!-- SECTION 3: SACRED DINACHARYA (CIRCADIAN RHYTHM EXPLORER) -->', `${suryaNamaskarHtml}\n<!-- SECTION 3: SACRED DINACHARYA (CIRCADIAN RHYTHM EXPLORER) -->`);
-console.log('Injected Surya Namaskar scrollytelling section.');
+const suryaCompanionHtml = `
+<!-- FLOATING CIRCADIAN ASANA COMPANION PILL & CARD -->
+<aside class="surya-companion" id="suryaCompanion" aria-label="Circadian Surya Namaskar Progress">
+  <div class="companion-pill" id="companionPill" role="button" tabindex="0" aria-expanded="false" aria-controls="companionCard">
+    <div class="companion-ring-wrap">
+      <svg class="companion-ring" width="28" height="28" viewBox="0 0 36 36">
+        <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="3"/>
+        <path class="ring-progress" id="companionRingPath" stroke-dasharray="100, 100" stroke-dashoffset="92" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <span class="companion-sun">&#10022;</span>
+    </div>
+    <div class="companion-label">
+      <span class="companion-step-txt" id="companionStepTxt">01 / 12</span>
+      <span class="companion-pose-name" id="companionPoseName">Pranamasana</span>
+    </div>
+    <span class="companion-chevron">&#9662;</span>
+  </div>
+
+  <!-- Collapsible Mini Guide Card -->
+  <div class="companion-card" id="companionCard">
+    <div class="companion-card-header">
+      <div>
+        <span class="companion-card-sub" id="companionCardMantra">&#2384; मित्राय नमः &bull; Om Mitraya Namaha</span>
+        <h4 class="companion-card-title" id="companionCardTitle">Pranamasana (Prayer Pose)</h4>
+      </div>
+      <button class="companion-close-btn" id="companionCloseBtn" aria-label="Minimize Asana Guide">&times;</button>
+    </div>
+    <div class="companion-card-breath" id="companionCardBreath">
+      <span>Breath: Exhale (Rechaka)</span>
+    </div>
+    <p class="companion-card-desc" id="companionCardDesc">
+      Centering the nervous system at dawn. Stimulates the Anahata cardiac nerve plexus.
+    </p>
+    <div class="companion-scrubber" id="companionScrubber">
+      <button class="comp-dot active" data-step="0" aria-label="Step 1"></button>
+      <button class="comp-dot" data-step="1" aria-label="Step 2"></button>
+      <button class="comp-dot" data-step="2" aria-label="Step 3"></button>
+      <button class="comp-dot" data-step="3" aria-label="Step 4"></button>
+      <button class="comp-dot" data-step="4" aria-label="Step 5"></button>
+      <button class="comp-dot" data-step="5" aria-label="Step 6"></button>
+      <button class="comp-dot" data-step="6" aria-label="Step 7"></button>
+      <button class="comp-dot" data-step="7" aria-label="Step 8"></button>
+      <button class="comp-dot" data-step="8" aria-label="Step 9"></button>
+      <button class="comp-dot" data-step="9" aria-label="Step 10"></button>
+      <button class="comp-dot" data-step="10" aria-label="Step 11"></button>
+      <button class="comp-dot" data-step="11" aria-label="Step 12"></button>
+    </div>
+  </div>
+</aside>
+`;
+
+// Inject ambient background right after <body>
+html = html.replace('<body>', `<body>\n${ambientSuryaBgHtml}`);
+// Inject companion pill right before </body>
+html = html.replace('</body>', `${suryaCompanionHtml}\n</body>`);
+console.log('Injected ambient Surya Namaskar background and floating companion pill.');
 
 // 5. Prepare "What You Will Experience" + "How It Will Help You" + "Welcome Kit" + "Sanctuary Essentials" + "Package Inclusions" HTML
 const experienceAndBenefitsHtml = `
@@ -1236,7 +1233,7 @@ const experienceAndBenefitsHtml = `
           <li>Pranayama series (Nadi Shodhana, Bhramari) to stimulate vagal tone</li>
           <li>Evening Yoga Nidra psychic sleep for profound neuro-endocrine repair</li>
         </ul>
-        <a class="btn-outline" href="#suryaTrack" style="color:var(--royal-deep); border-color:var(--royal-deep);">Explore The 12 Asanas</a>
+        <button class="btn-outline" type="button" onclick="openCompanionCard()" style="color:var(--royal-deep); border-color:var(--royal-deep); cursor:pointer;">Explore The 12 Asanas</button>
       </div>
       <div class="exp-img-frame">
         <img src="images/yoga.png" alt="Classical Hatha Yoga instruction at 1525m altitude" loading="lazy">
@@ -1690,208 +1687,251 @@ const interactiveScript = `
     if (resSec) resSec.scrollIntoView({ behavior: 'smooth' });
   }
 
-  // B. SURYA NAMASKAR 12-STEP SCROLLYTELLING ENGINE
-  const suryaData = [
+  // B. AMBIENT SCROLL-DRIVEN SURYA NAMASKAR & FLOATING ASANA COMPANION
+  const suryaSteps = [
     {
-      idx: '[ 01 / 12 ]',
+      num: '01 / 12',
+      name: 'Pranamasana',
+      english: 'Prayer Pose',
       mantra: '&#2384; मित्राय नमः &bull; Om Mitraya Namaha',
-      name: 'Pranamasana',
-      english: 'Salutation Pose &bull; Standing Anjali Mudra',
-      breath: 'Exhale (Rechaka) &bull; Solar Plexus Centering',
-      breathType: 'exhale',
-      clinical: 'Establishes autonomic equilibrium by lowering sympathetic nervous tone. Palms pressed in Anjali Mudra at the sternum gently stimulate the Anahata cardiac nerve plexus, creating respiratory stillness before dynamic spinal extension.',
-      doc: 'Dr. Himanshu Bhatt: Keep weight evenly distributed through all four corners of the feet. Ground the sacrum downward to decompress the L4-L5 lumbar vertebrae.',
-      path: 'M100 38 A10 10 0 1 0 100 18 A10 10 0 1 0 100 38 Z M95 44 L105 44 L105 110 L95 110 Z M95 55 L75 80 L82 85 L95 65 Z M105 55 L125 80 L118 85 L105 65 Z M95 110 L85 175 L93 175 L100 120 L107 175 L115 175 L105 110 Z'
+      breath: 'Exhale (Rechaka)',
+      desc: 'Centering the nervous system at dawn. Stimulates the Anahata cardiac nerve plexus.',
+      slide: 1
     },
     {
-      idx: '[ 02 / 12 ]',
+      num: '02 / 12',
+      name: 'Hastauttanasana',
+      english: 'Raised Arms Pose',
       mantra: '&#2384; रवये नमः &bull; Om Ravaye Namaha',
-      name: 'Hastauttanasana',
-      english: 'Raised Arms Pose &bull; Gentle Spinal Extension',
-      breath: 'Inhale (Puraka) &bull; Ribcage &amp; Thoracic Expansion',
-      breathType: 'inhale',
-      clinical: 'Stretches the abdominal viscera, activates the thyroid gland via cervical extension, and expands thoracic vital capacity. Enhances lymphatic drainage from the axillary nodes into the circulatory system.',
-      doc: 'Dr. Aditya Kaundal: Arch backward from the mid-thoracic spine rather than hinging sharply at the lumbar curve. Keep the glutes gently engaged to support pelvic alignment.',
-      path: 'M105 32 A10 10 0 1 0 105 12 A10 10 0 1 0 105 32 Z M92 42 L102 40 L98 108 L88 110 Z M95 48 L115 20 L122 25 L98 56 Z M102 44 L122 16 L129 21 L105 52 Z M88 110 L75 172 L83 174 L94 118 L98 174 L106 172 L98 108 Z'
+      breath: 'Inhale (Puraka)',
+      desc: 'Expands thoracic vital capacity and gently stretches abdominal viscera.',
+      slide: 2
     },
     {
-      idx: '[ 03 / 12 ]',
+      num: '03 / 12',
+      name: 'Hastapadasana',
+      english: 'Standing Forward Fold',
       mantra: '&#2384; सूर्याय नमः &bull; Om Suryaya Namaha',
-      name: 'Hastapadasana',
-      english: 'Standing Forward Fold &bull; Spinal Decompression',
-      breath: 'Exhale (Rechaka) &bull; Arterial Pressure Regulation',
-      breathType: 'exhale',
-      clinical: 'Increases cerebral blood circulation, releases hamstring tension, and massages abdominal digestive organs (liver, spleen, kidneys), stimulating sluggish digestive fire (Mandagni).',
-      doc: 'Dr. Himanshu Bhatt: Hinge strictly from the femoral hip crease rather than rounding the upper back. Micro-bend the knees if hamstring stiffness pulls on the sciatic nerve.',
-      path: 'M85 105 A10 10 0 1 0 85 85 A10 10 0 1 0 85 105 Z M90 100 L115 75 L108 70 L85 92 Z M90 100 L75 140 L82 142 L95 108 Z M115 75 L115 170 L123 170 L123 75 Z'
+      breath: 'Exhale (Rechaka)',
+      desc: 'Decompresses lumbar vertebrae and increases cerebral blood circulation.',
+      slide: 3
     },
     {
-      idx: '[ 04 / 12 ]',
+      num: '04 / 12',
+      name: 'Ashwa Sanchalanasana',
+      english: 'Equestrian Lunge (Right)',
       mantra: '&#2384; भानवे नमः &bull; Om Bhanave Namaha',
-      name: 'Ashwa Sanchalanasana',
-      english: 'Equestrian Lunge (Right) &bull; Psoas Stretch',
-      breath: 'Inhale (Puraka) &bull; Solar Plexus Awakening',
-      breathType: 'inhale',
-      clinical: 'Releases deep emotional and physical stress stored within the psoas muscle. Stimulates liver and pancreas meridian pathways and improves venous blood return from the lower extremities.',
-      doc: 'Dr. Aditya Kaundal: Keep the front right knee directly above the heel at a 90-degree angle to protect collateral ligaments. Soften the shoulders and gaze upward toward the mountain skyline.',
-      path: 'M65 65 A10 10 0 1 0 65 45 A10 10 0 1 0 65 65 Z M70 70 L95 100 L60 135 L50 130 Z M95 100 L160 145 L170 142 L110 95 Z M70 85 L70 145 L78 145 L78 92 Z'
+      breath: 'Inhale (Puraka)',
+      desc: 'Releases deep tension within the psoas muscle and opens the pelvic floor.',
+      slide: 4
     },
     {
-      idx: '[ 05 / 12 ]',
-      mantra: '&#2384; खगाय नमः &bull; Om Khagaya Namaha',
+      num: '05 / 12',
       name: 'Dandasana',
-      english: 'Plank Pose &bull; Core Agni Alignment',
-      breath: 'Kumbhaka (Breath Retention) &bull; Energetic Consolidation',
-      breathType: 'exhale',
-      clinical: 'Strengthens the serratus anterior and core abdominal wall, aligning the entire vertebral column into a neutral axial plane. Kindles the internal digestive fire (Agni) without creating metabolic heat spikes.',
-      doc: 'Dr. Himanshu Bhatt: Press the palms firmly into the earth and broaden through the collarbones. Avoid letting the lumbar spine sag toward the floor.',
-      path: 'M55 105 A9 9 0 1 0 55 87 A9 9 0 1 0 55 105 Z M60 100 L155 130 L155 138 L60 110 Z M65 104 L65 160 L73 160 L73 107 Z M155 130 L165 165 L158 167 L148 135 Z'
+      english: 'Plank Pose',
+      mantra: '&#2384; खगाय नमः &bull; Om Khagaya Namaha',
+      breath: 'Kumbhaka (Retention)',
+      desc: 'Kindles internal digestive fire (Agni) and strengthens axial spinal alignment.',
+      slide: 5
     },
     {
-      idx: '[ 06 / 12 ]',
-      mantra: '&#2384; पूष्णे नमः &bull; Om Pushne Namaha',
+      num: '06 / 12',
       name: 'Ashtanga Namaskara',
-      english: 'Eight-Limbed Salute &bull; Surrender to Ground',
-      breath: 'Exhale (Rechaka) &bull; Thoracic Spine Mobilization',
-      breathType: 'exhale',
-      clinical: 'Eight contact points touch the earth (feet, knees, hands, chest, chin). Relieves thoracic kyphosis, strengthens triceps and deltoids, and promotes humility and nervous quietude.',
-      doc: 'Dr. Aditya Kaundal: Keep the abdomen gently elevated away from the floor while resting the chest and chin between the hands. Breathe smoothly into the posterior ribs.',
-      path: 'M50 120 A8 8 0 1 0 50 104 A8 8 0 1 0 50 120 Z M55 118 L85 140 L125 125 L165 155 Z M80 125 L80 155 L88 155 L88 130 Z M125 125 L125 160 L133 160 L133 130 Z'
+      english: 'Eight-Limbed Salute',
+      mantra: '&#2384; पूष्णे नमः &bull; Om Pushne Namaha',
+      breath: 'Exhale (Rechaka)',
+      desc: 'Eight contact points touch the earth, relieving thoracic kyphosis.',
+      slide: 6
     },
     {
-      idx: '[ 07 / 12 ]',
-      mantra: '&#2384; हिरण्यगर्भाय नमः &bull; Om Hiranyagarbhaya Namaha',
+      num: '07 / 12',
       name: 'Bhujangasana',
-      english: 'Cobra Pose &bull; Heart Opening Extension',
-      breath: 'Inhale (Puraka) &bull; Adrenal &amp; Kidney Circulation',
-      breathType: 'inhale',
-      clinical: 'Gently compresses the posterior adrenal glands, reducing cortisol buildup. Expands the bronchial chambers and restores natural lordotic curvature to the lumbar vertebrae.',
-      doc: 'Dr. Himanshu Bhatt: Use back extensor strength rather than pushing aggressively with the arms. Keep the elbows tucked close to the ribs and shoulders pulled down.',
-      path: 'M60 70 A9 9 0 1 0 60 52 A9 9 0 1 0 60 70 Z M65 72 L85 120 L165 150 L165 156 L85 130 Z M75 95 L75 150 L83 150 L83 105 Z'
+      english: 'Cobra Pose',
+      mantra: '&#2384; हिरण्यगर्भाय नमः &bull; Om Hiranyagarbhaya Namaha',
+      breath: 'Inhale (Puraka)',
+      desc: 'Gentle compression of the adrenal glands, lowering systemic cortisol.',
+      slide: 7
     },
     {
-      idx: '[ 08 / 12 ]',
-      mantra: '&#2384; मरीचये नमः &bull; Om Marichaye Namaha',
+      num: '08 / 12',
       name: 'Adho Mukha Svanasana',
-      english: 'Downward-Facing Dog &bull; Inverted Calming Axis',
-      breath: 'Exhale (Rechaka) &bull; Cerebrospinal Fluid Flush',
-      breathType: 'exhale',
-      clinical: 'A gentle semi-inversion that encourages venous blood return to the heart without elevating blood pressure. Decompresses the lumbar spine and stretches Achilles tendons and calves.',
-      doc: 'Dr. Aditya Kaundal: Press through index finger and thumb knuckles to protect the carpal tunnel. Send sitting bones toward the sky while relaxing the neck completely.',
-      path: 'M100 85 A9 9 0 1 0 100 67 A9 9 0 1 0 100 85 Z M100 80 L65 145 L73 148 L104 88 Z M100 80 L145 150 L138 153 L96 88 Z'
+      english: 'Downward Dog',
+      mantra: '&#2384; मरीचये नमः &bull; Om Marichaye Namaha',
+      breath: 'Exhale (Rechaka)',
+      desc: 'Calming semi-inversion promoting venous blood return to the heart.',
+      slide: 8
     },
     {
-      idx: '[ 09 / 12 ]',
-      mantra: '&#2384; आदित्याय नमः &bull; Om Adityaya Namaha',
+      num: '09 / 12',
       name: 'Ashwa Sanchalanasana',
-      english: 'Equestrian Lunge (Left) &bull; Bilateral Balancing',
-      breath: 'Inhale (Puraka) &bull; Pelvic &amp; Respiratory Vitality',
-      breathType: 'inhale',
-      clinical: 'Brings symmetrical equilibrium to the left hip flexor and sacroiliac joint. Stimulates ascending colon peristalsis and reinforces pelvic floor tonus.',
-      doc: 'Dr. Himanshu Bhatt: Step the left foot decisively forward between the hands. Lower the hips while maintaining length through the crown of the head.',
-      path: 'M65 65 A10 10 0 1 0 65 45 A10 10 0 1 0 65 65 Z M70 70 L95 100 L60 135 L50 130 Z M95 100 L160 145 L170 142 L110 95 Z M70 85 L70 145 L78 145 L78 92 Z'
+      english: 'Equestrian Lunge (Left)',
+      mantra: '&#2384; आदित्याय नमः &bull; Om Adityaya Namaha',
+      breath: 'Inhale (Puraka)',
+      desc: 'Restores bilateral balance to the sacroiliac joint and hip flexors.',
+      slide: 4
     },
     {
-      idx: '[ 10 / 12 ]',
-      mantra: '&#2384; सवित्रे नमः &bull; Om Savitre Namaha',
+      num: '10 / 12',
       name: 'Hastapadasana',
-      english: 'Standing Forward Bend &bull; Deep Introspection',
-      breath: 'Exhale (Rechaka) &bull; Cranial Circulation',
-      breathType: 'exhale',
-      clinical: 'Reinforces the soothing parasympathetic reflex. Calms rapid thoughts and lowers elevated resting pulse rate after dynamic movements.',
-      doc: 'Dr. Aditya Kaundal: Let the weight of the head gently traction the cervical spine. Release all facial tension and jaw clenching.',
-      path: 'M85 105 A10 10 0 1 0 85 85 A10 10 0 1 0 85 105 Z M90 100 L115 75 L108 70 L85 92 Z M90 100 L75 140 L82 142 L95 108 Z M115 75 L115 170 L123 170 L123 75 Z'
+      english: 'Forward Bend',
+      mantra: '&#2384; सवित्रे नमः &bull; Om Savitre Namaha',
+      breath: 'Exhale (Rechaka)',
+      desc: 'Deep cranial circulation and parasympathetic nervous activation.',
+      slide: 3
     },
     {
-      idx: '[ 11 / 12 ]',
-      mantra: '&#2384; अर्काय नमः &bull; Om Arkaya Namaha',
+      num: '11 / 12',
       name: 'Hastauttanasana',
-      english: 'Raised Arms Arc &bull; Vital Energy Return',
-      breath: 'Inhale (Puraka) &bull; Vital Prana Expansion',
-      breathType: 'inhale',
-      clinical: 'Draws fresh oxygenated blood into the upper pulmonary lobes. Stimulates sympathetic-parasympathetic balance, leaving the mind alert yet grounded.',
-      doc: 'Dr. Himanshu Bhatt: Inhale deeply through both nostrils. Lift the sternum skyward as if welcoming the Himalayan dawn sun into the chest.',
-      path: 'M105 32 A10 10 0 1 0 105 12 A10 10 0 1 0 105 32 Z M92 42 L102 40 L98 108 L88 110 Z M95 48 L115 20 L122 25 L98 56 Z M102 44 L122 16 L129 21 L105 52 Z M88 110 L75 172 L83 174 L94 118 L98 174 L106 172 L98 108 Z'
+      english: 'Raised Arms Arc',
+      mantra: '&#2384; अर्काय नमः &bull; Om Arkaya Namaha',
+      breath: 'Inhale (Puraka)',
+      desc: 'Vital Prana expansion, drawing fresh oxygenated blood to the lungs.',
+      slide: 2
     },
     {
-      idx: '[ 12 / 12 ]',
-      mantra: '&#2384; भास्कराय नमः &bull; Om Bhaskaraya Namaha',
+      num: '12 / 12',
       name: 'Pranamasana',
-      english: 'Sacred Centering &bull; Return to Balance',
-      breath: 'Exhale / Natural Breath &bull; Systemic Homeostasis',
-      breathType: 'exhale',
-      clinical: 'Completes the solar circuit. Blood pressure, respiration, and autonomic tone settle into a peaceful, coherent baseline. The body feels light, centered, and revitalized.',
-      doc: 'Dr. Aditya Kaundal: Close your eyes for three steady breath cycles. Observe the internal warmth and silence circulating through your tissues.',
-      path: 'M100 38 A10 10 0 1 0 100 18 A10 10 0 1 0 100 38 Z M95 44 L105 44 L105 110 L95 110 Z M95 55 L75 80 L82 85 L95 65 Z M105 55 L125 80 L118 85 L105 65 Z M95 110 L85 175 L93 175 L100 120 L107 175 L115 175 L105 110 Z'
+      english: 'Sacred Centering',
+      mantra: '&#2384; भास्कराय नमः &bull; Om Bhaskaraya Namaha',
+      breath: 'Exhale / Natural Baseline',
+      desc: 'Completes the solar circuit, returning blood pressure and breath to stillness.',
+      slide: 1
     }
   ];
 
-  let currentSuryaStep = 0;
-  const suryaTrackEl = document.getElementById('suryaTrack');
-  const suryaPathEl = document.getElementById('suryaPath');
-  const suryaIdxEl = document.getElementById('suryaIdx');
-  const suryaMantraEl = document.getElementById('suryaMantra');
-  const suryaNameEl = document.getElementById('suryaName');
-  const suryaEnglishEl = document.getElementById('suryaEnglish');
-  const suryaBreathTextEl = document.getElementById('suryaBreathText');
-  const suryaBreathRingEl = document.getElementById('suryaBreathRing');
-  const suryaClinicalEl = document.getElementById('suryaClinical');
-  const suryaDocEl = document.getElementById('suryaDoc');
-  const suryaDotsEl = document.getElementById('suryaDots');
+  let currentSuryaStep = -1;
+  const companionPill = document.getElementById('companionPill');
+  const companionCard = document.getElementById('companionCard');
+  const companionCloseBtn = document.getElementById('companionCloseBtn');
+  const companionStepTxt = document.getElementById('companionStepTxt');
+  const companionPoseName = document.getElementById('companionPoseName');
+  const companionRingPath = document.getElementById('companionRingPath');
+  const companionCardMantra = document.getElementById('companionCardMantra');
+  const companionCardTitle = document.getElementById('companionCardTitle');
+  const companionCardBreath = document.getElementById('companionCardBreath');
+  const companionCardDesc = document.getElementById('companionCardDesc');
+  const companionScrubber = document.getElementById('companionScrubber');
 
-  function renderSuryaStep(stepIndex) {
-    if (stepIndex === currentSuryaStep && suryaIdxEl.textContent.includes(String(stepIndex + 1).padStart(2, '0'))) return;
-    currentSuryaStep = stepIndex;
-    const step = suryaData[stepIndex];
+  function updateSuryaState(stepIdx) {
+    if (stepIdx === currentSuryaStep) return;
+    currentSuryaStep = stepIdx;
+    const step = suryaSteps[stepIdx];
     if (!step) return;
 
-    if (suryaPathEl) suryaPathEl.setAttribute('d', step.path);
-    if (suryaIdxEl) suryaIdxEl.textContent = step.idx;
-    if (suryaMantraEl) suryaMantraEl.innerHTML = step.mantra;
-    if (suryaNameEl) suryaNameEl.textContent = step.name;
-    if (suryaEnglishEl) suryaEnglishEl.innerHTML = step.english;
-    if (suryaBreathTextEl) suryaBreathTextEl.innerHTML = step.breath;
-    if (suryaClinicalEl) suryaClinicalEl.textContent = step.clinical;
-    if (suryaDocEl) suryaDocEl.innerHTML = '<strong>' + step.doc.split(':')[0] + ':</strong>' + step.doc.split(':')[1];
-
-    if (suryaBreathRingEl) {
-      suryaBreathRingEl.classList.remove('inhale', 'exhale');
-      suryaBreathRingEl.classList.add(step.breathType);
+    // Cross-fade background slide
+    const targetSlideId = 'suryaSlide-' + step.slide;
+    for (let i = 1; i <= 8; i++) {
+      const slide = document.getElementById('suryaSlide-' + i);
+      if (slide) {
+        slide.classList.toggle('active', 'suryaSlide-' + i === targetSlideId);
+      }
     }
 
-    if (suryaDotsEl) {
-      const btns = suryaDotsEl.querySelectorAll('.surya-dot-btn');
-      btns.forEach((btn, i) => btn.classList.toggle('active', i === stepIndex));
+    // Update pill text & circular gauge
+    if (companionStepTxt) companionStepTxt.textContent = step.num;
+    if (companionPoseName) companionPoseName.textContent = step.name;
+    if (companionRingPath) {
+      const progressPercent = ((stepIdx + 1) / 12) * 100;
+      const offset = 100 - progressPercent;
+      companionRingPath.style.strokeDashoffset = offset;
+    }
+
+    // Update card content
+    if (companionCardMantra) companionCardMantra.innerHTML = step.mantra;
+    if (companionCardTitle) companionCardTitle.textContent = step.name + ' (' + step.english + ')';
+    if (companionCardBreath) companionCardBreath.innerHTML = '<span>Breath: ' + step.breath + '</span>';
+    if (companionCardDesc) companionCardDesc.textContent = step.desc;
+
+    // Update mini-scrubber dots
+    if (companionScrubber) {
+      const dots = companionScrubber.querySelectorAll('.comp-dot');
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === stepIdx));
     }
   }
 
-  // Scroll listener for sticky track
-  window.addEventListener('scroll', () => {
-    if (!suryaTrackEl) return;
-    const rect = suryaTrackEl.getBoundingClientRect();
-    const trackHeight = suryaTrackEl.offsetHeight - window.innerHeight;
-    if (trackHeight <= 0) return;
-
-    const scrolledInTrack = -rect.top;
-    if (scrolledInTrack >= 0 && scrolledInTrack <= trackHeight) {
-      const progress = Math.min(Math.max(scrolledInTrack / trackHeight, 0), 0.999);
-      const stepIndex = Math.floor(progress * 12);
-      renderSuryaStep(stepIndex);
+  // Smooth scroll listener via requestAnimationFrame
+  let suryaTicking = false;
+  function onScrollSurya() {
+    if (!suryaTicking) {
+      window.requestAnimationFrame(() => {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight > 0) {
+          const scrollFrac = Math.min(Math.max(window.scrollY / docHeight, 0), 0.999);
+          const stepIndex = Math.floor(scrollFrac * 12);
+          updateSuryaState(stepIndex);
+        }
+        suryaTicking = false;
+      });
+      suryaTicking = true;
     }
-  }, { passive: true });
+  }
+  window.addEventListener('scroll', onScrollSurya, { passive: true });
+  updateSuryaState(0);
 
-  // Direct dot click navigation
-  if (suryaDotsEl) {
-    suryaDotsEl.addEventListener('click', (e) => {
-      const btn = e.target.closest('.surya-dot-btn');
-      if (btn && btn.dataset.step) {
-        const step = parseInt(btn.dataset.step, 10);
-        renderSuryaStep(step);
-        // Scroll smoothly to approximate section height
-        if (suryaTrackEl) {
-          const trackTop = suryaTrackEl.getBoundingClientRect().top + window.scrollY;
-          const trackHeight = suryaTrackEl.offsetHeight - window.innerHeight;
-          const targetY = trackTop + (step / 12) * trackHeight;
+  // Companion pill toggle & card controls
+  function openCompanionCard() {
+    if (companionCard) {
+      companionCard.classList.add('open');
+      if (companionPill) companionPill.setAttribute('aria-expanded', 'true');
+    }
+  }
+  function closeCompanionCard() {
+    if (companionCard) {
+      companionCard.classList.remove('open');
+      if (companionPill) companionPill.setAttribute('aria-expanded', 'false');
+    }
+  }
+  window.openCompanionCard = openCompanionCard;
+
+  if (companionPill) {
+    companionPill.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = companionCard && companionCard.classList.contains('open');
+      if (isOpen) {
+        closeCompanionCard();
+      } else {
+        openCompanionCard();
+      }
+    });
+    companionPill.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        companionPill.click();
+      }
+    });
+  }
+
+  if (companionCloseBtn) {
+    companionCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeCompanionCard();
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    if (companionCard && companionCard.classList.contains('open')) {
+      if (!companionCard.contains(e.target) && (!companionPill || !companionPill.contains(e.target))) {
+        closeCompanionCard();
+      }
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && companionCard && companionCard.classList.contains('open')) {
+      closeCompanionCard();
+    }
+  });
+
+  // Micro scrubber click
+  if (companionScrubber) {
+    companionScrubber.addEventListener('click', (e) => {
+      const dot = e.target.closest('.comp-dot');
+      if (dot && dot.dataset.step !== undefined) {
+        const step = parseInt(dot.dataset.step, 10);
+        updateSuryaState(step);
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight > 0) {
+          const targetY = (step / 12) * docHeight;
           window.scrollTo({ top: targetY, behavior: 'smooth' });
         }
       }
