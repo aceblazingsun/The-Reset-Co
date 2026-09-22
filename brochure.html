@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Information Brochure : The Reset Co</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F7F0DC;
+    --royal: #1A3A6B;
+    --royal-deep: #0F2347;
+    --ivory: #FDFAF3;
+    --stone: #F0EBE0;
+    --text: #2C2C2C;
+    --text-muted: #6B6355;
+    --border: rgba(201,168,76,0.25);
+    
+    --serif: 'Cormorant Garamond', 'Palatino Linotype', Georgia, serif;
+    --sans: 'Jost', 'Segoe UI', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--ivory); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+  /* --- PRINT BAR / NAV --- */
+  .print-bar {
+    background: var(--royal-deep); padding: 1rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .print-bar-logo { font-family: var(--serif); font-size: 1.1rem; color: white; letter-spacing: 0.02em; }
+  .print-bar-logo span { color: var(--gold); }
+  .print-bar-actions { display: flex; gap: 1.5rem; align-items: center; }
+  .print-bar-actions a { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+  .print-bar-actions a:hover { color: var(--gold-light); }
+  .btn-print { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; background: var(--gold); color: var(--royal-deep); padding: 0.6rem 1.5rem; border: none; cursor: pointer; font-weight: 500; font-family: var(--sans); transition: background 0.2s; }
+  .btn-print:hover { background: var(--gold-light); }
+
+  /* --- BROCHURE CONTAINER --- */
+  .brochure {
+    max-width: 1100px; margin: 3rem auto; padding: 0 2rem;
+  }
+
+  /* --- EDITORIAL HEADER --- */
+  .brochure-header {
+    text-align: center; margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border);
+  }
+  .b-subtitle { font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  .b-title { font-family: var(--serif); font-size: 3.2rem; font-weight: 400; color: var(--royal-deep); line-height: 1.1; }
+  .b-title em { font-style: italic; color: var(--gold); }
+
+  /* --- SPREADS & PAGES --- */
+  .spread {
+    background: white; border: 1px solid var(--border);
+    margin-bottom: 4rem; padding: 4rem;
+    box-shadow: 0 4px 30px rgba(15,35,71,0.02);
+    position: relative;
+  }
+  .spread-corners::before { content: ''; position: absolute; top: 1.5rem; left: 1.5rem; width: 40px; height: 40px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+  .spread-corners::after { content: ''; position: absolute; bottom: 1.5rem; right: 1.5rem; width: 40px; height: 40px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+
+  .page-title { font-family: var(--serif); font-size: 2rem; color: var(--royal-deep); margin-bottom: 2rem; font-weight: 400; border-bottom: 1px solid rgba(201,168,76,0.15); padding-bottom: 0.75rem; }
+  .page-title em { font-style: italic; color: var(--gold); }
+
+  /* --- GRID PATTERNS --- */
+  .grid-2 { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+  .lead-paragraph { font-family: var(--serif); font-size: 1.25rem; line-height: 1.7; color: var(--royal-deep); margin-bottom: 1.5rem; font-style: italic; }
+  .text-column p { font-size: 0.9rem; line-height: 1.8; color: var(--text); margin-bottom: 1.25rem; }
+  .text-column p strong { color: var(--royal); font-weight: 500; }
+
+  /* --- PILLAR CARD STYLE --- */
+  .moat-column {
+    background: var(--stone); padding: 1.75rem 1.4rem; border-top: 2px solid var(--gold);
+    display: flex; flex-direction: column;
+  }
+  .moat-icon { font-size: 1.6rem; color: var(--royal); margin-bottom: 0.85rem; line-height: 1; }
+  .moat-title { font-family: var(--serif); font-size: 1.2rem; color: var(--royal-deep); margin-bottom: 0.5rem; font-weight: 500; }
+  .moat-body { font-size: 0.82rem; line-height: 1.6; color: var(--text-muted); }
+
+  /* --- BROCHURE IMAGE CAPTION --- */
+  .b-img-box {
+    border: 1px solid var(--border); padding: 1rem; background: var(--ivory);
+  }
+  .b-img { width: 100%; height: 280px; object-fit: cover; filter: sepia(0.1); }
+  .b-caption { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-align: center; margin-top: 0.75rem; }
+
+  /* --- FINANCIAL TABLE --- */
+  .econ-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+  .econ-table th { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; text-align: left; padding: 0.75rem 0; border-bottom: 1px solid var(--gold); color: var(--royal); }
+  .econ-table td { padding: 1rem 0; border-bottom: 1px solid rgba(201,168,76,0.12); font-size: 0.88rem; }
+  .econ-table tr:last-child td { border-bottom: none; }
+  .econ-label { color: var(--text); }
+  .econ-val { font-weight: 600; color: var(--royal-deep); text-align: right; }
+  .highlight-row { background: rgba(201,168,76,0.05); }
+  .highlight-row td { color: var(--royal-deep) !important; font-weight: 600; }
+
+  /* --- INTERACTIVE CALCULATOR (FINANCIAL PANEL) --- */
+  .calc-panel {
+    background: var(--stone); border: 1px solid var(--border); padding: 2.5rem;
+  }
+  .calc-title { font-family: var(--serif); font-size: 1.35rem; color: var(--royal-deep); margin-bottom: 1.5rem; font-weight: 500; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 0.5rem; }
+  
+  .slider-group { margin-bottom: 1.5rem; }
+  .slider-label-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.78rem; }
+  .slider-title { font-weight: 500; color: var(--text); }
+  .slider-value { color: var(--royal); font-weight: 600; }
+  .slider-input {
+    width: 100%; -webkit-appearance: none; background: rgba(0,0,0,0.08);
+    height: 4px; outline: none; border-radius: 2px;
+  }
+  .slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--royal); cursor: pointer; transition: background 0.15s;
+  }
+  .slider-input::-webkit-slider-thumb:hover { background: var(--gold); }
+
+  .out-box {
+    background: white; border: 1px solid rgba(201,168,76,0.3); padding: 1.5rem; margin-top: 1.5rem;
+  }
+  .out-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .out-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .out-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .out-val { font-family: var(--serif); font-size: 1.35rem; color: var(--royal-deep); font-weight: 600; }
+  .out-val.highlight { color: var(--gold); font-size: 1.8rem; }
+
+  /* --- INVESTMENT SHIFT --- */
+  .ask-spread { text-align: center; }
+  .ask-title { font-family: var(--serif); font-size: 2.8rem; color: var(--royal-deep); margin-bottom: 1rem; }
+  .ask-body { font-size: 1rem; line-height: 1.7; color: var(--text-muted); max-width: 650px; margin: 0 auto 3rem; }
+  .use-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+  .use-card { background: var(--stone); border: 1px solid var(--border); padding: 1.5rem 1rem; }
+  .use-pct { font-family: var(--serif); font-size: 1.8rem; color: var(--royal); margin-bottom: 0.4rem; font-weight: 600; }
+  .use-desc { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); opacity: 0.8; }
+
+  .btn-brochure { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; background: var(--royal-deep); color: var(--gold-light); padding: 1rem 2.5rem; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; }
+  .btn-brochure:hover { background: var(--royal); }
+  .btn-outline { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; background: transparent; color: var(--royal-deep); border: 1px solid var(--royal-deep); padding: 1rem 2.5rem; text-decoration: none; display: inline-block; transition: all 0.2s; margin-left: 1rem; }
+  .btn-outline:hover { background: rgba(15,35,71,0.05); }
+
+  /* --- FOOTER --- */
+  .b-footer {
+    text-align: center; padding: 3rem 0; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text-muted);
+  }
+  .b-footer a { color: var(--royal); text-decoration: none; }
+  .b-footer a:hover { text-decoration: underline; }
+
+  /* --- RESPONSIVE / PRINT CSS --- */
+  @media(max-width: 900px) {
+    .print-bar { padding: 1rem 1.5rem; }
+    .brochure { margin: 1.5rem auto; padding: 0 1rem; }
+    .spread { padding: 2rem; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 2.5rem; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .use-grid { grid-template-columns: 1fr 1fr; }
+    .btn-outline { margin-left: 0; margin-top: 1rem; display: block; text-align: center; }
+    .btn-brochure { display: block; text-align: center; }
+  }
+
+  @media(max-width: 600px) {
+    .grid-4 { grid-template-columns: 1fr; gap: 1.5rem; }
+    .use-grid { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    .print-bar { display: none !important; }
+    body { background: white !important; color: black !important; }
+    .spread { border: none !important; box-shadow: none !important; page-break-after: always; padding: 2rem 0 !important; }
+    .spread-corners::before, .spread-corners::after { display: none !important; }
+    .calc-panel { display: none !important; }
+    .grid-2 { grid-template-columns: 1.2fr 0.8fr !important; }
+    .grid-4 { grid-template-columns: repeat(4, 1fr) !important; gap: 1rem !important; }
+    .use-grid { grid-template-columns: repeat(4, 1fr) !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PRINT / SAVING BAR -->
+<div class="print-bar">
+  <div class="print-bar-logo">The Reset <span>Co.</span> &bull; Information Brochure</div>
+  <div class="print-bar-actions">
+    <a href="homepage.html">&#8592; Back to website</a>
+    <button class="btn-print" onclick="window.print()">&#128424; Print / Save PDF</button>
+  </div>
+</div>
+
+<div class="brochure">
+
+  <!-- EDITORIAL HEADER -->
+  <header class="brochure-header">
+    <p class="b-subtitle">Himalayan Wellness Retreats &#183; Bir Billing</p>
+    <h1 class="b-title">The Reset Co. <em>Information Brochure</em></h1>
+  </header>
+
+  <!-- SPREAD 1: PHILOSOPHY & LOCATION -->
+  <div class="spread spread-corners">
+    <h2 class="page-title">01. Our Philosophy &amp; <em>The Himalayan Sanctuary</em></h2>
+    <div class="grid-2">
+      <div class="text-column">
+        <p class="lead-paragraph">We believe that classical wellness is not a trend, but a tradition. True recovery requires medical oversight, pristine air, and dedicated attention.</p>
+        <p>The Reset Co. offers immersive, premium wellness programmes designed and delivered by <strong>BAMS-qualified Ayurvedic doctors</strong> (Dr. Himanshu Bhatt and Dr. Aditya Kaundal). Based in the quiet, spiritually alive valley of <strong>Bir Billing</strong>, Himachal Pradesh, our retreats are structured to restore physical balance and calm the nervous system.</p>
+        <p><strong>Exclusivity &amp; Care:</strong> To ensure that every guest receives personalized attention, we strictly limit every retreat batch to a <strong>maximum of 15 guests</strong>. We partner with luxury boutique hotel properties in Bir Billing, combining premium Himalayan lodging with clinical Ayurvedic therapies and daily organic sattvic meals.</p>
+      </div>
+      <div class="b-img-box">
+        <img class="b-img" src="images/group.png" alt="Yoga session in Dhauladhar Mountains, Bir Billing">
+        <p class="b-caption">Meditation and Breathwork at Bir Billing Himalayas</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPREAD 2: THE FOUR PILLARS -->
+  <div class="spread spread-corners">
+    <h2 class="page-title">02. The Four Pillars of <em>Your Reset</em></h2>
+    <div class="grid-4">
+      <div class="moat-column">
+        <div class="moat-icon">&#129496;</div>
+        <h3 class="moat-title">01. Classical Hatha</h3>
+        <p class="moat-body">Not a modern fitness workout, but Hatha yoga taught as a complete science of breath, alignment, and physical flow to balance your nervous system.</p>
+      </div>
+      <div class="moat-column">
+        <div class="moat-icon">&#128367;&#65039;</div>
+        <h3 class="moat-title">02. Vedic Dhyana</h3>
+        <p class="moat-body">Guided Himalayan meditation, candle flame Trataka, and evening Yoga Nidra to down-regulate sympathetic cortisol overload and unlock deep cellular rest.</p>
+      </div>
+      <div class="moat-column">
+        <div class="moat-icon">&#128167;</div>
+        <h3 class="moat-title">03. Shatkarma Kriyas</h3>
+        <p class="moat-body">Under full medical supervision, you will practice classical purification kriyas (Neti, Nauli, Kapalabhati) to detoxify the respiratory and digestive tracts.</p>
+      </div>
+      <div class="moat-column">
+        <div class="moat-icon">&#127807;</div>
+        <h3 class="moat-title">04. Ayurvedic Therapy</h3>
+        <p class="moat-body">Includes personalized consultations and traditional treatments like Abhyanga (herbal oil massage) and Shirodhara, customized to your prakriti.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPREAD 3: PROGRAMMES & ESTIMATOR -->
+  <div class="spread spread-corners">
+    <h2 class="page-title">03. Retreat Packages &amp; <em>Cost Calculator</em></h2>
+    <div class="grid-2">
+      <div class="text-column">
+        <p class="lead-paragraph">Select the retreat programme that matches your wellness goals. All prices are fully inclusive of accommodation, catering, consultations, and therapies.</p>
+        
+        <table class="econ-table">
+          <thead>
+            <tr>
+              <th>Retreat Package</th>
+              <th style="text-align: right;">Price Per Person</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="econ-label"><strong>Serenity Reset</strong> (3 Days / 2 Nights)<br><span style="font-size:0.75rem; color:var(--text-muted);">Grounding yoga, consultation, 1 Abhyanga treatment.</span></td>
+              <td class="econ-val">&#8377;<span class="price-serenity">22,000</span></td>
+            </tr>
+            <tr>
+              <td class="econ-label"><strong>Awakening Reset</strong> (4 Days / 3 Nights)<br><span style="font-size:0.75rem; color:var(--text-muted);">Shatkarma kriyas, daily meditation, 2 Ayurvedic treatments.</span></td>
+              <td class="econ-val">&#8377;<span class="price-awakening">26,000</span></td>
+            </tr>
+            <tr>
+              <td class="econ-label"><strong>Transformation Reset</strong> (4 Days / 3 Nights Premium)<br><span style="font-size:0.75rem; color:var(--text-muted);">Private consultation, daily Ayurvedic treatments, 30-day follow-up.</span></td>
+              <td class="econ-val">&#8377;<span class="price-transformation">35,000</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="calc-panel">
+        <h3 class="calc-title">Retreat Cost Planner</h3>
+        
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-title">Select Package Base Rate</span>
+            <span class="slider-value" id="valRevenue">&#8377;26,000</span>
+          </div>
+          <input class="slider-input" type="range" id="inputRevenue" min="22000" max="40000" step="1000" value="26000" oninput="calculate()">
+        </div>
+        
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-title">Number of Guests</span>
+            <span class="slider-value" id="valGuests">2</span>
+          </div>
+          <input class="slider-input" type="range" id="inputGuests" min="1" max="15" step="1" value="2" oninput="calculate()">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-title">Extra Treatment Sessions</span>
+            <span class="slider-value" id="valTreatments">0</span>
+          </div>
+          <input class="slider-input" type="range" id="inputTreatments" min="0" max="5" step="1" value="0" oninput="calculate()">
+        </div>
+
+        <div class="out-box">
+          <div class="out-row">
+            <span class="out-label">Guests Count</span>
+            <span class="out-val" id="outBookings">2 guests</span>
+          </div>
+          <div class="out-row">
+            <span class="out-label">Base Packages Cost</span>
+            <span class="out-val" id="outBaseCost">₹52,000</span>
+          </div>
+          <div class="out-row">
+            <span class="out-label">Add-on Therapy Cost (₹2,500/session)</span>
+            <span class="out-val" id="outAddonCost">₹0</span>
+          </div>
+          <div class="out-row" style="border-bottom: 1px dashed var(--border); padding-bottom: 0.85rem; margin-bottom: 0.85rem;">
+            <span class="out-label" style="font-weight:600; color:var(--royal-deep);">Total Guest Payments</span>
+            <span class="out-val" id="outProfit" style="font-weight:600; color:var(--royal-deep);">₹52,000</span>
+          </div>
+          <div class="out-row">
+            <span class="out-label" style="color:var(--text-muted);">Hotel Payout (₹4,667 / guest)</span>
+            <span class="out-val" id="outHotelCost" style="color:var(--text-muted); font-size:1.15rem;">₹9,333</span>
+          </div>
+          <div class="out-row">
+            <span class="out-label" style="font-weight:600; color:#2e7d32;">Net Profit (Reset Co. Share)</span>
+            <span class="out-val highlight" id="outNetProfit" style="color:#2e7d32; font-weight:600;">₹0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPREAD 4: WHAT IS INCLUDED & JOINING -->
+  <div class="spread spread-corners ask-spread">
+    <p class="b-subtitle">All-Inclusive Himalayan Lodging</p>
+    <h2 class="ask-title">What is Included</h2>
+    <p class="ask-body">Every Reset Co retreat booking covers luxury boutique hotel lodging in Bir Billing, three organic Ayurvedic meals daily, clinical doctor consultations, daily wellness classes, all required herbs and materials, and airport transfers from Kangra (DHM) airport.</p>
+    
+    <div class="use-grid">
+      <div class="use-card">
+        <div class="use-pct">🩺</div>
+        <div class="use-desc">Doctor Care</div>
+      </div>
+      <div class="use-card">
+        <div class="use-pct">&#127956;️</div>
+        <div class="use-desc">Luxury Lodging</div>
+      </div>
+      <div class="use-card">
+        <div class="use-pct">&#127807;</div>
+        <div class="use-desc">Organic Catering</div>
+      </div>
+      <div class="use-card">
+        <div class="use-pct">🚗</div>
+        <div class="use-desc">Airport Transfers</div>
+      </div>
+    </div>
+
+    <div>
+      <a class="btn-brochure" href="mailto:hello@theresetco.in?subject=Retreat%20Enquiry%20-%20The%20Reset%20Co">Book Your Retreat</a>
+      <a class="btn-outline" href="https://wa.me/917888540046" target="_blank">Chat with Founders</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="b-footer">
+    <p>&#169; 2025 The Reset Co. All rights reserved. Bir Billing, Himachal Pradesh, India.</p>
+    <p style="margin-top:0.5rem;"><a href="homepage.html">View Main Site</a> | <a href="prospectus.html">Programme Prospectus</a></p>
+  </footer>
+
+</div>
+
+<script>
+  function calculate() {
+    const revenue = parseInt(document.getElementById('inputRevenue').value);
+    const guests = parseInt(document.getElementById('inputGuests').value);
+    const treatments = parseInt(document.getElementById('inputTreatments').value);
+
+    // Update labels in UI
+    document.getElementById('valRevenue').textContent = '₹' + revenue.toLocaleString('en-IN');
+    document.getElementById('valGuests').textContent = guests;
+    document.getElementById('valTreatments').textContent = treatments;
+
+    // Maths
+    const baseCost = guests * revenue;
+    const addonCost = guests * treatments * 2500; // ₹2500 per custom Abhyanga/Shirodhara add-on
+    const totalCost = baseCost + addonCost;
+    
+    // Hotel Payout: ₹70,000 proportional to 15 guests (₹4,666.67 per guest)
+    const hotelCost = Math.round(guests * (70000 / 15));
+    const netProfit = totalCost - hotelCost;
+
+    // Update outputs
+    document.getElementById('outBookings').textContent = guests + (guests === 1 ? ' guest' : ' guests');
+    document.getElementById('outBaseCost').textContent = '₹' + baseCost.toLocaleString('en-IN');
+    document.getElementById('outAddonCost').textContent = '₹' + addonCost.toLocaleString('en-IN');
+    document.getElementById('outProfit').textContent = '₹' + totalCost.toLocaleString('en-IN');
+    document.getElementById('outHotelCost').textContent = '₹' + hotelCost.toLocaleString('en-IN');
+    
+    const profitEl = document.getElementById('outNetProfit');
+    if (netProfit < 0) {
+      profitEl.textContent = '-₹' + Math.abs(netProfit).toLocaleString('en-IN');
+      profitEl.style.color = '#c62828'; // red for under-break-even loss
+    } else {
+      profitEl.textContent = '₹' + netProfit.toLocaleString('en-IN');
+      profitEl.style.color = '#2e7d32'; // green for profit
+    }
+  }
+
+  // --- DYNAMIC PRICING SYNC ---
+  function syncPrices() {
+    const prices = getPrices();
+    
+    // Update Serenity elements
+    document.querySelectorAll('.price-serenity').forEach(el => {
+      el.textContent = Number(prices.serenity).toLocaleString('en-IN');
+    });
+
+    // Update Awakening elements
+    document.querySelectorAll('.price-awakening').forEach(el => {
+      el.textContent = Number(prices.awakening).toLocaleString('en-IN');
+    });
+
+    // Update Transformation elements
+    document.querySelectorAll('.price-transformation').forEach(el => {
+      el.textContent = Number(prices.transformation).toLocaleString('en-IN');
+    });
+    
+    // Set slider defaults to Awakening price
+    const slider = document.getElementById('inputRevenue');
+    if (slider) {
+      slider.value = prices.awakening;
+      slider.min = Math.min(prices.serenity, prices.awakening, prices.transformation);
+      slider.max = Math.max(prices.serenity, prices.awakening, prices.transformation) + 5000;
+    }
+    calculate();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    syncPrices();
+  });
+</script>
+
+<script src="shared.js"></script>
+</body>
+</html>

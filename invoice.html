@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Reset Co — Guest Invoice</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dark: #9a7c33;
+      --royal-deep: #0F2347;
+      --ivory: #FDFAF3;
+      --stone: #F0EBE0;
+      --serif: 'Cormorant Garamond', 'Palatino Linotype', Georgia, serif;
+      --sans: 'Jost', 'Segoe UI', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--ivory);
+      color: #1A202C;
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 3rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .action-bar {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+    .btn {
+      background: var(--royal-deep);
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      padding: 0.6rem 1.2rem;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: var(--gold);
+      color: var(--royal-deep);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--royal-deep);
+      border-color: rgba(15, 35, 71, 0.3);
+    }
+    .btn-secondary:hover {
+      background: rgba(15, 35, 71, 0.05);
+      color: var(--royal-deep);
+      border-color: var(--royal-deep);
+    }
+    .error-card {
+      background: white;
+      border: 1px solid rgba(231, 76, 60, 0.2);
+      border-top: 4px solid #e74c3c;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(15, 35, 71, 0.04);
+    }
+    .error-card h2 {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      color: #e74c3c;
+      margin-bottom: 1rem;
+    }
+    .error-card p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* INVOICE PAPER STYLING */
+    .inv-paper {
+      background: white;
+      color: #111;
+      padding: 3rem;
+      font-size: 0.85rem;
+      border: 1px solid #e5e0d5;
+      width: 100%;
+      max-width: 680px;
+      box-shadow: 0 12px 40px rgba(15, 35, 71, 0.03);
+      position: relative;
+    }
+    .inv-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 2px solid var(--gold);
+    }
+    .inv-brand {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      color: var(--royal-deep);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .inv-brand span { color: var(--gold); }
+    .inv-meta {
+      text-align: right;
+      font-size: 0.78rem;
+      color: #555;
+      line-height: 1.5;
+    }
+    .inv-status {
+      font-weight: 700;
+      color: var(--gold-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+      font-size: 0.8rem;
+    }
+    .inv-parties {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .inv-plbl {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #AB8837;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .inv-pname {
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+    .inv-pdet {
+      font-size: 0.76rem;
+      color: #555;
+      line-height: 1.6;
+    }
+    .inv-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+    .inv-tbl th {
+      background: var(--royal-deep);
+      color: var(--gold-light);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 500;
+    }
+    .inv-tbl td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #e5e0d5;
+      color: #333;
+    }
+    .inv-tot td {
+      font-weight: 700;
+      color: var(--royal-deep);
+      background: #FFF8E8;
+      border: none;
+      font-size: 1.05rem;
+    }
+    .inv-notes-sec {
+      font-size: 0.74rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: rgba(201, 168, 76, 0.04);
+      border-left: 2px solid var(--gold);
+    }
+    .inv-foot {
+      font-size: 0.7rem;
+      color: #888;
+      border-top: 1px solid #e5e0d5;
+      padding-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+    
+    @media print {
+      body { background: white; padding: 0; }
+      .action-bar { display: none; }
+      .inv-paper { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="action-bar" id="actionBar">
+    <a href="index.html" class="btn btn-secondary">&larr; Back to Website</a>
+    <button class="btn" onclick="window.print()">Print Invoice</button>
+  </div>
+
+  <div id="invoiceContainer">
+    <!-- Rendered dynamically -->
+    <div style="text-align:center; padding:3rem; color:var(--royal-deep)">Loading invoice...</div>
+  </div>
+
+  <script>
+    function fmt(num) {
+      return Number(num).toLocaleString('en-IN');
+    }
+
+    function init() {
+      const params = new URLSearchParams(window.location.search);
+      const invId = params.get('id');
+      const container = document.getElementById('invoiceContainer');
+      const actionBar = document.getElementById('actionBar');
+
+      if (!invId) {
+        showError("Invalid Invoice Link", "No invoice identification code was provided in the link.");
+        return;
+      }
+
+      // Fetch invoice from localStorage
+      const invoices = JSON.parse(localStorage.getItem('trc_invoices') || '[]');
+      const inv = invoices.find(x => x.id === invId);
+
+      if (!inv) {
+        showError("Invoice Not Found", `We couldn't locate any invoice record with ID: #${invId.replace('inv_', '')}.`);
+        return;
+      }
+
+      // Fetch guest to get additional info
+      const leads = JSON.parse(localStorage.getItem('trc_leads') || '[]');
+      const guest = leads.find(l => l.id === inv.guestId);
+
+      const subTotal = Math.round(inv.amount);
+      const gst = Math.round(inv.gst || (inv.amount * 0.18));
+      const total = subTotal + gst;
+
+      container.innerHTML = `
+        <div class="inv-paper">
+          <div class="inv-head">
+            <div class="inv-brand">The Reset <span>Co</span></div>
+            <div class="inv-meta">
+              <div>Invoice: #${inv.id.substring(4, 9).toUpperCase()}</div>
+              <div>Date: ${inv.date}</div>
+              <div class="inv-status">Status: ${inv.status}</div>
+            </div>
+          </div>
+          
+          <div class="inv-parties">
+            <div>
+              <div class="inv-plbl">Billed From</div>
+              <div class="inv-pname">The Reset Co.</div>
+              <div class="inv-pdet">
+                Bir Billing, Himachal Pradesh, India<br>
+                Phone/WhatsApp: +91 78885 40046<br>
+                Email: hello@theresetco.in
+              </div>
+            </div>
+            <div>
+              <div class="inv-plbl">Billed To</div>
+              <div class="inv-pname">${inv.guestName}</div>
+              <div class="inv-pdet">
+                Phone: ${guest ? guest.phone : '&#8212;'}<br>
+                Email: ${guest ? guest.email : '&#8212;'}<br>
+                City: ${guest ? guest.city || '&#8212;' : '&#8212;'}
+              </div>
+            </div>
+          </div>
+          
+          <table class="inv-tbl">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th style="text-align:right">Rate</th>
+                <th style="text-align:right">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>${inv.package}</strong><br>
+                  <span style="font-size:0.72rem; color:#666">Wellness Program Retreat Enrollment Fee</span>
+                </td>
+                <td style="text-align:right">&#8377;${fmt(subTotal)}</td>
+                <td style="text-align:right">&#8377;${fmt(subTotal)}</td>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align:right; font-weight:600; color:#555">GST @ 18%</td>
+                <td style="text-align:right">&#8377;${fmt(gst)}</td>
+              </tr>
+              <tr class="inv-tot">
+                <td colspan="2" style="text-align:right; font-weight:700">Grand Total</td>
+                <td style="text-align:right; font-weight:700">&#8377;${fmt(total)}</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          ${inv.notes ? `
+          <div class="inv-notes-sec">
+            <strong>Notes:</strong><br>
+            ${inv.notes}
+          </div>` : ''}
+          
+          <div style="font-size:0.72rem; color:#777; line-height:1.5; margin-bottom:2rem">
+            <strong>Payment Terms & Inclusions:</strong><br>
+            Includes Sattvic organic meals, luxury valley accommodation, daily yoga & pranayama sessions, guided meditations, diagnostic Prakriti assessment and doctor-administered Basti procedures. Payout processed successfully via <strong>${inv.payMethod}</strong>.
+          </div>
+          
+          <div class="inv-foot">
+            <div>Return to yourself.</div>
+            <div>www.theresetco.in</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function showError(title, message) {
+      document.getElementById('invoiceContainer').innerHTML = `
+        <div class="error-card">
+          <h2>${title}</h2>
+          <p>${message}</p>
+          <a href="index.html" class="btn">Return to Homepage</a>
+        </div>
+      `;
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>

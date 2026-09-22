@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Reset Co &mdash; Bir Billing, Himachal Pradesh</title>
+  <meta name="description" content="Doctor-led Ayurvedic retreats in Bir Billing, Himachal Pradesh. Guided by BAMS physicians. Max 15 guests per cohort.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset ────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Design tokens ────────────────────────────── */
+    :root {
+      --gold:        #C9A84C;
+      --gold-light:  #E8C97A;
+      --gold-dim:    rgba(201,168,76,0.18);
+      --navy:        #0F2347;
+      --navy-mid:    #1A3A6B;
+      --ivory:       #FDFAF3;
+      --stone:       #F0EBE0;
+      --text-body:   #FDFAF3;
+      --text-muted:  rgba(253,250,243,0.62);
+
+      --serif: 'Cormorant Garamond', 'Palatino Linotype', Georgia, serif;
+      --sans:  'Jost', 'Segoe UI', system-ui, sans-serif;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--navy);
+      color: var(--text-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Skip link (accessibility) ────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.5rem 1rem;
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 0.875rem;
+      z-index: 9999;
+      border-radius: 0 0 4px 4px;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Focus ring ───────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* ════════════════════════════════════════════════
+       NAV
+    ════════════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s var(--ease-out), backdrop-filter 0.4s var(--ease-out);
+    }
+    .nav.scrolled {
+      background: rgba(15,35,71,0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--ivory);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--gold);
+      border: none;
+      padding: 0.625rem 1.375rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.25s, transform 0.25s var(--ease-out);
+    }
+    .nav-cta:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      min-width: 44px;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ivory);
+      border-radius: 1px;
+      transition: transform 0.3s var(--ease-out), opacity 0.3s;
+    }
+    .nav-hamburger[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav-hamburger[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-hamburger[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,35,71,0.97);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--ivory);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-menu .mobile-cta {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 0.875rem 2.5rem;
+      text-decoration: none;
+      margin-top: 1rem;
+    }
+
+    /* ════════════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 8vh;
+      overflow: hidden;
+    }
+
+    /* Atmospheric layers — purpose: create depth and a sense of mountain altitude
+       without a photograph. Gradients serve hierarchy (foreground legibility
+       against dark sky), not decoration. R-01 PASS. */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    /* Sky gradient: deep navy to midnight at the top */
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, #1e3d7a 0%, transparent 70%),
+        linear-gradient(170deg, #081528 0%, #0F2347 45%, #142b55 100%);
+    }
+
+    /* Mountain silhouettes via layered SVG path geometry */
+    .hero-mountains {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 65%;
+      z-index: 1;
+      will-change: transform;
+    }
+
+    /* Mist band at the horizon — separates peaks from foreground */
+    .hero-mist {
+      position: absolute;
+      bottom: 22%;
+      left: 0; right: 0;
+      height: 18%;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(162, 190, 230, 0.07) 40%,
+        rgba(162, 190, 230, 0.13) 60%,
+        transparent 100%
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Ground fog at the base */
+    .hero-fog {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      height: 28%;
+      background: linear-gradient(
+        to top,
+        rgba(8,21,40,0.9) 0%,
+        rgba(8,21,40,0.6) 40%,
+        transparent 100%
+      );
+      z-index: 3;
+    }
+
+    /* Stars: subtle specks for altitude atmosphere */
+    .hero-stars {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .star {
+      position: absolute;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+      animation-delay: var(--delay, 0s);
+    }
+    @keyframes twinkle {
+      from { opacity: var(--op-from, 0.2); }
+      to   { opacity: var(--op-to, 0.8); }
+    }
+
+    /* Gold horizon accent: a single thin line marking the ridgeline */
+    .hero-ridgeline {
+      position: absolute;
+      bottom: 32%;
+      left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(201,168,76,0.3) 25%,
+        rgba(201,168,76,0.55) 50%,
+        rgba(201,168,76,0.3) 75%,
+        transparent 100%
+      );
+      z-index: 4;
+    }
+
+    /* ── Hero content ─────────────────────────────── */
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      padding: 0 5vw;
+      max-width: 1200px;
+    }
+
+    /* Location tag */
+    .hero-location {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: reveal 0.9s var(--ease-out) 0.3s forwards;
+    }
+    .hero-location::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* Main headline */
+    .hero-headline {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: clamp(2.8rem, 7vw, 6.5rem);
+      line-height: 1.04;
+      letter-spacing: -0.01em;
+      color: var(--ivory);
+      max-width: 14ch;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: reveal 1s var(--ease-out) 0.5s forwards;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    /* Subtext */
+    .hero-sub {
+      font-family: var(--sans);
+      font-size: clamp(0.9375rem, 1.5vw, 1.125rem);
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 46ch;
+      margin-bottom: 2.75rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: reveal 1s var(--ease-out) 0.72s forwards;
+    }
+
+    /* CTA group */
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: reveal 1s var(--ease-out) 0.9s forwards;
+    }
+
+    /* Primary CTA — purpose: gold draws the eye to the conversion action */
+    .cta-primary {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--navy);
+      background: var(--gold);
+      padding: 1.0625rem 2.25rem;
+      text-decoration: none;
+      min-height: 44px;
+      transition: background 0.3s var(--ease-out), transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+    }
+    .cta-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201,168,76,0.35);
+    }
+    .cta-primary:active { transform: translateY(0); }
+
+    /* Secondary CTA */
+    .cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      text-decoration: none;
+      padding: 1.0625rem 1.5rem;
+      border: 1px solid rgba(253,250,243,0.25);
+      min-height: 44px;
+      transition: border-color 0.25s, color 0.25s, transform 0.25s var(--ease-out);
+    }
+    .cta-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    /* ── Detail strip ─────────────────────────────── */
+    .hero-details {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-top: 1px solid rgba(201,168,76,0.2);
+      margin: 6vh 5vw 0;
+      padding-top: 1.75rem;
+      opacity: 0;
+      animation: reveal 1s var(--ease-out) 1.1s forwards;
+    }
+
+    .detail-item {
+      flex: 1 1 160px;
+      padding: 0 2rem 0 0;
+    }
+    .detail-item + .detail-item {
+      padding-left: 2rem;
+      border-left: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .detail-label {
+      font-family: var(--sans);
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.375rem;
+    }
+    .detail-value {
+      font-family: var(--serif);
+      font-size: 1.125rem;
+      font-weight: 400;
+      color: var(--ivory);
+      line-height: 1.3;
+    }
+
+    /* ── Scroll indicator ─────────────────────────── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 5vw;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: reveal 1s var(--ease-out) 1.4s forwards;
+    }
+    .scroll-hint span {
+      font-family: var(--sans);
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%   { transform: scaleY(1);   transform-origin: top; opacity: 1; }
+      50%  { transform: scaleY(0.4); transform-origin: bottom; opacity: 0.5; }
+      100% { transform: scaleY(1);   transform-origin: top; opacity: 1; }
+    }
+
+    /* ── Reveal keyframe ──────────────────────────── */
+    @keyframes reveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ════════════════════════════════════════════════
+       BELOW THE FOLD: Prakriti Teaser
+       Purpose: give the page a real next section so
+       nav links are never dead (R-24). Single section,
+       content-driven — exists because Prakriti quiz
+       is the primary lead-capture mechanism.
+    ════════════════════════════════════════════════ */
+    .prakriti-teaser {
+      position: relative;
+      background: var(--stone);
+      padding: 7rem 5vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .prakriti-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--navy-mid);
+      margin-bottom: 1.25rem;
+    }
+
+    .prakriti-heading {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--navy);
+      margin-bottom: 1.25rem;
+    }
+    .prakriti-heading em {
+      font-style: italic;
+      color: var(--navy-mid);
+    }
+
+    .prakriti-body {
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #3a3a3a;
+      max-width: 44ch;
+      margin-bottom: 2rem;
+    }
+
+    /* Constitution types visual */
+    .constitution-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .constitution-card {
+      background: var(--navy);
+      padding: 1.75rem 1.25rem;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .constitution-card.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .constitution-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .constitution-card:hover::before { transform: scaleX(1); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .constitution-card { opacity: 1; transform: none; transition: none; }
+    }
+
+    .constitution-name {
+      font-family: var(--serif);
+      font-size: 1.375rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--gold-light);
+      margin-bottom: 0.5rem;
+    }
+    .constitution-nature {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(253,250,243,0.55);
+    }
+
+    .prakriti-cta {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ivory);
+      background: var(--navy);
+      padding: 1rem 2.25rem;
+      text-decoration: none;
+      min-height: 44px;
+      transition: background 0.3s, transform 0.3s var(--ease-out);
+    }
+    .prakriti-cta:hover {
+      background: var(--navy-mid);
+      transform: translateY(-2px);
+    }
+
+    /* ── Contact strip ────────────────────────────── */
+    .contact-strip {
+      background: var(--navy);
+      padding: 3rem 5vw;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      border-top: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .contact-strip-left {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ivory);
+    }
+    .contact-strip-left span { color: var(--gold); }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .contact-link {
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .contact-link:hover { color: var(--gold); }
+
+    /* ════════════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .nav-links,
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .hero-details {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .detail-item + .detail-item {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid rgba(201,168,76,0.15);
+        padding-top: 1.5rem;
+      }
+
+      .prakriti-teaser {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .scroll-hint { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content { padding: 0 1.25rem; }
+      .hero-details { margin: 4vh 1.25rem 0; }
+      .hero-ctas { flex-direction: column; }
+      .cta-primary, .cta-secondary { text-align: center; justify-content: center; }
+      .prakriti-teaser { padding: 4rem 1.25rem; }
+      .contact-strip { padding: 2.5rem 1.25rem; flex-direction: column; align-items: flex-start; }
+      .constitution-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Reduced motion ───────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<!-- ── Navigation ──────────────────────────────────── -->
+<nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+  <a href="#main" class="nav-logo">The Reset <span>Co</span></a>
+
+  <ul class="nav-links" role="list">
+    <li><a href="#prakriti">Your Constitution</a></li>
+    <li><a href="index.html">Retreats</a></li>
+    <li><a href="prospectus.html">Prospectus</a></li>
+  </ul>
+
+  <a href="dosha-prakriti-assessment.html" class="nav-cta">Find Your Prakriti</a>
+
+  <button
+    class="nav-hamburger"
+    id="hamburger"
+    aria-label="Open menu"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+  >
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- ── Mobile menu ─────────────────────────────────── -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Navigation menu">
+  <a href="#prakriti" onclick="closeMobileMenu()">Your Constitution</a>
+  <a href="index.html" onclick="closeMobileMenu()">Retreats</a>
+  <a href="prospectus.html" onclick="closeMobileMenu()">Prospectus</a>
+  <a href="dosha-prakriti-assessment.html" class="mobile-cta">Find Your Prakriti</a>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     HERO
+═════════════════════════════════════════════════════ -->
+<main id="main">
+<section class="hero" aria-label="Hero">
+
+  <!-- Atmospheric background -->
+  <div class="hero-bg" aria-hidden="true">
+
+    <!-- Stars -->
+    <div class="hero-stars" id="stars"></div>
+
+    <!-- Mountain SVG layers: 3 ranges at different depths for parallax feel -->
+    <svg class="hero-mountains" id="mountains" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Far range: lightest, most faded -->
+      <path d="M0,400 L60,340 L120,360 L180,310 L240,330 L300,270 L360,295 L420,250 L480,275 L540,230 L600,260 L660,210 L720,240 L780,195 L840,225 L900,185 L960,215 L1020,175 L1080,200 L1140,160 L1200,190 L1260,155 L1320,180 L1380,165 L1440,185 L1440,560 L0,560 Z"
+        fill="#172d5e" opacity="0.6"/>
+
+      <!-- Mid range: deeper, more defined -->
+      <path d="M0,440 L80,380 L140,400 L200,350 L270,375 L330,315 L400,345 L460,290 L530,320 L590,265 L650,298 L720,248 L790,278 L850,230 L920,260 L980,215 L1040,245 L1110,200 L1170,235 L1240,195 L1300,225 L1360,205 L1440,220 L1440,560 L0,560 Z"
+        fill="#112244" opacity="0.75"/>
+
+      <!-- Near range: darkest, most defined silhouette -->
+      <path d="M0,490 L70,440 L120,460 L180,415 L240,435 L310,385 L370,410 L440,362 L510,390 L580,345 L630,368 L700,320 L760,355 L830,308 L900,340 L960,295 L1020,325 L1080,280 L1150,310 L1220,268 L1290,298 L1360,278 L1440,295 L1440,560 L0,560 Z"
+        fill="#0a1d3f" opacity="0.9"/>
+
+      <!-- Snow caps: subtle white peaks on the far range -->
+      <path d="M295,271 L310,285 L325,271 Z M538,231 L550,248 L562,231 Z M778,196 L792,212 L806,196 Z M1022,176 L1035,192 L1048,176 Z M1257,156 L1270,173 L1283,156 Z"
+        fill="rgba(240,235,220,0.35)"/>
+    </svg>
+
+    <div class="hero-mist" aria-hidden="true"></div>
+    <div class="hero-ridgeline" aria-hidden="true"></div>
+    <div class="hero-fog" aria-hidden="true"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="hero-content">
+    <p class="hero-location">Bir Billing, Himachal Pradesh &nbsp; 1,525m</p>
+
+    <h1 class="hero-headline">
+      Ancient practice.<br>
+      <em>Renewed</em> body.
+    </h1>
+
+    <p class="hero-sub">
+      Doctor-led Ayurvedic retreats guided by BAMS physicians.
+      Prakriti-matched programmes for up to 15 guests.
+      Rooted in classical medicine, held in the Dhauladhar range.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="dosha-prakriti-assessment.html" class="cta-primary">
+        Take the Prakriti Assessment
+      </a>
+      <a href="prospectus.html" class="cta-secondary">
+        View Programme Prospectus
+      </a>
+    </div>
+  </div>
+
+  <!-- Detail strip -->
+  <div class="hero-details" aria-label="Programme details">
+    <div class="detail-item">
+      <p class="detail-label">Led by</p>
+      <p class="detail-value">Dr. Aditya Kaundal &amp; Dr. Himanshu Bhatt, BAMS</p>
+    </div>
+    <div class="detail-item">
+      <p class="detail-label">Cohort size</p>
+      <p class="detail-value">Max 15 guests per retreat</p>
+    </div>
+    <div class="detail-item">
+      <p class="detail-label">Duration</p>
+      <p class="detail-value">3 to 4 days, residential</p>
+    </div>
+    <div class="detail-item">
+      <p class="detail-label">Starting from</p>
+      <p class="detail-value">&#8377;22,000 per person</p>
+    </div>
+  </div>
+
+  <!-- Scroll hint: purpose: signals content below the fold on a full-height hero -->
+  <div class="scroll-hint" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     PRAKRITI TEASER
+═════════════════════════════════════════════════════ -->
+<section class="prakriti-teaser" id="prakriti" aria-labelledby="prakriti-heading">
+  <div>
+    <p class="prakriti-eyebrow">Classical Ayurveda</p>
+    <h2 class="prakriti-heading" id="prakriti-heading">
+      Your body has a<br><em>constitution.</em><br>Your retreat should match it.
+    </h2>
+    <p class="prakriti-body">
+      Prakriti is the Ayurvedic term for your individual physiological makeup, determined at birth by the balance of Vata, Pitta, and Kapha. Every programme at The Reset Co begins with a clinical Prakriti assessment by our doctors, so the practices you receive are specific to your body, not generic to everyone.
+    </p>
+    <a href="dosha-prakriti-assessment.html" class="prakriti-cta">
+      Assess Your Constitution
+    </a>
+  </div>
+
+  <div class="constitution-grid" aria-label="The three Prakriti types">
+    <div class="constitution-card">
+      <p class="constitution-name">Vata</p>
+      <p class="constitution-nature">Air and Space</p>
+    </div>
+    <div class="constitution-card">
+      <p class="constitution-name">Pitta</p>
+      <p class="constitution-nature">Fire and Water</p>
+    </div>
+    <div class="constitution-card">
+      <p class="constitution-name">Kapha</p>
+      <p class="constitution-nature">Earth and Water</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact strip ───────────────────────────────── -->
+<div class="contact-strip">
+  <p class="contact-strip-left">
+    Speak with <span>Dr. Aditya</span> or <span>Dr. Himanshu</span>
+  </p>
+  <div class="contact-links">
+    <a href="https://wa.me/917888540046" class="contact-link" target="_blank" rel="noopener noreferrer">
+      WhatsApp +91 78885 40046
+    </a>
+    <a href="mailto:hello@theresetco.in" class="contact-link">
+      hello@theresetco.in
+    </a>
+    <a href="index.html" class="contact-link">
+      Full website
+    </a>
+  </div>
+</div>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════
+     SCRIPTS
+═════════════════════════════════════════════════════ -->
+<script>
+  /* ── Nav scroll shadow ─────────────────────────── */
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ── Hamburger + mobile menu ───────────────────── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function openMobileMenu() {
+    mobileMenu.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.setAttribute('aria-label', 'Close menu');
+    document.body.style.overflow = 'hidden';
+    // trap focus: move focus to first link
+    const first = mobileMenu.querySelector('a');
+    if (first) first.focus();
+  }
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Open menu');
+    document.body.style.overflow = '';
+    hamburger.focus();
+  }
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.contains('open');
+    isOpen ? closeMobileMenu() : openMobileMenu();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      closeMobileMenu();
+    }
+  });
+
+  // Close on outside click
+  mobileMenu.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) closeMobileMenu();
+  });
+
+  /* ── Star field ────────────────────────────────── */
+  // Purpose: atmosphere — communicates altitude and night sky without photography
+  const starsContainer = document.getElementById('stars');
+  const STAR_COUNT = 55;
+  const frag = document.createDocumentFragment();
+
+  for (let i = 0; i < STAR_COUNT; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 1.8 + 0.6;
+    s.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 55}%;
+      --dur: ${(Math.random() * 3 + 2).toFixed(1)}s;
+      --delay: ${(Math.random() * 4).toFixed(1)}s;
+      --op-from: ${(Math.random() * 0.3 + 0.1).toFixed(2)};
+      --op-to: ${(Math.random() * 0.5 + 0.4).toFixed(2)};
+    `;
+    frag.appendChild(s);
+  }
+  starsContainer.appendChild(frag);
+
+  /* ── Scroll-reveal for constitution cards ───────── */
+  if ('IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const cards = document.querySelectorAll('.constitution-card');
+    const delays = [0, 0.08, 0.16];
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const idx = [...cards].indexOf(entry.target);
+          setTimeout(() => entry.target.classList.add('revealed'), (delays[idx] || 0) * 1000);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    cards.forEach(card => obs.observe(card));
+  } else {
+    // reduced-motion or no observer support: show immediately
+    document.querySelectorAll('.constitution-card').forEach(c => c.classList.add('revealed'));
+  }
+
+
+  /* ── Subtle parallax on mountains ─────────────── */
+  // Purpose: reinforces depth of mountain layers on scroll (MOTION 2)
+  const mountains = document.getElementById('mountains');
+  if (mountains && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const y = window.scrollY * 0.12;
+          mountains.style.transform = `translateY(${y}px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+</script>
+
+</body>
+</html>

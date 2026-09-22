@@ -1,0 +1,3700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Reset Co : Operations Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9A84C;--gold-l:#E8C97A;--gold-d:#A88B38;
+  --royal-deep:#0A1931;--royal:#13274F;--royal-mid:#1A3A6B;
+  --bg:#FDFAF3;--surface:#FFFFFF;--surface2:#FAF7F0;--surface3:#F0EBE0;
+  --border:rgba(201,168,76,0.22);--border2:rgba(10,25,49,0.08);
+  --text:#0A1931;--muted:#5F584C;--dim:#8FA4C4;
+  --green:#2E7D32;--red:#C62828;--blue:#1565C0;
+  --serif:'Cormorant Garamond', 'Palatino Linotype', Georgia, serif;
+  --sans:'Jost', 'Segoe UI', system-ui, sans-serif;
+  --sidebar:250px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:var(--sans);background:var(--bg);color:var(--text);font-size:14px;}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+
+.app{display:flex;height:100vh;overflow:hidden;}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);background:#0F2347;border-right:1px solid rgba(201,168,76,0.2);display:flex;flex-direction:column;flex-shrink:0;}
+.sidebar-logo{padding:1.5rem 1.25rem 1rem;border-bottom:1px solid rgba(201,168,76,0.2);}
+.sidebar-logo-text{font-family:var(--serif);font-size:1.1rem;color:#FDFAF3;letter-spacing:0.05em;}
+.sidebar-logo-text span{color:var(--gold-l);}
+.sidebar-logo-sub{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(253,250,243,0.5);margin-top:2px;}
+.sidebar-nav{flex:1;padding:1rem 0;overflow-y:auto;}
+.nav-label{font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(201,168,76,0.5);padding:0.6rem 1.25rem 0.3rem;}
+.nav-item{display:flex;align-items:center;gap:0.75rem;padding:0.62rem 1.25rem;cursor:pointer;color:rgba(253,250,243,0.65);font-size:0.82rem;font-weight:400;transition:all 0.18s;border-left:2px solid transparent;}
+.nav-item:hover{color:#FDFAF3;background:rgba(253,250,243,0.05);}
+.nav-item.active{color:var(--gold-l);background:rgba(201,168,76,0.1);border-left-color:var(--gold-l);}
+.nav-icon{width:16px;text-align:center;font-size:0.88rem;flex-shrink:0;}
+.sidebar-footer{padding:1rem 1.25rem;border-top:1px solid rgba(201,168,76,0.2);}
+.s-user{display:flex;align-items:center;gap:0.75rem;cursor:pointer;}
+.s-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-l));display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:600;color:#0F2347;flex-shrink:0;}
+.s-name{font-size:0.78rem;color:#FDFAF3;}
+.s-role{font-size:0.6rem;color:rgba(253,250,243,0.5);}
+.logout-btn{margin-left:auto;font-size:0.65rem;color:rgba(253,250,243,0.4);cursor:pointer;background:none;border:none;font-family:var(--sans);transition:color 0.2s;}
+.logout-btn:hover{color:var(--red);}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.topbar{padding:0.9rem 1.75rem;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;background:var(--surface);flex-shrink:0;}
+.topbar-title{font-family:var(--serif);font-size:1.4rem;color:var(--text);font-weight:500;}
+.topbar-right{display:flex;align-items:center;gap:1rem;}
+.topbar-date{font-size:0.72rem;color:var(--muted);}
+.badge{padding:2px 8px;border-radius:2px;font-size:0.62rem;font-weight:600;letter-spacing:0.04em;}
+.badge-gold{background:rgba(171,136,55,0.12);color:var(--gold);}
+.badge-green{background:rgba(46,125,50,0.08);color:var(--green);}
+.badge-red{background:rgba(198,40,40,0.08);color:var(--red);}
+.badge-blue{background:rgba(21,101,192,0.08);color:var(--blue);}
+.badge-dim{background:rgba(107,99,85,0.1);color:var(--muted);}
+.content{flex:1;overflow-y:auto;padding:1.5rem 1.75rem;}
+
+/* PAGES */
+.page{display:none;animation:fadeIn 0.2s ease;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
+
+/* LOADING */
+.loading{display:flex;align-items:center;justify-content:center;padding:3rem;color:var(--dim);font-size:0.8rem;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;}
+.stat-card{background:var(--surface);border:1px solid var(--border);padding:1.2rem;position:relative;overflow:hidden;box-shadow:0 4px 12px rgba(15,35,71,0.02);}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);}
+.stat-card.green::before{background:var(--green);}
+.stat-card.red::before{background:var(--red);}
+.stat-card.blue::before{background:var(--blue);}
+.stat-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
+.stat-val{font-family:var(--serif);font-size:1.9rem;font-weight:500;color:var(--text);line-height:1;}
+.stat-sub{font-size:0.68rem;color:var(--muted);margin-top:0.3rem;}
+
+/* TWO/THREE COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
+
+/* PANEL */
+.panel{background:var(--surface);border:1px solid var(--border);margin-bottom:1rem;box-shadow:0 4px 12px rgba(15,35,71,0.02);}
+.panel-header{padding:1rem 1.25rem;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;}
+.panel-title{font-family:var(--serif);font-size:1.05rem;color:var(--text);font-weight:500;}
+.panel-body{padding:1.25rem;}
+.panel-body-0{padding:0 1.25rem;}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:0.8rem;}
+.tbl th{padding:0.6rem 0.85rem;text-align:left;font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600;}
+.tbl td{padding:0.68rem 0.85rem;border-bottom:1px solid rgba(171,136,55,0.08);color:var(--text);vertical-align:middle;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:rgba(171,136,55,0.03);}
+.tbl-name{font-weight:500;color:var(--text);}
+.tbl-sub{font-size:0.67rem;color:var(--muted);margin-top:1px;}
+.tbl-empty{text-align:center;padding:2.5rem;color:var(--dim);font-size:0.8rem;}
+
+/* AVATAR */
+.av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--surface2),var(--surface3));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.62rem;font-weight:600;color:var(--gold);flex-shrink:0;}
+.av-cell{display:flex;align-items:center;gap:0.6rem;}
+
+/* CONTROLS */
+.controls{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;flex-wrap:wrap;}
+.search-box{flex:1;max-width:280px;position:relative;}
+.search-box input{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:0.52rem 0.85rem 0.52rem 2.1rem;font-family:var(--sans);font-size:0.8rem;outline:none;}
+.search-box input::placeholder{color:var(--dim);}
+.search-box input:focus{border-color:var(--gold-l);}
+.s-icon{position:absolute;left:0.65rem;top:50%;transform:translateY(-50%);color:var(--dim);font-size:0.75rem;}
+.btn{padding:0.5rem 1.1rem;font-family:var(--sans);font-size:0.72rem;font-weight:500;cursor:pointer;border:none;letter-spacing:0.05em;transition:all 0.18s;display:inline-flex;align-items:center;gap:4px;}
+.btn-primary{background:var(--gold);color:#FDFAF3;}
+.btn-primary:hover{background:var(--gold-l);}
+.btn-secondary{background:transparent;color:var(--muted);border:1px solid var(--border);}
+.btn-secondary:hover{border-color:var(--gold-l);color:var(--gold-l);background:var(--surface2);}
+.btn-danger{background:rgba(198,40,40,0.06);color:var(--red);border:1px solid rgba(198,40,40,0.15);}
+.btn-danger:hover{background:rgba(198,40,40,0.12);}
+.btn-sm{padding:0.28rem 0.7rem;font-size:0.63rem;}
+select.fsel{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:0.5rem 0.75rem;font-family:var(--sans);font-size:0.75rem;outline:none;cursor:pointer;}
+select.fsel:focus{border-color:var(--gold-l);color:var(--text);}
+
+/* STATUS DOTS */
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;}
+.dot-green{background:var(--green);}
+.dot-gold{background:var(--gold);}
+.dot-red{background:var(--red);}
+.dot-blue{background:var(--blue);}
+.dot-dim{background:var(--dim);}
+
+/* PILL TABS */
+.pill-tabs{display:flex;gap:0.5rem;}
+.pill-tab{padding:0.35rem 0.9rem;font-size:0.72rem;cursor:pointer;border:1px solid var(--border);color:var(--muted);background:transparent;font-family:var(--sans);transition:all 0.18s;}
+.pill-tab.active{background:var(--gold);color:#FDFAF3;border-color:var(--gold);font-weight:600;}
+.pill-tab:hover:not(.active){border-color:var(--gold-l);color:var(--gold-l);}
+
+/* REVENUE CHART */
+.rev-chart{height:100px;display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid var(--border2);padding-bottom:2px;}
+.rev-bar{flex:1;border-radius:2px 2px 0 0;position:relative;min-height:4px;cursor:pointer;transition:opacity 0.2s;background:linear-gradient(to top, var(--gold), var(--gold-l));}
+.rev-bar:hover{opacity:0.75;}
+.rev-tip{display:none;position:absolute;bottom:105%;left:50%;transform:translateX(-50%);background:var(--surface2);border:1px solid var(--border);padding:3px 8px;font-size:0.6rem;white-space:nowrap;z-index:5;color:var(--text);box-shadow:0 4px 12px rgba(15,35,71,0.08);}
+.rev-bar:hover .rev-tip{display:block;}
+.bar-labels{display:flex;gap:12px;margin-top:5px;}
+.bar-lbl{flex:1;text-align:center;font-size:0.52rem;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* ACTIVITY */
+.act-list{display:flex;flex-direction:column;}
+.act-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.65rem 0;border-bottom:1px solid var(--border2);}
+.act-item:last-child{border-bottom:none;}
+.act-ico{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0;margin-top:1px;}
+.ico-gold{background:rgba(171,136,55,0.1);color:var(--gold);}
+.ico-green{background:rgba(46,125,50,0.08);color:var(--green);}
+.ico-red{background:rgba(198,40,40,0.08);color:var(--red);}
+.act-text{font-size:0.75rem;line-height:1.5;color:var(--text);}
+.act-time{font-size:0.6rem;color:var(--dim);margin-top:1px;}
+
+/* PROGRESS */
+.prog{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-top:4px;}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(to right,var(--gold),var(--gold-l));}
+
+/* RETREAT CARD */
+.retreat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;}
+.rc{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--gold);padding:1.1rem;box-shadow:0 4px 12px rgba(15,35,71,0.02);}
+.rc.essential{border-top-color:var(--green);}
+.rc.premium{border-top-color:var(--blue);}
+.rc.corporate{border-top-color:var(--red);}
+.rc-date{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+.rc-name{font-family:var(--serif);font-size:1rem;font-weight:500;color:var(--text);margin-bottom:0.25rem;}
+.rc-hotel{font-size:0.7rem;color:var(--muted);margin-bottom:0.75rem;}
+.rc-stats{display:flex;gap:1rem;}
+.rcs-val{font-family:var(--serif);font-size:1.1rem;color:var(--text);}
+.rcs-lbl{font-size:0.52rem;color:var(--dim);text-transform:uppercase;letter-spacing:0.1em;}
+.rc-foot{margin-top:0.75rem;padding-top:0.6rem;border-top:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center;}
+
+/* PARTNER CARD */
+.pc{background:var(--surface);border:1px solid var(--border);padding:1.1rem;box-shadow:0 4px 12px rgba(15,35,71,0.02);}
+.pc-name{font-family:var(--serif);font-size:1rem;font-weight:500;color:var(--text);margin-bottom:2px;}
+.pc-loc{font-size:0.7rem;color:var(--muted);margin-bottom:0.85rem;}
+.pc-row{display:flex;justify-content:space-between;font-size:0.72rem;padding:0.28rem 0;border-bottom:1px solid var(--border2);}
+.pc-row:last-of-type{border-bottom:none;}
+.pc-k{color:var(--dim);}
+.pc-v{color:var(--text);font-weight:500;}
+
+/* EXPENSE */
+.exp-item{display:flex;align-items:center;gap:0.85rem;padding:0.62rem 0;border-bottom:1px solid var(--border2);}
+.exp-item:last-child{border-bottom:none;}
+.exp-ico{width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0;background:var(--surface2);border:1px solid var(--border2);}
+.exp-name{font-size:0.78rem;font-weight:500;}
+.exp-meta{font-size:0.65rem;color:var(--dim);}
+.exp-amt{margin-left:auto;font-family:var(--serif);font-size:0.9rem;color:var(--red);font-weight:500;}
+
+/* INVOICE PREVIEW */
+.inv-paper{background:white;color:#111;padding:2.5rem;font-size:0.82rem;font-family:var(--sans);border:1px solid #e5e0d5;}
+.inv-head{display:flex;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #C9A84C;}
+.inv-brand{font-family:var(--serif);font-size:1.5rem;color:#0F2347;font-weight:600;}
+.inv-brand span{color:#C9A84C;}
+.inv-meta{text-align:right;font-size:0.72rem;color:#555;}
+.inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.inv-plbl{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:#AB8837;margin-bottom:4px;font-weight:600;}
+.inv-pname{font-weight:700;color:#111;margin-bottom:2px;font-size:0.9rem;}
+.inv-pdet{font-size:0.72rem;color:#555;line-height:1.6;}
+.inv-tbl{width:100%;border-collapse:collapse;margin-bottom:1.5rem;}
+.inv-tbl th{background:#0F2347;color:#E8C97A;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 0.75rem;text-align:left;}
+.inv-tbl td{padding:0.68rem 0.75rem;border-bottom:1px solid #e5e0d5;color:#333;}
+.inv-tot td{font-weight:700;color:#0F2347;background:#FFF8E8;border:none;font-size:1rem;}
+.inv-foot{font-size:0.65rem;color:#888;border-top:1px solid #e5e0d5;padding-top:0.75rem;display:flex;justify-content:space-between;margin-top:0.75rem;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,35,71,0.25);backdrop-filter:blur(4px);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);width:560px;max-height:88vh;overflow-y:auto;animation:slideUp 0.22s cubic-bezier(0.16,1,0.3,1);box-shadow:0 10px 40px rgba(15,35,71,0.08);}
+.modal.wide{width:700px;}
+@keyframes slideUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:none;}}
+.modal-head{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;}
+.modal-title{font-family:var(--serif);font-size:1.15rem;color:var(--text);font-weight:500;}
+.modal-close{background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;}
+.modal-close:hover{color:var(--text);}
+.modal-body{padding:1.5rem;}
+.modal-foot{padding:1rem 1.5rem;border-top:1px solid var(--border2);display:flex;gap:0.75rem;justify-content:flex-end;}
+
+/* FORM */
+.fg{margin-bottom:1rem;}
+.fg-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fg-full{grid-column:1/-1;}
+.flbl{display:block;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;font-weight:600;}
+.finp{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:0.6rem 0.85rem;font-family:var(--sans);font-size:0.8rem;outline:none;}
+.finp:focus{border-color:var(--gold-l);}
+.finp::placeholder{color:var(--dim);}
+select.finp{cursor:pointer;}
+textarea.finp{resize:vertical;min-height:65px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--surface);border:1px solid var(--border);padding:0.7rem 1.2rem;font-size:0.76rem;color:var(--text);z-index:999;display:none;align-items:center;gap:0.6rem;box-shadow:0 8px 30px rgba(15,35,71,0.06);border-left:4px solid var(--green);}
+.toast.show{display:flex;}
+.toast.error{border-left-color:var(--red);}
+.t-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.t-dot.red{background:var(--red);}
+
+/* LOGIN OVERLAY */
+#login-screen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;background-image:radial-gradient(ellipse at 20% 50%, rgba(26,58,107,0.04) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 50%);}
+#login-screen.hidden{display:none;}
+.login-card{background:var(--surface);border:1px solid var(--border);padding:2.5rem;width:100%;max-width:380px;box-shadow:0 10px 40px rgba(15,35,71,0.05);}
+.login-logo{font-family:var(--serif);font-size:1.8rem;font-weight:500;color:var(--text);text-align:center;margin-bottom:2px;}
+.login-logo span{color:var(--gold);}
+.login-sub{font-size:0.6rem;color:var(--muted);text-align:center;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:2rem;}
+.login-field{margin-bottom:1.25rem;}
+.login-field label{display:block;font-size:0.62rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;}
+.input-wrap{position:relative;}
+.input-wrap input{width:100%;padding:0.6rem 0.85rem;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-family:var(--sans);font-size:0.8rem;outline:none;}
+.input-wrap input:focus{border-color:var(--gold-l);}
+.pw-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:0.9rem;}
+#login-error{display:none;color:var(--red);font-size:0.75rem;margin-bottom:1rem;font-weight:500;}
+
+/* REAL-TIME NOTIFICATION BANNER */
+#notif-banner {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9998;
+  background: linear-gradient(90deg, rgba(46,125,50,0.08), rgba(46,125,50,0.03));
+  border-bottom: 1px solid rgba(46,125,50,0.2);
+  padding: 10px 1.75rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transform: translateY(-100%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+#notif-banner.show { transform: translateY(0); }
+#notif-text { font-size: 0.78rem; color: var(--green); font-weight: 600; }
+.notif-actions { display: flex; gap: 10px; align-items: center; }
+.btn-notif-view {
+  padding: 4px 12px;
+  background: var(--green);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 2px;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-notif-close {
+  background: none; border: none; color: var(--muted);
+  font-size: 1.1rem; cursor: pointer; line-height: 1; padding: 2px 4px;
+}
+.btn-notif-close:hover { color: var(--text); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px;}
+
+/* 15-GUEST CAPACITY CARD */
+.capacity-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  padding: 1.35rem 1.5rem;
+  box-shadow: 0 4px 16px rgba(10,25,49,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  position: relative;
+}
+.capacity-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.capacity-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--royal-deep);
+  font-weight: 500;
+}
+.capacity-sub {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.capacity-badge-excl {
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: rgba(201,168,76,0.15);
+  color: #8A6E24;
+  padding: 4px 10px;
+  font-weight: 600;
+  border-radius: 2px;
+}
+.capacity-meter-wrap { width: 100%; }
+.capacity-meter-bar {
+  height: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+.capacity-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--gold), var(--gold-l));
+  transition: width 0.6s ease;
+  border-radius: 5px;
+}
+.capacity-stats-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+.capacity-breakdown {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.capacity-pill {
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--muted);
+}
+.capacity-pill strong { color: var(--royal-deep); }
+
+/* FINANCIAL COMMAND RIBBON */
+.kpi-ribbon {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1rem 1.15rem;
+  box-shadow: 0 4px 12px rgba(10,25,49,0.02);
+  position: relative;
+}
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+}
+.kpi-card.green::before { background: var(--green); }
+.kpi-card.gold::before { background: var(--gold); }
+.kpi-card.blue::before { background: var(--blue); }
+.kpi-card.red::before { background: var(--red); }
+.kpi-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.kpi-value {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  color: var(--royal-deep);
+  font-weight: 500;
+  line-height: 1.1;
+}
+.kpi-sub {
+  font-size: 0.65rem;
+  color: var(--dim);
+  margin-top: 0.25rem;
+}
+
+/* DOSHA BADGES */
+.dosha-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+}
+.dosha-tag.vata { background: rgba(30,58,138,0.1); color: #1E3A8A; border: 1px solid rgba(30,58,138,0.2); }
+.dosha-tag.pitta { background: rgba(180,83,9,0.12); color: #B45309; border: 1px solid rgba(180,83,9,0.22); }
+.dosha-tag.kapha { background: rgba(4,120,87,0.1); color: #047857; border: 1px solid rgba(4,120,87,0.2); }
+.dosha-tag.tri { background: rgba(201,168,76,0.15); color: #8A6E24; border: 1px solid rgba(201,168,76,0.3); }
+
+/* PAYMENT PILLS */
+.pay-pill {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.pay-pill.full { background: rgba(46,125,50,0.1); color: var(--green); }
+.pay-pill.deposit { background: rgba(201,168,76,0.15); color: #8A6E24; }
+.pay-pill.pending { background: rgba(198,40,40,0.08); color: var(--red); }
+
+@media(max-width: 900px) {
+  .kpi-ribbon { grid-template-columns: repeat(2, 1fr); }
+  .capacity-head { flex-direction: column; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- APP WRAPPER -->
+<a href="#dashboard-main" class="skip-link" style="position:absolute;top:-100px;left:1rem;background:var(--gold);color:#0F2347;padding:0.75rem 1.5rem;font-size:0.85rem;font-weight:600;text-decoration:none;z-index:9999;transition:top 0.2s;">Skip to main content</a>
+<div class="app" id="app">
+
+  <!-- NOTIFICATION BANNER -->
+  <div id="notif-banner">
+    <span id="notif-text">🆕 New enquiry received!</span>
+    <div class="notif-actions">
+      <button class="btn-notif-view" onclick="viewLatestLead()">View Enquiry</button>
+      <button class="btn-notif-close" onclick="closeNotif()">✕</button>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-text">The Reset <span>Co</span></div>
+      <div class="sidebar-logo-sub">Founder Dashboard</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-label" id="lbl-main">Main</div>
+      <div class="nav-item active" id="nav-overview" role="button" tabindex="0" aria-current="page" onclick="nav('overview',this)"><span class="nav-icon">&#9672;</span>Overview</div>
+      <div class="nav-item" id="nav-guests" onclick="nav('guests',this)"><span class="nav-icon">&#9673;</span>Bookings &amp; Admissions <span class="badge badge-gold" id="side-inquiries-badge" style="margin-left:auto; font-size:0.55rem; display:none;">0</span></div>
+      <div class="nav-item" id="nav-retreats" onclick="nav('retreats',this)"><span class="nav-icon">&#9671;</span>Retreats</div>
+      <div class="nav-label" id="lbl-finance">Finance</div>
+      <div class="nav-item" id="nav-billing" onclick="nav('billing',this)"><span class="nav-icon">&#8377;</span>Payments &amp; Revenue <span class="badge badge-red" id="side-pending-pay-badge" style="margin-left:auto; font-size:0.55rem; display:none;">0</span></div>
+      <div class="nav-item" id="nav-expenses" onclick="nav('expenses',this)"><span class="nav-icon">&#8595;</span>Expenses</div>
+      <div class="nav-label" id="lbl-network">Network</div>
+      <div class="nav-item" id="nav-partners" onclick="nav('partners',this)"><span class="nav-icon">&#10022;</span>Hotel Partners</div>
+      <div class="nav-item" id="nav-subscriptions" onclick="nav('subscriptions',this)"><span class="nav-icon">&#8635;</span>Subscriptions</div>
+      <div class="nav-label" id="lbl-team">Team</div>
+      <div class="nav-item" id="nav-staff" onclick="nav('staff',this)"><span class="nav-icon">&#128101;</span>Team & Staff</div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="s-user">
+        <div class="s-avatar" id="s-avatar">DR</div>
+        <div>
+          <div class="s-name" id="s-name">Loading...</div>
+          <div class="s-role" id="s-role">Co-Founder</div>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">Sign out</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTAINER -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="page-title">Overview</div>
+      <div class="topbar-right" style="gap:0.6rem;">
+        <button class="btn btn-secondary btn-sm" onclick="simulateIncomingBooking()" title="Simulate real booking from homepage.html">
+          <span style="color:var(--gold)">⚡</span> Simulate Web Lead
+        </button>
+        <button class="btn btn-primary btn-sm" onclick="openRecordPayment()">
+          + Record Payment
+        </button>
+        <button class="btn btn-secondary btn-sm" onclick="openAddGuest()">
+          + New Booking
+        </button>
+        <div class="topbar-date" id="top-date" style="margin-left:0.5rem;"></div>
+      </div>
+    </div>
+    <div class="content">
+
+      <!-- PAGE: OVERVIEW -->
+      <div class="page active" id="page-overview">
+        <!-- 15-GUEST ACTIVE BATCH CAPACITY MONITOR -->
+        <div id="batch-capacity-container" style="margin-bottom:1.25rem;"></div>
+
+        <!-- KEY OPERATIONAL STATS -->
+        <div class="stats-grid" id="stats-grid"></div>
+
+        <div class="two-col">
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title">Revenue by Retreat Suite</div></div>
+            <div class="panel-body">
+              <div class="rev-chart" id="rev-chart"></div>
+              <div class="bar-labels" id="bar-labels"></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title">Recent Cashflow &amp; Booking Activity</div></div>
+            <div class="panel-body-0" id="recent-activity"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE: GUEST DATABASE -->
+      <div class="page" id="page-guests">
+        <div class="controls" style="margin-bottom:1rem;">
+          <div class="pill-tabs" id="booking-funnel-tabs" style="flex-wrap:wrap;">
+            <button class="pill-tab active" onclick="filterBookingsPipeline('all', this)">All Bookings (<span id="count-all">0</span>)</button>
+            <button class="pill-tab" onclick="filterBookingsPipeline('incoming', this)">Incoming Leads (<span id="count-incoming">0</span>)</button>
+            <button class="pill-tab" onclick="filterBookingsPipeline('dosha', this)">Prakriti Assessed (<span id="count-dosha">0</span>)</button>
+            <button class="pill-tab" onclick="filterBookingsPipeline('deposit', this)">Deposit 30% (<span id="count-deposit">0</span>)</button>
+            <button class="pill-tab" onclick="filterBookingsPipeline('confirmed', this)">Confirmed (<span id="count-confirmed">0</span>)</button>
+            <button class="pill-tab" onclick="filterBookingsPipeline('active', this)">In-Sanctuary (<span id="count-active">0</span>)</button>
+            <button class="pill-tab" onclick="filterBookingsPipeline('past', this)">Alumni (<span id="count-past">0</span>)</button>
+          </div>
+          <div class="search-box">
+            <span class="s-icon">&#128269;</span>
+            <input type="text" placeholder="Search by guest, phone, suite..." id="g-search" oninput="renderGuests()">
+          </div>
+          <button class="btn btn-primary" onclick="openAddGuest()">+ New Booking</button>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="panel-title" id="pipeline-view-title">Admissions &amp; Bookings Pipeline</div>
+            <span class="badge badge-gold" id="g-count">0</span>
+          </div>
+          <table class="tbl" aria-label="Bookings Pipeline">
+            <thead>
+              <tr>
+                <th scope="col">Guest &amp; Contact</th>
+                <th>Retreat Suite &amp; Dates</th>
+                <th>Prakriti Dosha</th>
+                <th>Payment &amp; Balance</th>
+                <th>Stage</th>
+                <th>Received</th>
+                <th id="th-guest-actions" style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="g-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PAGE: RETREATS -->
+      <div class="page" id="page-retreats">
+        <div class="controls">
+          <div class="pill-tabs" id="r-tabs">
+            <div class="pill-tab active" onclick="filterRetreats('all',this)">All</div>
+            <div class="pill-tab" onclick="filterRetreats('planning',this)">Planning</div>
+            <div class="pill-tab" onclick="filterRetreats('upcoming',this)">Upcoming</div>
+            <div class="pill-tab" onclick="filterRetreats('confirmed',this)">Confirmed</div>
+            <div class="pill-tab" onclick="filterRetreats('completed',this)">Completed</div>
+          </div>
+          <button class="btn btn-primary" style="margin-left:auto" id="btn-new-retreat" onclick="openAddRetreat()">+ New Retreat</button>
+        </div>
+        <div class="retreat-grid" id="retreat-grid"></div>
+      </div>
+
+      <!-- PAGE: BILLING -->
+      <div class="page" id="page-billing">
+        <!-- FINANCIAL COMMAND RIBBON -->
+        <div id="payments-kpi-ribbon" class="kpi-ribbon"></div>
+
+        <div class="controls" style="margin-bottom:1rem;">
+          <div class="pill-tabs" id="payments-tabs">
+            <button class="pill-tab active" onclick="switchPaymentsTab('txns', this)">Completed Payments (<span id="count-txns">0</span>)</button>
+            <button class="pill-tab" onclick="switchPaymentsTab('pending', this)">Pending Balances Due (<span id="count-pending-pay">0</span>)</button>
+            <button class="pill-tab" onclick="switchPaymentsTab('invoices', this)">Tax Invoices (<span id="count-invoices">0</span>)</button>
+          </div>
+          <div class="search-box">
+            <span class="s-icon">&#128269;</span>
+            <input type="text" placeholder="Search transactions..." id="inv-search" oninput="renderPayments()">
+          </div>
+          <button class="btn btn-primary" onclick="openRecordPayment()">+ Record Payment</button>
+          <button class="btn btn-secondary" onclick="openAddInvoice()">+ New Tax Invoice</button>
+        </div>
+
+        <!-- View 1: Transactions -->
+        <div class="panel" id="panel-txns">
+          <div class="panel-header">
+            <div class="panel-title">Completed Payment Transactions</div>
+            <span class="badge badge-green" id="txns-count-badge">0</span>
+          </div>
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>Receipt / Txn #</th>
+                <th>Guest</th>
+                <th>Type &amp; Gateway</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="txns-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- View 2: Pending Balances Due -->
+        <div class="panel" id="panel-pending-balances" style="display:none;">
+          <div class="panel-header">
+            <div class="panel-title">Outstanding Guest Balances (Due Prior to Check-in)</div>
+            <span class="badge badge-gold" id="pending-count-badge">0</span>
+          </div>
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>Guest</th>
+                <th>Suite Plan</th>
+                <th>Total Package</th>
+                <th>Deposit Paid</th>
+                <th>Balance Due</th>
+                <th>Retreat Dates</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="pending-balances-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- View 3: Invoices Log -->
+        <div class="panel" id="panel-invoices-log" style="display:none;">
+          <div class="panel-header">
+            <div class="panel-title">Tax Invoices Log</div>
+            <span class="badge badge-gold" id="inv-count">0</span>
+          </div>
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>Invoice #</th>
+                <th>Guest</th>
+                <th>Package Plan</th>
+                <th>Amount (incl. GST)</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="inv-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PAGE: EXPENSES -->
+      <div class="page" id="page-expenses">
+        <div class="controls">
+          <button class="btn btn-primary" onclick="openAddExpense()">+ Log Expense</button>
+          <div style="margin-left:auto;display:flex;gap:0.5rem;align-items:center;">
+            <span style="font-size:0.72rem;color:var(--muted)">Month's Expenses:</span>
+            <span style="font-family:var(--serif);font-size:1.1rem;color:var(--red);font-weight:600;" id="exp-total">&#8377;0</span>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="panel" style="flex:1.4">
+            <div class="panel-header"><div class="panel-title">Expense Log</div></div>
+            <div class="panel-body-0">
+              <table class="tbl">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Via</th>
+                    <th style="text-align:right">Delete</th>
+                  </tr>
+                </thead>
+                <tbody id="exp-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel" style="flex:0.8">
+            <div class="panel-header"><div class="panel-title">By Category</div></div>
+            <div class="panel-body" id="exp-cats"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE: PARTNERS -->
+      <div class="page" id="page-partners">
+        <div class="controls">
+          <button class="btn btn-primary" id="btn-add-partner" onclick="openAddPartner()">+ Add Partner</button>
+        </div>
+        <div class="three-col" id="partner-grid"></div>
+      </div>
+
+      <!-- PAGE: SUBSCRIPTIONS -->
+      <div class="page" id="page-subscriptions">
+        <div class="controls">
+          <button class="btn btn-primary" onclick="openAddSub()">+ Add Subscription</button>
+          <div style="margin-left:auto;display:flex;gap:1.5rem;align-items:center;">
+            <div>
+              <span style="font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;display:block;">Monthly MRR</span>
+              <span style="font-family:var(--serif);font-size:1.1rem;color:var(--green);font-weight:600;" id="mrr-val">&#8377;0</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Active Coaching Subscriptions</div></div>
+          <table class="tbl" aria-label="Guest Database">
+            <thead>
+              <tr>
+                <th scope="col">Guest</th>
+                <th>Plan Detail</th>
+                <th>Monthly Fee</th>
+                <th>Next Billing</th>
+                <th>Status</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sub-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PAGE: TEAM & STAFF -->
+      <div class="page" id="page-staff">
+        <div class="controls" style="margin-bottom:1.5rem">
+          <div class="pill-tabs" id="staff-tabs">
+            <button class="pill-tab active" onclick="switchStaffTab('roster', this)">Staff Directory</button>
+            <button class="pill-tab" onclick="switchStaffTab('payroll', this)">Payroll Calendar</button>
+            <button class="pill-tab" id="btn-staff-access-tab" onclick="switchStaffTab('access', this)">Dashboard Accounts</button>
+          </div>
+          <button class="btn btn-primary" id="add-staff-btn" onclick="openAddStaff()">+ Add Staff Member</button>
+          <div style="margin-left:auto;display:flex;gap:1.5rem;align-items:center;" id="staff-count-container">
+            <div>
+              <span style="font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;display:block;">Total Staff</span>
+              <span style="font-family:var(--serif);font-size:1.1rem;color:var(--gold);font-weight:600;" id="staff-count">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 1: Staff Directory -->
+        <div class="panel" id="staff-roster-panel">
+          <div class="panel-header"><div class="panel-title">Active Retreat Team & Staff</div></div>
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Specialization</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Joined</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="staff-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Tab 2: Payroll Calendar -->
+        <div id="staff-payroll-panel" style="display:none">
+          <div class="controls" style="background:var(--surface2); padding:1.25rem; border:1px solid var(--border); margin-bottom:1.5rem; gap:1.5rem">
+            <div class="fg" style="margin:0">
+              <label class="flbl">Select Month</label>
+              <input class="finp" type="month" id="payroll-month" onchange="renderPayrollCalendar()" style="width:180px">
+            </div>
+            <div style="margin-left:auto; display:flex; gap:2rem; align-items:center;">
+              <div>
+                <span style="font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;display:block;">Month's Payroll Total</span>
+                <span style="font-family:var(--serif);font-size:1.2rem;color:var(--red);font-weight:600;" id="payroll-total-paid">&#8377;0</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-header"><div class="panel-title" id="payroll-title">Payroll Status</div></div>
+            <table class="tbl">
+              <thead>
+                <tr>
+                  <th>Staff Member</th>
+                  <th>Role</th>
+                  <th>Standard Compensation</th>
+                  <th>Status</th>
+                  <th>Paid Date</th>
+                  <th>Amount</th>
+                  <th style="text-align:right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="payroll-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 3: Dashboard Access Users -->
+        <div id="staff-access-panel" style="display:none">
+          <div class="two-col">
+            <div class="panel" style="flex:1.2">
+              <div class="panel-header"><div class="panel-title">Dashboard Login Accounts</div></div>
+              <div class="panel-body-0">
+                <table class="tbl">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Username</th>
+                      <th>Role</th>
+                      <th>Created</th>
+                      <th style="text-align:right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="users-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="panel" style="flex:0.8">
+              <div class="panel-header"><div class="panel-title">Create Access Account</div></div>
+              <div class="panel-body">
+                <div class="fg">
+                  <label class="flbl">Full Name *</label>
+                  <input class="finp" id="ua-name" placeholder="Priya Sharma">
+                </div>
+                <div class="fg">
+                  <label class="flbl">Username *</label>
+                  <input class="finp" id="ua-username" placeholder="priya">
+                </div>
+                <div class="fg">
+                  <label class="flbl">Password *</label>
+                  <input class="finp" id="ua-password" type="password" placeholder="Reset@Trc26">
+                </div>
+                <button class="btn btn-primary" style="width:100%; justify-content:center" onclick="addDashboardUser()">Create Account</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Developer Tools Panel -->
+          <div class="panel" style="border: 1px dashed rgba(198,40,40,0.25); background: rgba(198,40,40,0.02)">
+            <div class="panel-header"><div class="panel-title" style="color:var(--red)">Developer Operations (Testing Tools)</div></div>
+            <div class="panel-body">
+              <p style="font-size:0.75rem; color:var(--muted); margin-bottom:1.2rem; line-height:1.5;">Use these buttons to instantly seed mock values for testing the dashboard's analytics, calendars, and templates, or reset everything to a blank slate (0) to test fresh website inquiry submissions.</p>
+              <div style="display:flex; gap:10px;">
+                <button class="btn btn-danger" onclick="resetDatabaseToZero()">Clear Database (Reset to 0)</button>
+                <button class="btn btn-secondary" onclick="loadDemoDatabase()">Load Demo Data</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODALS ===== -->
+
+<!-- MODAL: ADD/EDIT GUEST -->
+<div class="modal-overlay" id="m-guest" role="dialog" aria-modal="true" aria-labelledby="mg-title">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title" id="mg-title">Add Guest</div><button class="modal-close" onclick="closeModal('m-guest')">&#215;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="mg-id">
+      <div class="fg-grid">
+        <div class="fg"><label class="flbl">Full Name *</label><input class="finp" id="mg-name" placeholder="Priya Sharma"></div>
+        <div class="fg"><label class="flbl">Phone / WhatsApp *</label><input class="finp" id="mg-phone" placeholder="+91 98765 43210"></div>
+        <div class="fg"><label class="flbl">Email *</label><input class="finp" id="mg-email" type="email" placeholder="guest@email.com"></div>
+        <div class="fg"><label class="flbl">Age</label><input class="finp" id="mg-age" type="number" placeholder="32"></div>
+        <div class="fg"><label class="flbl">City</label><input class="finp" id="mg-city" placeholder="Delhi"></div>
+        <div class="fg"><label class="flbl">Dosha Type</label><select class="finp" id="mg-dosha"><option>Not assessed</option><option>Vata</option><option>Pitta</option><option>Kapha</option><option>Vata-Pitta</option><option>Pitta-Kapha</option><option>Vata-Kapha</option><option>Tridoshic</option></select></div>
+        <div class="fg"><label class="flbl">Status</label><select class="finp" id="mg-status"><option value="lead">Lead / Inquiry</option><option value="confirmed">Confirmed</option><option value="active">Active Guest</option><option value="past">Past Guest</option><option value="cancelled">Cancelled</option></select></div>
+        <div class="fg"><label class="flbl">Source</label><select class="finp" id="mg-source"><option>Website Enquiry</option><option>Instagram</option><option>Referral</option><option>Google</option><option>WhatsApp</option><option>Corporate</option></select></div>
+        <div class="fg fg-full"><label class="flbl">Health Notes / Prakriti Observations</label><textarea class="finp" id="mg-notes" placeholder="Dietary conditions, allergies, Prakriti diagnostic observations..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('m-guest')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveGuest()">Save Guest</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: VIEW GUEST -->
+<div class="modal-overlay" id="m-view-guest">
+  <div class="modal wide">
+    <div class="modal-head"><div class="modal-title" id="vg-name-title">Guest Profile</div><button class="modal-close" onclick="closeModal('m-view-guest')">&#215;</button></div>
+    <div class="modal-body" id="vg-body"></div>
+    <div class="modal-foot">
+      <button class="btn btn-danger btn-sm" id="vg-delete-btn">Delete Guest</button>
+      <button class="btn btn-secondary" onclick="closeModal('m-view-guest')">Close</button>
+      <button class="btn btn-primary" id="vg-edit-btn">Edit Details</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADD RETREAT -->
+<div class="modal-overlay" id="m-retreat">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title" id="mr-title">New Retreat</div><button class="modal-close" onclick="closeModal('m-retreat')">&#215;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="mr-id">
+      <div class="fg-grid">
+        <div class="fg fg-full"><label class="flbl">Retreat Name *</label><input class="finp" id="mr-name" placeholder="Monsoon Reset Batch 1"></div>
+        <div class="fg"><label class="flbl">Start Date</label><input class="finp" id="mr-start" type="date"></div>
+        <div class="fg"><label class="flbl">End Date</label><input class="finp" id="mr-end" type="date"></div>
+        <div class="fg fg-full">
+          <label class="flbl">Partner Hotel</label>
+          <select class="finp" id="mr-hotel"></select>
+        </div>
+        <div class="fg"><label class="flbl">Max Guests</label><input class="finp" id="mr-max" type="number" value="12"></div>
+        <div class="fg"><label class="flbl">Tier</label><select class="finp" id="mr-tier"><option>Essential</option><option selected>Signature</option><option>Premium</option><option>Corporate</option></select></div>
+        <div class="fg fg-full"><label class="flbl">Therapist</label><input class="finp" id="mr-therapist" placeholder="E.g. Mohan Thakur"></div>
+        <div class="fg"><label class="flbl">Status</label><select class="finp" id="mr-status"><option value="planning">Planning</option><option value="upcoming">Upcoming</option><option value="confirmed">Confirmed</option><option value="completed">Completed</option></select></div>
+        <div class="fg fg-full"><label class="flbl">Internal Notes</label><textarea class="finp" id="mr-notes" placeholder="Special program details..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('m-retreat')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveRetreat()">Save Retreat</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADD INVOICE -->
+<div class="modal-overlay" id="m-invoice">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title">New Invoice</div><button class="modal-close" onclick="closeModal('m-invoice')">&#215;</button></div>
+    <div class="modal-body">
+      <div class="fg-grid">
+        <div class="fg"><label class="flbl">Guest Name *</label><select class="finp" id="inv-guest"></select></div>
+        <div class="fg">
+          <label class="flbl">Package Plan *</label>
+          <select class="finp" id="inv-pkg" onchange="handlePackageSelectChange()">
+            <option value="" disabled selected>Select package...</option>
+            <option value="Weekend Reset : Essential" data-amount="12000">Weekend Reset : Essential (&#8377;12,000)</option>
+            <option value="Weekend Reset : Signature" data-amount="22000">Weekend Reset : Signature (&#8377;22,000)</option>
+            <option value="Weekend Reset : Premium" data-amount="35000">Weekend Reset : Premium (&#8377;35,000)</option>
+            <option value="Drop-in Yoga & Meditation Session" data-amount="1200">Drop-in Yoga & Meditation (&#8377;1,200)</option>
+            <option value="Drop-in Shatkarma Cleanse Session" data-amount="3000">Drop-in Shatkarma Cleanse (&#8377;3,000)</option>
+            <option value="Drop-in Ayurvedic Assessment" data-amount="2500">Drop-in Assessment (&#8377;2,500)</option>
+            <option value="Drop-in Ayurvedic Treatment Session" data-amount="4500">Drop-in Treatment (&#8377;4,500)</option>
+            <option value="Corporate Wellness Day" data-amount="0">Corporate Wellness (Custom)</option>
+          </select>
+        </div>
+        <div class="fg"><label class="flbl">Base Amount (&#8377;) *</label><input class="finp" id="inv-amt" type="number" placeholder="18000" oninput="updateGST()"></div>
+        <div class="fg"><label class="flbl">GST @ 18% (auto)</label><input class="finp" id="inv-gst" readonly style="opacity:0.5" placeholder="0"></div>
+        <div class="fg"><label class="flbl">Payment Method</label><select class="finp" id="inv-pay"><option>UPI</option><option>Bank Transfer</option><option>Cash</option></select></div>
+        <div class="fg"><label class="flbl">Status</label><select class="finp" id="inv-status"><option value="pending">Pending</option><option value="partial">Partial</option><option value="paid">Paid</option></select></div>
+        <div class="fg fg-full">
+          <label class="flbl">Linked Retreat</label>
+          <select class="finp" id="inv-retreat">
+            <option value="">None / No Linked Retreat</option>
+          </select>
+        </div>
+        <div class="fg fg-full"><label class="flbl">Invoice Notes</label><textarea class="finp" id="inv-notes" placeholder="Notes printed on invoice..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('m-invoice')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveInvoice()">Create Invoice</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: VIEW INVOICE (PRINT PREVIEW) -->
+<div class="modal-overlay" id="m-view-invoice">
+  <div class="modal wide">
+    <div class="modal-head"><div class="modal-title">Invoice Preview</div><button class="modal-close" onclick="closeModal('m-view-invoice')">&#215;</button></div>
+    <div class="modal-body" id="inv-preview"></div>
+    <div class="modal-foot">
+      <button class="btn btn-danger btn-sm" id="inv-delete-btn" style="margin-right:auto">Delete Invoice</button>
+      <button class="btn btn-secondary" onclick="closeModal('m-view-invoice')">Close</button>
+      <button class="btn btn-secondary" id="inv-share-btn">Copy Share Link</button>
+      <button class="btn btn-primary" onclick="printInvoice()">Print Invoice</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: COORDINATE BOOKING WITH HOTEL -->
+<div class="modal-overlay" id="m-coordinate">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">Coordinate Booking with Hotel</div>
+      <button class="modal-close" onclick="closeModal('m-coordinate')">&#215;</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg-grid">
+        <div class="fg fg-full">
+          <label class="flbl">Guest Name</label>
+          <input class="finp" id="coord-guest" readonly style="background:var(--surface2); opacity:0.8">
+        </div>
+        <div class="fg fg-full">
+          <label class="flbl">Select Retreat</label>
+          <select class="finp" id="coord-retreat" onchange="handleCoordSelection()"></select>
+        </div>
+        <div class="fg fg-full">
+          <label class="flbl">Select Hotel Partner</label>
+          <select class="finp" id="coord-hotel" onchange="handleCoordSelection()"></select>
+        </div>
+        <div class="fg fg-full" id="coord-hotel-info" style="font-size:0.75rem; color:var(--gold-d); background:var(--surface2); padding:0.6rem; border:1px solid var(--border); display:none; line-height:1.5;"></div>
+        <div class="fg fg-full">
+          <label class="flbl">Coordination Message</label>
+          <textarea class="finp" id="coord-message" rows="8" style="font-family:monospace; font-size:0.75rem; background:#0B2347; border:1px solid rgba(201,168,76,0.3); color:#fff;"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('m-coordinate')">Cancel</button>
+      <button class="btn btn-secondary" id="coord-copy-btn" onclick="copyCoordMessage()">Copy Message</button>
+      <a class="btn btn-primary" id="coord-wa-btn" target="_blank" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">WhatsApp Hotel</a>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADD EXPENSE -->
+<div class="modal-overlay" id="m-expense">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title">Log Expense</div><button class="modal-close" onclick="closeModal('m-expense')">&#215;</button></div>
+    <div class="modal-body">
+      <div class="fg-grid">
+        <div class="fg fg-full">
+          <label class="flbl">Expenditure Item *</label>
+          <select class="finp" id="exp-item-select" onchange="handleExpenseItemChange()">
+            <option value="" disabled selected>Select an expenditure item...</option>
+            <option value="Hotel Partner Payout" data-category="Hotel / Venue">Hotel Partner Payout</option>
+            <option value="Sattvic Catering & Meals" data-category="Meals">Sattvic Catering & Meals</option>
+            <option value="Therapist / Doctor Service Fees" data-category="Therapist Fees">Therapist / Doctor Service Fees</option>
+            <option value="Ayurvedic Oils & Consumables" data-category="Consumables">Ayurvedic Oils & Consumables</option>
+            <option value="Yoga & Meditation Props / Mats" data-category="Consumables">Yoga & Meditation Props / Mats</option>
+            <option value="Shatkarma Cleansing Kits" data-category="Consumables">Shatkarma Cleansing Kits</option>
+            <option value="Marketing & Social Media Ads" data-category="Marketing">Marketing & Social Media Ads</option>
+            <option value="Local Transport & Taxi Transfers" data-category="Transport">Local Transport & Taxi Transfers</option>
+            <option value="Legal, Permits & Licensing Fees" data-category="License / Legal">Legal, Permits & Licensing Fees</option>
+            <option value="Miscellaneous / Other" data-category="Other">Miscellaneous / Other (Enter custom description below)</option>
+          </select>
+        </div>
+        <div class="fg fg-full" id="exp-custom-name-container" style="display:none">
+          <label class="flbl">Custom Description *</label>
+          <input class="finp" id="exp-custom-name" placeholder="E.g. plumbing repair, printing brochures...">
+        </div>
+        <div class="fg"><label class="flbl">Amount (&#8377;) *</label><input class="finp" id="exp-amt" type="number" placeholder="40000"></div>
+        <div class="fg">
+          <label class="flbl">Category</label>
+          <select class="finp" id="exp-cat">
+            <option>Hotel / Venue</option>
+            <option>Meals</option>
+            <option>Therapist Fees</option>
+            <option>Consumables</option>
+            <option>Marketing</option>
+            <option>Transport</option>
+            <option>License / Legal</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="fg"><label class="flbl">Date</label><input class="finp" id="exp-date" type="date"></div>
+        <div class="fg">
+          <label class="flbl">Linked Retreat</label>
+          <select class="finp" id="exp-retreat">
+            <option value="">None / No Linked Retreat</option>
+          </select>
+        </div>
+        <div class="fg"><label class="flbl">Paid Via</label><select class="finp" id="exp-via"><option>UPI</option><option>Bank Transfer</option><option>Cash</option></select></div>
+        <div class="fg fg-full"><label class="flbl">Expense Notes</label><textarea class="finp" id="exp-notes" placeholder="Optional notes..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('m-expense')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveExpense()">Save Expense</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADD PARTNER -->
+<div class="modal-overlay" id="m-partner">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title" id="mp-title">Add Hotel Partner</div><button class="modal-close" onclick="closeModal('m-partner')">&#215;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="mp-id">
+      <div class="fg-grid">
+        <div class="fg fg-full"><label class="flbl">Hotel / Property Name *</label><input class="finp" id="mp-name" placeholder="The Cedar View Resort"></div>
+        <div class="fg"><label class="flbl">Location</label><input class="finp" id="mp-loc" placeholder="Dharamshala, HP"></div>
+        <div class="fg"><label class="flbl">Google Maps URL</label><input class="finp" id="mp-maps" placeholder="https://maps.app.goo.gl/..."></div>
+        <div class="fg"><label class="flbl">Contact Person</label><input class="finp" id="mp-contact" placeholder="Mr. Rajesh Sharma"></div>
+        <div class="fg"><label class="flbl">Phone Number *</label><input class="finp" id="mp-phone" placeholder="+91 98765 43210"></div>
+        <div class="fg"><label class="flbl">B2B Room Rate / Night (&#8377;)</label><input class="finp" id="mp-room" type="number" placeholder="2500"></div>
+        <div class="fg"><label class="flbl">Meal Rate / Guest / Day (&#8377;)</label><input class="finp" id="mp-meal" type="number" placeholder="700"></div>
+        <div class="fg"><label class="flbl">Session Space</label><select class="finp" id="mp-space"><option>Yes : Free</option><option>Yes : Charged</option><option>No</option></select></div>
+        <div class="fg"><label class="flbl">Contract Status</label><select class="finp" id="mp-contract"><option>Negotiating</option><option>Signed</option><option>Expired</option></select></div>
+        <div class="fg fg-full"><label class="flbl">Special Terms / Rates Notes</label><textarea class="finp" id="mp-notes" placeholder="Seasonal rates, special terms..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('m-partner')">Cancel</button>
+      <button class="btn btn-primary" onclick="savePartner()">Save Partner</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADD SUBSCRIPTION -->
+<div class="modal-overlay" id="m-sub">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title">Add Subscription</div><button class="modal-close" onclick="closeModal('m-sub')">&#215;</button></div>
+    <div class="modal-body">
+      <div class="fg-grid">
+        <div class="fg"><label class="flbl">Guest Name *</label><select class="finp" id="sub-guest"></select></div>
+        <div class="fg"><label class="flbl">Plan Name *</label><input class="finp" id="sub-plan" placeholder="Ayurvedic Lifestyle Coaching"></div>
+        <div class="fg"><label class="flbl">Monthly Fee (&#8377;) *</label><input class="finp" id="sub-fee" type="number" placeholder="3000"></div>
+        <div class="fg"><label class="flbl">Next Billing Date</label><input class="finp" id="sub-next" type="date"></div>
+        <div class="fg fg-full"><label class="flbl">Subscription Notes</label><textarea class="finp" id="sub-notes" placeholder="Dietary checks, weekly call schedules..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('m-sub')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveSub()">Save Subscription</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: ADD/EDIT STAFF -->
+<div class="modal-overlay" id="m-staff">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title" id="ms-title">Add Staff Member</div><button class="modal-close" onclick="closeModal('m-staff')">&#215;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="ms-id">
+      <div class="fg-grid">
+        <div class="fg fg-full"><label class="flbl">Full Name *</label><input class="finp" id="ms-name" placeholder="Dr. Pooja Sharma"></div>
+        <div class="fg"><label class="flbl">Role / Designation *</label>
+          <select class="finp" id="ms-role">
+            <option>Ayurvedic Doctor (BAMS)</option>
+            <option>Massage Therapist / Masseuse</option>
+            <option>Yoga Instructor</option>
+            <option>Shatkarma Kriya Expert</option>
+            <option>Ayurvedic Chef / Cook</option>
+            <option>Kitchen Assistant</option>
+            <option>Support & Logistics Staff</option>
+            <option>Wellness Coach</option>
+            <option>Consultant</option>
+          </select>
+        </div>
+        <div class="fg"><label class="flbl">Specialization / Skills</label><input class="finp" id="ms-skills" placeholder="Panchakarma, Hatha Yoga"></div>
+        <div class="fg"><label class="flbl">Phone Number *</label><input class="finp" id="ms-phone" placeholder="+91 99887 76655"></div>
+        <div class="fg"><label class="flbl">Email Address</label><input class="finp" id="ms-email" type="email" placeholder="staff@theresetco.in"></div>
+        <div class="fg"><label class="flbl">Joining Date</label><input class="finp" id="ms-join-date" type="date"></div>
+        <div class="fg"><label class="flbl">Status</label><select class="finp" id="ms-status"><option value="active">Active / On-duty</option><option value="inactive">Inactive / Off-duty</option></select></div>
+        <div class="fg fg-full"><label class="flbl">Compensation Terms *</label><input class="finp" id="ms-pay" placeholder="E.g. ₹3,000 per consultation day or ₹25,000 / month"></div>
+        <div class="fg fg-full"><label class="flbl">Internal Profile Notes</label><textarea class="finp" id="ms-notes" placeholder="Any internal notes..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('m-staff')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveStaff()">Save Staff Member</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODAL: RECORD PAYMENT -->
+<div class="modal-overlay" id="m-payment" role="dialog" aria-modal="true" aria-labelledby="mpay-title">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="mpay-title">Record Guest Payment</div>
+      <button class="modal-close" onclick="closeModal('m-payment')">&#215;</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg">
+        <label class="flbl">Select Guest / Booking *</label>
+        <select class="finp" id="mpay-guest" onchange="onPaymentGuestChange()">
+        </select>
+      </div>
+      <div class="fg-grid">
+        <div class="fg">
+          <label class="flbl">Payment Classification *</label>
+          <select class="finp" id="mpay-type" onchange="onPaymentTypeChange()">
+            <option value="deposit">30% Booking Deposit</option>
+            <option value="balance">70% Final Settlement</option>
+            <option value="full">100% Full Upfront Settlement</option>
+            <option value="addon">Ayurvedic Treatment Add-on (₹2,500)</option>
+            <option value="custom">Custom Amount</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="flbl">Amount (INR) *</label>
+          <input class="finp" id="mpay-amt" type="number" placeholder="26000">
+        </div>
+        <div class="fg">
+          <label class="flbl">Payment Gateway / Mode *</label>
+          <select class="finp" id="mpay-method">
+            <option value="UPI">UPI / QR Code (GPay, PhonePe, Paytm)</option>
+            <option value="Razorpay">Razorpay Gateway</option>
+            <option value="Stripe">Stripe International Card</option>
+            <option value="Bank Transfer">NEFT / IMPS Bank Transfer</option>
+            <option value="Cash">Cash on Arrival (Bir Billing)</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="flbl">Transaction Reference ID</label>
+          <input class="finp" id="mpay-ref" placeholder="E.g. UPI-92847192">
+        </div>
+        <div class="fg fg-full">
+          <label class="flbl">Payment Notes</label>
+          <input class="finp" id="mpay-notes" placeholder="E.g. Deposit for Awakening Suite (18-21 Jul 2026)">
+        </div>
+        <div class="fg fg-full" style="display:flex; align-items:center; gap:0.5rem; margin-top:0.25rem;">
+          <input type="checkbox" id="mpay-auto-confirm" checked style="accent-color:var(--gold);">
+          <label for="mpay-auto-confirm" style="font-size:0.75rem; color:var(--text); cursor:pointer;">Auto-advance booking to <strong>Confirmed</strong> upon receiving deposit</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('m-payment')">Cancel</button>
+      <button class="btn btn-primary" onclick="savePayment()">Record Payment &amp; Issue Receipt</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: WHATSAPP CONCIERGE -->
+<div class="modal-overlay" id="m-whatsapp" role="dialog" aria-modal="true" aria-labelledby="mwa-title">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="mwa-title">WhatsApp Concierge Dispatch</div>
+      <button class="modal-close" onclick="closeModal('m-whatsapp')">&#215;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="wa-guest-id">
+      <div class="fg-grid">
+        <div class="fg">
+          <label class="flbl">Guest Name</label>
+          <input class="finp" id="wa-guest-name" readonly style="background:var(--surface3);">
+        </div>
+        <div class="fg">
+          <label class="flbl">Recipient Phone</label>
+          <input class="finp" id="wa-guest-phone" readonly style="background:var(--surface3);">
+        </div>
+      </div>
+      <div class="fg">
+        <label class="flbl">Template Message</label>
+        <select class="finp" id="wa-template-sel" onchange="onWhatsAppTemplateChange()">
+          <option value="welcome">1. Enquiry Welcome &amp; Clinical Prakriti Assessment Link</option>
+          <option value="deposit">2. 30% Deposit Received &amp; Suite Reserved</option>
+          <option value="balance">3. Final Balance Settlement Reminder (14 Days Prior)</option>
+          <option value="travel">4. Himalayan Travel &amp; Bir Billing Logistics Guide</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="flbl">Editable Message Text</label>
+        <textarea class="finp" id="wa-msg-body" style="height:140px; font-size:0.78rem; line-height:1.5;"></textarea>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-secondary" onclick="closeModal('m-whatsapp')">Cancel</button>
+      <button class="btn btn-primary" onclick="dispatchWhatsAppMessage()" style="background:#25D366; color:white; border-color:#25D366;">
+        Launch WhatsApp &#8599;
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast">
+  <div class="t-dot" id="t-dot"></div>
+  <span id="t-msg">Success Message</span>
+</div>
+
+<script>
+// =============================================================================
+// 1. DATA SEEDING & LOCALSTORAGE LAYER
+// =============================================================================
+const DEFAULT_USERS = [
+  { id:'u1', username:'himanshu', password:'Reset@Trc25', role:'founder', name:'Dr. Himanshu Bhatt', createdAt:'2025-01-01' },
+  { id:'u2', username:'aditya', password:'Reset@Trc25', role:'founder', name:'Dr. Aditya Kaundal', createdAt:'2025-01-01' }
+];
+
+const DEFAULT_GUESTS = [
+  { id:'l001', name:'Priya Malhotra', email:'priya.m@gmail.com', phone:'+91 98765 43210', plan:'awakening', guests:2, dates:'18-21 Jul 2026', status:'confirmed', amount:52000, amountPaid:26000, depositPaid:true, dosha:'Vata-Pitta', city:'Delhi', source:'Instagram', notes:'Allergic to peanuts. Preferred room near yoga deck.', created:'2026-06-10' },
+  { id:'l002', name:'Arjun Sharma', email:'arjun.s@outlook.com', phone:'+91 87654 32109', plan:'transformation', guests:1, dates:'25-28 Jul 2026', status:'active', amount:35000, amountPaid:35000, depositPaid:true, dosha:'Pitta', city:'Mumbai', source:'Google', notes:'Back pain issues. Daily Kati Basti recommended.', created:'2026-06-12' },
+  { id:'l003', name:'Kavita Rao', email:'kavita.rao@gmail.com', phone:'+91 76543 21098', plan:'serenity', guests:2, dates:'05-07 Aug 2026', status:'lead', amount:44000, amountPaid:0, depositPaid:false, dosha:'Kapha', city:'Bangalore', source:'Referral', notes:'Inquired about airport shuttle services.', created:'2026-06-14' },
+  { id:'l004', name:'Ratan Mehta', email:'ratan.m@company.in', phone:'+91 65432 10987', plan:'corporate', guests:8, dates:'15-17 Aug 2026', status:'lead', amount:160000, amountPaid:40000, depositPaid:true, dosha:'Tridoshic', city:'Mumbai', source:'Corporate', notes:'Fintech firm executive group. Needs custom schedules.', created:'2026-06-15' },
+  { id:'l005', name:'Ananya Singh', email:'ananya@email.com', phone:'+91 54321 09876', plan:'serenity', guests:1, dates:'22-24 Jul 2026', status:'past', amount:22000, amountPaid:22000, depositPaid:true, dosha:'Vata', city:'Chandigarh', source:'Website Enquiry', notes:'Loved the June retreat. Returning for digestive cleansing.', created:'2026-06-01' }
+];
+
+const DEFAULT_RETREATS = [
+  { id:'r1', name:'Monsoon Reset : Batch 1', start:'2026-07-18', end:'2026-07-21', hotel:'p1', max:12, tier:'Signature', therapist:'Mohan Thakur', status:'confirmed', notes:'Includes outdoor pottery workshop on Day 2.' },
+  { id:'r2', name:'Transformation Intensive', start:'2026-07-25', end:'2026-07-28', hotel:'p2', max:8, tier:'Premium', therapist:'Dr. Pooja Sharma', status:'upcoming', notes:'Focus on basti treatments and gut restoration.' },
+  { id:'r3', name:'Corporate Alignment Camp', start:'2026-08-15', end:'2026-08-17', hotel:'p1', max:15, tier:'Corporate', therapist:'Mohan Thakur', status:'planning', notes:'Tailored dietary plans for executive groups.' }
+];
+
+const DEFAULT_PARTNERS = [
+  { id:'p1', name:'The Cedar View Resort', loc:'Bir Billing, HP', maps:'https://maps.app.goo.gl/cedarview', contact:'Mr. Rajesh Sharma', phone:'+91 98765 43210', room:2800, meal:750, space:'Yes : Free', contract:'Signed', notes:'Special offseason rates applicable from Sep-Oct.' },
+  { id:'p2', name:'Camp Oak Forest', loc:'Billing Valley, HP', maps:'https://maps.app.goo.gl/oakforest', contact:'Mr. Anil Katoch', phone:'+91 87654 32109', room:2200, meal:600, space:'Yes : Charged', contract:'Signed', notes:'Glamping tents with bonfire facilities.' }
+];
+
+const DEFAULT_INVOICES = [
+  { id:'inv_001', guestId:'l001', guestName:'Priya Malhotra', package:'Weekend Reset : Signature', amount:22000, gst:3960, payMethod:'UPI', status:'paid', retreatId:'r1', notes:'First payment installment for retreat.', date:'2026-06-11' },
+  { id:'inv_002', guestId:'l002', guestName:'Arjun Sharma', package:'Weekend Reset : Premium', amount:35000, gst:6300, payMethod:'Bank Transfer', status:'paid', retreatId:'r2', notes:'Full payout.', date:'2026-06-12' },
+  { id:'inv_003', guestId:'l004', guestName:'Ratan Mehta', package:'Corporate Wellness Day', amount:40000, gst:7200, payMethod:'Bank Transfer', status:'partial', retreatId:'r3', notes:'25% advance booking fee.', date:'2026-06-15' }
+];
+
+const DEFAULT_EXPENSES = [
+  { id:'e1', date:'2026-07-01', category:'Hotel / Venue', description:'Advance booking payout to The Cedar View Resort', amount:45000, addedBy:'himanshu', retreatId:'r1', via:'Bank Transfer', notes:'' },
+  { id:'e2', date:'2026-07-02', category:'Consumables', description:'Purchase of Ayurvedic massage oils & Shatkarma kits', amount:6800, addedBy:'aditya', retreatId:'r1', via:'UPI', notes:'' },
+  { id:'e3', date:'2026-07-05', category:'Marketing', description:'Instagram sponsor ads campaign', amount:5000, addedBy:'himanshu', retreatId:'', via:'UPI', notes:'' }
+];
+
+const DEFAULT_SUBS = [
+  { id:'s1', guestId:'l001', guestName:'Priya Malhotra', plan:'Ayurvedic Lifestyle Coaching', fee:3000, nextBilling:'2026-08-01', status:'Active', notes:'Weekly online consultations.' },
+  { id:'s2', guestId:'l002', guestName:'Arjun Sharma', plan:'Post-Retreat Yoga Supervision', fee:2500, nextBilling:'2026-08-05', status:'Active', notes:'Bi-weekly posture alignments.' }
+];
+
+const DEFAULT_STAFF = [
+  { id:'st1', name:'Dr. Pooja Sharma', role:'Ayurvedic Doctor (BAMS)', skills:'Panchakarma & Nadi Pariksha', phone:'+91 99887 76655', email:'pooja@theresetco.in', joined:'2026-02-01', status:'active', pay:'₹3,000 per consultation day', notes:'Visits on alternate days.' },
+  { id:'st2', name:'Mohan Thakur', role:'Massage Therapist / Masseuse', skills:'Abhyanga & Elakizhi Massage', phone:'+91 88776 65544', email:'mohan@theresetco.in', joined:'2026-01-15', status:'active', pay:'₹1,200 per session', notes:'Highly rated by guests.' },
+  { id:'st3', name:'Suresh Ram', role:'Ayurvedic Chef / Cook', skills:'Sattvic Organic Diet Cookery', phone:'+91 77665 54433', email:'suresh@theresetco.in', joined:'2026-03-01', status:'active', pay:'₹25,000 / month', notes:'Manages kitchen logistics.' }
+];
+
+const DEFAULT_PAYROLL = [
+  { id:'pr1', staffId:'st3', name:'Suresh Ram', role:'Ayurvedic Chef / Cook', terms:'₹25,000 / month', status:'Paid', paidOn:'2026-06-05', amount:25000, month:'2026-05' },
+  { id:'pr2', staffId:'st2', name:'Mohan Thakur', role:'Massage Therapist / Masseuse', terms:'₹1,200 per session', status:'Paid', paidOn:'2026-06-05', amount:9600, month:'2026-05' },
+  { id:'pr3', staffId:'st1', name:'Dr. Pooja Sharma', role:'Ayurvedic Doctor (BAMS)', terms:'₹3,000 per consultation day', status:'Unpaid', paidOn:'', amount:18000, month:'2026-05' }
+];
+
+function seedData() {
+  const seeds = [
+    ['trc_users', DEFAULT_USERS], ['trc_leads', DEFAULT_GUESTS],
+    ['trc_retreats', DEFAULT_RETREATS], ['trc_partners', DEFAULT_PARTNERS],
+    ['trc_invoices', DEFAULT_INVOICES], ['trc_expenses', DEFAULT_EXPENSES],
+    ['trc_subs', DEFAULT_SUBS], ['trc_staff', DEFAULT_STAFF],
+    ['trc_payroll', DEFAULT_PAYROLL],
+    ['trc_prices', { serenity: 22000, awakening: 26000, transformation: 35000 }]
+  ];
+  seeds.forEach(([k, v]) => { if (!localStorage.getItem(k)) localStorage.setItem(k, JSON.stringify(v)); });
+}
+
+
+function getData(key) { return JSON.parse(localStorage.getItem(key) || '[]'); }
+function saveData(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+// =============================================================================
+// 2. SESSION (passwordless — founders only device)
+// =============================================================================
+const currentSession = { username: 'aditya', role: 'founder', name: 'Dr. Aditya Kaundal' };
+const isFounder = () => true;
+
+function doLogout() { location.reload(); }
+
+// =============================================================================
+// 3. APP NAVIGATION & STARTUP
+// =============================================================================
+function launchApp() {
+  // Set User Details
+  document.getElementById('s-name').textContent = currentSession.name;
+  document.getElementById('s-avatar').textContent = initials(currentSession.name);
+  document.getElementById('s-role').textContent = 'Co-Founder';
+
+  // Date Display
+  document.getElementById('top-date').textContent = new Date().toLocaleDateString('en-IN', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+  });
+
+  // Founders see all
+  ['nav-overview','nav-expenses','nav-subscriptions','nav-staff'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'flex';
+  });
+  ['lbl-finance','lbl-team'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'block';
+  });
+  ['btn-new-retreat','btn-add-partner'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'inline-flex';
+  });
+
+  nav('overview', document.getElementById('nav-overview'));
+}
+
+
+function nav(pageName, el) {
+  // Page toggle
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const targetPage = document.getElementById('page-' + pageName);
+  if (targetPage) targetPage.classList.add('active');
+  
+  // Active nav style
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  
+  // Title update
+  document.getElementById('page-title').textContent = el ? el.textContent.replace(/[^\w\s\-\&]/g, '').trim() : pageName;
+  
+  // Populate current active section
+  if (pageName === 'overview') { renderOverview(); renderBatchCapacity(); }
+  if (pageName === 'guests') renderGuests();
+  if (pageName === 'retreats') renderRetreats();
+  if (pageName === 'billing') renderPayments();
+  if (pageName === 'expenses') renderExpenses();
+  if (pageName === 'partners') renderPartners();
+  if (pageName === 'subscriptions') renderSubscriptions();
+  if (pageName === 'staff') switchStaffTab('roster', document.querySelector('.pill-tabs .pill-tab'));
+}
+
+// =============================================================================
+// 4. FORMATTING & CORE UI HELPERS
+// =============================================================================
+function initials(name) { return name.split(' ').filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+function fmt(num) { return (Number(num) || 0).toLocaleString('en-IN'); }
+function cap(str) { return str ? str.charAt(0).toUpperCase() + str.slice(1) : ''; }
+
+function planLabel(p) {
+  const m = { serenity:'Serenity Reset', awakening:'Awakening Reset', transformation:'Transformation Reset', dropin:'Drop-in Class', corporate:'Corporate Day', unsure:'Unsure' };
+  return m[p] || cap(p);
+}
+
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  const d = document.getElementById('t-dot');
+  document.getElementById('t-msg').textContent = msg;
+  t.className = isError ? 'toast show error' : 'toast show';
+  d.className = isError ? 't-dot red' : 't-dot';
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// Handle invoice package selection change
+function handlePackageSelectChange() {
+  const sel = document.getElementById('inv-pkg');
+  const opt = sel.options[sel.selectedIndex];
+  const baseAmt = parseFloat(opt.getAttribute('data-amount')) || 0;
+  document.getElementById('inv-amt').value = baseAmt;
+  updateGST();
+}
+
+function updateGST() {
+  const base = parseFloat(document.getElementById('inv-amt').value) || 0;
+  document.getElementById('inv-gst').value = Math.round(base * 0.18);
+}
+
+// =============================================================================
+// 5. RENDERING - OVERVIEW PAGE
+// =============================================================================
+function renderOverview() {
+  if (!isFounder()) return;
+  renderBatchCapacity();
+  const leads = getData('trc_leads');
+  const expenses = getData('trc_expenses');
+  const payroll = getData('trc_payroll');
+  
+  // Calculate Totals
+  const revenue = leads.reduce((s,l) => s + (l.amountPaid || 0), 0);
+  const totalExp = expenses.reduce((s,e) => s + (e.amount || 0), 0);
+  const totalPayroll = payroll.filter(p=>p.status==='Paid').reduce((s,p) => s + (p.amount || 0), 0);
+  const netProfit = revenue - (totalExp + totalPayroll);
+  const pendingLeads = leads.filter(l => l.status === 'lead').length;
+  const activeSeats = leads.filter(l => ['confirmed', 'active'].includes(l.status)).reduce((s,l) => s + (l.guests || 1), 0);
+  
+  const container = document.getElementById('stats-grid');
+  container.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Total Revenue</div>
+      <div class="stat-val">&#8377;${fmt(revenue)}</div>
+      <div class="stat-sub">Paid bookings received</div>
+    </div>
+    <div class="stat-card ${netProfit >= 0 ? 'green' : 'red'}">
+      <div class="stat-label">Net Profit</div>
+      <div class="stat-val">&#8377;${fmt(netProfit)}</div>
+      <div class="stat-sub">Revenue minus overheads</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-label">Confirmed Seats</div>
+      <div class="stat-val">${activeSeats}</div>
+      <div class="stat-sub">Active & confirmed guests</div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-label">Pending Enquiries</div>
+      <div class="stat-val">${pendingLeads}</div>
+      <div class="stat-sub">New leads to respond</div>
+    </div>
+  `;
+  
+  // Render Plan Revenue Chart
+  const plans = ['serenity', 'awakening', 'transformation', 'corporate', 'dropin'];
+  const planNames = ['Serenity', 'Awakening', 'Transformation', 'Corporate', 'Drop-in'];
+  const planRev = plans.map(p => leads.filter(l => l.plan === p).reduce((s,l) => s + (l.amountPaid || 0), 0));
+  const maxRev = Math.max(...planRev, 1);
+  
+  const chart = document.getElementById('rev-chart');
+  const labels = document.getElementById('bar-labels');
+  
+  chart.innerHTML = planRev.map((rev, i) => {
+    const pct = Math.max(5, (rev / maxRev) * 100);
+    return `
+      <div class="rev-bar" style="height:${pct}%">
+        <div class="rev-tip">&#8377;${fmt(rev)}</div>
+      </div>
+    `;
+  }).join('');
+  
+  labels.innerHTML = planNames.map(name => `
+    <div class="bar-lbl">${name}</div>
+  `).join('');
+  
+  // Render Recent Activity Logs
+  const actContainer = document.getElementById('recent-activity');
+  const logs = [];
+  
+  // Compile leads added recently
+  leads.slice(0, 5).forEach(l => {
+    logs.push({
+      text: `Guest <strong>${l.name}</strong> (${planLabel(l.plan)}) added from ${l.source}.`,
+      date: new Date(l.created || Date.now()),
+      icon: 'ico-gold',
+      iconChar: '◈'
+    });
+  });
+  
+  // Compile expenses added recently
+  expenses.slice(0, 3).forEach(e => {
+    logs.push({
+      text: `Logged expenditure of <strong>&#8377;${fmt(e.amount)}</strong> under <em>${e.category}</em> (${e.description}).`,
+      date: new Date(e.created || Date.now()),
+      icon: 'ico-red',
+      iconChar: '↓'
+    });
+  });
+
+  // Sort and display
+  logs.sort((a,b) => b.date - a.date);
+  if (!logs.length) {
+    actContainer.innerHTML = '<div class="tbl-empty">No recent operations.</div>';
+    return;
+  }
+  
+  actContainer.innerHTML = logs.slice(0, 5).map(l => {
+    const timeDiff = Math.round((Date.now() - l.date) / 60000);
+    const timeStr = timeDiff < 1 ? 'Just now' : (timeDiff < 60 ? `${timeDiff}m ago` : `${Math.round(timeDiff/60)}h ago`);
+    return `
+      <div class="act-item" style="padding: 0.8rem 1.25rem;">
+        <div class="act-ico ${l.icon}">${l.iconChar}</div>
+        <div>
+          <div class="act-text">${l.text}</div>
+          <div class="act-time">${timeStr}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// =============================================================================
+// 6. RENDERING - GUEST DATABASE PAGE
+// =============================================================================
+let activeRetreatFilter = 'all';
+let activePipelineStage = 'all';
+let activePaymentsTab = 'txns';
+
+function filterBookingsPipeline(stage, btn) {
+  activePipelineStage = stage;
+  document.querySelectorAll('#booking-funnel-tabs .pill-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderGuests();
+}
+
+function switchPaymentsTab(tab, btn) {
+  activePaymentsTab = tab;
+  document.querySelectorAll('#payments-tabs .pill-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  
+  const pTxns = document.getElementById('panel-txns');
+  const pPending = document.getElementById('panel-pending-balances');
+  const pInvoices = document.getElementById('panel-invoices-log');
+  if (pTxns) pTxns.style.display = tab === 'txns' ? 'block' : 'none';
+  if (pPending) pPending.style.display = tab === 'pending' ? 'block' : 'none';
+  if (pInvoices) pInvoices.style.display = tab === 'invoices' ? 'block' : 'none';
+  
+  renderPayments();
+}
+
+function renderGuests() {
+  const leads = getData('trc_leads');
+  const q = (document.getElementById('g-search') ? document.getElementById('g-search').value : '').toLowerCase();
+  const tbody = document.getElementById('g-tbody');
+  if (!tbody) return;
+
+  // Calculate funnel counts
+  const countAll = leads.filter(l => l.status !== 'cancelled').length;
+  const countIncoming = leads.filter(l => ['lead', 'new', 'pending'].includes(l.status)).length;
+  const countDosha = leads.filter(l => Boolean(l.dosha && l.dosha !== 'Not assessed')).length;
+  const countDeposit = leads.filter(l => l.depositPaid && (l.amountPaid || 0) < (l.amount || 26000)).length;
+  const countConfirmed = leads.filter(l => ['confirmed', 'paid'].includes(l.status)).length;
+  const countActive = leads.filter(l => l.status === 'active').length;
+  const countPast = leads.filter(l => ['past', 'completed'].includes(l.status)).length;
+
+  if (document.getElementById('count-all')) document.getElementById('count-all').textContent = countAll;
+  if (document.getElementById('count-incoming')) document.getElementById('count-incoming').textContent = countIncoming;
+  if (document.getElementById('count-dosha')) document.getElementById('count-dosha').textContent = countDosha;
+  if (document.getElementById('count-deposit')) document.getElementById('count-deposit').textContent = countDeposit;
+  if (document.getElementById('count-confirmed')) document.getElementById('count-confirmed').textContent = countConfirmed;
+  if (document.getElementById('count-active')) document.getElementById('count-active').textContent = countActive;
+  if (document.getElementById('count-past')) document.getElementById('count-past').textContent = countPast;
+
+  const sideInqBadge = document.getElementById('side-inquiries-badge');
+  if (sideInqBadge) {
+    sideInqBadge.textContent = countIncoming;
+    sideInqBadge.style.display = countIncoming > 0 ? 'inline-block' : 'none';
+  }
+
+  let filtered = leads.filter(l => {
+    const matchesQ = !q || l.name.toLowerCase().includes(q) || (l.phone && l.phone.includes(q)) || (l.plan && l.plan.toLowerCase().includes(q)) || (l.city && l.city.toLowerCase().includes(q));
+    if (!matchesQ) return false;
+
+    if (activePipelineStage === 'all') return l.status !== 'cancelled';
+    if (activePipelineStage === 'incoming') return ['lead', 'new', 'pending'].includes(l.status);
+    if (activePipelineStage === 'dosha') return Boolean(l.dosha && l.dosha !== 'Not assessed');
+    if (activePipelineStage === 'deposit') return l.depositPaid && (l.amountPaid || 0) < (l.amount || 26000);
+    if (activePipelineStage === 'confirmed') return ['confirmed', 'paid'].includes(l.status);
+    if (activePipelineStage === 'active') return l.status === 'active';
+    if (activePipelineStage === 'past') return ['past', 'completed'].includes(l.status);
+    return true;
+  });
+
+  const countBadge = document.getElementById('g-count');
+  if (countBadge) countBadge.textContent = filtered.length;
+
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="tbl-empty">No matching bookings found in this pipeline stage.</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(l => {
+    const total = l.amount || (l.plan === 'transformation' ? 35000 : (l.plan === 'serenity' ? 22000 : 26000));
+    const paid = l.amountPaid || 0;
+    const balance = Math.max(0, total - paid);
+    const isFull = paid >= total && total > 0;
+    const isDeposit = l.depositPaid && !isFull;
+
+    let doshaTag = '<span style="color:var(--dim); font-size:0.7rem;">Not Assessed</span>';
+    if (l.dosha && l.dosha !== 'Not assessed') {
+      const dLower = l.dosha.toLowerCase();
+      let dClass = 'tri';
+      if (dLower.includes('vata')) dClass = 'vata';
+      else if (dLower.includes('pitta')) dClass = 'pitta';
+      else if (dLower.includes('kapha')) dClass = 'kapha';
+      doshaTag = `<span class="dosha-tag ${dClass}">${l.dosha}</span>`;
+    }
+
+    let payPill = `<span class="pay-pill pending">Pending</span>`;
+    if (isFull) payPill = `<span class="pay-pill full">Paid Full</span>`;
+    else if (isDeposit) payPill = `<span class="pay-pill deposit">Deposit 30%</span>`;
+
+    let stageBadge = `<span class="badge badge-gold">Incoming Lead</span>`;
+    if (l.status === 'active') stageBadge = `<span class="badge badge-green">In-Sanctuary</span>`;
+    else if (l.status === 'past' || l.status === 'completed') stageBadge = `<span class="badge badge-dim">Alumni</span>`;
+    else if (isFull) stageBadge = `<span class="badge badge-green">Confirmed (Full)</span>`;
+    else if (isDeposit) stageBadge = `<span class="badge badge-blue">Deposit Paid</span>`;
+
+    const nextStageBtn = (l.status === 'lead' || l.status === 'new') 
+      ? `<button class="btn btn-secondary btn-sm" onclick="advanceGuestStage('${l.id}', 'confirmed')" title="Confirm Booking" style="margin-left:0.25rem;">Confirm</button>`
+      : (l.status === 'confirmed' ? `<button class="btn btn-secondary btn-sm" onclick="advanceGuestStage('${l.id}', 'active')" title="Check in to Sanctuary" style="margin-left:0.25rem;">Check In</button>` 
+      : (l.status === 'active' ? `<button class="btn btn-secondary btn-sm" onclick="advanceGuestStage('${l.id}', 'past')" title="Mark Completed" style="margin-left:0.25rem;">Complete</button>` : ''));
+
+    const deleteBtn = isFounder() ? `<button class="btn btn-secondary btn-sm btn-danger" onclick="deleteGuest('${l.id}', event)" style="margin-left:0.25rem;" title="Delete Record">&#128465;</button>` : '';
+
+    return `
+      <tr>
+        <td>
+          <div class="av-cell">
+            <div class="av">${initials(l.name)}</div>
+            <div>
+              <div class="tbl-name">${l.name}</div>
+              <div class="tbl-sub">${l.phone || 'No phone'} &bull; <span style="text-transform:uppercase; font-size:0.6rem; color:var(--gold);">${l.source || 'Website'}</span></div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div style="font-weight:500; font-size:0.8rem; color:var(--royal-deep);">${planLabel(l.plan)}</div>
+          <div class="tbl-sub">${l.dates || 'Flexible'} &bull; ${l.guests || 1} guest(s)</div>
+        </td>
+        <td>${doshaTag}</td>
+        <td>
+          <div style="font-family:var(--serif); font-size:0.95rem; font-weight:600; color:var(--royal-deep);">₹${fmt(paid)} <span style="font-size:0.7rem; font-weight:400; color:var(--muted);">/ ₹${fmt(total)}</span></div>
+          <div style="display:flex; align-items:center; gap:0.4rem; margin-top:2px;">
+            ${payPill}
+            ${balance > 0 ? `<span style="font-size:0.64rem; color:var(--red); font-weight:500;">Due: ₹${fmt(balance)}</span>` : ''}
+          </div>
+        </td>
+        <td>${stageBadge}</td>
+        <td class="tbl-sub">${new Date(l.created || Date.now()).toLocaleDateString('en-IN', {day:'2-digit', month:'short'})}</td>
+        <td style="text-align:right;">
+          <div style="display:inline-flex; align-items:center;">
+            <button class="btn btn-primary btn-sm" onclick="openRecordPayment('${l.id}')" title="Record payment" style="padding:0.25rem 0.55rem; font-size:0.65rem;">+ Pay</button>
+            <button class="btn btn-secondary btn-sm" onclick="openWhatsAppModal('${l.id}')" title="WhatsApp Concierge" style="margin-left:0.25rem; padding:0.25rem 0.5rem; font-size:0.65rem; color:#25D366; border-color:rgba(37,211,102,0.3);">💬 WA</button>
+            <button class="btn btn-secondary btn-sm" onclick="openGuestProfile('${l.id}')" style="margin-left:0.25rem; padding:0.25rem 0.5rem; font-size:0.65rem;">Profile</button>
+            ${nextStageBtn}
+            ${deleteBtn}
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function openAddGuest() {
+  document.getElementById('mg-title').textContent = 'Add Guest Profile';
+  document.getElementById('mg-id').value = '';
+  document.getElementById('mg-name').value = '';
+  document.getElementById('mg-phone').value = '';
+  document.getElementById('mg-email').value = '';
+  document.getElementById('mg-age').value = '';
+  document.getElementById('mg-city').value = '';
+  document.getElementById('mg-dosha').value = 'Not assessed';
+  document.getElementById('mg-status').value = 'lead';
+  document.getElementById('mg-source').value = 'Website Enquiry';
+  document.getElementById('mg-notes').value = '';
+  openModal('m-guest');
+}
+
+function saveGuest() {
+  const name = document.getElementById('mg-name').value.trim();
+  const phone = document.getElementById('mg-phone').value.trim();
+  const email = document.getElementById('mg-email').value.trim();
+  if (!name || !phone || !email) { showToast('Name, email and phone are mandatory fields', true); return; }
+  
+  const leads = getData('trc_leads');
+  const id = document.getElementById('mg-id').value;
+  
+  if (id) {
+    // Edit Mode
+    const idx = leads.findIndex(l => l.id === id);
+    if (idx >= 0) {
+      leads[idx].name = name;
+      leads[idx].phone = phone;
+      leads[idx].email = email;
+      leads[idx].age = document.getElementById('mg-age').value;
+      leads[idx].city = document.getElementById('mg-city').value;
+      leads[idx].dosha = document.getElementById('mg-dosha').value;
+      leads[idx].status = document.getElementById('mg-status').value;
+      leads[idx].source = document.getElementById('mg-source').value;
+      leads[idx].notes = document.getElementById('mg-notes').value;
+    }
+  } else {
+    // Add Mode
+    leads.unshift({
+      id: 'g_' + Date.now(),
+      name, phone, email,
+      age: document.getElementById('mg-age').value,
+      city: document.getElementById('mg-city').value,
+      dosha: document.getElementById('mg-dosha').value,
+      status: document.getElementById('mg-status').value,
+      source: document.getElementById('mg-source').value,
+      notes: document.getElementById('mg-notes').value,
+      plan: 'unsure',
+      amount: 0,
+      amountPaid: 0,
+      depositPaid: false,
+      created: new Date().toISOString()
+    });
+  }
+  
+  saveData('trc_leads', leads);
+  closeModal('m-guest');
+  renderGuests();
+  showToast('Guest profile saved successfully.');
+}
+
+function deleteGuest(id, e) {
+  if (e) e.stopPropagation();
+  if (!confirm('Are you sure you want to permanently delete this guest?')) return;
+  
+  const leads = getData('trc_leads').filter(l => l.id !== id);
+  saveData('trc_leads', leads);
+  renderGuests();
+  showToast('Guest record deleted.');
+}
+
+// =============================================================================
+// 7. GUEST PROFILE DETAIL DRAWER
+// =============================================================================
+function openGuestProfile(id) {
+  const leads = getData('trc_leads');
+  const g = leads.find(l => l.id === id);
+  if (!g) return;
+  
+  document.getElementById('vg-name-title').textContent = g.name;
+  
+  // Fetch linked retreat and invoices
+  const retreats = getData('trc_retreats');
+  const invoices = getData('trc_invoices').filter(i => i.guestId === id);
+  
+  const linkedRet = retreats.find(r => r.id === g.linkedRetreat);
+  const retreatText = linkedRet ? `<strong>${linkedRet.name}</strong> (${new Date(linkedRet.start).toLocaleDateString('en-IN')} to ${new Date(linkedRet.end).toLocaleDateString('en-IN')})` : '<span style="color:var(--dim)">No linked retreat.</span>';
+  
+  // Setup Actions
+  document.getElementById('vg-edit-btn').onclick = () => {
+    closeModal('m-view-guest');
+    document.getElementById('mg-title').textContent = 'Edit Guest Profile';
+    document.getElementById('mg-id').value = g.id;
+    document.getElementById('mg-name').value = g.name;
+    document.getElementById('mg-phone').value = g.phone || '';
+    document.getElementById('mg-email').value = g.email || '';
+    document.getElementById('mg-age').value = g.age || '';
+    document.getElementById('mg-city').value = g.city || '';
+    document.getElementById('mg-dosha').value = g.dosha || 'Not assessed';
+    document.getElementById('mg-status').value = g.status || 'lead';
+    document.getElementById('mg-source').value = g.source || 'Website Enquiry';
+    document.getElementById('mg-notes').value = g.notes || '';
+    openModal('m-guest');
+  };
+  
+  const deleteBtn = document.getElementById('vg-delete-btn');
+  if (isFounder()) {
+    deleteBtn.style.display = 'inline-flex';
+    deleteBtn.onclick = () => {
+      closeModal('m-view-guest');
+      deleteGuest(g.id);
+    };
+  } else {
+    deleteBtn.style.display = 'none';
+  }
+  
+  // Render profile panels
+  const invRows = invoices.map(i => `
+    <tr>
+      <td>#${i.id.substring(0, 6)}</td>
+      <td>${planLabel(g.plan)}</td>
+      <td>&#8377;${fmt(i.amount + i.gst)}</td>
+      <td><span class="badge ${i.status==='paid'?'badge-green':'badge-gold'}">${cap(i.status)}</span></td>
+      <td>${i.date}</td>
+    </tr>
+  `).join('') || '<tr><td colspan="5" class="tbl-sub" style="text-align:center; padding:1.5rem">No invoice records.</td></tr>';
+
+  let financialsPanel = '';
+  if (isFounder()) {
+    financialsPanel = `
+      <div style="background:var(--surface2); padding:1rem; border:1px solid var(--border); margin-top:1.5rem">
+        <h4 style="font-family:var(--serif); font-size:0.9rem; color:var(--text); margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.05em">Retreat Financials</h4>
+        <div class="fg-grid">
+          <div><label class="flbl">Amount Due</label><div style="font-family:var(--serif); font-size:1.3rem">&#8377;${fmt(g.amount)}</div></div>
+          <div><label class="flbl">Amount Paid</label><div style="font-family:var(--serif); font-size:1.3rem; color:var(--green)">&#8377;${fmt(g.amountPaid)}</div></div>
+        </div>
+      </div>
+    `;
+  }
+  
+  document.getElementById('vg-body').innerHTML = `
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem">
+      <div>
+        <h4 style="font-family:var(--serif); font-size:0.9rem; color:var(--text); border-bottom:1px solid var(--border2); padding-bottom:0.4rem; margin-bottom:0.85rem; text-transform:uppercase; letter-spacing:0.05em">Personal & Health Details</h4>
+        <div style="display:grid; gap:0.6rem; font-size:0.78rem">
+          <div><span style="color:var(--dim)">WhatsApp:</span> ${g.phone}</div>
+          <div><span style="color:var(--dim)">Email:</span> ${g.email}</div>
+          <div><span style="color:var(--dim)">Age / City:</span> ${g.age || 'Unknown'} / ${g.city || 'Unknown'}</div>
+          <div><span style="color:var(--dim)">Prakriti Dosha:</span> <span style="font-weight:600; color:var(--gold-d)">${g.dosha || 'Not assessed'}</span></div>
+          <div><span style="color:var(--dim)">Lead Source:</span> ${g.source}</div>
+          <div><span style="color:var(--dim)">Current Status:</span> ${cap(g.status)}</div>
+        </div>
+        ${financialsPanel}
+      </div>
+      <div>
+        <h4 style="font-family:var(--serif); font-size:0.9rem; color:var(--text); border-bottom:1px solid var(--border2); padding-bottom:0.4rem; margin-bottom:0.85rem; text-transform:uppercase; letter-spacing:0.05em">Health Notes / Observations</h4>
+        <div style="font-size:0.78rem; background:rgba(201,168,76,0.04); border:1px solid var(--border); padding:1rem; min-height:100px; color:var(--muted); line-height:1.6; margin-bottom:1rem">
+          ${g.notes ? g.notes.replace(/\n/g, '<br>') : '<em style="color:var(--dim)">No diagnostic observations recorded.</em>'}
+        </div>
+        <div><span style="color:var(--dim)">Linked Retreat:</span> ${retreatText}</div>
+      </div>
+    </div>
+    
+    <div style="margin-top:2rem">
+      <h4 style="font-family:var(--serif); font-size:0.9rem; color:var(--text); border-bottom:1px solid var(--border2); padding-bottom:0.4rem; margin-bottom:0.85rem; text-transform:uppercase; letter-spacing:0.05em">Guest Communication Templates</h4>
+      <div style="display:flex; gap:0.5rem; margin-bottom:1.5rem">
+        <button class="btn btn-secondary" onclick="sendMailConfirmation('${g.id}')">✉ Confirmation Email</button>
+        <button class="btn btn-secondary" onclick="sendWhatsAppConfirmation('${g.id}')">💬 WhatsApp Confirmation</button>
+      </div>
+    </div>
+
+    <div style="margin-top:1.5rem">
+      <h4 style="font-family:var(--serif); font-size:0.9rem; color:var(--text); border-bottom:1px solid var(--border2); padding-bottom:0.4rem; margin-bottom:0.85rem; text-transform:uppercase; letter-spacing:0.05em">Invoices & Billing History</h4>
+      <table class="tbl" style="background:#fff">
+        <thead>
+          <tr>
+            <th>Invoice</th>
+            <th>Description</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${invRows}
+        </tbody>
+      </table>
+    </div>
+  `;
+  
+  openModal('m-view-guest');
+}
+
+// =============================================================================
+// 8. RENDERING - RETREATS PAGE
+// =============================================================================
+function filterRetreats(status, el) {
+  activeRetreatFilter = status;
+  document.querySelectorAll('#r-tabs .pill-tab').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  renderRetreats();
+}
+
+function renderRetreats() {
+  const retreats = getData('trc_retreats');
+  const partners = getData('trc_partners');
+  const leads = getData('trc_leads');
+  const grid = document.getElementById('retreat-grid');
+  
+  let filtered = retreats.filter(r => {
+    if (activeRetreatFilter === 'all') return true;
+    return r.status === activeRetreatFilter;
+  });
+  
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="tbl-empty loading" style="grid-column:1/-1">No retreat camps scheduled.</div>';
+    return;
+  }
+  
+  grid.innerHTML = filtered.map(r => {
+    const hotel = partners.find(p => p.id === r.hotel);
+    
+    // Count filled seats
+    const seatsFilled = leads.filter(l => l.linkedRetreat === r.id && ['confirmed', 'active', 'paid'].includes(l.status))
+      .reduce((s,l) => s + (l.guests || 1), 0);
+      
+    let tierClass = 'essential';
+    if (r.tier.toLowerCase() === 'signature') tierClass = 'signature';
+    if (r.tier.toLowerCase() === 'premium') tierClass = 'premium';
+    if (r.tier.toLowerCase() === 'corporate') tierClass = 'corporate';
+    
+    const deleteBtn = isFounder() ? `<button class="btn btn-secondary btn-sm btn-danger" onclick="deleteRetreat('${r.id}')" style="padding: 0.15rem 0.4rem; font-size:0.6rem">Delete</button>` : '';
+    const payoutText = isFounder() && hotel ? `<div class="rcs-val">&#8377;${fmt(seatsFilled * hotel.room)}</div>` : `<div class="rcs-val" style="color:var(--dim)">🔒 Private</div>`;
+    
+    return `
+      <div class="rc ${tierClass}">
+        <div class="rc-date">${new Date(r.start).toLocaleDateString('en-IN', {day:'2-digit', month:'short'})} - ${new Date(r.end).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'})}</div>
+        <div class="rc-name">${r.name}</div>
+        <div class="rc-hotel">${hotel ? hotel.name : 'Unknown Hotel'}</div>
+        <div class="rc-stats">
+          <div>
+            <div class="rcs-lbl">Seats Filled</div>
+            <div class="rcs-val">${seatsFilled} / ${r.max}</div>
+          </div>
+          <div>
+            <div class="rcs-lbl">Est. Venue Pay</div>
+            ${payoutText}
+          </div>
+        </div>
+        <div class="rc-foot">
+          <span class="badge ${r.status==='completed'?'badge-dim':(r.status==='confirmed'?'badge-green':'badge-gold')}">${cap(r.status)}</span>
+          <div style="display:flex; gap:0.25rem">
+            <button class="btn btn-secondary btn-sm" onclick="openEditRetreat('${r.id}')" style="padding: 0.15rem 0.4rem; font-size:0.6rem">Edit</button>
+            ${deleteBtn}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openAddRetreat() {
+  document.getElementById('mr-title').textContent = 'New Retreat Program';
+  document.getElementById('mr-id').value = '';
+  document.getElementById('mr-name').value = '';
+  document.getElementById('mr-start').value = new Date().toISOString().split('T')[0];
+  document.getElementById('mr-end').value = new Date().toISOString().split('T')[0];
+  document.getElementById('mr-max').value = 12;
+  document.getElementById('mr-tier').value = 'Signature';
+  document.getElementById('mr-therapist').value = '';
+  document.getElementById('mr-status').value = 'planning';
+  document.getElementById('mr-notes').value = '';
+  
+  // Populate hotels select
+  const partners = getData('trc_partners');
+  const hSel = document.getElementById('mr-hotel');
+  hSel.innerHTML = partners.map(p => `<option value="${p.id}">${p.name} (${p.loc})</option>`).join('');
+  
+  openModal('m-retreat');
+}
+
+function openEditRetreat(id) {
+  const retreats = getData('trc_retreats');
+  const r = retreats.find(x => x.id === id);
+  if (!r) return;
+  
+  document.getElementById('mr-title').textContent = 'Edit Retreat Details';
+  document.getElementById('mr-id').value = r.id;
+  document.getElementById('mr-name').value = r.name;
+  document.getElementById('mr-start').value = r.start;
+  document.getElementById('mr-end').value = r.end;
+  document.getElementById('mr-max').value = r.max;
+  document.getElementById('mr-tier').value = r.tier;
+  document.getElementById('mr-therapist').value = r.therapist || '';
+  document.getElementById('mr-status').value = r.status;
+  document.getElementById('mr-notes').value = r.notes || '';
+  
+  // Populate hotels select
+  const partners = getData('trc_partners');
+  const hSel = document.getElementById('mr-hotel');
+  hSel.innerHTML = partners.map(p => `<option value="${p.id}" ${r.hotel===p.id?'selected':''}>${p.name}</option>`).join('');
+  
+  openModal('m-retreat');
+}
+
+function saveRetreat() {
+  const name = document.getElementById('mr-name').value.trim();
+  const start = document.getElementById('mr-start').value;
+  const end = document.getElementById('mr-end').value;
+  if (!name || !start || !end) { showToast('Please enter retreat name and dates', true); return; }
+  
+  const retreats = getData('trc_retreats');
+  const id = document.getElementById('mr-id').value;
+  
+  if (id) {
+    const idx = retreats.findIndex(r => r.id === id);
+    if (idx >= 0) {
+      retreats[idx].name = name;
+      retreats[idx].start = start;
+      retreats[idx].end = end;
+      retreats[idx].hotel = document.getElementById('mr-hotel').value;
+      retreats[idx].max = parseInt(document.getElementById('mr-max').value) || 12;
+      retreats[idx].tier = document.getElementById('mr-tier').value;
+      retreats[idx].therapist = document.getElementById('mr-therapist').value;
+      retreats[idx].status = document.getElementById('mr-status').value;
+      retreats[idx].notes = document.getElementById('mr-notes').value;
+    }
+  } else {
+    retreats.unshift({
+      id: 'r_' + Date.now(),
+      name, start, end,
+      hotel: document.getElementById('mr-hotel').value,
+      max: parseInt(document.getElementById('mr-max').value) || 12,
+      tier: document.getElementById('mr-tier').value,
+      therapist: document.getElementById('mr-therapist').value,
+      status: document.getElementById('mr-status').value,
+      notes: document.getElementById('mr-notes').value
+    });
+  }
+  
+  saveData('trc_retreats', retreats);
+  closeModal('m-retreat');
+  renderRetreats();
+  showToast('Retreat scheduling saved.');
+}
+
+function deleteRetreat(id) {
+  if (!confirm('Are you sure you want to delete this retreat?')) return;
+  const retreats = getData('trc_retreats').filter(r => r.id !== id);
+  saveData('trc_retreats', retreats);
+  renderRetreats();
+  showToast('Retreat deleted.');
+}
+
+// =============================================================================
+// 9. RENDERING - BILLING & INVOICES
+// =============================================================================
+function renderInvoices() {
+  const invoices = getData('trc_invoices');
+  const leads = getData('trc_leads');
+  const q = document.getElementById('inv-search').value.toLowerCase();
+  const filter = document.getElementById('inv-filter').value;
+  const tbody = document.getElementById('inv-tbody');
+  
+  let filtered = invoices.filter(i => {
+    const matchesQ = !q || i.guestName.toLowerCase().includes(q) || i.package.toLowerCase().includes(q) || i.id.includes(q);
+    if (!matchesQ) return false;
+    
+    if (filter !== 'all' && i.status !== filter) return false;
+    return true;
+  });
+  
+  document.getElementById('inv-count').textContent = filtered.length;
+  
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="tbl-empty">No invoices generated yet.</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = filtered.map(i => {
+    const total = i.amount + i.gst;
+    const g = leads.find(l=>l.id===i.guestId);
+    
+    return `
+      <tr>
+        <td class="tbl-name">#${i.id.substring(4, 9)}</td>
+        <td>
+          <div class="tbl-name">${i.guestName}</div>
+          <div class="tbl-sub">${g ? g.phone : ''}</div>
+        </td>
+        <td>${i.package}</td>
+        <td>&#8377;${fmt(total)} <span class="tbl-sub">(${i.payMethod})</span></td>
+        <td><span class="badge ${i.status==='paid'?'badge-green':(i.status==='pending'?'badge-gold':'badge-blue')}">${cap(i.status)}</span></td>
+        <td class="tbl-sub">${new Date(i.date).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'})}</td>
+        <td style="text-align:right">
+          <button class="btn btn-secondary btn-sm" onclick="openViewInvoice('${i.id}')">View Details</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function openAddInvoice() {
+  const leads = getData('trc_leads');
+  const retreats = getData('trc_retreats');
+  
+  if (!leads.length) {
+    showToast('Add a guest to the database before creating invoices', true);
+    return;
+  }
+  
+  // Populate dropdowns
+  document.getElementById('inv-guest').innerHTML = leads.map(l => `<option value="${l.id}">${l.name} (${l.phone || 'no phone'})</option>`).join('');
+  document.getElementById('inv-retreat').innerHTML = '<option value="">None / No Linked Retreat</option>' + retreats.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
+  
+  document.getElementById('inv-pkg').selectedIndex = 0;
+  document.getElementById('inv-amt').value = '';
+  document.getElementById('inv-gst').value = '0';
+  document.getElementById('inv-status').value = 'pending';
+  document.getElementById('inv-pay').value = 'UPI';
+  document.getElementById('inv-notes').value = '';
+  
+  openModal('m-invoice');
+}
+
+function saveInvoice() {
+  const gSel = document.getElementById('inv-guest');
+  const gId = gSel.value;
+  const gName = gSel.options[gSel.selectedIndex].text.split(' (')[0];
+  
+  const pkg = document.getElementById('inv-pkg').value;
+  const amt = parseFloat(document.getElementById('inv-amt').value) || 0;
+  const gst = parseFloat(document.getElementById('inv-gst').value) || 0;
+  
+  if (!pkg || amt <= 0) { showToast('Please select a plan package and input base amount.', true); return; }
+  
+  const invoices = getData('trc_invoices');
+  const invoiceId = 'inv_' + Math.random().toString(36).substring(2, 9).toUpperCase();
+  
+  const newInv = {
+    id: invoiceId,
+    guestId: gId,
+    guestName: gName,
+    package: pkg,
+    amount: amt,
+    gst: gst,
+    payMethod: document.getElementById('inv-pay').value,
+    status: document.getElementById('inv-status').value,
+    retreatId: document.getElementById('inv-retreat').value,
+    notes: document.getElementById('inv-notes').value,
+    date: new Date().toISOString().split('T')[0]
+  };
+  
+  invoices.unshift(newInv);
+  saveData('trc_invoices', invoices);
+  
+  // Link package and amounts to the guest record as well for data consistency
+  const leads = getData('trc_leads');
+  const gIdx = leads.findIndex(l => l.id === gId);
+  if (gIdx >= 0) {
+    leads[gIdx].linkedRetreat = newInv.retreatId;
+    leads[gIdx].amount = (leads[gIdx].amount || 0) + (amt + gst);
+    if (newInv.status === 'paid') {
+      leads[gIdx].amountPaid = (leads[gIdx].amountPaid || 0) + (amt + gst);
+      leads[gIdx].depositPaid = true;
+      leads[gIdx].status = 'confirmed';
+    } else if (newInv.status === 'partial') {
+      leads[gIdx].amountPaid = (leads[gIdx].amountPaid || 0) + Math.round((amt + gst) * 0.25); // Assume 25% deposit
+      leads[gIdx].depositPaid = true;
+      leads[gIdx].status = 'confirmed';
+    }
+  }
+  saveData('trc_leads', leads);
+  
+  closeModal('m-invoice');
+  renderInvoices();
+  showToast(`Invoice #${invoiceId} generated successfully.`);
+}
+
+let activeInvoiceId = null;
+
+function openViewInvoice(id) {
+  const invoices = getData('trc_invoices');
+  const inv = invoices.find(x => x.id === id);
+  if (!inv) return;
+  activeInvoiceId = id;
+  
+  const leads = getData('trc_leads');
+  const g = leads.find(l => l.id === inv.guestId);
+  
+  const subTotal = inv.amount;
+  const gst = inv.gst;
+  const total = subTotal + gst;
+  
+  // Setup delete action (founders only)
+  const delBtn = document.getElementById('inv-delete-btn');
+  if (isFounder()) {
+    delBtn.style.display = 'inline-flex';
+    delBtn.onclick = () => {
+      if (confirm('Delete this invoice? This will rollback financials on the guest profile.')) {
+        const revisedInvoices = invoices.filter(x => x.id !== id);
+        saveData('trc_invoices', revisedInvoices);
+        
+        // Rollback guest financials
+        if (g) {
+          g.amount = Math.max(0, (g.amount || 0) - total);
+          if (inv.status === 'paid') {
+            g.amountPaid = Math.max(0, (g.amountPaid || 0) - total);
+          } else if (inv.status === 'partial') {
+            g.amountPaid = Math.max(0, (g.amountPaid || 0) - Math.round(total * 0.25));
+          }
+          saveData('trc_leads', leads);
+        }
+        closeModal('m-view-invoice');
+        renderInvoices();
+        showToast('Invoice deleted.');
+      }
+    };
+  } else {
+    delBtn.style.display = 'none';
+  }
+  
+  document.getElementById('inv-share-btn').onclick = () => {
+    const link = `${window.location.origin}/invoice.html?id=${inv.id}`;
+    navigator.clipboard.writeText(link);
+    showToast('Invoice link copied to clipboard.');
+  };
+  
+  document.getElementById('inv-preview').innerHTML = `
+    <div class="inv-paper">
+      <div class="inv-head">
+        <div class="inv-brand">The Reset <span>Co</span></div>
+        <div class="inv-meta">
+          <div>Invoice: #${inv.id.substring(4, 9)}</div>
+          <div>Date: ${inv.date}</div>
+          <div style="font-weight:700; color:var(--gold-d); margin-top:2px;">Status: ${inv.status.toUpperCase()}</div>
+        </div>
+      </div>
+      <div class="inv-parties">
+        <div>
+          <div class="inv-plbl">Billed From</div>
+          <div class="inv-pname">The Reset Co.</div>
+          <div class="inv-pdet">
+            Bir Billing, Himachal Pradesh, India<br>
+            Phone: +91 78885 40046<br>
+            Email: hello@theresetco.in
+          </div>
+        </div>
+        <div>
+          <div class="inv-plbl">Billed To</div>
+          <div class="inv-pname">${inv.guestName}</div>
+          <div class="inv-pdet">
+            Phone: ${g ? g.phone : '-'}<br>
+            Email: ${g ? g.email : '-'}<br>
+            City: ${g ? g.city : '-'}
+          </div>
+        </div>
+      </div>
+      <table class="inv-tbl">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th style="text-align:right">Rate</th>
+            <th style="text-align:right">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>${inv.package}</strong><br>
+              <span style="font-size:0.7rem; color:#777">Wellness Program Retreat Enrollment Fee</span>
+            </td>
+            <td style="text-align:right">&#8377;${fmt(subTotal)}</td>
+            <td style="text-align:right">&#8377;${fmt(subTotal)}</td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align:right; font-weight:600; color:#555">GST @ 18%</td>
+            <td style="text-align:right">&#8377;${fmt(gst)}</td>
+          </tr>
+          <tr class="inv-tot">
+            <td colspan="2" style="text-align:right; font-weight:700">Grand Total</td>
+            <td style="text-align:right; font-weight:700">&#8377;${fmt(total)}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="font-size:0.7rem; color:#777; line-height:1.5; margin-bottom:1rem">
+        <strong>Payment Terms & Inclusions:</strong><br>
+        Includes Sattvic meals, luxury valley accommodation, daily yoga, guided meditations, diagnostic Prakriti assessment and doctor-administered Basti procedures. Payout received via <strong>${inv.payMethod}</strong>.
+      </div>
+      <div class="inv-foot">
+        <div>Return to yourself.</div>
+        <div>www.theresetco.in</div>
+      </div>
+    </div>
+  `;
+  
+  openModal('m-view-invoice');
+}
+
+function printInvoice() {
+  const printContent = document.querySelector('.inv-paper').innerHTML;
+  const originalContent = document.body.innerHTML;
+  document.body.innerHTML = printContent;
+  window.print();
+  document.body.innerHTML = originalContent;
+  window.location.reload();
+}
+
+// =============================================================================
+// 10. RENDERING - EXPENSES TAB
+// =============================================================================
+function renderExpenses() {
+  if (!isFounder()) return;
+  
+  const expenses = getData('trc_expenses');
+  const leads = getData('trc_leads');
+  const payroll = getData('trc_payroll');
+  
+  // Calculate Totals
+  const revenue = leads.reduce((s,l) => s + (l.amountPaid || 0), 0);
+  const totalExp = expenses.reduce((s,e) => s + (e.amount || 0), 0);
+  const totalPayroll = payroll.filter(p=>p.status==='Paid').reduce((s,p) => s + (p.amount || 0), 0);
+  const totalOverhead = totalExp + totalPayroll;
+  const netProfit = revenue - totalOverhead;
+  
+  document.getElementById('exp-total').innerHTML = `&#8377;${fmt(totalOverhead)}`;
+  
+  // Render Stats in Expenses Page
+  const expTbody = document.getElementById('exp-tbody');
+  
+  if (!expenses.length && !totalPayroll) {
+    expTbody.innerHTML = '<tr><td colspan="6" class="tbl-empty">No expenses logged.</td></tr>';
+  } else {
+    // Merge payroll entries and expenses for unified logging
+    const merged = [];
+    expenses.forEach(e => {
+      merged.push({
+        id: e.id,
+        date: e.date,
+        cat: e.category,
+        desc: e.description,
+        amt: e.amount,
+        via: e.via || 'UPI',
+        isPayroll: false
+      });
+    });
+    
+    payroll.filter(p=>p.status==='Paid').forEach(p => {
+      merged.push({
+        id: p.id,
+        date: p.paidOn,
+        cat: 'Therapist Fees',
+        desc: `Payroll payout: ${p.name} (${p.month})`,
+        amt: p.amount,
+        via: 'Bank Transfer',
+        isPayroll: true
+      });
+    });
+    
+    // Sort by date desc
+    merged.sort((a,b) => new Date(b.date) - new Date(a.date));
+    
+    expTbody.innerHTML = merged.map(e => `
+      <tr>
+        <td class="tbl-sub">${new Date(e.date).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'})}</td>
+        <td><span class="badge badge-dim">${e.cat}</span></td>
+        <td>${e.desc}</td>
+        <td style="color:var(--red); font-weight:600">&#8377;${fmt(e.amt)}</td>
+        <td>${e.via}</td>
+        <td style="text-align:right">
+          ${e.isPayroll ? '<span style="color:var(--dim); font-size:0.65rem">Payroll Accounted</span>' : `<button class="btn btn-secondary btn-sm btn-danger" onclick="deleteExpense('${e.id}')">&#128465;</button>`}
+        </td>
+      </tr>
+    `).join('');
+  }
+  
+  // Render Categories Breakdown
+  const categories = ['Hotel / Venue', 'Meals', 'Therapist Fees', 'Consumables', 'Marketing', 'Transport', 'License / Legal', 'Other'];
+  const catTotals = categories.map(cat => {
+    let sum = expenses.filter(e => e.category === cat).reduce((s,e) => s + (e.amount || 0), 0);
+    // Add payroll payouts to Therapist Fees
+    if (cat === 'Therapist Fees') {
+      sum += totalPayroll;
+    }
+    return sum;
+  });
+  
+  const maxCatVal = Math.max(...catTotals, 1);
+  const catContainer = document.getElementById('exp-cats');
+  
+  catContainer.innerHTML = categories.map((cat, i) => {
+    const val = catTotals[i];
+    const pct = (val / maxCatVal) * 100;
+    if (val === 0) return ''; // Hide empty categories
+    return `
+      <div style="margin-bottom:0.85rem">
+        <div style="display:flex; justify-content:space-between; font-size:0.72rem; margin-bottom:2px">
+          <span style="font-weight:500">${cat}</span>
+          <span style="font-weight:600; color:var(--red)">&#8377;${fmt(val)}</span>
+        </div>
+        <div class="prog"><div class="prog-fill" style="width:${pct}%"></div></div>
+      </div>
+    `;
+  }).join('') || '<div class="tbl-empty">No dynamic expenses logged.</div>';
+}
+
+function handleExpenseItemChange() {
+  const select = document.getElementById('exp-item-select');
+  const customContainer = document.getElementById('exp-custom-name-container');
+  const categorySelect = document.getElementById('exp-cat');
+  
+  const selectedOption = select.options[select.selectedIndex];
+  const category = selectedOption.getAttribute('data-category');
+  
+  if (category) {
+    categorySelect.value = category;
+  }
+  
+  if (select.value === 'Miscellaneous / Other') {
+    customContainer.style.display = 'block';
+  } else {
+    customContainer.style.display = 'none';
+  }
+}
+
+function openAddExpense() {
+  const retreats = getData('trc_retreats');
+  
+  document.getElementById('exp-item-select').selectedIndex = 0;
+  document.getElementById('exp-custom-name-container').style.display = 'none';
+  document.getElementById('exp-custom-name').value = '';
+  document.getElementById('exp-amt').value = '';
+  document.getElementById('exp-cat').selectedIndex = 0;
+  document.getElementById('exp-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('exp-via').value = 'UPI';
+  document.getElementById('exp-notes').value = '';
+  
+  document.getElementById('exp-retreat').innerHTML = '<option value="">None / No Linked Retreat</option>' + retreats.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
+  
+  openModal('m-expense');
+}
+
+function saveExpense() {
+  const select = document.getElementById('exp-item-select');
+  if (select.selectedIndex <= 0) { showToast('Please select an expenditure item.', true); return; }
+  
+  let desc = select.value;
+  if (desc === 'Miscellaneous / Other') {
+    desc = document.getElementById('exp-custom-name').value.trim();
+    if (!desc) { showToast('Please fill custom description', true); return; }
+  }
+  
+  const amt = parseFloat(document.getElementById('exp-amt').value) || 0;
+  const date = document.getElementById('exp-date').value;
+  if (amt <= 0 || !date) { showToast('Amount and date are mandatory fields.', true); return; }
+  
+  const expenses = getData('trc_expenses');
+  expenses.unshift({
+    id: 'e_' + Date.now(),
+    date,
+    category: document.getElementById('exp-cat').value,
+    description: desc,
+    amount: amt,
+    retreatId: document.getElementById('exp-retreat').value,
+    via: document.getElementById('exp-via').value,
+    notes: document.getElementById('exp-notes').value,
+    addedBy: currentSession.username,
+    created: new Date().toISOString()
+  });
+  
+  saveData('trc_expenses', expenses);
+  closeModal('m-expense');
+  renderExpenses();
+  showToast('Overhead expenditure logged.');
+}
+
+function deleteExpense(id) {
+  if (!confirm('Are you sure you want to delete this expense?')) return;
+  const expenses = getData('trc_expenses').filter(e => e.id !== id);
+  saveData('trc_expenses', expenses);
+  renderExpenses();
+  showToast('Expense entry deleted.');
+}
+
+// =============================================================================
+// 11. RENDERING - HOTEL PARTNERS
+// =============================================================================
+function renderPartners() {
+  const partners = getData('trc_partners');
+  const grid = document.getElementById('partner-grid');
+  
+  if (!partners.length) {
+    grid.innerHTML = '<div class="tbl-empty loading" style="grid-column:1/-1">No hotel partner properties signed.</div>';
+    return;
+  }
+  
+  grid.innerHTML = partners.map(p => `
+    <div class="pc">
+      <div class="pc-name">${p.name}</div>
+      <div class="pc-loc">${p.loc} ${p.maps ? `&bull; <a href="${p.maps}" target="_blank" style="color:var(--gold-d); text-decoration:none">View Map &#8599;</a>` : ''}</div>
+      <div class="pc-row"><span class="pc-k">Contact Person</span><span class="pc-v">${p.contact}</span></div>
+      <div class="pc-row"><span class="pc-k">Phone</span><span class="pc-v">${p.phone}</span></div>
+      <div class="pc-row"><span class="pc-k">B2B Room Rate</span><span class="pc-v">&#8377;${fmt(p.room)} / night</span></div>
+      <div class="pc-row"><span class="pc-k">Sattvic Meal Plan</span><span class="pc-v">&#8377;${fmt(p.meal)} / guest / day</span></div>
+      <div class="pc-row"><span class="pc-k">Yoga Session Space</span><span class="pc-v">${p.space}</span></div>
+      <div class="pc-row"><span class="pc-k">Contract Status</span><span class="pc-v"><span class="badge ${p.contract==='Signed'?'badge-green':'badge-gold'}">${p.contract}</span></span></div>
+      <div style="margin-top:0.85rem; display:flex; justify-content:space-between; align-items:center">
+        <span style="font-size:0.65rem; color:var(--dim); font-style:italic">${p.notes || 'No special terms.'}</span>
+        <div style="display:flex; gap:0.25rem">
+          <button class="btn btn-secondary btn-sm" onclick="openEditPartner('${p.id}')">Edit</button>
+          ${isFounder() ? `<button class="btn btn-secondary btn-sm btn-danger" onclick="deletePartner('${p.id}')">&#128465;</button>` : ''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openAddPartner() {
+  document.getElementById('mp-title').textContent = 'Add Hotel Partner';
+  document.getElementById('mp-id').value = '';
+  document.getElementById('mp-name').value = '';
+  document.getElementById('mp-loc').value = '';
+  document.getElementById('mp-maps').value = '';
+  document.getElementById('mp-contact').value = '';
+  document.getElementById('mp-phone').value = '';
+  document.getElementById('mp-room').value = '';
+  document.getElementById('mp-meal').value = '';
+  document.getElementById('mp-space').value = 'Yes - Free';
+  document.getElementById('mp-contract').value = 'Signed';
+  document.getElementById('mp-notes').value = '';
+  openModal('m-partner');
+}
+
+function openEditPartner(id) {
+  const partners = getData('trc_partners');
+  const p = partners.find(x => x.id === id);
+  if (!p) return;
+  
+  document.getElementById('mp-title').textContent = 'Edit Partner Property';
+  document.getElementById('mp-id').value = p.id;
+  document.getElementById('mp-name').value = p.name;
+  document.getElementById('mp-loc').value = p.loc;
+  document.getElementById('mp-maps').value = p.maps || '';
+  document.getElementById('mp-contact').value = p.contact || '';
+  document.getElementById('mp-phone').value = p.phone || '';
+  document.getElementById('mp-room').value = p.room || '';
+  document.getElementById('mp-meal').value = p.meal || '';
+  document.getElementById('mp-space').value = p.space;
+  document.getElementById('mp-contract').value = p.contract;
+  document.getElementById('mp-notes').value = p.notes || '';
+  openModal('m-partner');
+}
+
+function savePartner() {
+  const name = document.getElementById('mp-name').value.trim();
+  const phone = document.getElementById('mp-phone').value.trim();
+  if (!name || !phone) { showToast('Hotel Name and Contact Phone are mandatory.', true); return; }
+  
+  const partners = getData('trc_partners');
+  const id = document.getElementById('mp-id').value;
+  
+  const newP = {
+    id: id || 'p_' + Date.now(),
+    name,
+    loc: document.getElementById('mp-loc').value,
+    maps: document.getElementById('mp-maps').value,
+    contact: document.getElementById('mp-contact').value,
+    phone,
+    room: parseFloat(document.getElementById('mp-room').value) || 0,
+    meal: parseFloat(document.getElementById('mp-meal').value) || 0,
+    space: document.getElementById('mp-space').value,
+    contract: document.getElementById('mp-contract').value,
+    notes: document.getElementById('mp-notes').value
+  };
+  
+  if (id) {
+    const idx = partners.findIndex(x => x.id === id);
+    if (idx >= 0) partners[idx] = newP;
+  } else {
+    partners.unshift(newP);
+  }
+  
+  saveData('trc_partners', partners);
+  closeModal('m-partner');
+  renderPartners();
+  showToast('Partner details saved successfully.');
+}
+
+function deletePartner(id) {
+  if (!confirm('Are you sure you want to remove this hotel partner?')) return;
+  const partners = getData('trc_partners').filter(x => x.id !== id);
+  saveData('trc_partners', partners);
+  renderPartners();
+  showToast('Partner deleted.');
+}
+
+// =============================================================================
+// 12. RENDERING - SUBSCRIPTIONS TAB
+// =============================================================================
+function renderSubscriptions() {
+  if (!isFounder()) return;
+  const subs = getData('trc_subs');
+  const tbody = document.getElementById('sub-tbody');
+  
+  // Calculate MRR
+  const mrr = subs.reduce((s,x) => s + (x.fee || 0), 0);
+  document.getElementById('mrr-val').textContent = `&#8377;${fmt(mrr)}`;
+  
+  if (!subs.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="tbl-empty">No active lifestyle coaching subscriptions.</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = subs.map(s => `
+    <tr>
+      <td class="tbl-name">${s.guestName}</td>
+      <td>${s.plan}</td>
+      <td style="font-weight:600; color:var(--green)">&#8377;${fmt(s.fee)} / mo</td>
+      <td class="tbl-sub">${s.nextBilling}</td>
+      <td><span class="badge badge-green">${s.status}</span></td>
+      <td style="text-align:right">
+        <button class="btn btn-secondary btn-sm btn-danger" onclick="deleteSub('${s.id}')">Cancel Plan</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function openAddSub() {
+  const leads = getData('trc_leads');
+  if (!leads.length) {
+    showToast('Add a guest to the database before creating coaching subscriptions', true);
+    return;
+  }
+  
+  document.getElementById('sub-guest').innerHTML = leads.map(l => `<option value="${l.id}">${l.name}</option>`).join('');
+  document.getElementById('sub-plan').value = 'Ayurvedic Lifestyle Coaching';
+  document.getElementById('sub-fee').value = '3000';
+  document.getElementById('sub-next').value = new Date(Date.now() + 30*24*60*60*1000).toISOString().split('T')[0];
+  document.getElementById('sub-notes').value = '';
+  
+  openModal('m-sub');
+}
+
+function saveSub() {
+  const gSel = document.getElementById('sub-guest');
+  const gId = gSel.value;
+  const gName = gSel.options[gSel.selectedIndex].text;
+  
+  const plan = document.getElementById('sub-plan').value.trim();
+  const fee = parseFloat(document.getElementById('sub-fee').value) || 0;
+  
+  if (!plan || fee <= 0) { showToast('Please enter coaching plan name and monthly fee', true); return; }
+  
+  const subs = getData('trc_subs');
+  subs.unshift({
+    id: 's_' + Date.now(),
+    guestId: gId,
+    guestName: gName,
+    plan, fee,
+    nextBilling: document.getElementById('sub-next').value,
+    status: 'Active',
+    notes: document.getElementById('sub-notes').value
+  });
+  
+  saveData('trc_subs', subs);
+  closeModal('m-sub');
+  renderSubscriptions();
+  showToast('Lifestyle subscription added.');
+}
+
+function deleteSub(id) {
+  if (!confirm('Cancel this subscription?')) return;
+  const subs = getData('trc_subs').filter(s => s.id !== id);
+  saveData('trc_subs', subs);
+  renderSubscriptions();
+  showToast('Subscription cancelled.');
+}
+
+// =============================================================================
+// 13. RENDERING - TEAM & STAFF TAB
+// =============================================================================
+let activeStaffTab = 'roster';
+
+function switchStaffTab(tabId, el) {
+  activeStaffTab = tabId;
+  document.querySelectorAll('#staff-tabs .pill-tab').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  
+  document.getElementById('staff-roster-panel').style.display = tabId === 'roster' ? 'block' : 'none';
+  document.getElementById('staff-payroll-panel').style.display = tabId === 'payroll' ? 'block' : 'none';
+  document.getElementById('staff-access-panel').style.display = tabId === 'access' ? 'block' : 'none';
+  
+  if (tabId === 'roster') {
+    document.getElementById('add-staff-btn').style.display = 'inline-flex';
+    document.getElementById('staff-count-container').style.display = 'inline-flex';
+    renderStaff();
+  } else if (tabId === 'payroll') {
+    document.getElementById('add-staff-btn').style.display = 'none';
+    document.getElementById('staff-count-container').style.display = 'none';
+    
+    // Set default month
+    if (!document.getElementById('payroll-month').value) {
+      document.getElementById('payroll-month').value = new Date().toISOString().substring(0, 7);
+    }
+    renderPayrollCalendar();
+  } else if (tabId === 'access') {
+    document.getElementById('add-staff-btn').style.display = 'none';
+    document.getElementById('staff-count-container').style.display = 'none';
+    renderDashboardUsers();
+  }
+}
+
+function renderStaff() {
+  const staff = getData('trc_staff');
+  const tbody = document.getElementById('staff-tbody');
+  
+  document.getElementById('staff-count').textContent = staff.length;
+  
+  if (!staff.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="tbl-empty">No staff members in directory.</td></tr>';
+    return;
+  }
+  
+  tbody.innerHTML = staff.map(s => `
+    <tr>
+      <td>
+        <div class="av-cell">
+          <div class="av">${initials(s.name)}</div>
+          <div>
+            <div class="tbl-name">${s.name}</div>
+            <div class="tbl-sub">${s.email || 'No email'}</div>
+          </div>
+        </div>
+      </td>
+      <td><strong>${s.role}</strong></td>
+      <td>${s.skills || '-'}</td>
+      <td>${s.phone}</td>
+      <td><span class="badge ${s.status==='active'?'badge-green':'badge-dim'}">${s.status==='active'?'Active':'Inactive'}</span></td>
+      <td class="tbl-sub">${s.joined}</td>
+      <td style="text-align:right">
+        <div style="display:inline-flex">
+          <button class="btn btn-secondary btn-sm" onclick="openEditStaff('${s.id}')">Edit</button>
+          ${isFounder() ? `<button class="btn btn-secondary btn-sm btn-danger" onclick="deleteStaff('${s.id}')" style="margin-left:0.25rem">&#128465;</button>` : ''}
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function openAddStaff() {
+  document.getElementById('ms-title').textContent = 'Add Staff Member';
+  document.getElementById('ms-id').value = '';
+  document.getElementById('ms-name').value = '';
+  document.getElementById('ms-role').selectedIndex = 0;
+  document.getElementById('ms-skills').value = '';
+  document.getElementById('ms-phone').value = '';
+  document.getElementById('ms-email').value = '';
+  document.getElementById('ms-join-date').value = new Date().toISOString().split('T')[0];
+  document.getElementById('ms-status').value = 'active';
+  document.getElementById('ms-pay').value = '';
+  document.getElementById('ms-notes').value = '';
+  
+  openModal('m-staff');
+}
+
+function openEditStaff(id) {
+  const staff = getData('trc_staff');
+  const s = staff.find(x => x.id === id);
+  if (!s) return;
+  
+  document.getElementById('ms-title').textContent = 'Edit Staff details';
+  document.getElementById('ms-id').value = s.id;
+  document.getElementById('ms-name').value = s.name;
+  document.getElementById('ms-role').value = s.role;
+  document.getElementById('ms-skills').value = s.skills || '';
+  document.getElementById('ms-phone').value = s.phone || '';
+  document.getElementById('ms-email').value = s.email || '';
+  document.getElementById('ms-join-date').value = s.joined || '';
+  document.getElementById('ms-status').value = s.status || 'active';
+  document.getElementById('ms-pay').value = s.pay || '';
+  document.getElementById('ms-notes').value = s.notes || '';
+  
+  openModal('m-staff');
+}
+
+function saveStaff() {
+  const name = document.getElementById('ms-name').value.trim();
+  const phone = document.getElementById('ms-phone').value.trim();
+  const pay = document.getElementById('ms-pay').value.trim();
+  if (!name || !phone || !pay) { showToast('Name, Phone and Pay terms are required.', true); return; }
+  
+  const staff = getData('trc_staff');
+  const id = document.getElementById('ms-id').value;
+  
+  const newS = {
+    id: id || 'st_' + Date.now(),
+    name,
+    role: document.getElementById('ms-role').value,
+    skills: document.getElementById('ms-skills').value,
+    phone,
+    email: document.getElementById('ms-email').value,
+    joined: document.getElementById('ms-join-date').value,
+    status: document.getElementById('ms-status').value,
+    pay,
+    notes: document.getElementById('ms-notes').value
+  };
+  
+  if (id) {
+    const idx = staff.findIndex(x => x.id === id);
+    if (idx >= 0) staff[idx] = newS;
+  } else {
+    staff.unshift(newS);
+  }
+  
+  saveData('trc_staff', staff);
+  closeModal('m-staff');
+  renderStaff();
+  showToast('Staff profile saved.');
+}
+
+function deleteStaff(id) {
+  if (!confirm('Are you sure you want to delete this staff member?')) return;
+  const staff = getData('trc_staff').filter(s => s.id !== id);
+  saveData('trc_staff', staff);
+  renderStaff();
+  showToast('Staff member removed.');
+}
+
+// =============================================================================
+// 14. PAYROLL CALENDAR SYSTEM
+// =============================================================================
+function renderPayrollCalendar() {
+  if (!isFounder()) return;
+  
+  const month = document.getElementById('payroll-month').value;
+  const staff = getData('trc_staff').filter(s=>s.status==='active');
+  const payroll = getData('trc_payroll');
+  const tbody = document.getElementById('payroll-tbody');
+  
+  if (!month) return;
+  document.getElementById('payroll-title').textContent = `Payroll Status for ${new Date(month + '-01').toLocaleDateString('en-IN', {month:'long', year:'numeric'})}`;
+  
+  // Tally this month's payroll payouts
+  const monthPaid = payroll.filter(p => p.month === month && p.status === 'Paid').reduce((s,p) => s + (p.amount || 0), 0);
+  document.getElementById('payroll-total-paid').textContent = `&#8377;${fmt(monthPaid)}`;
+  
+  tbody.innerHTML = staff.map(s => {
+    // Find if payroll entry exists for this month
+    let entry = payroll.find(p => p.staffId === s.id && p.month === month);
+    if (!entry) {
+      // Create lazy entry
+      entry = {
+        id: `pr_${s.id}_${month}`,
+        staffId: s.id,
+        name: s.name,
+        role: s.role,
+        terms: s.pay,
+        status: 'Unpaid',
+        paidOn: '',
+        amount: s.pay.toLowerCase().includes('25,000') ? 25000 : (s.pay.toLowerCase().includes('45,000') ? 45000 : 12000), // Extrapolate base salary from pay terms text
+        month: month
+      };
+    }
+    
+    let btnHtml = '';
+    if (entry.status === 'Unpaid') {
+      btnHtml = `<button class="btn btn-primary btn-sm" onclick="payStaff('${entry.id}', '${s.id}', '${s.name}', '${s.role}', '${s.pay}', ${entry.amount})">Pay Staff</button>`;
+    } else {
+      btnHtml = `<span style="font-size:0.7rem; color:var(--green); font-weight:600">Accounted</span>`;
+    }
+    
+    return `
+      <tr>
+        <td class="tbl-name">${s.name}</td>
+        <td>${s.role}</td>
+        <td class="tbl-sub">${s.pay}</td>
+        <td><span class="badge ${entry.status==='Paid'?'badge-green':'badge-gold'}">${entry.status}</span></td>
+        <td class="tbl-sub">${entry.paidOn || '-'}</td>
+        <td style="font-weight:600">&#8377;${fmt(entry.amount)}</td>
+        <td style="text-align:right">${btnHtml}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function payStaff(id, staffId, name, role, terms, amount) {
+  if (!confirm(`Confirm payroll payout of ₹${fmt(amount)} to ${name} for the selected month?`)) return;
+  
+  const payroll = getData('trc_payroll');
+  const month = document.getElementById('payroll-month').value;
+  
+  const newEntry = {
+    id: id,
+    staffId: staffId,
+    name: name,
+    role: role,
+    terms: terms,
+    status: 'Paid',
+    paidOn: new Date().toISOString().split('T')[0],
+    amount: amount,
+    month: month
+  };
+  
+  // If entry exists, update it, else add it
+  const idx = payroll.findIndex(p => p.id === id);
+  if (idx >= 0) {
+    payroll[idx] = newEntry;
+  } else {
+    payroll.push(newEntry);
+  }
+  saveData('trc_payroll', payroll);
+  
+  // Automatically write this payout to Expenses under category "Therapist Fees" / "Staff"
+  const expenses = getData('trc_expenses');
+  expenses.unshift({
+    id: 'e_payroll_' + Date.now(),
+    date: newEntry.paidOn,
+    category: role.toLowerCase().includes('doctor') || role.toLowerCase().includes('therapist') ? 'Therapist Fees' : 'Other',
+    description: `Staff Payroll: ${name} (${new Date(month + '-01').toLocaleDateString('en-IN', {month:'short', year:'2-digit'})})`,
+    amount: amount,
+    retreatId: '',
+    via: 'Bank Transfer',
+    notes: 'Auto-generated payout entry from payroll calendar dashboard.',
+    addedBy: currentSession.username,
+    created: new Date().toISOString()
+  });
+  saveData('trc_expenses', expenses);
+  
+  renderPayrollCalendar();
+  showToast(`Payroll logged: ₹${fmt(amount)} paid to ${name}.`);
+}
+
+// =============================================================================
+// 15. ACCESS USERS & DEVELOPER CONTROLS
+// =============================================================================
+function renderDashboardUsers() {
+  if (!isFounder()) return;
+  const users = getData('trc_users');
+  const tbody = document.getElementById('users-tbody');
+  
+  tbody.innerHTML = users.map(u => {
+    const isSelf = u.username === currentSession.username;
+    const canDelete = !isSelf && u.role !== 'founder';
+    
+    return `
+      <tr>
+        <td class="tbl-name">${u.name} ${isSelf ? '<span class="badge badge-blue">You</span>' : ''}</td>
+        <td>@${u.username}</td>
+        <td><span class="badge ${u.role==='founder'?'badge-gold':'badge-blue'}">${cap(u.role)}</span></td>
+        <td class="tbl-sub">${u.createdAt || '-'}</td>
+        <td style="text-align:right">
+          ${canDelete ? `<button class="btn btn-secondary btn-sm btn-danger" onclick="deleteDashboardUser('${u.id}')">Revoke Access</button>` : '<span style="color:var(--dim); font-size:0.65rem">Owner Protected</span>'}
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function addDashboardUser() {
+  const name = document.getElementById('ua-name').value.trim();
+  const username = document.getElementById('ua-username').value.trim().toLowerCase();
+  const password = document.getElementById('ua-password').value;
+  if (!name || !username || !password) { showToast('Please fill all access details', true); return; }
+  
+  const users = getData('trc_users');
+  if (users.some(u => u.username.toLowerCase() === username)) {
+    showToast('Username already exists. Enter a unique username.', true);
+    return;
+  }
+  
+  users.push({
+    id: 'u_' + Date.now(),
+    username, password,
+    role: 'staff',
+    name,
+    createdAt: new Date().toISOString().split('T')[0]
+  });
+  
+  saveData('trc_users', users);
+  document.getElementById('ua-name').value = '';
+  document.getElementById('ua-username').value = '';
+  document.getElementById('ua-password').value = '';
+  
+  renderDashboardUsers();
+  showToast(`Dashboard access granted to @${username}.`);
+}
+
+function deleteDashboardUser(id) {
+  if (!confirm('Are you sure you want to revoke dashboard access for this account?')) return;
+  const users = getData('trc_users').filter(u => u.id !== id);
+  saveData('trc_users', users);
+  renderDashboardUsers();
+  showToast('Account revoked.');
+}
+
+// Reset Database completely (Blank Slate)
+function resetDatabaseToZero() {
+  if (!confirm('Are you sure you want to reset the database completely? This will clear all enquiries, invoices, expenses, retreats, subscriptions, and payroll entries, setting all metrics to exactly 0. Staff accounts and property partners are preserved.')) return;
+
+  ['trc_leads','trc_retreats','trc_invoices','trc_expenses','trc_subs','trc_payroll']
+    .forEach(k => localStorage.setItem(k, '[]'));
+
+  showToast('Database wiped successfully! All metrics reset to 0.', false);
+  setTimeout(() => window.location.reload(), 1200);
+}
+
+// Seed Demo Data
+function loadDemoDatabase() {
+  if (!confirm('Load sample mock records? This will overwrite all your current booking leads, invoices, and expenses with demonstration data.')) return;
+
+  const demo = [
+    ['trc_leads', DEFAULT_GUESTS], ['trc_retreats', DEFAULT_RETREATS],
+    ['trc_partners', DEFAULT_PARTNERS], ['trc_invoices', DEFAULT_INVOICES],
+    ['trc_expenses', DEFAULT_EXPENSES], ['trc_subs', DEFAULT_SUBS],
+    ['trc_staff', DEFAULT_STAFF], ['trc_payroll', DEFAULT_PAYROLL],
+    ['trc_prices', { serenity: 22000, awakening: 26000, transformation: 35000 }]
+  ];
+  demo.forEach(([k, v]) => localStorage.setItem(k, JSON.stringify(v)));
+
+  showToast('Demo data seeded successfully.', false);
+  setTimeout(() => window.location.reload(), 1200);
+}
+
+
+// =============================================================================
+// 16. B2B COORDINATION ENGINE
+// =============================================================================
+let activeCoordGuestId = null;
+
+function openCoordinateModal(guestId) {
+  const leads = getData('trc_leads');
+  const retreats = getData('trc_retreats');
+  const partners = getData('trc_partners');
+  
+  const g = leads.find(l => l.id === guestId);
+  if (!g) return;
+  
+  activeCoordGuestId = guestId;
+  document.getElementById('coord-guest').value = g.name;
+  
+  // Populate retreats dropdown
+  const retSel = document.getElementById('coord-retreat');
+  retSel.innerHTML = retreats.map(r => `<option value="${r.id}">${r.name}</option>`).join('');
+  
+  // Populate hotels dropdown
+  const hotSel = document.getElementById('coord-hotel');
+  hotSel.innerHTML = partners.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+  
+  handleCoordSelection();
+  openModal('m-coordinate');
+}
+
+function handleCoordSelection() {
+  const rId = document.getElementById('coord-retreat').value;
+  const hId = document.getElementById('coord-hotel').value;
+  
+  const leads = getData('trc_leads');
+  const retreats = getData('trc_retreats');
+  const partners = getData('trc_partners');
+  
+  const g = leads.find(l => l.id === activeCoordGuestId);
+  const r = retreats.find(x => x.id === rId);
+  const p = partners.find(x => x.id === hId);
+  
+  if (!g || !p) return;
+  
+  // Display B2B Info Box
+  const infoBox = document.getElementById('coord-hotel-info');
+  infoBox.style.display = 'block';
+  infoBox.innerHTML = `
+    <strong>Property Partner Contact:</strong> ${p.contact} &bull; ${p.phone}<br>
+    <strong>Retreat Contract Pricing:</strong> Delxue Room: &#8377;${fmt(p.room)}/night | Sattvic Meal: &#8377;${fmt(p.meal)}/guest/day
+  `;
+  
+  // Generate Reservation Message
+  const dates = g.dates || (r ? `${new Date(r.start).toLocaleDateString('en-IN', {day:'2-digit', month:'short'})} - ${new Date(r.end).toLocaleDateString('en-IN', {day:'2-digit', month:'short'})}` : 'Retreat Dates');
+  
+  const msg = 
+`To: ${p.contact} (${p.name})
+From: Dr. Himanshu Bhatt (The Reset Co)
+Subject: Room block reservation block
+
+Dear ${p.contact.split(' ')[0]} ji,
+
+Hope you are doing well.
+
+We would like to book a room reservation for our upcoming retreat batch:
+
+Guest Details:
+- Name: ${g.name}
+- Dates: ${dates}
+- Occupancy: ${g.guests || 1} guest(s)
+- Room B2B Rate: ₹${fmt(p.room)}/night
+- Sattvic Meal Plan B2B Rate: ₹${fmt(p.meal)}/day
+
+Please confirm availability on these dates and block this room under The Reset Co contract account.
+
+Best regards,
+Dr. Himanshu Bhatt
+Co-founder, The Reset Co`;
+
+  document.getElementById('coord-message').value = msg;
+  
+  // Setup WhatsApp link
+  const cleanPhone = p.phone.replace(/[^0-9]/g, '');
+  const waPhone = cleanPhone.startsWith('91') ? cleanPhone : '91' + cleanPhone;
+  document.getElementById('coord-wa-btn').href = `https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`;
+}
+
+function copyCoordMessage() {
+  const msg = document.getElementById('coord-message').value;
+  navigator.clipboard.writeText(msg);
+  showToast('Reservation message copied to clipboard.');
+}
+
+
+// =============================================================================
+// CAPACITY & CASHFLOW ENGINE
+// =============================================================================
+function renderBatchCapacity() {
+  const retreats = getData('trc_retreats');
+  const leads = getData('trc_leads');
+  const partners = getData('trc_partners');
+  const container = document.getElementById('batch-capacity-container');
+  if (!container) return;
+
+  const activeRetreat = retreats.find(r => ['confirmed', 'upcoming', 'planning'].includes(r.status)) || retreats[0];
+  if (!activeRetreat) {
+    container.innerHTML = '';
+    return;
+  }
+
+  const hotel = partners.find(p => p.id === activeRetreat.hotel);
+  const maxCap = 15;
+
+  const confirmedLeads = leads.filter(l => ['confirmed', 'active', 'paid'].includes(l.status));
+  const totalBooked = Math.min(maxCap, confirmedLeads.reduce((s, l) => s + (l.guests || 1), 0));
+  const remaining = Math.max(0, maxCap - totalBooked);
+  const pct = Math.round((totalBooked / maxCap) * 100);
+
+  const serenityCount = confirmedLeads.filter(l => l.plan === 'serenity').reduce((s, l) => s + (l.guests || 1), 0);
+  const awakeningCount = confirmedLeads.filter(l => l.plan === 'awakening').reduce((s, l) => s + (l.guests || 1), 0);
+  const transCount = confirmedLeads.filter(l => l.plan === 'transformation').reduce((s, l) => s + (l.guests || 1), 0);
+
+  const hotelPayoutEst = Math.round(totalBooked * (70000 / 15));
+
+  container.innerHTML = `
+    <div class="capacity-card">
+      <div class="capacity-head">
+        <div>
+          <div class="capacity-title">Active Retreat Batch : ${activeRetreat.name}</div>
+          <div class="capacity-sub">${new Date(activeRetreat.start).toLocaleDateString('en-IN', {day:'2-digit', month:'short'})} to ${new Date(activeRetreat.end).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'})} &bull; Base: ${hotel ? hotel.name : 'Bir Billing Valley'}</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div class="capacity-badge-excl">✦ Strictly 15 Guests Maximum ✦</div>
+          <button class="btn btn-secondary btn-sm" onclick="nav('guests', document.getElementById('nav-guests'))">View Admissions</button>
+        </div>
+      </div>
+      <div class="capacity-meter-wrap">
+        <div class="capacity-meter-bar">
+          <div class="capacity-fill" style="width: ${pct}%;"></div>
+        </div>
+        <div class="capacity-stats-row">
+          <div>
+            <strong style="color:var(--royal-deep); font-size:0.9rem;">${totalBooked} / ${maxCap} Suites Booked</strong>
+            <span style="color:var(--muted); margin-left:6px;">(${pct}% capacity filled &bull; <strong style="color:${remaining <= 3 ? 'var(--red)' : 'var(--green)'};">${remaining} remaining</strong>)</span>
+          </div>
+          <div class="capacity-breakdown">
+            <div class="capacity-pill">Serenity: <strong>${serenityCount}</strong></div>
+            <div class="capacity-pill">Awakening: <strong>${awakeningCount}</strong></div>
+            <div class="capacity-pill">Transformation: <strong>${transCount}</strong></div>
+            <div class="capacity-pill" style="border-color:rgba(201,168,76,0.3); background:rgba(201,168,76,0.08);">Venue Reserve: <strong>₹${fmt(hotelPayoutEst)}</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderPayments() {
+  const leads = getData('trc_leads');
+  const invoices = getData('trc_invoices');
+  const expenses = getData('trc_expenses');
+  const q = (document.getElementById('inv-search') ? document.getElementById('inv-search').value : '').toLowerCase();
+
+  const totalCollected = leads.reduce((s, l) => s + (l.amountPaid || 0), 0);
+  const totalReceivables = leads.filter(l => l.status !== 'cancelled').reduce((s, l) => {
+    const tot = l.amount || (l.plan === 'transformation' ? 35000 : (l.plan === 'serenity' ? 22000 : 26000));
+    const paid = l.amountPaid || 0;
+    return s + Math.max(0, tot - paid);
+  }, 0);
+  const confirmedCount = leads.filter(l => ['confirmed', 'active', 'paid'].includes(l.status)).length;
+  const abv = confirmedCount > 0 ? Math.round(totalCollected / confirmedCount) : 26500;
+  const hotelPayoutEst = Math.round(confirmedCount * (70000 / 15));
+  const totalExpenses = expenses.reduce((s, e) => s + (e.amount || 0), 0);
+  const netSurplus = totalCollected - hotelPayoutEst - totalExpenses;
+
+  const ribbon = document.getElementById('payments-kpi-ribbon');
+  if (ribbon) {
+    ribbon.innerHTML = `
+      <div class="kpi-card green">
+        <div class="kpi-label">Gross Collected Revenue</div>
+        <div class="kpi-value">₹${fmt(totalCollected)}</div>
+        <div class="kpi-sub">Verified payments collected</div>
+      </div>
+      <div class="kpi-card red">
+        <div class="kpi-label">Outstanding Receivables</div>
+        <div class="kpi-value">₹${fmt(totalReceivables)}</div>
+        <div class="kpi-sub">Balances due prior to arrival</div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-label">Avg. Booking Value</div>
+        <div class="kpi-value">₹${fmt(abv)}</div>
+        <div class="kpi-sub">Across 3 suite tiers</div>
+      </div>
+      <div class="kpi-card blue">
+        <div class="kpi-label">Hotel Partner Reserve</div>
+        <div class="kpi-value">₹${fmt(hotelPayoutEst)}</div>
+        <div class="kpi-sub">Allocated venue payout</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-label">Net Operating Margin</div>
+        <div class="kpi-value">₹${fmt(netSurplus)}</div>
+        <div class="kpi-sub">Post venue &amp; direct costs</div>
+      </div>
+    `;
+  }
+
+  const pendingGuests = leads.filter(l => {
+    const tot = l.amount || (l.plan === 'transformation' ? 35000 : (l.plan === 'serenity' ? 22000 : 26000));
+    const paid = l.amountPaid || 0;
+    return l.status !== 'cancelled' && paid < tot && (l.depositPaid || ['confirmed', 'active'].includes(l.status));
+  });
+
+  if (document.getElementById('count-txns')) document.getElementById('count-txns').textContent = invoices.length;
+  if (document.getElementById('count-pending-pay')) document.getElementById('count-pending-pay').textContent = pendingGuests.length;
+  if (document.getElementById('count-invoices')) document.getElementById('count-invoices').textContent = invoices.length;
+  if (document.getElementById('txns-count-badge')) document.getElementById('txns-count-badge').textContent = invoices.length;
+  if (document.getElementById('pending-count-badge')) document.getElementById('pending-count-badge').textContent = pendingGuests.length;
+
+  const sidePendingBadge = document.getElementById('side-pending-pay-badge');
+  if (sidePendingBadge) {
+    sidePendingBadge.textContent = pendingGuests.length;
+    sidePendingBadge.style.display = pendingGuests.length > 0 ? 'inline-block' : 'none';
+  }
+
+  const txnsTbody = document.getElementById('txns-tbody');
+  if (txnsTbody) {
+    let filteredInvs = invoices.filter(i => !q || i.guestName.toLowerCase().includes(q) || (i.id && i.id.toLowerCase().includes(q)));
+    if (!filteredInvs.length) {
+      txnsTbody.innerHTML = '<tr><td colspan="7" class="tbl-empty">No transaction receipts logged yet.</td></tr>';
+    } else {
+      txnsTbody.innerHTML = filteredInvs.map(i => {
+        const g = leads.find(l => l.id === i.guestId);
+        return `
+          <tr>
+            <td class="tbl-name"><strong style="color:var(--gold-d);">#${i.id.substring(0, 10).toUpperCase()}</strong></td>
+            <td>
+              <div class="tbl-name">${i.guestName}</div>
+              <div class="tbl-sub">${g ? g.phone : ''}</div>
+            </td>
+            <td>
+              <div style="font-weight:500;">${i.package || 'Retreat Payment'}</div>
+              <div class="tbl-sub"><span style="color:var(--gold); font-weight:600;">${i.payMethod || 'UPI'}</span> &bull; ${i.notes || 'Direct payment'}</div>
+            </td>
+            <td><strong style="font-family:var(--serif); font-size:1.05rem; color:var(--royal-deep);">₹${fmt(i.amount + (i.gst || 0))}</strong></td>
+            <td><span class="badge ${i.status === 'paid' ? 'badge-green' : (i.status === 'partial' ? 'badge-gold' : 'badge-blue')}">${cap(i.status)}</span></td>
+            <td class="tbl-sub">${new Date(i.date || Date.now()).toLocaleDateString('en-IN', {day:'2-digit', month:'short', year:'numeric'})}</td>
+            <td style="text-align:right;">
+              <button class="btn btn-secondary btn-sm" onclick="openViewInvoice('${i.id}')">View Receipt</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+  }
+
+  const pendingTbody = document.getElementById('pending-balances-tbody');
+  if (pendingTbody) {
+    let filteredPending = pendingGuests.filter(l => !q || l.name.toLowerCase().includes(q) || (l.phone && l.phone.includes(q)));
+    if (!filteredPending.length) {
+      pendingTbody.innerHTML = '<tr><td colspan="7" class="tbl-empty" style="color:var(--green);">✓ All confirmed retreatants have cleared their balances!</td></tr>';
+    } else {
+      pendingTbody.innerHTML = filteredPending.map(l => {
+        const tot = l.amount || (l.plan === 'transformation' ? 35000 : (l.plan === 'serenity' ? 22000 : 26000));
+        const paid = l.amountPaid || 0;
+        const bal = tot - paid;
+        return `
+          <tr>
+            <td>
+              <div class="tbl-name">${l.name}</div>
+              <div class="tbl-sub">${l.phone || ''} &bull; ${l.email || ''}</div>
+            </td>
+            <td><strong style="color:var(--royal-deep);">${planLabel(l.plan)}</strong></td>
+            <td>₹${fmt(tot)}</td>
+            <td><span style="color:var(--green); font-weight:600;">₹${fmt(paid)}</span></td>
+            <td><strong style="font-family:var(--serif); font-size:1.05rem; color:var(--red);">₹${fmt(bal)}</strong></td>
+            <td class="tbl-sub">${l.dates || 'Flexible'}</td>
+            <td style="text-align:right;">
+              <div style="display:inline-flex;">
+                <button class="btn btn-primary btn-sm" onclick="openRecordPayment('${l.id}')">+ Settle Balance</button>
+                <button class="btn btn-secondary btn-sm" onclick="openWhatsAppModal('${l.id}', 'balance')" style="margin-left:0.25rem; color:#25D366; border-color:rgba(37,211,102,0.3);">💬 Remind</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+  }
+
+  renderInvoices();
+}
+
+function openRecordPayment(guestId = null) {
+  const leads = getData('trc_leads');
+  const sel = document.getElementById('mpay-guest');
+  if (!sel) return;
+
+  sel.innerHTML = '<option value="">-- Select Guest / Reservation --</option>' + leads.map(l => {
+    const tot = l.amount || (l.plan === 'transformation' ? 35000 : (l.plan === 'serenity' ? 22000 : 26000));
+    const paid = l.amountPaid || 0;
+    const bal = Math.max(0, tot - paid);
+    return `<option value="${l.id}" data-total="${tot}" data-paid="${paid}" data-plan="${l.plan}" ${guestId === l.id ? 'selected' : ''}>${l.name} (${planLabel(l.plan)} - Bal: ₹${fmt(bal)})</option>`;
+  }).join('');
+
+  if (guestId) {
+    sel.value = guestId;
+    onPaymentGuestChange();
+  } else {
+    document.getElementById('mpay-amt').value = '';
+    document.getElementById('mpay-ref').value = '';
+    document.getElementById('mpay-notes').value = '';
+  }
+
+  openModal('m-payment');
+}
+
+function onPaymentGuestChange() {
+  const sel = document.getElementById('mpay-guest');
+  const opt = sel.options[sel.selectedIndex];
+  if (!opt || !opt.value) return;
+
+  const tot = parseFloat(opt.getAttribute('data-total')) || 26000;
+  const paid = parseFloat(opt.getAttribute('data-paid')) || 0;
+  const bal = Math.max(0, tot - paid);
+
+  const type = document.getElementById('mpay-type').value;
+  if (type === 'deposit') {
+    document.getElementById('mpay-amt').value = Math.round(tot * 0.3);
+  } else if (type === 'balance') {
+    document.getElementById('mpay-amt').value = bal;
+  } else if (type === 'full') {
+    document.getElementById('mpay-amt').value = tot;
+  } else if (type === 'addon') {
+    document.getElementById('mpay-amt').value = 2500;
+  }
+}
+
+function onPaymentTypeChange() {
+  onPaymentGuestChange();
+}
+
+function savePayment() {
+  const sel = document.getElementById('mpay-guest');
+  const guestId = sel.value;
+  if (!guestId) { showToast('Please select a guest reservation', true); return; }
+
+  const amt = parseFloat(document.getElementById('mpay-amt').value) || 0;
+  if (amt <= 0) { showToast('Please enter a valid payment amount', true); return; }
+
+  const method = document.getElementById('mpay-method').value;
+  const ref = document.getElementById('mpay-ref').value.trim() || ('TXN-' + Math.random().toString(36).substring(2, 8).toUpperCase());
+  const notes = document.getElementById('mpay-notes').value.trim();
+  const autoConfirm = document.getElementById('mpay-auto-confirm').checked;
+
+  const leads = getData('trc_leads');
+  const gIdx = leads.findIndex(l => l.id === guestId);
+  if (gIdx < 0) return;
+
+  const g = leads[gIdx];
+  const oldPaid = g.amountPaid || 0;
+  const newPaid = oldPaid + amt;
+  const tot = g.amount || (g.plan === 'transformation' ? 35000 : (g.plan === 'serenity' ? 22000 : 26000));
+
+  g.amountPaid = newPaid;
+  g.depositPaid = true;
+
+  if (autoConfirm && (g.status === 'lead' || g.status === 'new' || newPaid >= tot)) {
+    g.status = 'confirmed';
+  }
+
+  const invoices = getData('trc_invoices');
+  invoices.unshift({
+    id: ref,
+    guestId: g.id,
+    guestName: g.name,
+    package: planLabel(g.plan),
+    amount: amt,
+    gst: 0,
+    payMethod: method,
+    status: newPaid >= tot ? 'paid' : 'partial',
+    retreatId: g.linkedRetreat || 'r1',
+    notes: notes || `Payment received via ${method}`,
+    date: new Date().toISOString().slice(0, 10)
+  });
+
+  saveData('trc_leads', leads);
+  saveData('trc_invoices', invoices);
+
+  closeModal('m-payment');
+  showToast(`Payment of ₹${fmt(amt)} recorded for ${g.name}!`);
+
+  renderOverview();
+  renderBatchCapacity();
+  renderGuests();
+  renderPayments();
+}
+
+function openWhatsAppModal(guestId, defaultTemplate = 'welcome') {
+  const leads = getData('trc_leads');
+  const g = leads.find(l => l.id === guestId);
+  if (!g) return;
+
+  document.getElementById('wa-guest-id').value = g.id;
+  document.getElementById('wa-guest-name').value = g.name;
+  document.getElementById('wa-guest-phone').value = g.phone || '';
+
+  const sel = document.getElementById('wa-template-sel');
+  if (sel) sel.value = defaultTemplate;
+
+  onWhatsAppTemplateChange();
+  openModal('m-whatsapp');
+}
+
+function onWhatsAppTemplateChange() {
+  const guestId = document.getElementById('wa-guest-id').value;
+  const leads = getData('trc_leads');
+  const g = leads.find(l => l.id === guestId);
+  if (!g) return;
+
+  const tpl = document.getElementById('wa-template-sel').value;
+  const plan = planLabel(g.plan);
+  const total = g.amount || (g.plan === 'transformation' ? 35000 : (g.plan === 'serenity' ? 22000 : 26000));
+  const paid = g.amountPaid || 0;
+  const bal = Math.max(0, total - paid);
+  const msgBox = document.getElementById('wa-msg-body');
+
+  if (tpl === 'welcome') {
+    msgBox.value = `Namaste ${g.name}! Thank you for your interest in The Reset Co retreat in Bir Billing. 
+
+To ensure personalized care, our retreats are strictly limited to 15 guests per batch. Before prescribing your retreat regimen, our BAMS doctors invite you to complete your Prakriti diagnostic assessment here:
+https://theresetco.in/dosha-prakriti-assessment.html
+
+Please let us know your preferred dates!
+Warm regards,
+Dr. Himanshu Bhatt & Dr. Aditya Kaundal
+The Reset Co`;
+  } else if (tpl === 'deposit') {
+    msgBox.value = `Namaste ${g.name}! We have received your booking deposit of ₹${fmt(paid)} for the ${plan} at The Reset Co, Bir Billing.
+
+Your suite reservation is confirmed for ${g.dates || 'your retreat dates'}. Our medical team has initiated your clinical intake file. 
+
+Feel free to reach out with any travel inquiries. We look forward to welcoming you to the Himalayas!
+The Reset Co`;
+  } else if (tpl === 'balance') {
+    msgBox.value = `Namaste ${g.name}, this is a gentle reminder regarding your upcoming Himalayan retreat (${plan}, ${g.dates || 'selected dates'}).
+
+Your remaining balance of ₹${fmt(bal)} is due prior to arrival for room and catering settlement. You may settle via UPI to hello@theresetco.in or bank transfer.
+
+Please let us know once transferred!
+The Reset Co Operations`;
+  } else if (tpl === 'travel') {
+    msgBox.value = `Namaste ${g.name}! Here is your travel & logistics guide for The Reset Co in Bir Billing:
+
+1. Nearest Airport: Kangra / Dharamshala (DHM) - approx 2 hours scenic mountain drive.
+2. Nearest Railway Station: Pathankot (PTK) or Amb Andaura.
+3. Packing Essentials: Warm layers for sunrise meditation at 2,400m, comfortable natural cotton clothing for yoga kriyas, and personal walking shoes.
+
+We will coordinate your local taxi pickup 48 hours prior to check-in.
+The Reset Co`;
+  }
+}
+
+function dispatchWhatsAppMessage() {
+  const phone = document.getElementById('wa-guest-phone').value.replace(/[^0-9]/g, '');
+  if (!phone) { showToast('No phone number recorded for this guest', true); return; }
+  const cleanPhone = phone.startsWith('91') ? phone : '91' + phone;
+  const msg = document.getElementById('wa-msg-body').value;
+  closeModal('m-whatsapp');
+  window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function advanceGuestStage(id, forcedStage = null) {
+  const leads = getData('trc_leads');
+  const g = leads.find(l => l.id === id);
+  if (!g) return;
+
+  if (forcedStage) {
+    g.status = forcedStage;
+  } else {
+    if (g.status === 'lead' || g.status === 'new') g.status = 'confirmed';
+    else if (g.status === 'confirmed') g.status = 'active';
+    else if (g.status === 'active') g.status = 'past';
+  }
+
+  saveData('trc_leads', leads);
+  showToast(`Updated status for ${g.name} to ${cap(g.status)}.`);
+  renderGuests();
+  renderOverview();
+  renderBatchCapacity();
+  renderPayments();
+}
+
+function simulateIncomingBooking() {
+  const sampleGuests = [
+    { name: 'Vikram Singhania', city: 'Mumbai', plan: 'transformation', guests: 2, dosha: 'Pitta', phone: '+91 98201 44552' },
+    { name: 'Meera Chawla', city: 'Delhi NCR', plan: 'awakening', guests: 1, dosha: 'Vata', phone: '+91 98113 77889' },
+    { name: 'Siddharth Nair', city: 'Bangalore', plan: 'serenity', guests: 2, dosha: 'Kapha', phone: '+91 99002 11223' },
+    { name: 'Rhea Deshmukh', city: 'Pune', plan: 'awakening', guests: 1, dosha: 'Vata-Pitta', phone: '+91 97654 33221' }
+  ];
+
+  const pick = sampleGuests[Math.floor(Math.random() * sampleGuests.length)];
+  const leads = getData('trc_leads');
+  const prices = { serenity: 22000, awakening: 26000, transformation: 35000 };
+  const amt = (prices[pick.plan] || 26000) * pick.guests;
+
+  const newLead = {
+    id: 'web_' + Date.now(),
+    name: pick.name,
+    email: pick.name.toLowerCase().replace(' ', '.') + '@gmail.com',
+    phone: pick.phone,
+    plan: pick.plan,
+    guests: pick.guests,
+    dates: '18-21 Jul 2026',
+    status: 'lead',
+    amount: amt,
+    amountPaid: 0,
+    depositPaid: false,
+    dosha: pick.dosha,
+    city: pick.city,
+    source: 'Website Enquiry',
+    notes: 'Inquiry via theresetco.in homepage reservation form. Completed on-page Prakriti assessment.',
+    created: new Date().toISOString().slice(0, 10)
+  };
+
+  leads.unshift(newLead);
+  saveData('trc_leads', leads);
+  localStorage.setItem('trc_new_enquiry', JSON.stringify({ id: newLead.id, name: newLead.name, ts: Date.now() }));
+
+  showNotifBanner(newLead.name, newLead.id);
+  showToast(`⚡ Incoming reservation received from ${newLead.name}!`);
+
+  renderOverview();
+  renderBatchCapacity();
+  renderGuests();
+  renderPayments();
+}
+
+// =============================================================================
+// 17. ONE-CLICK EMAIL & WHATSAPP CONFIRMATIONS
+// =============================================================================
+function sendMailConfirmation(id) {
+  const leads = getData('trc_leads');
+  const g = leads.find(l => l.id === id);
+  if (!g) return;
+
+  const planName = planLabel(g.plan);
+  const subject = encodeURIComponent(`Booking Confirmation - The Reset Co Wellness Retreat, Bir Billing`);
+  
+  const body = encodeURIComponent(
+`Dear ${g.name || 'Guest'},
+
+We are delighted to confirm your seat for the upcoming wellness retreat at The Reset Co. Below are your booking details:
+
+Retreat Details:
+- Wellness Program: ${planName}
+- Scheduled Dates: ${g.dates || 'Preferred Dates'}
+- Confirmed Occupancy: ${g.guests || 1} Guest(s)
+- Payout Received: ₹${fmt(g.amountPaid)} (Status: Paid/Confirmed)
+
+Retreat Base Location:
+The Reset Co, Bir Billing, Himachal Pradesh, India
+Office WhatsApp / Phone: +91 78885 40046
+Email: hello@theresetco.in
+
+Our program follows the traditional Ayurvedic protocols. We will conduct a diagnostic Prakriti assessment on your arrival day, which will dictate your tailored Sattvic meal plan and Basti procedures (such as Janu Basti, Kati Basti, and Greeva Basti) administered by our BAMS doctors.
+
+Travel Guidelines:
+If you need any logistics assistance with airport pickups (nearest: Kangra/Dharamshala Airport) or local taxi arrangements, please reply to this email or write to us on WhatsApp.
+
+We look forward to welcoming you to the mountains of Bir Billing for a restorative healing experience.
+
+Warm regards,
+Dr. Himanshu Bhatt & Dr. Aditya Kaundal
+Co-founders, The Reset Co`
+  );
+
+  window.location.href = `mailto:${g.email}?subject=${subject}&body=${body}`;
+}
+
+function sendWhatsAppConfirmation(id) {
+  const leads = getData('trc_leads');
+  const g = leads.find(l => l.id === id);
+  if (!g) return;
+
+  const planName = planLabel(g.plan);
+  const cleanPhone = g.phone.replace(/[^0-9]/g, '');
+  const waPhone = cleanPhone.startsWith('91') ? cleanPhone : '91' + cleanPhone;
+
+  const text = encodeURIComponent(
+`Hello ${g.name}! This is Dr. Himanshu from *The Reset Co*. 
+
+We are happy to confirm your seat for the *${planName}* wellness retreat in Bir Billing on *${g.dates || 'selected dates'}*. 
+
+Your deposit payment of *₹${fmt(g.amountPaid)}* has been successfully logged. We are looking forward to welcoming you to Bir Billing for a transformational healing experience! 
+
+Feel free to ask us here about airport taxi pickups or any travel arrangements.`
+  );
+
+  window.open(`https://wa.me/${waPhone}?text=${text}`, '_blank');
+}
+
+// =============================================================================
+// 18. STORAGE SYNC SYNC EVENT LISTENER
+// =============================================================================
+let notifLeadId = null;
+
+function showNotifBanner(name, id) {
+  notifLeadId = id;
+  document.getElementById('notif-text').innerHTML = `🆕 New booking inquiry received from <strong>${name}</strong>!`;
+  document.getElementById('notif-banner').classList.add('show');
+  
+  // Auto-dismiss banner after 12s
+  setTimeout(() => closeNotif(), 12000);
+}
+
+function closeNotif() {
+  document.getElementById('notif-banner').classList.remove('show');
+}
+
+function viewLatestLead() {
+  closeNotif();
+  if (notifLeadId) {
+    nav('guests', document.getElementById('nav-guests'));
+    setTimeout(() => openGuestProfile(notifLeadId), 300);
+  }
+}
+
+window.addEventListener('storage', e => {
+  // Catch guest inquiries from index.html form
+  if (e.key === 'trc_new_enquiry' && e.newValue) {
+    try {
+      const data = JSON.parse(e.newValue);
+      renderGuests();
+      if (isFounder()) {
+        renderOverview();
+      }
+      showNotifBanner(data.name || 'Guest', data.id || null);
+    } catch(err) {}
+  }
+  
+  if (e.key === 'trc_leads') {
+    renderGuests();
+    if (isFounder()) {
+      renderOverview();
+    }
+  }
+});
+
+// =============================================================================
+// 19. APP INITIALIZATION
+// =============================================================================
+seedData();
+launchApp();
+
+</script>
+</body>
+</html>

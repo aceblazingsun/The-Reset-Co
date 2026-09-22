@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prakriti Parikshan: Clinical Dosha Assessment | The Reset Co</title>
+
+<!-- Meta Tags -->
+<meta name="description" content="Discover your unique Ayurvedic constitution (Vata, Pitta, Kapha) through our guided clinical Prakriti Parikshan. Directed by BAMS doctors in Bir Billing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F5ECD3;
+    --royal: #1A3A6B;
+    --royal-deep: #080F1E;
+    --royal-surface: #0E1A30;
+    --royal-card: #13223E;
+    --ivory: #FDFBF7;
+    --text-light: #FDFBF7;
+    --text-muted: rgba(253, 251, 247, 0.65);
+    --border-gold: rgba(201, 168, 76, 0.3);
+    --border-card: rgba(255, 255, 255, 0.08);
+    --vata: #8E7CF0;
+    --pitta: #E07A5F;
+    --kapha: #48BB78;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--royal-deep);
+    color: var(--text-light);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Accessibility (R-32) */
+  :focus-visible {
+    outline: 2px solid var(--gold) !important;
+    outline-offset: 3px !important;
+  }
+
+  /* Ambient Glows */
+  .bg-orb {
+    position: fixed; width: 600px; height: 600px; border-radius: 50%;
+    filter: blur(80px); pointer-events: none; z-index: 0; opacity: 0.25;
+  }
+  .bg-orb-1 { top: -10%; right: -10%; background: radial-gradient(circle, var(--royal) 0%, transparent 70%); }
+  .bg-orb-2 { bottom: -10%; left: -10%; background: radial-gradient(circle, rgba(201, 168, 76, 0.2) 0%, transparent 70%); }
+
+  /* Header Bar */
+  .app-header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(8, 15, 30, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 0.9rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .app-brand {
+    text-decoration: none; display: flex; flex-direction: column;
+  }
+  .app-brand-title {
+    font-family: var(--serif); font-size: 1.4rem; color: var(--ivory); font-weight: 500;
+  }
+  .app-brand-title span { color: var(--gold); }
+  .app-brand-sub {
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-light);
+  }
+
+  .back-btn {
+    color: var(--gold-light); text-decoration: none;
+    font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--border-gold); padding: 0.45rem 1.1rem;
+    border-radius: 2px; transition: all 0.25s ease;
+  }
+  .back-btn:hover {
+    background: var(--gold); color: var(--royal-deep); font-weight: 500;
+  }
+
+  /* Dynamic Dosha Meter in Top Bar */
+  .live-meter-wrap {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .meter-title {
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+  }
+  .meter-bars {
+    display: flex; width: 150px; height: 8px; border-radius: 4px; overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .meter-vata { height: 100%; background: var(--vata); width: 33.3%; transition: width 0.35s ease; }
+  .meter-pitta { height: 100%; background: var(--pitta); width: 33.3%; transition: width 0.35s ease; }
+  .meter-kapha { height: 100%; background: var(--kapha); width: 33.3%; transition: width 0.35s ease; }
+
+  /* Main Container */
+  .assessment-stage {
+    max-width: 840px; margin: 2.5rem auto 5rem auto;
+    padding: 0 1.5rem; position: relative; z-index: 10;
+  }
+
+  /* Intro Screen */
+  .intro-card {
+    background: var(--royal-surface);
+    border: 1px solid var(--border-gold);
+    border-radius: 6px; padding: 3.5rem 3rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+  .intro-eyebrow {
+    font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem; font-weight: 500;
+  }
+  .intro-title {
+    font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 400; line-height: 1.15; margin-bottom: 1.25rem;
+  }
+  .intro-title em { font-style: italic; color: var(--gold-light); }
+  .intro-lead {
+    font-size: 1.05rem; color: var(--text-muted); max-width: 620px;
+    margin: 0 auto 2.5rem auto; line-height: 1.7;
+  }
+
+  .pillars-summary {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    margin-bottom: 2.5rem; text-align: left;
+  }
+  .pillar-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-card);
+    border-radius: 4px; padding: 1.25rem;
+  }
+  .pillar-box-name {
+    font-family: var(--serif); font-size: 1.2rem; margin-bottom: 0.25rem;
+  }
+  .pillar-box.v .pillar-box-name { color: var(--vata); }
+  .pillar-box.p .pillar-box-name { color: var(--pitta); }
+  .pillar-box.k .pillar-box-name { color: var(--kapha); }
+  .pillar-box-elements {
+    font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 0.5rem;
+  }
+  .pillar-box-desc {
+    font-size: 0.8rem; color: rgba(253, 251, 247, 0.7); line-height: 1.5;
+  }
+
+  .btn-start {
+    background: var(--gold); color: var(--royal-deep);
+    border: none; padding: 1rem 2.8rem;
+    font-family: var(--sans); font-size: 0.88rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; border-radius: 2px;
+    transition: all 0.25s ease;
+  }
+  .btn-start:hover {
+    background: var(--gold-light); transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(201, 168, 76, 0.35);
+  }
+
+  /* Question Stage */
+  .quiz-container { display: none; }
+  .step-indicator {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1.5rem; font-size: 0.78rem; color: var(--gold-light);
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .category-pill {
+    background: rgba(201, 168, 76, 0.12);
+    border: 1px solid var(--border-gold);
+    padding: 0.25rem 0.85rem; border-radius: 20px;
+    color: var(--gold); font-weight: 500;
+  }
+
+  .question-card {
+    background: var(--royal-surface);
+    border: 1px solid var(--border-gold);
+    border-radius: 6px; padding: 2.8rem 2.5rem;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
+    margin-bottom: 2rem;
+  }
+  .q-number {
+    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.5rem; font-weight: 500;
+  }
+  .q-text {
+    font-family: var(--serif); font-size: 1.85rem; color: var(--ivory);
+    line-height: 1.25; margin-bottom: 2rem; font-weight: 400;
+  }
+
+  .options-grid {
+    display: grid; gap: 1rem;
+  }
+  .option-card {
+    background: var(--royal-card);
+    border: 1px solid var(--border-card);
+    border-radius: 4px; padding: 1.25rem 1.6rem;
+    min-height: 44px;
+    cursor: pointer; transition: all 0.22s ease;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .option-card:hover {
+    border-color: var(--gold); background: rgba(201, 168, 76, 0.08);
+    transform: translateX(4px);
+  }
+  .option-card.selected {
+    border-color: var(--gold); background: rgba(201, 168, 76, 0.16);
+    box-shadow: 0 0 15px rgba(201, 168, 76, 0.2);
+  }
+  .option-text {
+    font-size: 0.95rem; color: var(--ivory); line-height: 1.5;
+  }
+  .option-check {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 1.5px solid rgba(201, 168, 76, 0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; color: transparent; flex-shrink: 0; margin-left: 1rem;
+  }
+  .option-card.selected .option-check {
+    background: var(--gold); color: var(--royal-deep); border-color: var(--gold);
+    font-weight: 700;
+  }
+
+
+  /* Stage Nav Controls */
+  .quiz-controls {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .btn-quiz-prev {
+    background: transparent; color: var(--text-muted);
+    border: 1px solid var(--border-card); padding: 0.75rem 1.6rem;
+    font-family: var(--sans); font-size: 0.82rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    border-radius: 2px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-quiz-prev:hover { color: var(--ivory); border-color: var(--border-gold); }
+
+  /* Results Screen */
+  .results-container { display: none; }
+  .results-sheet {
+    background: var(--royal-surface);
+    border: 1px solid var(--border-gold);
+    border-radius: 6px; padding: 3.5rem 3rem;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+  }
+  .res-header { text-align: center; margin-bottom: 3rem; }
+  .res-badge {
+    display: inline-block; font-size: 0.72rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--gold); border: 1px solid var(--border-gold);
+    padding: 0.35rem 1.2rem; border-radius: 20px; margin-bottom: 1rem;
+  }
+  .res-title {
+    font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 400; line-height: 1.1; margin-bottom: 0.5rem; color: var(--ivory);
+  }
+  .res-sub {
+    font-size: 0.95rem; color: var(--text-muted); max-width: 580px; margin: 0 auto;
+  }
+
+  .scores-breakdown-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-card);
+    border-radius: 4px; padding: 2rem; margin-bottom: 2.5rem;
+  }
+  .score-row {
+    margin-bottom: 1.25rem;
+  }
+  .score-row:last-child { margin-bottom: 0; }
+  .score-meta {
+    display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.4rem;
+  }
+  .score-label-v { color: var(--vata); font-weight: 500; }
+  .score-label-p { color: var(--pitta); font-weight: 500; }
+  .score-label-k { color: var(--kapha); font-weight: 500; }
+  .score-bar-track {
+    width: 100%; height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 5px; overflow: hidden;
+  }
+  .score-bar-fill-v { height: 100%; background: var(--vata); width: 0%; transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .score-bar-fill-p { height: 100%; background: var(--pitta); width: 0%; transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .score-bar-fill-k { height: 100%; background: var(--kapha); width: 0%; transition: width 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+  .clinical-insights {
+    margin-bottom: 3rem;
+  }
+  .insight-section {
+    margin-bottom: 2rem;
+  }
+  .insight-title {
+    font-family: var(--serif); font-size: 1.4rem; color: var(--gold-light);
+    margin-bottom: 0.5rem; border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+    padding-bottom: 0.35rem;
+  }
+  .insight-body {
+    font-size: 0.95rem; color: rgba(253, 251, 247, 0.8); line-height: 1.7;
+  }
+
+  /* Retreat Recommendation Box */
+  .recommendation-box {
+    background: linear-gradient(135deg, rgba(201, 168, 76, 0.15) 0%, rgba(26, 58, 107, 0.25) 100%);
+    border: 2px solid var(--gold); border-radius: 6px;
+    padding: 2.2rem; text-align: center; margin-bottom: 2.5rem;
+  }
+  .rec-tag {
+    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold-light); font-weight: 600; margin-bottom: 0.4rem;
+  }
+  .rec-plan-name {
+    font-family: var(--serif); font-size: 2.2rem; color: var(--ivory);
+    margin-bottom: 0.5rem; font-weight: 500;
+  }
+  .rec-desc {
+    font-size: 0.92rem; color: rgba(253, 251, 247, 0.85); max-width: 600px;
+    margin: 0 auto 1.8rem auto; line-height: 1.65;
+  }
+  .action-buttons-group {
+    display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap;
+  }
+  .btn-book-plan {
+    background: var(--gold); color: var(--royal-deep);
+    text-decoration: none; padding: 0.9rem 2.2rem;
+    font-family: var(--sans); font-size: 0.86rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px;
+    transition: all 0.25s ease;
+  }
+  .btn-book-plan:hover {
+    background: var(--gold-light); transform: translateY(-2px);
+  }
+  .btn-wa-doctor {
+    background: #25D366; color: #FFFFFF;
+    text-decoration: none; padding: 0.9rem 2rem;
+    font-family: var(--sans); font-size: 0.86rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; border-radius: 2px;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    transition: all 0.25s ease;
+  }
+  .btn-wa-doctor:hover {
+    background: #20BA5A; transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .assessment-stage { margin-top: 1.5rem; padding: 0 1rem; }
+    .intro-card, .question-card, .results-sheet { padding: 2rem 1.5rem; }
+    .pillars-summary { grid-template-columns: 1fr; }
+    .live-meter-wrap { display: none; }
+  }
+  .skip-link {
+    position: absolute; top: -100px; left: 1rem;
+    background: var(--gold); color: var(--royal-deep);
+    padding: 0.75rem 1.5rem; font-size: 0.85rem; font-weight: 600;
+    text-decoration: none; z-index: 9999; transition: top 0.2s;
+  }
+  .skip-link:focus { top: 1rem; }</style>
+</head>
+<body>
+<a href="#assessment-main" class="skip-link">Skip to assessment</a>
+
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+
+<!-- Top Bar -->
+<header class="app-header">
+  <a href="hero.html" class="app-brand">
+    <div class="app-brand-title">The Reset <span>Co</span></div>
+    <div class="app-brand-sub">Clinical Prakriti Parikshan</div>
+  </a>
+
+  <div class="live-meter-wrap" id="liveMeter" style="display:none;">
+    <div class="meter-title">Equilibrium</div>
+    <div class="meter-bars">
+      <div class="meter-vata" id="meterV" title="Vata"></div>
+      <div class="meter-pitta" id="meterP" title="Pitta"></div>
+      <div class="meter-kapha" id="meterK" title="Kapha"></div>
+    </div>
+  </div>
+
+  <a href="hero.html" class="back-btn">&larr; Back to Retreats</a>
+</header>
+
+<main id="assessment-main" class="assessment-stage">
+
+  <!-- INTRO SCREEN -->
+  <div class="intro-card" id="introCard">
+    <div class="intro-eyebrow">Classical Diagnostic Science</div>
+    <h1 class="intro-title">Prakriti <em>Parikshan</em></h1>
+    <p class="intro-lead">
+      In Ayurveda, no two bodies are identical. Before prescribing any therapeutic procedure or retreat regimen, our BAMS physicians map your inborn constitutional balance of Vata, Pitta, and Kapha.
+    </p>
+
+    <div class="pillars-summary">
+      <div class="pillar-box v">
+        <div class="pillar-box-name">Vata</div>
+        <div class="pillar-box-elements">Ether &bull; Air</div>
+        <div class="pillar-box-desc">Governs movement, nervous impulses, breath, and mental agility. Prone to dry skin, cold hands, restlessness, and sleep fragmentation.</div>
+      </div>
+      <div class="pillar-box p">
+        <div class="pillar-box-name">Pitta</div>
+        <div class="pillar-box-elements">Fire &bull; Water</div>
+        <div class="pillar-box-desc">Governs metabolic transformation, digestion, intellect, and body heat. Prone to acidity, inflammation, impatience, and intense hunger.</div>
+      </div>
+      <div class="pillar-box k">
+        <div class="pillar-box-name">Kapha</div>
+        <div class="pillar-box-elements">Water &bull; Earth</div>
+        <div class="pillar-box-desc">Governs physical stability, lubrication, immunity, and endurance. Prone to sluggish digestion, fluid retention, weight gain, and lethargy.</div>
+      </div>
+    </div>
+
+    <button class="btn-start" onclick="startAssessment()">Begin Clinical Assessment &rarr;</button>
+  </div>
+
+  <!-- QUESTION SCREEN -->
+  <div class="quiz-container" id="quizContainer" role="main" aria-label="Prakriti assessment questions">
+    <div class="step-indicator" aria-live="polite" aria-atomic="true">
+      <span id="questionStep">Question 1 of 15</span>
+      <span class="category-pill" id="categoryPill">Physical Structure</span>
+    </div>
+
+    <div class="question-card" role="group" aria-labelledby="qText">
+      <div class="q-number" id="qDomain" aria-hidden="true">Domain: Sharira (Body Frame)</div>
+      <div class="q-text" id="qText">What describes your natural physical bone structure and frame?</div>
+      
+      <div class="options-grid" id="optionsGrid" role="radiogroup" aria-labelledby="qText">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+
+    <div class="quiz-controls">
+      <button class="btn-quiz-prev" id="prevBtn" onclick="prevQuestion()" style="visibility:hidden;" aria-label="Go to previous question">&larr; Previous</button>
+      <div style="font-size:0.8rem; color:var(--text-muted);" aria-hidden="true">Tap your answer to advance</div>
+    </div>
+  </div>
+
+
+  <!-- RESULTS SCREEN -->
+  <div class="results-container" id="resultsContainer">
+    <div class="results-sheet">
+      <div class="res-header">
+        <div class="res-badge">Clinical Constitutional Mapping</div>
+        <h2 class="res-title" id="dominantDoshaTitle">Vata-Pitta Profile</h2>
+        <p class="res-sub">Generated from your physical, metabolic, and neurological indicators.</p>
+      </div>
+
+      <!-- Score Bar Breakdown -->
+      <div class="scores-breakdown-card">
+        <div class="score-row">
+          <div class="score-meta">
+            <span class="score-label-v">Vata (Air &amp; Space)</span>
+            <span id="scoreValV">42%</span>
+          </div>
+          <div class="score-bar-track">
+            <div class="score-bar-fill-v" id="barV"></div>
+          </div>
+        </div>
+        <div class="score-row">
+          <div class="score-meta">
+            <span class="score-label-p">Pitta (Fire &amp; Water)</span>
+            <span id="scoreValP">38%</span>
+          </div>
+          <div class="score-bar-track">
+            <div class="score-bar-fill-p" id="barP"></div>
+          </div>
+        </div>
+        <div class="score-row">
+          <div class="score-meta">
+            <span class="score-label-k">Kapha (Earth &amp; Water)</span>
+            <span id="scoreValK">20%</span>
+          </div>
+          <div class="score-bar-track">
+            <div class="score-bar-fill-k" id="barK"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clinical Insights -->
+      <div class="clinical-insights">
+        <div class="insight-section">
+          <div class="insight-title">Physician Diagnostic Summary</div>
+          <div class="insight-body" id="diagSummary">
+            Your scores indicate a predominant dosha pattern with clear indications of modern urban stress. Your autonomic nervous system is showing signs of sensory overload, leading to irregular metabolic digestion and fractured sleep cycles.
+          </div>
+        </div>
+
+        <div class="insight-section">
+          <div class="insight-title">Agni (Digestion) &amp; Nutrition Focus</div>
+          <div class="insight-body" id="dietSummary">
+            Favor warm, unctuous, grounding foods prepared with pure cow's ghee and gentle spices (cumin, ginger, cardamom). Avoid cold raw salads, ice drinks, and irregular meal timings that provoke digestive wind.
+          </div>
+        </div>
+
+        <div class="insight-section">
+          <div class="insight-title">Targeted Classical Procedures</div>
+          <div class="insight-body" id="procedureSummary">
+            Classical Abhyanga using warm sesame oil combined with Greeva Basti (cervical spine oil pool) or Kati Basti to soothe nervous tension and restore cellular hydration.
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommended Retreat Recommendation -->
+      <div class="recommendation-box">
+        <div class="rec-tag">Physician Recommended Retreat</div>
+        <div class="rec-plan-name" id="recPlanName">Awakening Reset (4 Days)</div>
+        <div class="rec-desc" id="recPlanDesc">
+          A targeted 4-day immersion designed to recalibrate your doshic balance through two classical Basti therapies, full Shatkarma kriyas, and daily pulse consultations in Bir Billing.
+        </div>
+        <div class="action-buttons-group">
+          <button class="btn-book-plan" onclick="bookRecommendedPlan()">Reserve This Retreat &rarr;</button>
+          <a href="#" class="btn-wa-doctor" id="waDoctorBtn" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Send Results to Dr. Aditya
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // 15 Classical Ayurvedic Diagnostic Questions
+  const questions = [
+    {
+      category: "Sharira (Physical Frame)",
+      domain: "Bone Structure & Build",
+      text: "How would you describe your natural bone structure and physical build?",
+      options: [
+        { text: "Slender, lean, prominent joints, finds it hard to gain weight", dosha: "vata" },
+        { text: "Medium, athletic, well-proportioned, moderate muscle tone", dosha: "pitta" },
+        { text: "Broad, sturdy, heavy bone structure, gains weight easily", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Sharira (Physical Frame)",
+      domain: "Skin Quality",
+      text: "How does your skin typically behave throughout the seasons?",
+      options: [
+        { text: "Dry, rough, thin, prone to chapping and coldness", dosha: "vata" },
+        { text: "Warm, sensitive, prone to redness, acne, or freckles", dosha: "pitta" },
+        { text: "Thick, oily or soft, smooth, cool, resilient to weather", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Sharira (Physical Frame)",
+      domain: "Hair Characteristics",
+      text: "What describes the natural texture and quality of your hair?",
+      options: [
+        { text: "Dry, brittle, frizzy, coarse, or prone to split ends", dosha: "vata" },
+        { text: "Fine, soft, oily, early greying, or thinning hairline", dosha: "pitta" },
+        { text: "Thick, lustrous, wavy, abundant, and naturally hydrated", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Agni (Metabolism & Digestion)",
+      domain: "Appetite & Hunger",
+      text: "How predictable is your appetite on an ordinary workday?",
+      options: [
+        { text: "Irregular: very hungry sometimes, forgets to eat at others", dosha: "vata" },
+        { text: "Intense and sharp: feels irritable or weak if meals are delayed", dosha: "pitta" },
+        { text: "Steady and moderate: can easily skip a meal without distress", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Agni (Metabolism & Digestion)",
+      domain: "Post-Meal Digestion",
+      text: "What digestive discomfort do you most commonly encounter?",
+      options: [
+        { text: "Bloating, abdominal gas, dry constipation, or cramping", dosha: "vata" },
+        { text: "Heartburn, acidity, heat sensations, or loose bowel motions", dosha: "pitta" },
+        { text: "Heavy feeling in stomach, sluggishness, lethargy after eating", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Agni (Metabolism & Digestion)",
+      domain: "Thermal Sensitivity",
+      text: "Which climate or environment do you feel most uncomfortable in?",
+      options: [
+        { text: "Cold, windy, and dry weather; loves warmth and sun", dosha: "vata" },
+        { text: "Hot, humid, sunny weather; intensely seeks air conditioning", dosha: "pitta" },
+        { text: "Cold, damp, rainy weather; prefers warm, dry climates", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Nidra (Sleep Cycles)",
+      domain: "Sleep Quality",
+      text: "How would you describe your natural sleep pattern?",
+      options: [
+        { text: "Light, easily disrupted, prone to waking around 2:00 to 4:00 AM", dosha: "vata" },
+        { text: "Moderate (6 to 7 hours), sound, but wakes if room is too warm", dosha: "pitta" },
+        { text: "Deep, heavy, 8+ hours, finds it very difficult to wake up early", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Nidra (Sleep Cycles)",
+      domain: "Dream Patterns",
+      text: "What themes appear most commonly in your dreams?",
+      options: [
+        { text: "Flying, running, wandering, anxiety, movement, high winds", dosha: "vata" },
+        { text: "Conflict, problem solving, ambition, fire, bright colors", dosha: "pitta" },
+        { text: "Lakes, water, romance, calm landscapes, or rare dreaming", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Manas (Mind & Emotion)",
+      domain: "Mental Speed & Thought Flow",
+      text: "How does your mind process new information and tasks?",
+      options: [
+        { text: "Fast grasp, highly imaginative, jumps quickly across ideas", dosha: "vata" },
+        { text: "Analytical, methodical, critical thinker, goal-directed", dosha: "pitta" },
+        { text: "Deliberate, takes time to absorb, but retains knowledge permanently", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Manas (Mind & Emotion)",
+      domain: "Stress Reaction",
+      text: "When facing acute professional or personal stress, how do you react?",
+      options: [
+        { text: "Anxiety, mental restlessness, racing heart, feeling overwhelmed", dosha: "vata" },
+        { text: "Irritability, anger, impatience, sharp speech, perfectionism", dosha: "pitta" },
+        { text: "Withdrawal, stubbornness, procrastination, emotional eating", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Manas (Mind & Emotion)",
+      domain: "Memory & Recall",
+      text: "How does your memory naturally function?",
+      options: [
+        { text: "Learns quickly, forgets quickly; short-term recall is best", dosha: "vata" },
+        { text: "Clear, systematic, remembers facts, details, and schedules well", dosha: "pitta" },
+        { text: "Slow to memorize, but once learned, almost never forgotten", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Vyadhi & Bala (Energy & Stamina)",
+      domain: "Physical Stamina",
+      text: "How would you characterize your daily physical energy curve?",
+      options: [
+        { text: "Fluctuates in sudden bursts: high energy followed by sudden crashes", dosha: "vata" },
+        { text: "Strong and consistent: pushes through fatigue with sheer willpower", dosha: "pitta" },
+        { text: "Slow to start in the morning, but steady enduring stamina all day", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Vyadhi & Bala (Energy & Stamina)",
+      domain: "Decision Making Style",
+      text: "When making major decisions or purchases:",
+      options: [
+        { text: "Spontaneous, changes mind easily, experiences hesitation", dosha: "vata" },
+        { text: "Decisive, confident, based on logical evaluation and evidence", dosha: "pitta" },
+        { text: "Slow, cautious, prefers to maintain the established routine", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Vyadhi & Bala (Energy & Stamina)",
+      domain: "Speech & Communication",
+      text: "How do others experience your conversational cadence?",
+      options: [
+        { text: "Quick, expressive, talkative, sometimes skips words or tangents", dosha: "vata" },
+        { text: "Precise, articulate, convincing, authoritative, direct", dosha: "pitta" },
+        { text: "Slow, melodic, soft, deliberate, listens more than speaks", dosha: "kapha" }
+      ]
+    },
+    {
+      category: "Vyadhi & Bala (Energy & Stamina)",
+      domain: "Joints & Movement",
+      text: "How do your joints and muscles feel when waking or sitting long?",
+      options: [
+        { text: "Cracking sounds, stiffness in lower back, neck, or knees", dosha: "vata" },
+        { text: "Warmth, inflammation, moderate flexibility, sweat easily", dosha: "pitta" },
+        { text: "Heavy, sluggish, lubricated, stable, rarely dry or cracking", dosha: "kapha" }
+      ]
+    }
+  ];
+
+  let currentIdx = 0;
+  let answers = new Array(questions.length).fill(null);
+
+  function startAssessment() {
+    document.getElementById('introCard').style.display = 'none';
+    document.getElementById('quizContainer').style.display = 'block';
+    document.getElementById('liveMeter').style.display = 'flex';
+    renderQuestion(0);
+  }
+
+  function renderQuestion(idx) {
+    currentIdx = idx;
+    const q = questions[idx];
+    document.getElementById('questionStep').textContent = `Question ${idx + 1} of ${questions.length}`;
+    document.getElementById('categoryPill').textContent = q.category;
+    document.getElementById('qDomain').textContent = `Domain: ${q.domain}`;
+    document.getElementById('qText').textContent = q.text;
+    
+    document.getElementById('prevBtn').style.visibility = idx > 0 ? 'visible' : 'hidden';
+
+    const grid = document.getElementById('optionsGrid');
+    grid.innerHTML = '';
+
+    q.options.forEach((opt, oIdx) => {
+      const isSelected = answers[idx] === opt.dosha;
+      const card = document.createElement('div');
+      card.className = `option-card ${isSelected ? 'selected' : ''}`;
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'radio');
+      card.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+      card.setAttribute('aria-label', `Option ${oIdx + 1}: ${opt.text}`);
+      card.innerHTML = `
+        <span class="option-text">${opt.text}</span>
+        <div class="option-check" aria-hidden="true">${isSelected ? '&#10003;' : ''}</div>
+      `;
+      card.onclick = () => selectOption(opt.dosha);
+      card.onkeydown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectOption(opt.dosha);
+        }
+      };
+      grid.appendChild(card);
+    });
+
+
+    updateMeter();
+  }
+
+  function selectOption(dosha) {
+    answers[currentIdx] = dosha;
+    updateMeter();
+    
+    // Quick highlight feedback
+    if (currentIdx < questions.length - 1) {
+      setTimeout(() => {
+        renderQuestion(currentIdx + 1);
+      }, 160);
+    } else {
+      setTimeout(() => {
+        calculateAndShowResults();
+      }, 250);
+    }
+  }
+
+  function prevQuestion() {
+    if (currentIdx > 0) {
+      renderQuestion(currentIdx - 1);
+    }
+  }
+
+  function updateMeter() {
+    const counts = { vata: 0, pitta: 0, kapha: 0 };
+    let answeredCount = 0;
+    answers.forEach(a => {
+      if (a) {
+        counts[a]++;
+        answeredCount++;
+      }
+    });
+
+    if (answeredCount === 0) {
+      document.getElementById('meterV').style.width = '33.3%';
+      document.getElementById('meterP').style.width = '33.3%';
+      document.getElementById('meterK').style.width = '33.3%';
+      return;
+    }
+
+    const pctV = ((counts.vata / answeredCount) * 100).toFixed(0);
+    const pctP = ((counts.pitta / answeredCount) * 100).toFixed(0);
+    const pctK = (100 - pctV - pctP);
+
+    document.getElementById('meterV').style.width = pctV + '%';
+    document.getElementById('meterP').style.width = pctP + '%';
+    document.getElementById('meterK').style.width = pctK + '%';
+  }
+
+  function calculateAndShowResults() {
+    document.getElementById('quizContainer').style.display = 'none';
+    document.getElementById('resultsContainer').style.display = 'block';
+
+    const counts = { vata: 0, pitta: 0, kapha: 0 };
+    answers.forEach(a => { if (a) counts[a]++; });
+    const total = answers.length;
+
+    const pV = Math.round((counts.vata / total) * 100);
+    const pP = Math.round((counts.pitta / total) * 100);
+    const pK = 100 - pV - pP;
+
+    // Animate Result Bars
+    document.getElementById('scoreValV').textContent = pV + '%';
+    document.getElementById('scoreValP').textContent = pP + '%';
+    document.getElementById('scoreValK').textContent = pK + '%';
+
+    setTimeout(() => {
+      document.getElementById('barV').style.width = pV + '%';
+      document.getElementById('barP').style.width = pP + '%';
+      document.getElementById('barK').style.width = pK + '%';
+    }, 100);
+
+    // Determine Dominant Constitution
+    let primary = 'vata';
+    let max = pV;
+    if (pP > max) { primary = 'pitta'; max = pP; }
+    if (pK > max) { primary = 'kapha'; max = pK; }
+
+    let secondary = '';
+    const sorted = [
+      { name: 'Vata', val: pV, key: 'vata' },
+      { name: 'Pitta', val: pP, key: 'pitta' },
+      { name: 'Kapha', val: pK, key: 'kapha' }
+    ].sort((a, b) => b.val - a.val);
+
+    const dominantLabel = `${sorted[0].name}-${sorted[1].name} Constitution`;
+    document.getElementById('dominantDoshaTitle').textContent = dominantLabel;
+
+    // Narrative Insights
+    let diag = '';
+    let diet = '';
+    let proc = '';
+    let recPlan = 'awakening';
+    let recName = 'Awakening Reset (4 Days)';
+    let recDesc = '';
+
+    if (sorted[0].key === 'vata') {
+      diag = 'Your profile shows elevated Vata (Air and Space), typical of high-demand modern cognitive work. Your nervous system is in a state of hyper-vigilance, manifesting as racing thoughts, dry joint stiffness, and light or broken sleep.';
+      diet = 'Nourish your tissues with warm, cooked, grounding meals. Generous pure cow\'s ghee, warm almond milk with a pinch of nutmeg before bed, and stewed apples for breakfast. Avoid cold water, raw kale or salads, and irregular meal schedules.';
+      proc = 'Prescribed full body warm Abhyanga with Mahanarayan oil, followed by localized Kati Basti (lower back oil retention) to ground wind and calm nervous agitation.';
+      recPlan = 'awakening';
+      recName = 'Awakening Reset (4 Days &bull; Signature)';
+      recDesc = 'A comprehensive 4-day immersion in Bir Billing featuring daily grounding asanas, 2 prescribed Basti procedures, and noble silence forest walks.';
+    } else if (sorted[0].key === 'pitta') {
+      diag = 'Your profile exhibits dominant Pitta (Fire and Water). You possess keen intellect and drive, but prolonged stress manifests as systemic internal heat, digestive acidity, irritability, and skin or eye sensitivity.';
+      diet = 'Favor cooling, sweet, bitter, and astringent foods. Fresh coconut water, barley, mint, coriander, and sweet fruits. Minimize pungent chilies, vinegar, fried foods, and excess caffeine which trigger metabolic fire.';
+      proc = 'Cooling classical procedures: Greeva Basti for cervical relief, medicated ghee eye bath (Netra Tarpana), and gentle Trataka gazing to soothe optic nerve irritation.';
+      recPlan = 'transformation';
+      recName = 'Transformation Reset (4 Days &bull; Deep)';
+      recDesc = 'Four days of deep metabolic detox including cooling preparatory Swedana, daily private physician pulse reviews, and personalized 30-day anti-inflammatory protocol.';
+    } else {
+      diag = 'Your constitution is grounded in Kapha (Earth and Water). While you possess natural physical endurance and calm, excessive routine stress manifests as lethargy, sluggish digestion, and a tendency to feel mentally weighed down.';
+      diet = 'Stimulate your Agni with light, warm, spicy, and dry foods. Mustard greens, bitter vegetables, ginger-cinnamon infusions, and whole millets. Avoid heavy dairy, cold sweets, and rich oily preparations.';
+      proc = 'Vigorous dry powder massage (Udvartana) followed by supervised Shatkarma (Kapalabhati and Jala Neti) to eliminate stagnant mucous and stimulate metabolic fire.';
+      recPlan = 'serenity';
+      recName = 'Serenity Reset (3 Days)';
+      recDesc = 'A targeted 3-day activation in Bir Billing with vigorous morning Hatha yoga, Shatkarma introduction, and active Himalayan ridge walking.';
+    }
+
+    document.getElementById('diagSummary').textContent = diag;
+    document.getElementById('dietSummary').textContent = diet;
+    document.getElementById('procedureSummary').textContent = proc;
+    document.getElementById('recPlanName').innerHTML = recName;
+    document.getElementById('recPlanDesc').textContent = recDesc;
+
+    // Save in sessionStorage for seamless handover to hero.html
+    sessionStorage.setItem('trc_prakriti_plan', recPlan);
+    sessionStorage.setItem('trc_prakriti_dosha', dominantLabel);
+
+    // Prepare WhatsApp Message
+    const waText = encodeURIComponent(
+      `Namaste Dr. Aditya & Dr. Himanshu, I completed the Prakriti Assessment on the website. ` +
+      `My constitution is ${dominantLabel} (Vata: ${pV}%, Pitta: ${pP}%, Kapha: ${pK}%). ` +
+      `I would like to discuss my results and the recommended ${recName} retreat.`
+    );
+    document.getElementById('waDoctorBtn').href = `https://wa.me/917888540046?text=${waText}`;
+
+    // Scroll to results top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function bookRecommendedPlan() {
+    window.location.href = 'hero.html#booking';
+  }
+</script>
+
+</body>
+</html>
