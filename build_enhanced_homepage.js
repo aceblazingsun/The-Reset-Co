@@ -900,6 +900,75 @@ const additionalStyles = `
     .surya-dial-row { left: 1.5rem; right: 1.5rem; }
     .surya-dots { overflow-x: auto; max-width: 100%; padding-bottom: 6px; }
     .surya-dot-btn { flex-shrink: 0; min-width: 28px; }
+    .upcoming-strip { font-size: 0.72rem; }
+    .upcoming-inner { padding: 0.4rem 1rem; }
+    .upcoming-trigger { font-size: 0.72rem; padding: 4px 8px; }
+    .flyout-header h3 { font-size: 1.3rem; }
+    .flyout-card { padding: 1.2rem 1rem; }
+    .conduct-agreement-card { padding: 1.8rem 1.2rem; }
+    .inclusions-table-card { padding: 0.5rem; }
+    .inc-table th, .inc-table td { padding: 0.75rem 0.6rem; font-size: 0.75rem; }
+  }
+
+  /* Calm Aesthetic & Interaction Overrides */
+  .cursor-ring, .cursor-dot, .sound-toggle {
+    display: none !important;
+  }
+  .card-interactive {
+    transform: none !important;
+    transition: border-color 0.25s ease, background 0.25s ease !important;
+  }
+
+  /* Fixed Header Scroll Padding */
+  html {
+    scroll-padding-top: 7rem;
+  }
+
+  /* Medical Disclaimer and Consent Styling */
+  .medical-disclaimer {
+    font-size: 0.78rem;
+    color: rgba(250, 247, 240, 0.65);
+    line-height: 1.6;
+    margin: 1.2rem 0;
+    padding: 0.9rem 1rem;
+    background: rgba(19, 39, 79, 0.5);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+  .consent-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--ivory);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  .consent-row input[type="checkbox"] {
+    margin-top: 0.2rem;
+    accent-color: var(--gold);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* Minimum 44px Touch Targets */
+  button, a.btn-primary, a.btn-outline, .flyout-btn, .surya-dot-btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Reduced Motion Compliance */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 `;
 
@@ -914,7 +983,7 @@ const upcomingBannerHtml = `
   <div class="upcoming-inner">
     <button class="upcoming-trigger" id="upcomingTrigger" aria-expanded="false" aria-haspopup="true" aria-controls="upcomingFlyout">
       <span class="upcoming-pulse"></span>
-      <span>✦ Next Himalayan Retreat: <strong>October 12, 2026</strong> &bull; Bir Billing (Strictly 4 Suites Remaining)</span>
+      <span>&#10022; Upcoming Retreat Cohort: <strong>Dates confirmed after enquiry</strong> &bull; Bir Billing</span>
       <span class="upcoming-chevron">▾</span>
     </button>
   </div>
@@ -924,7 +993,7 @@ const upcomingBannerHtml = `
     <div class="flyout-header">
       <div>
         <h3>Upcoming Himalayan Immersion Cohorts</h3>
-        <p>Bir Billing Sanctuary, Himachal Pradesh &bull; 2,400m Altitude &bull; Strictly 15 Guests Per Cohort</p>
+        <p>Bir Billing Sanctuary, Himachal Pradesh &bull; 1,525m Altitude &bull; Strictly 15 Guests Per Cohort</p>
       </div>
       <button class="flyout-close" id="flyoutCloseBtn" aria-label="Close Cohort Menu">&times;</button>
     </div>
@@ -936,36 +1005,36 @@ const upcomingBannerHtml = `
           <h4 class="flyout-title">The Serenity Immersion</h4>
           <div class="flyout-dates">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            <span>12 Oct to 15 Oct 2026</span>
+            <span>4 Days (3 Nights)</span>
           </div>
           <p class="flyout-desc">Check-in 14:00 &bull; Check-out 11:00. Designed for autonomic nervous system reboot, daily warm Abhyanga, Dinacharya circadian routine, and 1:1 BAMS pulse diagnosis.</p>
         </div>
         <div class="flyout-footer-row">
           <div>
             <span class="flyout-price-val">&#8377;22,000</span>
-            <span class="flyout-per">per night / all-inclusive</span>
+            <span class="flyout-per">per person / full programme</span>
           </div>
-          <button class="flyout-btn" onclick="reserveCohort('serenity', '12 Oct - 15 Oct 2026')">Select</button>
+          <button class="flyout-btn" onclick="reserveCohort('serenity', 'Dates confirmed after enquiry')">Select</button>
         </div>
       </div>
 
       <!-- Package 2 -->
       <div class="flyout-card" style="border-color: var(--gold); background: rgba(19,39,79,0.85);">
         <div>
-          <span class="flyout-badge" style="background: var(--gold); color: var(--royal-deep); font-weight:700;">Most Preferred &bull; 4-Day</span>
+          <span class="flyout-badge" style="background: var(--gold); color: var(--royal-deep); font-weight:700;">Signature Retreat &bull; 4-Day</span>
           <h4 class="flyout-title">The Awakening Journey</h4>
           <div class="flyout-dates">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            <span>12 Oct to 15 Oct 2026</span>
+            <span>4 Days (3 Nights)</span>
           </div>
           <p class="flyout-desc">Check-in 14:00 &bull; Check-out 11:00. Comprehensive Panchakarma detox, classical Shatkarma kriyas, daily Shirodhara medicated oil flow, and silent Dhauladhar mountain walking.</p>
         </div>
         <div class="flyout-footer-row">
           <div>
-            <span class="flyout-price-val">&#8377;28,000</span>
-            <span class="flyout-per">per night / all-inclusive</span>
+            <span class="flyout-price-val">&#8377;26,000</span>
+            <span class="flyout-per">per person / full programme</span>
           </div>
-          <button class="flyout-btn" onclick="reserveCohort('awakening', '12 Oct - 15 Oct 2026')">Select</button>
+          <button class="flyout-btn" onclick="reserveCohort('awakening', 'Dates confirmed after enquiry')">Select</button>
         </div>
       </div>
 
@@ -976,16 +1045,16 @@ const upcomingBannerHtml = `
           <h4 class="flyout-title">The Complete Transformation</h4>
           <div class="flyout-dates">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            <span>12 Oct to 15 Oct 2026</span>
+            <span>4 Days (3 Nights)</span>
           </div>
           <p class="flyout-desc">Check-in 14:00 &bull; Check-out 11:00. Our pinnacle clinical immersion. Full Ayurvedic Basti regimen, Rasayana deep cellular nourishment, and customized post-retreat herbal medicine regimen.</p>
         </div>
         <div class="flyout-footer-row">
           <div>
             <span class="flyout-price-val">&#8377;35,000</span>
-            <span class="flyout-per">per night / all-inclusive</span>
+            <span class="flyout-per">per person / full programme</span>
           </div>
-          <button class="flyout-btn" onclick="reserveCohort('transformation', '12 Oct - 15 Oct 2026')">Select</button>
+          <button class="flyout-btn" onclick="reserveCohort('transformation', 'Dates confirmed after enquiry')">Select</button>
         </div>
       </div>
     </div>
@@ -1040,7 +1109,7 @@ const suryaNamaskarHtml = `
         <div class="surya-info-card" id="suryaInfoCard">
           <div class="surya-step-meta">
             <div class="surya-step-idx" id="suryaIdx">[ 01 / 12 ]</div>
-            <div class="surya-step-mantra" id="suryaMantra">ॐ मित्राय नमः &bull; Om Mitraya Namaha</div>
+            <div class="surya-step-mantra" id="suryaMantra">&#2384; मित्राय नमः &bull; Om Mitraya Namaha</div>
           </div>
           <h3 class="surya-step-name" id="suryaName">Pranamasana</h3>
           <div class="surya-step-english" id="suryaEnglish">Salutation Pose &bull; Standing Anjali Mudra</div>
@@ -1170,7 +1239,7 @@ const experienceAndBenefitsHtml = `
         <a class="btn-outline" href="#suryaTrack" style="color:var(--royal-deep); border-color:var(--royal-deep);">Explore The 12 Asanas</a>
       </div>
       <div class="exp-img-frame">
-        <img src="images/yoga.png" alt="Classical Hatha Yoga instruction at 2400m altitude" loading="lazy">
+        <img src="images/yoga.png" alt="Classical Hatha Yoga instruction at 1525m altitude" loading="lazy">
       </div>
     </div>
 
@@ -1200,7 +1269,7 @@ const experienceAndBenefitsHtml = `
         <div class="exp-text-time">03:30 PM to 05:00 PM &bull; Dhauladhar Forest Trail</div>
         <h3>Silent Forest Bathing (Shinrin-Yoku)</h3>
         <p class="exp-text-body">
-          Immerse your senses in the pristine deodar cedar and Himalayan pine forests surrounding our retreat. Mindful silent walks at 2,400 meters saturate your lungs with tree-emitted antimicrobial phytoncides, proven to lower salivary cortisol, reduce blood pressure, and boost natural killer immune cells.
+          Immerse your senses in the pristine deodar cedar and Himalayan pine forests surrounding our retreat. Mindful silent walks at 1,525 meters saturate your lungs with tree-emitted antimicrobial phytoncides, proven to lower salivary cortisol, reduce blood pressure, and boost natural killer immune cells.
         </p>
         <ul class="exp-highlights">
           <li>Guided mindful walking meditation along ancient shepherd paths</li>
@@ -1216,47 +1285,47 @@ const experienceAndBenefitsHtml = `
   </div>
 </section>
 
-<!-- SECTION: HOW IT WILL HELP YOU (CLINICAL & PHYSIOLOGICAL RECOVERY) -->
-<section class="clinical-sec" id="clinical-benefits" aria-label="Clinical and Physiological Benefits">
+<!-- SECTION: GUEST EXPERIENCE & WELLNESS OBSERVATIONS -->
+<section class="clinical-sec" id="clinical-benefits" aria-label="Guest Experience and Wellness Observations">
   <div class="inner">
     <div class="sec-header">
-      <div class="sec-tag">Physiological Transformation</div>
-      <h2 class="sec-title" style="color:var(--ivory);">How it will <em>help you</em></h2>
+      <div class="sec-tag">Guest Experience</div>
+      <h2 class="sec-title" style="color:var(--ivory);">What guests may <em>notice</em></h2>
       <div class="sec-divider"></div>
-      <p class="sec-subtitle" style="color:rgba(250,247,240,0.65);">A clinical, evidence-informed recalibration of your autonomic nervous system, endocrine rhythm, and cellular vitality.</p>
+      <p class="sec-subtitle" style="color:rgba(250,247,240,0.65);">Time away from work and daily responsibilities, in a structured mountain setting with Ayurvedic support.</p>
     </div>
 
     <div class="clinical-grid">
-      <!-- Benefit 1 -->
+      <!-- Card 1 -->
       <div class="clinical-card">
         <div class="clinical-num">01</div>
-        <h3>Vagus Nerve Stimulation</h3>
-        <span class="clinical-metric">Autonomic Nervous Reset</span>
-        <p>Shifts your physiology from chronic sympathetic fight-or-flight overdrive into parasympathetic regenerative rest. Measurably increases Heart Rate Variability (HRV) and deepens respiratory depth.</p>
+        <h3>Time for Rest</h3>
+        <span class="clinical-metric">Rest &amp; Routine</span>
+        <p>A quiet mountain environment, scheduled meal times, and dedicated rest periods can support feelings of recovery and improved sleep patterns.</p>
       </div>
 
-      <!-- Benefit 2 -->
+      <!-- Card 2 -->
       <div class="clinical-card">
         <div class="clinical-num">02</div>
-        <h3>Circadian Cortisol Reset</h3>
-        <span class="clinical-metric">Melatonin &amp; REM Sleep</span>
-        <p>Aligning with Himalayan solar cycles resets your pituitary-adrenal axis. Drops evening cortisol spikes, eliminates chronic insomnia, and restores deep restorative non-REM cellular repair.</p>
+        <h3>Mindful Movement</h3>
+        <span class="clinical-metric">Gentle Activity</span>
+        <p>Daily yoga and guided walks provide gentle physical activity suited to your comfort level, supporting mobility and body awareness.</p>
       </div>
 
-      <!-- Benefit 3 -->
+      <!-- Card 3 -->
       <div class="clinical-card">
         <div class="clinical-num">03</div>
-        <h3>Ama (Toxin) Decongestion</h3>
-        <span class="clinical-metric">Gut-Brain Channel Cleanse</span>
-        <p>Doctor-supervised Shatkarma kriyas and medicated herbal Basti dislodge micro-toxins (Ama) accumulated from processed foods, chronic medication, and stress, restoring metabolic Agni.</p>
+        <h3>Ayurvedic Consultation</h3>
+        <span class="clinical-metric">Personalised Guidance</span>
+        <p>A consultation with an Ayurvedic practitioner to explore individual wellness goals and discuss diet, lifestyle, and supportive traditional practices.</p>
       </div>
 
-      <!-- Benefit 4 -->
+      <!-- Card 4 -->
       <div class="clinical-card">
         <div class="clinical-num">04</div>
-        <h3>Cognitive Decompression</h3>
-        <span class="clinical-metric">Neuroplastic Freedom</span>
-        <p>Removing digital alerts, decision fatigue, and sensory noise allows your prefrontal cortex to decompress. Enhances executive focus, emotional resilience, and introspective peace.</p>
+        <h3>Practical Takeaways</h3>
+        <span class="clinical-metric">Habits to Take Home</span>
+        <p>Experience daily rhythms, cooking approaches, and mindfulness exercises that you can adapt to support your well-being after returning home.</p>
       </div>
     </div>
   </div>
@@ -1391,10 +1460,10 @@ const experienceAndBenefitsHtml = `
 <section class="inclusions-sec" id="package-inclusions" aria-label="What Your Package Includes">
   <div class="inner">
     <div class="sec-header">
-      <div class="sec-tag">Complete Transparency</div>
+      <div class="sec-tag">Complete Inclusions</div>
       <h2 class="sec-title">What your retreat <em>includes</em></h2>
       <div class="sec-divider"></div>
-      <p class="sec-subtitle">Zero hidden costs or surprise surcharges. Every package is completely all-inclusive from arrival to departure.</p>
+      <p class="sec-subtitle">Clear inclusions across all 4-day programmes in Bir Billing. Zero hidden charges.</p>
     </div>
 
     <div class="inclusions-table-card">
@@ -1410,62 +1479,8 @@ const experienceAndBenefitsHtml = `
         <tbody>
           <tr>
             <td>
-              <span class="inc-feature">Private Luxury Himalayan Suite</span>
-              <span class="inc-feature-desc">Cedarwood balcony with snow-peak views, organic cotton bedding</span>
-            </td>
-            <td><span class="inc-check">&check;</span> 3 Nights (4 Days)</td>
-            <td><span class="inc-check">&check;</span> 3 Nights (4 Days)</td>
-            <td><span class="inc-check">&check;</span> 3 Nights (4 Days)</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">1:1 Daily BAMS Doctor Consultations</span>
-              <span class="inc-feature-desc">Nadi Pariksha pulse diagnosis &amp; daily dosha assessment</span>
-            </td>
-            <td><span class="inc-check">&check;</span> Daily Consult</td>
-            <td><span class="inc-check">&check;</span> Daily Consult</td>
-            <td><span class="inc-check">&check;</span> Comprehensive</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Personalized Panchakarma Therapies</span>
-              <span class="inc-feature-desc">Synchronized 4-hand Abhyanga, Shirodhara, and Swedana</span>
-            </td>
-            <td><span class="inc-check">&check;</span> Daily 60m</td>
-            <td><span class="inc-check">&check;</span> Daily 90m</td>
-            <td><span class="inc-check">&check;</span> Daily 120m</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Ayurvedic Basti Clinical Procedures</span>
-              <span class="inc-feature-desc">Doctor-administered specialized herbal oil retainment</span>
-            </td>
-            <td>Greeva / Janu Basti</td>
-            <td><span class="inc-check">&check;</span> Multi-Joint Basti</td>
-            <td><span class="inc-check">&check;</span> Full Clinical Basti Protocol</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Sattvic Organic Mountain Nutrition</span>
-              <span class="inc-feature-desc">3 gourmet medicinal meals daily, plus herbal elixirs &amp; teas</span>
-            </td>
-            <td><span class="inc-check">&check;</span> All-Inclusive</td>
-            <td><span class="inc-check">&check;</span> All-Inclusive</td>
-            <td><span class="inc-check">&check;</span> All-Inclusive</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Morning &amp; Evening Yoga / Meditation</span>
-              <span class="inc-feature-desc">Classical Hatha, Dhyana, and Yoga Nidra deep restorative sessions</span>
-            </td>
-            <td><span class="inc-check">&check;</span> Twice Daily</td>
-            <td><span class="inc-check">&check;</span> Twice Daily</td>
-            <td><span class="inc-check">&check;</span> Twice Daily</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Sacred Welcome Kit (Copper, Brass, Linens)</span>
-              <span class="inc-feature-desc">Delivered to your room upon arrival for personal keep</span>
+              <span class="inc-feature">Accommodation and meals</span>
+              <span class="inc-feature-desc">Private room in Bir Billing with three wholesome vegetarian meals daily.</span>
             </td>
             <td><span class="inc-check">&check;</span> Included</td>
             <td><span class="inc-check">&check;</span> Included</td>
@@ -1473,10 +1488,46 @@ const experienceAndBenefitsHtml = `
           </tr>
           <tr>
             <td>
-              <span class="inc-feature">Airport / Rail Private Chauffeur</span>
-              <span class="inc-feature-desc">Pickup and return from Dharamshala Airport or Pathankot</span>
+              <span class="inc-feature">Yoga and meditation</span>
+              <span class="inc-feature-desc">Daily morning and evening sessions suitable for all experience levels.</span>
             </td>
             <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="inc-feature">Ayurvedic consultation</span>
+              <span class="inc-feature-desc">Individual assessment with an Ayurvedic practitioner to discuss lifestyle and goals.</span>
+            </td>
+            <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="inc-feature">Ayurvedic therapies</span>
+              <span class="inc-feature-desc">Traditional wellness treatments selected following consultation.</span>
+            </td>
+            <td><span class="inc-check">&check;</span> 1 Daily Session</td>
+            <td><span class="inc-check">&check;</span> 2 Daily Sessions</td>
+            <td><span class="inc-check">&check;</span> Comprehensive Sessions</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="inc-feature">Welcome kit</span>
+              <span class="inc-feature-desc">Practical items to support your stay and daily routines.</span>
+            </td>
+            <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="inc-feature">Transfer support</span>
+              <span class="inc-feature-desc">Assistance with local travel coordination to and from Bir Billing.</span>
+            </td>
+            <td><span class="inc-check">&check;</span> On Request</td>
             <td><span class="inc-check">&check;</span> Included</td>
             <td><span class="inc-check">&check;</span> Included</td>
           </tr>
@@ -1643,7 +1694,7 @@ const interactiveScript = `
   const suryaData = [
     {
       idx: '[ 01 / 12 ]',
-      mantra: 'ॐ मित्राय नमः &bull; Om Mitraya Namaha',
+      mantra: '&#2384; मित्राय नमः &bull; Om Mitraya Namaha',
       name: 'Pranamasana',
       english: 'Salutation Pose &bull; Standing Anjali Mudra',
       breath: 'Exhale (Rechaka) &bull; Solar Plexus Centering',
@@ -1654,7 +1705,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 02 / 12 ]',
-      mantra: 'ॐ रवये नमः &bull; Om Ravaye Namaha',
+      mantra: '&#2384; रवये नमः &bull; Om Ravaye Namaha',
       name: 'Hastauttanasana',
       english: 'Raised Arms Pose &bull; Gentle Spinal Extension',
       breath: 'Inhale (Puraka) &bull; Ribcage &amp; Thoracic Expansion',
@@ -1665,7 +1716,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 03 / 12 ]',
-      mantra: 'ॐ सूर्याय नमः &bull; Om Suryaya Namaha',
+      mantra: '&#2384; सूर्याय नमः &bull; Om Suryaya Namaha',
       name: 'Hastapadasana',
       english: 'Standing Forward Fold &bull; Spinal Decompression',
       breath: 'Exhale (Rechaka) &bull; Arterial Pressure Regulation',
@@ -1676,7 +1727,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 04 / 12 ]',
-      mantra: 'ॐ भानवे नमः &bull; Om Bhanave Namaha',
+      mantra: '&#2384; भानवे नमः &bull; Om Bhanave Namaha',
       name: 'Ashwa Sanchalanasana',
       english: 'Equestrian Lunge (Right) &bull; Psoas Stretch',
       breath: 'Inhale (Puraka) &bull; Solar Plexus Awakening',
@@ -1687,7 +1738,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 05 / 12 ]',
-      mantra: 'ॐ खगाय नमः &bull; Om Khagaya Namaha',
+      mantra: '&#2384; खगाय नमः &bull; Om Khagaya Namaha',
       name: 'Dandasana',
       english: 'Plank Pose &bull; Core Agni Alignment',
       breath: 'Kumbhaka (Breath Retention) &bull; Energetic Consolidation',
@@ -1698,7 +1749,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 06 / 12 ]',
-      mantra: 'ॐ पूष्णे नमः &bull; Om Pushne Namaha',
+      mantra: '&#2384; पूष्णे नमः &bull; Om Pushne Namaha',
       name: 'Ashtanga Namaskara',
       english: 'Eight-Limbed Salute &bull; Surrender to Ground',
       breath: 'Exhale (Rechaka) &bull; Thoracic Spine Mobilization',
@@ -1709,7 +1760,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 07 / 12 ]',
-      mantra: 'ॐ हिरण्यगर्भाय नमः &bull; Om Hiranyagarbhaya Namaha',
+      mantra: '&#2384; हिरण्यगर्भाय नमः &bull; Om Hiranyagarbhaya Namaha',
       name: 'Bhujangasana',
       english: 'Cobra Pose &bull; Heart Opening Extension',
       breath: 'Inhale (Puraka) &bull; Adrenal &amp; Kidney Circulation',
@@ -1720,7 +1771,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 08 / 12 ]',
-      mantra: 'ॐ मरीचये नमः &bull; Om Marichaye Namaha',
+      mantra: '&#2384; मरीचये नमः &bull; Om Marichaye Namaha',
       name: 'Adho Mukha Svanasana',
       english: 'Downward-Facing Dog &bull; Inverted Calming Axis',
       breath: 'Exhale (Rechaka) &bull; Cerebrospinal Fluid Flush',
@@ -1731,7 +1782,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 09 / 12 ]',
-      mantra: 'ॐ आदित्याय नमः &bull; Om Adityaya Namaha',
+      mantra: '&#2384; आदित्याय नमः &bull; Om Adityaya Namaha',
       name: 'Ashwa Sanchalanasana',
       english: 'Equestrian Lunge (Left) &bull; Bilateral Balancing',
       breath: 'Inhale (Puraka) &bull; Pelvic &amp; Respiratory Vitality',
@@ -1742,7 +1793,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 10 / 12 ]',
-      mantra: 'ॐ सवित्रे नमः &bull; Om Savitre Namaha',
+      mantra: '&#2384; सवित्रे नमः &bull; Om Savitre Namaha',
       name: 'Hastapadasana',
       english: 'Standing Forward Bend &bull; Deep Introspection',
       breath: 'Exhale (Rechaka) &bull; Cranial Circulation',
@@ -1753,7 +1804,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 11 / 12 ]',
-      mantra: 'ॐ अर्काय नमः &bull; Om Arkaya Namaha',
+      mantra: '&#2384; अर्काय नमः &bull; Om Arkaya Namaha',
       name: 'Hastauttanasana',
       english: 'Raised Arms Arc &bull; Vital Energy Return',
       breath: 'Inhale (Puraka) &bull; Vital Prana Expansion',
@@ -1764,7 +1815,7 @@ const interactiveScript = `
     },
     {
       idx: '[ 12 / 12 ]',
-      mantra: 'ॐ भास्कराय नमः &bull; Om Bhaskaraya Namaha',
+      mantra: '&#2384; भास्कराय नमः &bull; Om Bhaskaraya Namaha',
       name: 'Pranamasana',
       english: 'Sacred Centering &bull; Return to Balance',
       breath: 'Exhale / Natural Breath &bull; Systemic Homeostasis',
@@ -1881,17 +1932,19 @@ const interactiveScript = `
       document.body.style.overflow = '';
     }
   }
-  const cancelClose = document.getElementById('cancelModalCloseBtn');
-  if (cancelClose) cancelClose.addEventListener('click', closeCancelPolicy);
+  document.addEventListener('DOMContentLoaded', () => {
+    const cancelClose = document.getElementById('cancelModalCloseBtn');
+    if (cancelClose) cancelClose.addEventListener('click', closeCancelPolicy);
 
-  const cancelModal = document.getElementById('cancellationModal');
-  if (cancelModal) {
-    cancelModal.addEventListener('click', (e) => {
-      if (e.target === cancelModal) closeCancelPolicy();
+    const cancelModal = document.getElementById('cancellationModal');
+    if (cancelModal) {
+      cancelModal.addEventListener('click', (e) => {
+        if (e.target === cancelModal) closeCancelPolicy();
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeCancelPolicy();
     });
-  }
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeCancelPolicy();
   });
 `;
 

@@ -6,22 +6,21 @@
 <title>The Reset Co | Ayurvedic Wellness Sanctuary, Bir Billing, Himachal Pradesh</title>
 
 <!-- SEO & Metadata -->
-<meta name="description" content="Ultra-luxury Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh. Classical Yoga, Meditation, Shatkarma and authentic Ayurvedic Basti procedures led by BAMS doctors. Strictly 15 guests maximum.">
-<meta name="keywords" content="Ayurvedic retreat Bir Billing, luxury wellness retreat Himachal Pradesh, yoga retreat Bir, Shatkarma kriyas, Ayurvedic Basti, BAMS doctors retreat, The Reset Co">
+<meta name="description" content="Small-group Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh, with yoga, meditation, shatkarma and doctor-supervised Ayurvedic care. Maximum 15 guests per cohort.">
 <meta name="author" content="The Reset Co, Dr. Himanshu Bhatt & Dr. Aditya Kaundal">
-<link rel="canonical" href="https://theresetco.in/homepage.html">
+<link rel="canonical" href="https://theresetco.in/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Reset Co | Ayurvedic Wellness Sanctuary, Bir Billing">
-<meta property="og:description" content="Luxury Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh. Classical Yoga, Meditation, Shatkarma and Doctor-led Basti procedures. From ₹22,000. Strictly 15 guests.">
-<meta property="og:url" content="https://theresetco.in/homepage.html">
+<meta property="og:description" content="Small-group Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh, with yoga, meditation, shatkarma and doctor-supervised Ayurvedic care. Maximum 15 guests per cohort.">
+<meta property="og:url" content="https://theresetco.in/">
 <meta property="og:image" content="images/hero_sanctuary.jpg">
 <meta property="og:locale" content="en_IN">
 <meta property="og:site_name" content="The Reset Co">
 
 <!-- Favicon -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127807;</text></svg>">
 
 <!-- Structured Data -->
 <script type="application/ld+json">
@@ -29,8 +28,8 @@
   "@context": "https://schema.org",
   "@type": "HealthAndBeautyBusiness",
   "name": "The Reset Co",
-  "description": "Ultra-luxury Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh. Classical Yoga, Meditation, Shatkarma and authentic Ayurvedic procedures led by BAMS doctors.",
-  "url": "https://theresetco.in/homepage.html",
+  "description": "Small-group Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh. Classical Yoga, Meditation, Shatkarma and authentic Ayurvedic care led by BAMS doctors.",
+  "url": "https://theresetco.in/",
   "email": "hello@theresetco.in",
   "telephone": "+917888540046",
   "address": {
@@ -1841,6 +1840,75 @@
     .surya-dial-row { left: 1.5rem; right: 1.5rem; }
     .surya-dots { overflow-x: auto; max-width: 100%; padding-bottom: 6px; }
     .surya-dot-btn { flex-shrink: 0; min-width: 28px; }
+    .upcoming-strip { font-size: 0.72rem; }
+    .upcoming-inner { padding: 0.4rem 1rem; }
+    .upcoming-trigger { font-size: 0.72rem; padding: 4px 8px; }
+    .flyout-header h3 { font-size: 1.3rem; }
+    .flyout-card { padding: 1.2rem 1rem; }
+    .conduct-agreement-card { padding: 1.8rem 1.2rem; }
+    .inclusions-table-card { padding: 0.5rem; }
+    .inc-table th, .inc-table td { padding: 0.75rem 0.6rem; font-size: 0.75rem; }
+  }
+
+  /* Calm Aesthetic & Interaction Overrides */
+  .cursor-ring, .cursor-dot, .sound-toggle {
+    display: none !important;
+  }
+  .card-interactive {
+    transform: none !important;
+    transition: border-color 0.25s ease, background 0.25s ease !important;
+  }
+
+  /* Fixed Header Scroll Padding */
+  html {
+    scroll-padding-top: 7rem;
+  }
+
+  /* Medical Disclaimer and Consent Styling */
+  .medical-disclaimer {
+    font-size: 0.78rem;
+    color: rgba(250, 247, 240, 0.65);
+    line-height: 1.6;
+    margin: 1.2rem 0;
+    padding: 0.9rem 1rem;
+    background: rgba(19, 39, 79, 0.5);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+  .consent-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--ivory);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  .consent-row input[type="checkbox"] {
+    margin-top: 0.2rem;
+    accent-color: var(--gold);
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* Minimum 44px Touch Targets */
+  button, a.btn-primary, a.btn-outline, .flyout-btn, .surya-dot-btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Reduced Motion Compliance */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
 </style>
@@ -1865,7 +1933,7 @@
   <div class="upcoming-inner">
     <button class="upcoming-trigger" id="upcomingTrigger" aria-expanded="false" aria-haspopup="true" aria-controls="upcomingFlyout">
       <span class="upcoming-pulse"></span>
-      <span>✦ Next Himalayan Retreat: <strong>October 12, 2026</strong> &bull; Bir Billing (Strictly 4 Suites Remaining)</span>
+      <span>&#10022; Upcoming Retreat Cohort: <strong>Dates confirmed after enquiry</strong> &bull; Bir Billing</span>
       <span class="upcoming-chevron">▾</span>
     </button>
   </div>
@@ -1875,7 +1943,7 @@
     <div class="flyout-header">
       <div>
         <h3>Upcoming Himalayan Immersion Cohorts</h3>
-        <p>Bir Billing Sanctuary, Himachal Pradesh &bull; 2,400m Altitude &bull; Strictly 15 Guests Per Cohort</p>
+        <p>Bir Billing Sanctuary, Himachal Pradesh &bull; 1,525m Altitude &bull; Strictly 15 Guests Per Cohort</p>
       </div>
       <button class="flyout-close" id="flyoutCloseBtn" aria-label="Close Cohort Menu">&times;</button>
     </div>
@@ -1887,36 +1955,36 @@
           <h4 class="flyout-title">The Serenity Immersion</h4>
           <div class="flyout-dates">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            <span>12 Oct to 15 Oct 2026</span>
+            <span>4 Days (3 Nights)</span>
           </div>
           <p class="flyout-desc">Check-in 14:00 &bull; Check-out 11:00. Designed for autonomic nervous system reboot, daily warm Abhyanga, Dinacharya circadian routine, and 1:1 BAMS pulse diagnosis.</p>
         </div>
         <div class="flyout-footer-row">
           <div>
             <span class="flyout-price-val">&#8377;22,000</span>
-            <span class="flyout-per">per night / all-inclusive</span>
+            <span class="flyout-per">per person / full programme</span>
           </div>
-          <button class="flyout-btn" onclick="reserveCohort('serenity', '12 Oct - 15 Oct 2026')">Select</button>
+          <button class="flyout-btn" onclick="reserveCohort('serenity', 'Dates confirmed after enquiry')">Select</button>
         </div>
       </div>
 
       <!-- Package 2 -->
       <div class="flyout-card" style="border-color: var(--gold); background: rgba(19,39,79,0.85);">
         <div>
-          <span class="flyout-badge" style="background: var(--gold); color: var(--royal-deep); font-weight:700;">Most Preferred &bull; 4-Day</span>
+          <span class="flyout-badge" style="background: var(--gold); color: var(--royal-deep); font-weight:700;">Signature Retreat &bull; 4-Day</span>
           <h4 class="flyout-title">The Awakening Journey</h4>
           <div class="flyout-dates">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            <span>12 Oct to 15 Oct 2026</span>
+            <span>4 Days (3 Nights)</span>
           </div>
           <p class="flyout-desc">Check-in 14:00 &bull; Check-out 11:00. Comprehensive Panchakarma detox, classical Shatkarma kriyas, daily Shirodhara medicated oil flow, and silent Dhauladhar mountain walking.</p>
         </div>
         <div class="flyout-footer-row">
           <div>
-            <span class="flyout-price-val">&#8377;28,000</span>
-            <span class="flyout-per">per night / all-inclusive</span>
+            <span class="flyout-price-val">&#8377;26,000</span>
+            <span class="flyout-per">per person / full programme</span>
           </div>
-          <button class="flyout-btn" onclick="reserveCohort('awakening', '12 Oct - 15 Oct 2026')">Select</button>
+          <button class="flyout-btn" onclick="reserveCohort('awakening', 'Dates confirmed after enquiry')">Select</button>
         </div>
       </div>
 
@@ -1927,16 +1995,16 @@
           <h4 class="flyout-title">The Complete Transformation</h4>
           <div class="flyout-dates">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            <span>12 Oct to 15 Oct 2026</span>
+            <span>4 Days (3 Nights)</span>
           </div>
           <p class="flyout-desc">Check-in 14:00 &bull; Check-out 11:00. Our pinnacle clinical immersion. Full Ayurvedic Basti regimen, Rasayana deep cellular nourishment, and customized post-retreat herbal medicine regimen.</p>
         </div>
         <div class="flyout-footer-row">
           <div>
             <span class="flyout-price-val">&#8377;35,000</span>
-            <span class="flyout-per">per night / all-inclusive</span>
+            <span class="flyout-per">per person / full programme</span>
           </div>
-          <button class="flyout-btn" onclick="reserveCohort('transformation', '12 Oct - 15 Oct 2026')">Select</button>
+          <button class="flyout-btn" onclick="reserveCohort('transformation', 'Dates confirmed after enquiry')">Select</button>
         </div>
       </div>
     </div>
@@ -1980,7 +2048,7 @@
   <a href="#suites" onclick="closeMobMenu()">Retreat Suites</a>
   <a href="#doctors" onclick="closeMobMenu()">The Doctors</a>
   <a href="#prakriti" onclick="closeMobMenu()">Prakriti Assessment</a>
-  <a href="prakriti.html" target="_blank">Full 30-Q Clinical Parikshan &#8599;</a>
+  <a href="dosha-prakriti-assessment.html" target="_blank">Full 30-Q Clinical Parikshan &#8599;</a>
   <a class="mob-cta" href="#reserve" onclick="closeMobMenu()">Reserve Retreat</a>
 </div>
 
@@ -1996,18 +2064,18 @@
     <div class="hero-ornament"></div>
     <div class="hero-loc-pill">
       <div class="hero-loc-dot"></div>
-      <span>Bir Billing &bull; Kangra Valley, Himachal Pradesh &bull; 2,400m</span>
+      <span>Bir Billing &bull; Kangra Valley, Himachal Pradesh &bull; 1,525m</span>
       <div class="hero-loc-dot"></div>
     </div>
     <div class="hero-badge">
-      <span>✦ Strictly 15 Guests Maximum Per Retreat ✦</span>
+      <span>&#10022; Small-group retreats &bull; Maximum 15 guests &#10022;</span>
     </div>
     <h1>Ancient practices.<br><em>Renewed you.</em></h1>
     <p class="hero-sub">A medical Ayurvedic sanctuary where Himalayan silence and clinical Vedic wisdom guide your return to wholeness.</p>
     <p class="hero-pillars">Yoga &nbsp;&bull;&nbsp; Meditation &nbsp;&bull;&nbsp; Shatkarma &nbsp;&bull;&nbsp; Ayurvedic Basti Procedure</p>
     <div class="hero-cta-row">
-      <a class="btn-primary" href="#suites" id="heroSuitesBtn">Explore Retreat Suites</a>
-      <a class="btn-outline" href="#doctors" id="heroDoctorsBtn">Meet the BAMS Doctors</a>
+      <a class="btn-primary" href="#suites" id="heroSuitesBtn">View Retreat Programmes</a>
+      <a class="btn-outline" href="#doctors" id="heroDoctorsBtn">Meet Our Doctors</a>
     </div>
   </div>
 
@@ -2049,7 +2117,7 @@
           In the modern world, burnout is treated as an inconvenience to be patched with quick stimulants. At The Reset Co, we recognize fatigue, anxiety, and metabolic imbalance as clear biological signals: the nervous system asking for deep reset.
         </p>
         <p class="sec-subtitle">
-          Nestled at 2,400 meters in the Dhauladhar foothills, we combine pristine Himalayan mountain air with the classical wisdom of the Charaka Samhita. Here, your retreat is not a generic vacation: it is a medically designed recalibration of body, mind, and circadian biology.
+          Nestled at 1,525 meters in the Dhauladhar foothills, we combine pristine Himalayan mountain air with the classical wisdom of the Charaka Samhita. Here, your retreat is not a generic vacation: it is a medically designed recalibration of body, mind, and circadian biology.
         </p>
 
         <div class="phil-pillars">
@@ -2211,7 +2279,7 @@
         <div class="surya-info-card" id="suryaInfoCard">
           <div class="surya-step-meta">
             <div class="surya-step-idx" id="suryaIdx">[ 01 / 12 ]</div>
-            <div class="surya-step-mantra" id="suryaMantra">ॐ मित्राय नमः &bull; Om Mitraya Namaha</div>
+            <div class="surya-step-mantra" id="suryaMantra">&#2384; मित्राय नमः &bull; Om Mitraya Namaha</div>
           </div>
           <h3 class="surya-step-name" id="suryaName">Pranamasana</h3>
           <div class="surya-step-english" id="suryaEnglish">Salutation Pose &bull; Standing Anjali Mudra</div>
@@ -2528,7 +2596,7 @@
         <a class="btn-outline" href="#suryaTrack" style="color:var(--royal-deep); border-color:var(--royal-deep);">Explore The 12 Asanas</a>
       </div>
       <div class="exp-img-frame">
-        <img src="images/yoga.png" alt="Classical Hatha Yoga instruction at 2400m altitude" loading="lazy">
+        <img src="images/yoga.png" alt="Classical Hatha Yoga instruction at 1525m altitude" loading="lazy">
       </div>
     </div>
 
@@ -2558,7 +2626,7 @@
         <div class="exp-text-time">03:30 PM to 05:00 PM &bull; Dhauladhar Forest Trail</div>
         <h3>Silent Forest Bathing (Shinrin-Yoku)</h3>
         <p class="exp-text-body">
-          Immerse your senses in the pristine deodar cedar and Himalayan pine forests surrounding our retreat. Mindful silent walks at 2,400 meters saturate your lungs with tree-emitted antimicrobial phytoncides, proven to lower salivary cortisol, reduce blood pressure, and boost natural killer immune cells.
+          Immerse your senses in the pristine deodar cedar and Himalayan pine forests surrounding our retreat. Mindful silent walks at 1,525 meters saturate your lungs with tree-emitted antimicrobial phytoncides, proven to lower salivary cortisol, reduce blood pressure, and boost natural killer immune cells.
         </p>
         <ul class="exp-highlights">
           <li>Guided mindful walking meditation along ancient shepherd paths</li>
@@ -2574,47 +2642,47 @@
   </div>
 </section>
 
-<!-- SECTION: HOW IT WILL HELP YOU (CLINICAL & PHYSIOLOGICAL RECOVERY) -->
-<section class="clinical-sec" id="clinical-benefits" aria-label="Clinical and Physiological Benefits">
+<!-- SECTION: GUEST EXPERIENCE & WELLNESS OBSERVATIONS -->
+<section class="clinical-sec" id="clinical-benefits" aria-label="Guest Experience and Wellness Observations">
   <div class="inner">
     <div class="sec-header">
-      <div class="sec-tag">Physiological Transformation</div>
-      <h2 class="sec-title" style="color:var(--ivory);">How it will <em>help you</em></h2>
+      <div class="sec-tag">Guest Experience</div>
+      <h2 class="sec-title" style="color:var(--ivory);">What guests may <em>notice</em></h2>
       <div class="sec-divider"></div>
-      <p class="sec-subtitle" style="color:rgba(250,247,240,0.65);">A clinical, evidence-informed recalibration of your autonomic nervous system, endocrine rhythm, and cellular vitality.</p>
+      <p class="sec-subtitle" style="color:rgba(250,247,240,0.65);">Time away from work and daily responsibilities, in a structured mountain setting with Ayurvedic support.</p>
     </div>
 
     <div class="clinical-grid">
-      <!-- Benefit 1 -->
+      <!-- Card 1 -->
       <div class="clinical-card">
         <div class="clinical-num">01</div>
-        <h3>Vagus Nerve Stimulation</h3>
-        <span class="clinical-metric">Autonomic Nervous Reset</span>
-        <p>Shifts your physiology from chronic sympathetic fight-or-flight overdrive into parasympathetic regenerative rest. Measurably increases Heart Rate Variability (HRV) and deepens respiratory depth.</p>
+        <h3>Time for Rest</h3>
+        <span class="clinical-metric">Rest &amp; Routine</span>
+        <p>A quiet mountain environment, scheduled meal times, and dedicated rest periods can support feelings of recovery and improved sleep patterns.</p>
       </div>
 
-      <!-- Benefit 2 -->
+      <!-- Card 2 -->
       <div class="clinical-card">
         <div class="clinical-num">02</div>
-        <h3>Circadian Cortisol Reset</h3>
-        <span class="clinical-metric">Melatonin &amp; REM Sleep</span>
-        <p>Aligning with Himalayan solar cycles resets your pituitary-adrenal axis. Drops evening cortisol spikes, eliminates chronic insomnia, and restores deep restorative non-REM cellular repair.</p>
+        <h3>Mindful Movement</h3>
+        <span class="clinical-metric">Gentle Activity</span>
+        <p>Daily yoga and guided walks provide gentle physical activity suited to your comfort level, supporting mobility and body awareness.</p>
       </div>
 
-      <!-- Benefit 3 -->
+      <!-- Card 3 -->
       <div class="clinical-card">
         <div class="clinical-num">03</div>
-        <h3>Ama (Toxin) Decongestion</h3>
-        <span class="clinical-metric">Gut-Brain Channel Cleanse</span>
-        <p>Doctor-supervised Shatkarma kriyas and medicated herbal Basti dislodge micro-toxins (Ama) accumulated from processed foods, chronic medication, and stress, restoring metabolic Agni.</p>
+        <h3>Ayurvedic Consultation</h3>
+        <span class="clinical-metric">Personalised Guidance</span>
+        <p>A consultation with an Ayurvedic practitioner to explore individual wellness goals and discuss diet, lifestyle, and supportive traditional practices.</p>
       </div>
 
-      <!-- Benefit 4 -->
+      <!-- Card 4 -->
       <div class="clinical-card">
         <div class="clinical-num">04</div>
-        <h3>Cognitive Decompression</h3>
-        <span class="clinical-metric">Neuroplastic Freedom</span>
-        <p>Removing digital alerts, decision fatigue, and sensory noise allows your prefrontal cortex to decompress. Enhances executive focus, emotional resilience, and introspective peace.</p>
+        <h3>Practical Takeaways</h3>
+        <span class="clinical-metric">Habits to Take Home</span>
+        <p>Experience daily rhythms, cooking approaches, and mindfulness exercises that you can adapt to support your well-being after returning home.</p>
       </div>
     </div>
   </div>
@@ -2749,10 +2817,10 @@
 <section class="inclusions-sec" id="package-inclusions" aria-label="What Your Package Includes">
   <div class="inner">
     <div class="sec-header">
-      <div class="sec-tag">Complete Transparency</div>
+      <div class="sec-tag">Complete Inclusions</div>
       <h2 class="sec-title">What your retreat <em>includes</em></h2>
       <div class="sec-divider"></div>
-      <p class="sec-subtitle">Zero hidden costs or surprise surcharges. Every package is completely all-inclusive from arrival to departure.</p>
+      <p class="sec-subtitle">Clear inclusions across all 4-day programmes in Bir Billing. Zero hidden charges.</p>
     </div>
 
     <div class="inclusions-table-card">
@@ -2768,62 +2836,8 @@
         <tbody>
           <tr>
             <td>
-              <span class="inc-feature">Private Luxury Himalayan Suite</span>
-              <span class="inc-feature-desc">Cedarwood balcony with snow-peak views, organic cotton bedding</span>
-            </td>
-            <td><span class="inc-check">&check;</span> 3 Nights (4 Days)</td>
-            <td><span class="inc-check">&check;</span> 3 Nights (4 Days)</td>
-            <td><span class="inc-check">&check;</span> 3 Nights (4 Days)</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">1:1 Daily BAMS Doctor Consultations</span>
-              <span class="inc-feature-desc">Nadi Pariksha pulse diagnosis &amp; daily dosha assessment</span>
-            </td>
-            <td><span class="inc-check">&check;</span> Daily Consult</td>
-            <td><span class="inc-check">&check;</span> Daily Consult</td>
-            <td><span class="inc-check">&check;</span> Comprehensive</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Personalized Panchakarma Therapies</span>
-              <span class="inc-feature-desc">Synchronized 4-hand Abhyanga, Shirodhara, and Swedana</span>
-            </td>
-            <td><span class="inc-check">&check;</span> Daily 60m</td>
-            <td><span class="inc-check">&check;</span> Daily 90m</td>
-            <td><span class="inc-check">&check;</span> Daily 120m</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Ayurvedic Basti Clinical Procedures</span>
-              <span class="inc-feature-desc">Doctor-administered specialized herbal oil retainment</span>
-            </td>
-            <td>Greeva / Janu Basti</td>
-            <td><span class="inc-check">&check;</span> Multi-Joint Basti</td>
-            <td><span class="inc-check">&check;</span> Full Clinical Basti Protocol</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Sattvic Organic Mountain Nutrition</span>
-              <span class="inc-feature-desc">3 gourmet medicinal meals daily, plus herbal elixirs &amp; teas</span>
-            </td>
-            <td><span class="inc-check">&check;</span> All-Inclusive</td>
-            <td><span class="inc-check">&check;</span> All-Inclusive</td>
-            <td><span class="inc-check">&check;</span> All-Inclusive</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Morning &amp; Evening Yoga / Meditation</span>
-              <span class="inc-feature-desc">Classical Hatha, Dhyana, and Yoga Nidra deep restorative sessions</span>
-            </td>
-            <td><span class="inc-check">&check;</span> Twice Daily</td>
-            <td><span class="inc-check">&check;</span> Twice Daily</td>
-            <td><span class="inc-check">&check;</span> Twice Daily</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Sacred Welcome Kit (Copper, Brass, Linens)</span>
-              <span class="inc-feature-desc">Delivered to your room upon arrival for personal keep</span>
+              <span class="inc-feature">Accommodation and meals</span>
+              <span class="inc-feature-desc">Private room in Bir Billing with three wholesome vegetarian meals daily.</span>
             </td>
             <td><span class="inc-check">&check;</span> Included</td>
             <td><span class="inc-check">&check;</span> Included</td>
@@ -2831,10 +2845,46 @@
           </tr>
           <tr>
             <td>
-              <span class="inc-feature">Airport / Rail Private Chauffeur</span>
-              <span class="inc-feature-desc">Pickup and return from Dharamshala Airport or Pathankot</span>
+              <span class="inc-feature">Yoga and meditation</span>
+              <span class="inc-feature-desc">Daily morning and evening sessions suitable for all experience levels.</span>
             </td>
             <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="inc-feature">Ayurvedic consultation</span>
+              <span class="inc-feature-desc">Individual assessment with an Ayurvedic practitioner to discuss lifestyle and goals.</span>
+            </td>
+            <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="inc-feature">Ayurvedic therapies</span>
+              <span class="inc-feature-desc">Traditional wellness treatments selected following consultation.</span>
+            </td>
+            <td><span class="inc-check">&check;</span> 1 Daily Session</td>
+            <td><span class="inc-check">&check;</span> 2 Daily Sessions</td>
+            <td><span class="inc-check">&check;</span> Comprehensive Sessions</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="inc-feature">Welcome kit</span>
+              <span class="inc-feature-desc">Practical items to support your stay and daily routines.</span>
+            </td>
+            <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+            <td><span class="inc-check">&check;</span> Included</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="inc-feature">Transfer support</span>
+              <span class="inc-feature-desc">Assistance with local travel coordination to and from Bir Billing.</span>
+            </td>
+            <td><span class="inc-check">&check;</span> On Request</td>
             <td><span class="inc-check">&check;</span> Included</td>
             <td><span class="inc-check">&check;</span> Included</td>
           </tr>
@@ -2987,7 +3037,7 @@
       <div class="sec-tag">Vedic Constitutional Assessment</div>
       <h2 class="sec-title">Discover your <em>Prakriti</em></h2>
       <div class="sec-divider"></div>
-      <p class="sec-subtitle">Your Prakriti is your unique combination of Vata, Pitta, and Kapha determined at birth. Answer three key diagnostic questions below to sample your dominant dosha.</p>
+      <p class="sec-subtitle">This short educational questionnaire offers a general reflection on Ayurvedic constitutional ideas. It is not a diagnosis and does not replace a consultation.</p>
     </div>
 
     <div class="prakriti-box card-interactive">
@@ -3060,12 +3110,12 @@
         <h3 class="quiz-dosha-name" id="doshaTitle">Vata Dominant</h3>
         <p class="quiz-dosha-desc" id="doshaExplanation"></p>
         <div class="quiz-dosha-rec">
-          <div class="quiz-dosha-rec-label">Recommended Retreat Programme</div>
+          <div class="quiz-dosha-rec-label">Possible programme to discuss</div>
           <div class="quiz-dosha-rec-plan" id="doshaPlan">Awakening Suite (4 Days)</div>
         </div>
         <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-          <a class="btn-primary" href="#reserve" id="applyQuizBtn">Reserve Recommended Suite</a>
-          <a class="btn-outline" href="prakriti.html" target="_blank" style="color:var(--royal); border-color:var(--royal);">Take Full 30-Question Assessment &#8599;</a>
+          <a class="btn-primary" href="#reserve" id="applyQuizBtn">Discuss This Programme</a>
+          <a class="btn-outline" href="dosha-prakriti-assessment.html" target="_blank" style="color:var(--royal); border-color:var(--royal);">Take Full 30-Question Assessment &#8599;</a>
         </div>
       </div>
     </div>
@@ -3117,16 +3167,16 @@
     <div class="contact-grid">
       <div class="contact-info">
         <div class="sec-tag">Intimate Retreat Inquiries</div>
-        <h3>Begin your journey to <em>sacred renewal</em></h3>
+        <h3>Discuss Your Retreat Dates</h3>
         <div class="sec-divider" style="margin-left:0;"></div>
-        <p>Because we strictly limit each retreat to 15 guests, dates fill quickly. Submit your inquiry below, and Dr. Himanshu or Dr. Aditya will connect with you directly within 24 hours to review your dates and health requirements.</p>
+        <p>Because we strictly limit each retreat to 15 guests, dates fill quickly. Submit your inquiry below, and Dr. Himanshu or Dr. Aditya will connect with you directly within 24 hours to review your dates and retreat goals.</p>
 
         <div class="contact-details">
           <div class="c-row">
             <div class="c-row-icon">📍</div>
             <div class="c-row-val">
               <strong>Sanctuary Location</strong>
-              Bir Billing, Tehsil Baijnath, Kangra Valley, Himachal Pradesh 176077
+              Bir Billing, Tehsil Baijnath, Kangra Valley, Himachal Pradesh 176077 &bull; 1,525m
             </div>
           </div>
           <div class="c-row">
@@ -3146,7 +3196,7 @@
         </div>
 
         <div style="padding-top:1.5rem; border-top:1px solid rgba(201,168,76,0.2);">
-          <a class="btn-outline" href="https://wa.me/917888540046?text=Namaste.%20I%20wish%20to%20inquire%20about%20booking%20a%20retreat%20with%20The%20Reset%20Co." target="_blank" rel="noopener">Instant WhatsApp Concierge &rarr;</a>
+          <a class="btn-outline" href="https://wa.me/917888540046?text=Namaste.%20I%20wish%20to%20inquire%20about%20booking%20a%20retreat%20with%20The%20Reset%20Co." target="_blank" rel="noopener">Ask About Dates on WhatsApp &rarr;</a>
         </div>
       </div>
 
@@ -3171,9 +3221,9 @@
             <div class="form-group">
               <label class="form-label" for="resPlan">Retreat Suite</label>
               <select class="form-select" id="resPlan" name="retreat_type">
-                <option value="serenity">Serenity Suite (3 Days &bull; ₹22,000)</option>
-                <option value="awakening" selected>Awakening Suite (4 Days &bull; ₹26,000)</option>
-                <option value="transformation">Transformation Suite (4 Days &bull; ₹35,000)</option>
+                <option value="serenity">Serenity Suite (4 Days &bull; &#8377;22,000)</option>
+                <option value="awakening" selected>Awakening Suite (4 Days &bull; &#8377;26,000)</option>
+                <option value="transformation">Transformation Suite (4 Days &bull; &#8377;35,000)</option>
               </select>
             </div>
             <div class="form-group">
@@ -3190,10 +3240,23 @@
             <input class="form-input" type="text" id="resDates" name="dates" placeholder="e.g. October 2026 or specific dates">
           </div>
           <div class="form-group">
-            <label class="form-label" for="resMsg">Health Intentions / Medical Notes</label>
-            <textarea class="form-textarea" id="resMsg" name="message" rows="3" placeholder="Tell our doctors what you are seeking to reset (fatigue, joint stiffness, sleep, anxiety, or general wellness)..."></textarea>
+            <label class="form-label" for="resMsg">Retreat goals</label>
+            <textarea class="form-textarea" id="resMsg" name="message" rows="3" maxlength="500" placeholder="Briefly tell us what you hope to receive from the retreat. Please do not include diagnoses, prescriptions or detailed medical records."></textarea>
           </div>
-          <button class="form-submit-btn" type="submit" id="resBtn">Submit Retreat Inquiry</button>
+
+          <p class="medical-disclaimer">
+            The Reset Co provides wellness and Ayurvedic services. Information on this page is general and is not a diagnosis or a substitute for emergency or conventional medical care. Any procedure is subject to an individual consultation, informed consent and suitability review. Please do not include detailed medical records in this form.
+          </p>
+
+          <label class="consent-row">
+            <input type="checkbox" id="privacyConsent" name="privacy_consent" required>
+            <span>
+              I agree that The Reset Co may use my contact details to respond to this enquiry.
+              I understand that I should not submit detailed medical records through this form.
+            </span>
+          </label>
+
+          <button class="form-submit-btn" type="submit" id="resBtn" style="margin-top:1.2rem;">Submit Retreat Inquiry</button>
           <div class="form-msg" id="resMsgBox"></div>
         </form>
       </div>
@@ -3208,16 +3271,13 @@
       <div class="ft-col">
         <div class="nav-logo-title" style="margin-bottom:0.4rem;">The Reset <span>Co</span></div>
         <p style="font-size:0.85rem; color:rgba(250,247,240,0.6); max-width:320px; line-height:1.7; margin-bottom:1.5rem;">
-          An exclusive 15-guest medical Ayurvedic sanctuary in Bir Billing, Himachal Pradesh. Classical Yoga, Meditation, Shatkarma and Doctor-supervised Basti procedures.
-        </p>
-        <p style="font-size:0.75rem; color:var(--gold); font-family:var(--serif); font-style:italic;">
-          Founded by Dr. Himanshu Bhatt &amp; Dr. Aditya Kaundal, BAMS.
+          A small-group 15-guest Ayurvedic wellness sanctuary in Bir Billing, Himachal Pradesh. Classical Yoga, Meditation, Shatkarma and doctor-supervised Ayurvedic care.
         </p>
       </div>
       <div class="ft-col">
         <h4>Sanctuary</h4>
         <ul class="ft-links">
-          <li><a href="#sanctuary">The Philosophy</a></li>
+          <li><a href="#sanctuary">Sanctuary</a></li>
           <li><a href="#disciplines">Four Disciplines</a></li>
           <li><a href="#dinacharya">Sacred Dinacharya</a></li>
           <li><a href="#suites">Retreat Suites</a></li>
@@ -3225,12 +3285,11 @@
         </ul>
       </div>
       <div class="ft-col">
-        <h4>Assessments</h4>
+        <h4>Explore</h4>
         <ul class="ft-links">
-          <li><a href="#prakriti">Prakriti Mini-Assessment</a></li>
-          <li><a href="prakriti.html" target="_blank">Full 30-Question Parikshan &#8599;</a></li>
+          <li><a href="dosha-prakriti-assessment.html" target="_blank">Full 30-Question Parikshan &#8599;</a></li>
           <li><a href="prospectus.html" target="_blank">Programme Prospectus &#8599;</a></li>
-          <li><a href="dashboard.html" target="_blank">Doctor Dashboard (Admin)</a></li>
+          <li><span class="admin-link-note" style="color:rgba(250,247,240,0.4); font-size:0.75rem;">Founder operations access is private.</span></li>
         </ul>
       </div>
       <div class="ft-col">
@@ -3239,7 +3298,7 @@
           <li><a href="mailto:hello@theresetco.in">hello@theresetco.in</a></li>
           <li><a href="tel:+917888540046">+91 78885 40046</a></li>
           <li><a href="https://wa.me/917888540046" target="_blank" rel="noopener">WhatsApp Concierge</a></li>
-          <li><span style="font-size:0.78rem; color:rgba(250,247,240,0.4);">Bir Billing, HP 176077</span></li>
+          <li><span style="font-size:0.78rem; color:rgba(250,247,240,0.4);">Bir Billing, HP 176077 &bull; 1,525m</span></li>
         </ul>
       </div>
     </div>
@@ -3247,7 +3306,7 @@
     <div class="footer-bottom">
       <div>&copy; 2026 The Reset Co. Bir Billing, Himachal Pradesh, India. All rights reserved.</div>
       <div style="display:flex; gap:1.5rem;">
-        <a href="#" style="color:rgba(250,247,240,0.5); text-decoration:none;">Privacy Policy</a>
+        <a href="privacy.html" style="color:rgba(250,247,240,0.5); text-decoration:none;">Privacy Policy</a>
         <a href="#cancellationModal" onclick="openCancelPolicy(event)" style="color:rgba(250,247,240,0.5); text-decoration:none;">Cancellation &amp; Rescheduling Policy</a>
       </div>
     </div>
@@ -3274,201 +3333,7 @@
     if (mainNav) mainNav.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  // 3. TACTILE WEB AUDIO SYNTHESIZER
-  let audioCtx = null;
-  let soundEnabled = localStorage.getItem('trc_sound_muted') !== 'true';
-
-  function playTactileFeedback(type = 'click') {
-    if (!soundEnabled) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) return;
-      if (!audioCtx) audioCtx = new AudioContextClass();
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-
-      if (type === 'tab') {
-        // Singing bowl harmonic tone (440Hz -> 220Hz, 55ms)
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(440, now);
-        osc.frequency.exponentialRampToValueAtTime(220, now + 0.055);
-        gain.gain.setValueAtTime(0.012, now);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.055);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.055);
-      } else {
-        // Whisper-quiet tactile click (320Hz -> 110Hz, 30ms)
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(320, now);
-        osc.frequency.exponentialRampToValueAtTime(110, now + 0.03);
-        gain.gain.setValueAtTime(0.015, now);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.03);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.03);
-      }
-    } catch(err) { /* silent fallback */ }
-  }
-
-  // Sound toggle button UI setup
-  const soundBtn = document.getElementById('soundToggle');
-  if (soundBtn) {
-    const iconOn = soundBtn.querySelector('.sound-icon-on');
-    const iconOff = soundBtn.querySelector('.sound-icon-off');
-    const label = soundBtn.querySelector('.sound-label');
-
-    function syncSoundUI() {
-      if (soundEnabled) {
-        soundBtn.classList.remove('muted');
-        if (iconOn) iconOn.style.display = 'block';
-        if (iconOff) iconOff.style.display = 'none';
-        if (label) label.textContent = 'Sound on';
-        soundBtn.setAttribute('title', 'Tactile sounds enabled: click to mute');
-      } else {
-        soundBtn.classList.add('muted');
-        if (iconOn) iconOn.style.display = 'none';
-        if (iconOff) iconOff.style.display = 'block';
-        if (label) label.textContent = 'Sound muted';
-        soundBtn.setAttribute('title', 'Tactile sounds muted: click to enable');
-      }
-    }
-    syncSoundUI();
-
-    soundBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      soundEnabled = !soundEnabled;
-      localStorage.setItem('trc_sound_muted', soundEnabled ? 'false' : 'true');
-      syncSoundUI();
-      if (soundEnabled) playTactileFeedback('click');
-    });
-  }
-
-  // Bind audio to buttons
-  document.addEventListener('click', e => {
-    const target = e.target.closest('.btn-primary, .btn-outline, .btn-book, .nav-cta, .mob-cta, .dina-tab, .nav-hamburger, .quiz-opt-btn');
-    if (target && !target.id?.includes('soundToggle')) {
-      playTactileFeedback(target.classList.contains('dina-tab') ? 'tab' : 'click');
-    }
-  });
-
-  // 4. NON-DESTRUCTIVE POINTER AWARE CURSOR
-  (() => {
-    if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return;
-    const ring = document.createElement('div'); ring.className = 'cursor-ring';
-    const dot  = document.createElement('div'); dot.className  = 'cursor-dot';
-    document.body.append(ring, dot);
-    document.body.classList.add('custom-cursor-active');
-
-    let mx = -100, my = -100, rx = -100, ry = -100;
-    window.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-      if (dot.style.opacity !== '1') {
-        dot.style.opacity = '1'; ring.style.opacity = '1';
-      }
-    }, { passive: true });
-
-    document.addEventListener('mouseleave', () => {
-      dot.style.opacity = '0'; ring.style.opacity = '0';
-    });
-
-    function loopCursor() {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-      requestAnimationFrame(loopCursor);
-    }
-    requestAnimationFrame(loopCursor);
-
-    const hoverSelectors = 'a, button, input, select, textarea, .btn-primary, .btn-outline, .btn-book, .nav-cta, .card-interactive, .dina-tab, .quiz-opt-btn';
-    document.addEventListener('mouseover', e => {
-      if (e.target.closest(hoverSelectors)) ring.classList.add('hovered');
-    });
-    document.addEventListener('mouseout', e => {
-      if (e.target.closest(hoverSelectors)) ring.classList.remove('hovered');
-    });
-    document.addEventListener('mousedown', () => ring.classList.add('clicking'));
-    document.addEventListener('mouseup',   () => ring.classList.remove('clicking'));
-  })();
-
-  // 5. 3D PERSPECTIVE CARD TILT & CURSOR SPOTLIGHT
-  (() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return;
-
-    const cards = document.querySelectorAll('.card-interactive');
-    cards.forEach(card => {
-      if (!card.querySelector('.card-spotlight')) {
-        const spot = document.createElement('div');
-        spot.className = 'card-spotlight';
-        card.appendChild(spot);
-      }
-
-      let ticking = false;
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        card.style.setProperty('--spot-x', `${x}px`);
-        card.style.setProperty('--spot-y', `${y}px`);
-        card.style.setProperty('--spot-opacity', '1');
-
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotX = ((y - centerY) / centerY) * -3.8;
-            const rotY = ((x - centerX) / centerX) * 3.8;
-            card.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-3px) scale3d(1.01, 1.01, 1.01)`;
-            ticking = false;
-          });
-          ticking = true;
-        }
-      }, { passive: true });
-
-      card.addEventListener('mouseenter', () => {
-        card.style.transition = 'transform 0.08s linear, box-shadow 0.35s ease, border-color 0.35s ease';
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.setProperty('--spot-opacity', '0');
-        card.style.transition = 'transform 0.5s var(--ease-spring), box-shadow 0.35s ease, border-color 0.35s ease';
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)';
-      });
-    });
-  })();
-
-  // 6. MAGNETIC BUTTONS
-  (() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return;
-
-    const magneticTargets = document.querySelectorAll('.btn-primary, .btn-outline, .nav-cta, .wa-fab');
-    magneticTargets.forEach(btn => {
-      btn.addEventListener('mousemove', e => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        const pull = btn.classList.contains('wa-fab') ? 0.22 : 0.18;
-        btn.style.transform = `translate(${x * pull}px, ${y * pull}px)`;
-      });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
-        btn.style.transition = 'transform 0.5s var(--ease-spring), background 0.25s ease, box-shadow 0.25s ease';
-      });
-      btn.addEventListener('mouseenter', () => {
-        btn.style.transition = 'transform 0.08s linear, background 0.25s ease, box-shadow 0.25s ease';
-      });
-    });
-  })();
+  // Calm interaction mode: Distracting audio, custom cursor, tilt, and magnetic physics disabled for wellness tranquility.
 
   // 7. SACRED DINACHARYA (CIRCADIAN JOURNEY) SWITCHER
   function switchDinaPhase(phase, btn) {
@@ -3600,64 +3465,69 @@
   }
   document.addEventListener('DOMContentLoaded', syncPrices);
 
-  // 12. RESERVATION FORM HANDLING & DASHBOARD INTEGRATION
+  // 12. RESERVATION FORM HANDLING (SAFE MAILTO & WHATSAPP DISPATCH)
   function handleReservationSubmit(e) {
     e.preventDefault();
     const btn = document.getElementById('resBtn');
     const msgBox = document.getElementById('resMsgBox');
     const form = e.target;
 
+    const consentCheck = form.querySelector('#privacyConsent');
+    if (consentCheck && !consentCheck.checked) {
+      if (msgBox) {
+        msgBox.innerHTML = '<span style="color:#F87171;">Please confirm the consent checkbox before submitting.</span>';
+        msgBox.style.display = 'block';
+      }
+      return;
+    }
+
     const data = {
-      name: form.querySelector('#resName').value.trim(),
-      phone: form.querySelector('#resPhone').value.trim(),
-      email: form.querySelector('#resEmail').value.trim(),
-      plan: form.querySelector('#resPlan').value,
-      guests: form.querySelector('#resGuests').value,
-      dates: form.querySelector('#resDates').value.trim(),
-      message: form.querySelector('#resMsg').value.trim(),
-      dosha: guestDoshaResult
+      name: form.querySelector('#resName')?.value.trim() || '',
+      phone: form.querySelector('#resPhone')?.value.trim() || '',
+      email: form.querySelector('#resEmail')?.value.trim() || '',
+      plan: form.querySelector('#resPlan')?.value || 'serenity',
+      guests: form.querySelector('#resGuests')?.value || '1',
+      dates: form.querySelector('#resDates')?.value.trim() || 'Flexible',
+      message: form.querySelector('#resMsg')?.value.trim() || ''
     };
 
-    // Save lead to localStorage for doctor dashboard
-    try {
-      const leads = JSON.parse(localStorage.getItem('trc_leads') || '[]');
-      const prices = JSON.parse(localStorage.getItem('trc_prices') || '{"serenity":22000,"awakening":26000,"transformation":35000}');
-      const guestCount = parseInt(data.guests) || 1;
-      const planPrice = prices[data.plan] || 26000;
-      const newLead = {
-        id: 'web_' + Date.now(),
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        plan: data.plan,
-        guests: guestCount,
-        dates: data.dates || 'Flexible',
-        message: data.message || '',
-        dosha: data.dosha || '',
-        source: 'homepage',
-        status: 'new',
-        amount: planPrice * guestCount,
-        amountPaid: 0,
-        depositPaid: false,
-        notes: data.message ? 'Inquiry: ' + data.message : 'Homepage inquiry via theresetco.in',
-        created: new Date().toISOString().slice(0,10)
-      };
-      leads.unshift(newLead);
-      localStorage.setItem('trc_leads', JSON.stringify(leads));
-      localStorage.setItem('trc_new_enquiry', JSON.stringify({ id: newLead.id, name: data.name, ts: Date.now() }));
-    } catch(err) { /* silent storage fail */ }
+    const suiteNames = {
+      serenity: 'Serenity Suite (4 Days &bull; &#8377;22,000)',
+      awakening: 'Awakening Suite (4 Days &bull; &#8377;26,000)',
+      transformation: 'Transformation Suite (4 Days &bull; &#8377;35,000)'
+    };
+    const selectedSuite = suiteNames[data.plan] || data.plan;
 
-    // Instant confirmation feedback
-    btn.textContent = '✓ Inquiry Received';
-    btn.style.background = 'var(--royal)';
-    btn.style.color = 'var(--gold-light)';
+    btn.textContent = 'Preparing Enquiry...';
     btn.disabled = true;
 
-    const subject = encodeURIComponent('New Retreat Inquiry: ' + data.name + ' (' + data.plan + ')');
-    const body = encodeURIComponent(`Name: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email}\nSuite: ${data.plan}\nGuests: ${data.guests}\nDates: ${data.dates}\n\nMessage:\n${data.message}`);
+    const subject = encodeURIComponent('Retreat Inquiry: ' + data.name + ' (' + data.plan + ')');
+    const bodyText = `Namaste The Reset Co Team,\n\nI would like to inquire about booking a retreat at Bir Billing.\n\nEnquiry Details:\n- Name: ${data.name}\n- WhatsApp / Phone: ${data.phone}\n- Email: ${data.email}\n- Retreat Suite: ${selectedSuite}\n- Number of Guests: ${data.guests}\n- Preferred Dates: ${data.dates}\n- Retreat Goals:\n${data.message}\n\nI confirm I have read the privacy terms and sanctuary essentials.`;
+    const mailtoUrl = `mailto:hello@theresetco.in?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
 
-    msgBox.innerHTML = `Namaste ${data.name}. Your inquiry has been securely received by our doctors.<br>We will WhatsApp or call you within 24 hours.<br><a href="mailto:hello@theresetco.in?subject=${subject}&body=${body}" style="color:var(--gold-light);font-size:0.8rem;text-decoration:underline;">Click here to also send via email &rarr;</a>`;
+    const waText = encodeURIComponent(`Namaste The Reset Co. I am inquiring about a retreat.\nName: ${data.name}\nSuite: ${selectedSuite}\nGuests: ${data.guests}\nDates: ${data.dates}`);
+    const waUrl = `https://wa.me/917888540046?text=${waText}`;
+
+    btn.textContent = 'Enquiry Prepared';
+    btn.style.background = 'var(--royal)';
+    btn.style.color = 'var(--gold-light)';
+
+    msgBox.innerHTML = `
+      <div style="background:rgba(201,168,76,0.1); border:1px solid var(--gold); border-radius:6px; padding:1.2rem; margin-top:1rem; text-align:left;">
+        <h4 style="font-family:var(--serif); color:var(--gold-light); font-size:1.15rem; margin-bottom:0.4rem;">Thank you, ${data.name}</h4>
+        <p style="font-size:0.85rem; color:var(--ivory); line-height:1.6; margin-bottom:0.8rem;">
+          To complete your enquiry without storing private data in the browser, please send your details directly via email or WhatsApp:
+        </p>
+        <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:0.6rem;">
+          <a class="btn-primary" href="${mailtoUrl}" style="display:inline-block; font-size:0.75rem; padding:0.6rem 1.2rem; text-decoration:none;">Open Email Client &rarr;</a>
+          <a class="btn-outline" href="${waUrl}" target="_blank" rel="noopener" style="display:inline-block; font-size:0.75rem; padding:0.6rem 1.2rem; text-decoration:none;">Send via WhatsApp &rarr;</a>
+        </div>
+        <p style="font-size:0.75rem; color:rgba(250,247,240,0.6); margin-top:0.8rem;">Our team responds within 24 hours. Your health notes and enquiry details are not retained in plain browser storage.</p>
+      </div>
+    `;
     msgBox.style.display = 'block';
+
+    window.location.href = mailtoUrl;
   }
 
 
@@ -3737,7 +3607,7 @@
   const suryaData = [
     {
       idx: '[ 01 / 12 ]',
-      mantra: 'ॐ मित्राय नमः &bull; Om Mitraya Namaha',
+      mantra: '&#2384; मित्राय नमः &bull; Om Mitraya Namaha',
       name: 'Pranamasana',
       english: 'Salutation Pose &bull; Standing Anjali Mudra',
       breath: 'Exhale (Rechaka) &bull; Solar Plexus Centering',
@@ -3748,7 +3618,7 @@
     },
     {
       idx: '[ 02 / 12 ]',
-      mantra: 'ॐ रवये नमः &bull; Om Ravaye Namaha',
+      mantra: '&#2384; रवये नमः &bull; Om Ravaye Namaha',
       name: 'Hastauttanasana',
       english: 'Raised Arms Pose &bull; Gentle Spinal Extension',
       breath: 'Inhale (Puraka) &bull; Ribcage &amp; Thoracic Expansion',
@@ -3759,7 +3629,7 @@
     },
     {
       idx: '[ 03 / 12 ]',
-      mantra: 'ॐ सूर्याय नमः &bull; Om Suryaya Namaha',
+      mantra: '&#2384; सूर्याय नमः &bull; Om Suryaya Namaha',
       name: 'Hastapadasana',
       english: 'Standing Forward Fold &bull; Spinal Decompression',
       breath: 'Exhale (Rechaka) &bull; Arterial Pressure Regulation',
@@ -3770,7 +3640,7 @@
     },
     {
       idx: '[ 04 / 12 ]',
-      mantra: 'ॐ भानवे नमः &bull; Om Bhanave Namaha',
+      mantra: '&#2384; भानवे नमः &bull; Om Bhanave Namaha',
       name: 'Ashwa Sanchalanasana',
       english: 'Equestrian Lunge (Right) &bull; Psoas Stretch',
       breath: 'Inhale (Puraka) &bull; Solar Plexus Awakening',
@@ -3781,7 +3651,7 @@
     },
     {
       idx: '[ 05 / 12 ]',
-      mantra: 'ॐ खगाय नमः &bull; Om Khagaya Namaha',
+      mantra: '&#2384; खगाय नमः &bull; Om Khagaya Namaha',
       name: 'Dandasana',
       english: 'Plank Pose &bull; Core Agni Alignment',
       breath: 'Kumbhaka (Breath Retention) &bull; Energetic Consolidation',
@@ -3792,7 +3662,7 @@
     },
     {
       idx: '[ 06 / 12 ]',
-      mantra: 'ॐ पूष्णे नमः &bull; Om Pushne Namaha',
+      mantra: '&#2384; पूष्णे नमः &bull; Om Pushne Namaha',
       name: 'Ashtanga Namaskara',
       english: 'Eight-Limbed Salute &bull; Surrender to Ground',
       breath: 'Exhale (Rechaka) &bull; Thoracic Spine Mobilization',
@@ -3803,7 +3673,7 @@
     },
     {
       idx: '[ 07 / 12 ]',
-      mantra: 'ॐ हिरण्यगर्भाय नमः &bull; Om Hiranyagarbhaya Namaha',
+      mantra: '&#2384; हिरण्यगर्भाय नमः &bull; Om Hiranyagarbhaya Namaha',
       name: 'Bhujangasana',
       english: 'Cobra Pose &bull; Heart Opening Extension',
       breath: 'Inhale (Puraka) &bull; Adrenal &amp; Kidney Circulation',
@@ -3814,7 +3684,7 @@
     },
     {
       idx: '[ 08 / 12 ]',
-      mantra: 'ॐ मरीचये नमः &bull; Om Marichaye Namaha',
+      mantra: '&#2384; मरीचये नमः &bull; Om Marichaye Namaha',
       name: 'Adho Mukha Svanasana',
       english: 'Downward-Facing Dog &bull; Inverted Calming Axis',
       breath: 'Exhale (Rechaka) &bull; Cerebrospinal Fluid Flush',
@@ -3825,7 +3695,7 @@
     },
     {
       idx: '[ 09 / 12 ]',
-      mantra: 'ॐ आदित्याय नमः &bull; Om Adityaya Namaha',
+      mantra: '&#2384; आदित्याय नमः &bull; Om Adityaya Namaha',
       name: 'Ashwa Sanchalanasana',
       english: 'Equestrian Lunge (Left) &bull; Bilateral Balancing',
       breath: 'Inhale (Puraka) &bull; Pelvic &amp; Respiratory Vitality',
@@ -3836,7 +3706,7 @@
     },
     {
       idx: '[ 10 / 12 ]',
-      mantra: 'ॐ सवित्रे नमः &bull; Om Savitre Namaha',
+      mantra: '&#2384; सवित्रे नमः &bull; Om Savitre Namaha',
       name: 'Hastapadasana',
       english: 'Standing Forward Bend &bull; Deep Introspection',
       breath: 'Exhale (Rechaka) &bull; Cranial Circulation',
@@ -3847,7 +3717,7 @@
     },
     {
       idx: '[ 11 / 12 ]',
-      mantra: 'ॐ अर्काय नमः &bull; Om Arkaya Namaha',
+      mantra: '&#2384; अर्काय नमः &bull; Om Arkaya Namaha',
       name: 'Hastauttanasana',
       english: 'Raised Arms Arc &bull; Vital Energy Return',
       breath: 'Inhale (Puraka) &bull; Vital Prana Expansion',
@@ -3858,7 +3728,7 @@
     },
     {
       idx: '[ 12 / 12 ]',
-      mantra: 'ॐ भास्कराय नमः &bull; Om Bhaskaraya Namaha',
+      mantra: '&#2384; भास्कराय नमः &bull; Om Bhaskaraya Namaha',
       name: 'Pranamasana',
       english: 'Sacred Centering &bull; Return to Balance',
       breath: 'Exhale / Natural Breath &bull; Systemic Homeostasis',
@@ -3975,17 +3845,19 @@
       document.body.style.overflow = '';
     }
   }
-  const cancelClose = document.getElementById('cancelModalCloseBtn');
-  if (cancelClose) cancelClose.addEventListener('click', closeCancelPolicy);
+  document.addEventListener('DOMContentLoaded', () => {
+    const cancelClose = document.getElementById('cancelModalCloseBtn');
+    if (cancelClose) cancelClose.addEventListener('click', closeCancelPolicy);
 
-  const cancelModal = document.getElementById('cancellationModal');
-  if (cancelModal) {
-    cancelModal.addEventListener('click', (e) => {
-      if (e.target === cancelModal) closeCancelPolicy();
+    const cancelModal = document.getElementById('cancellationModal');
+    if (cancelModal) {
+      cancelModal.addEventListener('click', (e) => {
+        if (e.target === cancelModal) closeCancelPolicy();
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeCancelPolicy();
     });
-  }
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeCancelPolicy();
   });
 
 </script>
