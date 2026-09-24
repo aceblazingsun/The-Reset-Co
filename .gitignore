@@ -1,4 +1,10 @@
+# Dependencies & Logs
 node_modules/
-.system_generated/
 *.log
+.system_generated/
 .vercel/
+
+# Archived & Scratch Files
+_archive/
+*.backup.html
+*.backup.js

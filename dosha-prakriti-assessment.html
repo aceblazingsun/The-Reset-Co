@@ -368,7 +368,7 @@
 
 <!-- Top Bar -->
 <header class="app-header">
-  <a href="hero.html" class="app-brand">
+  <a href="index.html" class="app-brand">
     <div class="app-brand-title">The Reset <span>Co</span></div>
     <div class="app-brand-sub">Clinical Prakriti Parikshan</div>
   </a>
@@ -382,7 +382,7 @@
     </div>
   </div>
 
-  <a href="hero.html" class="back-btn">&larr; Back to Retreats</a>
+  <a href="index.html" class="back-btn">&larr; Back to Retreats</a>
 </header>
 
 <main id="assessment-main" class="assessment-stage">
@@ -841,8 +841,8 @@
       diet = 'Stimulate your Agni with light, warm, spicy, and dry foods. Mustard greens, bitter vegetables, ginger-cinnamon infusions, and whole millets. Avoid heavy dairy, cold sweets, and rich oily preparations.';
       proc = 'Vigorous dry powder massage (Udvartana) followed by supervised Shatkarma (Kapalabhati and Jala Neti) to eliminate stagnant mucous and stimulate metabolic fire.';
       recPlan = 'serenity';
-      recName = 'Serenity Reset (3 Days)';
-      recDesc = 'A targeted 3-day activation in Bir Billing with vigorous morning Hatha yoga, Shatkarma introduction, and active Himalayan ridge walking.';
+      recName = 'Serenity Immersion (4 Days)';
+      recDesc = 'A targeted 4-day activation in Bir Billing with vigorous morning Hatha yoga, Shatkarma introduction, and active Himalayan ridge walking.';
     }
 
     document.getElementById('diagSummary').textContent = diag;
@@ -868,7 +868,9 @@
   }
 
   function bookRecommendedPlan() {
-    window.location.href = 'hero.html#booking';
+    const plan = sessionStorage.getItem('trc_prakriti_plan') || 'awakening';
+    const dosha = sessionStorage.getItem('trc_prakriti_dosha') || '';
+    window.location.href = 'index.html?plan=' + encodeURIComponent(plan) + '&dosha=' + encodeURIComponent(dosha) + '#reserve';
   }
 </script>
 
