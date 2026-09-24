@@ -34,7 +34,7 @@ the-reset-co/
 
 2. **Physician-Supervised 4-Day Retreat Programs**
    - Strictly 4-day all-inclusive programs (no per-night pricing).
-   - Inclusions: Localized Basti procedures (Kati, Greeva, Hridya, Nabhi), Netra Tarpana, Ashchyotana, supervised Day 3 Shatkarma, mindful pottery, stargazing, nature treks, and live Sufi acoustic sessions (Transformation tier).
+   - Inclusions: Localized Basti procedures (Kati, Greeva, Nabhi), Netra Tarpana, Ashchyotana, supervised Day 3 Shatkarma, mindful pottery, stargazing, nature treks, and live Sufi acoustic sessions (Transformation tier).
 
 3. **Asset-Light Operational Model**
    - Zero fixed real estate lease. High-occupancy partnership with shortlisted mountain property in Bir Billing.

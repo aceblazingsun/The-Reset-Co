@@ -39,6 +39,7 @@
     --gold: #C9A84C;
     --gold-light: #E8C97A;
     --gold-pale: #F7F0DC;
+    --gold-dark: #8C651E;
     --royal: #1A3A6B;
     --royal-deep: #0F2347;
     --royal-mid: #2D5499;
@@ -184,7 +185,8 @@
   /* ─── SECTIONS COMMON ─── */
   section { padding: 6rem 4rem; }
   .inner { max-width: 1100px; margin: 0 auto; }
-  .sec-label { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; font-weight: 600; }
+  .sec-label { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 0.75rem; font-weight: 600; }
+  .hero .sec-label, .experience .sec-label, .prakriti-sec .sec-label, .founders .sec-label, .c-form .sec-label { color: var(--gold); }
   .sec-title { font-family: var(--serif); font-size: clamp(2rem, 3.8vw, 3.2rem); font-weight: 400; color: var(--royal-deep); line-height: 1.2; margin-bottom: 1.2rem; }
   .sec-title em { font-style: italic; color: var(--gold); }
   .sec-body { font-size: 0.95rem; line-height: 1.8; color: var(--text-muted); max-width: 620px; }
@@ -590,7 +592,7 @@
       <!-- 1: Yoga -->
       <div class="svc-card">
         <div class="svc-img">
-          <img src="images/yoga.png" alt="Yoga session in Bir Billing Himalayas" onerror="this.style.display='none'">
+          <img src="images/yoga.png" alt="Yoga session in Bir Billing Himalayas" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <div class="svc-img-overlay"></div>
         </div>
         <div class="svc-body">
@@ -602,7 +604,7 @@
       <!-- 2: Meditation -->
       <div class="svc-card">
         <div class="svc-img">
-          <img src="images/meditation.png" alt="Meditation in the Himalayas" onerror="this.style.display='none'">
+          <img src="images/meditation.png" alt="Meditation in the Himalayas" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <div class="svc-img-overlay"></div>
         </div>
         <div class="svc-body">
@@ -614,7 +616,7 @@
       <!-- 3: Shatkarma -->
       <div class="svc-card">
         <div class="svc-img">
-          <img src="images/dinacharya_ritual.jpg" alt="Classical Shatkarma and Dinacharya ritual at The Reset Co" onerror="this.style.display='none'">
+          <img src="images/dinacharya_ritual.jpg" alt="Classical Shatkarma and Dinacharya ritual at The Reset Co" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <div class="svc-img-overlay"></div>
         </div>
         <div class="svc-body">
@@ -626,7 +628,7 @@
       <!-- 4: Basti Procedures -->
       <div class="svc-card">
         <div class="svc-img">
-          <img src="images/ayurveda.png" alt="Ayurvedic Panchakarma procedure" onerror="this.style.display='none'">
+          <img src="images/ayurveda.png" alt="Ayurvedic Panchakarma procedure" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <div class="svc-img-overlay"></div>
         </div>
         <div class="svc-body">
@@ -1054,50 +1056,103 @@
 </footer>
 
 <script>
-  // ─── SCROLL PROGRESS ────────────────────────────────────────────────────────
-  window.addEventListener('scroll', () => {
-    const bar = document.getElementById('scroll-progress');
-    const total = document.documentElement.scrollHeight - window.innerHeight;
-    if (total > 0 && bar) {
-      bar.style.width = (window.scrollY / total * 100) + '%';
-    }
-  }, { passive: true });
-
-  // ─── STICKY NAV ON SCROLL ───────────────────────────────────────────────────
+  // ─── SCROLL HANDLING (THROTTLED WITH RAF) ──────────────────────────────────
+  const bar = document.getElementById('scroll-progress');
   const navEl = document.getElementById('mainNav');
+  let isScrolling = false;
+
   window.addEventListener('scroll', () => {
-    if (navEl) {
-      if (window.scrollY > 40) {
-        navEl.classList.add('scrolled');
-      } else {
-        navEl.classList.remove('scrolled');
-      }
+    if (!isScrolling) {
+      window.requestAnimationFrame(() => {
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        if (total > 0 && bar) {
+          bar.style.width = (window.scrollY / total * 100) + '%';
+        }
+        if (navEl) {
+          navEl.classList.toggle('scrolled', window.scrollY > 40);
+        }
+        isScrolling = false;
+      });
+      isScrolling = true;
     }
   }, { passive: true });
 
-  // ─── MOBILE MENU TOGGLE ─────────────────────────────────────────────────────
+  // ─── ACCESSIBLE MOBILE MENU TOGGLE ──────────────────────────────────────────
   const hamburger = document.getElementById('hamburger');
   const mobMenu = document.getElementById('mobileMenu');
-  if (hamburger && mobMenu) {
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobMenu.classList.toggle('open');
-    });
+
+  function openMobMenu() {
+    if (hamburger && mobMenu) {
+      hamburger.classList.add('open');
+      mobMenu.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+    }
   }
+
   function closeMobMenu() {
     if (hamburger && mobMenu) {
       hamburger.classList.remove('open');
       mobMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
     }
   }
 
-  // ─── PRESELECT PLAN IN BOOKING FORM ─────────────────────────────────────────
+  if (hamburger && mobMenu) {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mobMenu.classList.contains('open');
+      if (isOpen) closeMobMenu();
+      else openMobMenu();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (mobMenu.classList.contains('open') && !mobMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        closeMobMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobMenu.classList.contains('open')) {
+        closeMobMenu();
+        hamburger.focus();
+      }
+    });
+  }
+
+  // ─── PRESELECT PLAN & PRAKRITI HANDOVER ─────────────────────────────────────
   function preselectPlan(planVal) {
     const sel = document.getElementById('bPlan');
-    if (sel) {
+    if (sel && planVal) {
       sel.value = planVal;
     }
   }
+
+  // Handle URL parameters and sessionStorage from Prakriti assessment on load
+  document.addEventListener('DOMContentLoaded', () => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlPlan = params.get('plan');
+      const urlDosha = params.get('dosha');
+      const sessionPlan = sessionStorage.getItem('trc_prakriti_plan');
+      const sessionDosha = sessionStorage.getItem('trc_prakriti_dosha');
+
+      const activePlan = urlPlan || sessionPlan;
+      const activeDosha = urlDosha || sessionDosha;
+
+      if (activePlan) {
+        preselectPlan(activePlan);
+      }
+
+      if (activeDosha) {
+        const notes = document.getElementById('bNotes');
+        if (notes && (!notes.value || notes.value.trim() === '')) {
+          notes.value = 'Ayurvedic Prakriti Diagnostic Result: ' + activeDosha + '.\nLooking forward to physician review during the retreat.';
+        }
+      }
+    } catch (e) {
+      console.warn('Prakriti handover notice:', e);
+    }
+  });
 
   // ─── FORM SUBMIT TO WHATSAPP ────────────────────────────────────────────────
   function handleBookingSubmit(e) {
@@ -1126,9 +1181,8 @@
       '\nLooking forward to speaking with the doctors.'
     );
 
-    window.open('https://wa.me/917888540046?text=' + text, '_blank');
+    window.open('https://wa.me/917888540046?text=' + text, '_blank', 'noopener,noreferrer');
   }
 </script>
-
 </body>
 </html>

@@ -827,21 +827,24 @@
       diet = 'Nourish your tissues with warm, cooked, grounding meals. Generous pure cow\'s ghee, warm almond milk with a pinch of nutmeg before bed, and stewed apples for breakfast. Avoid cold water, raw kale or salads, and irregular meal schedules.';
       proc = 'Prescribed full body warm Abhyanga with Mahanarayan oil, followed by localized Kati Basti (lower back oil retention) to ground wind and calm nervous agitation.';
       recPlan = 'awakening';
-      recName = 'Awakening Reset (4 Days &bull; Signature)';
+      recName = 'The Awakening Journey (4 Days &bull; Signature)';
+      recDesc = 'A comprehensive 4-day immersion in Bir Billing featuring daily grounding asanas, 2 prescribed Basti procedures, Netra Tarpana, and noble silence forest walks.';
       recDesc = 'A comprehensive 4-day immersion in Bir Billing featuring daily grounding asanas, 2 prescribed Basti procedures, and noble silence forest walks.';
     } else if (sorted[0].key === 'pitta') {
       diag = 'Your profile exhibits dominant Pitta (Fire and Water). You possess keen intellect and drive, but prolonged stress manifests as systemic internal heat, digestive acidity, irritability, and skin or eye sensitivity.';
       diet = 'Favor cooling, sweet, bitter, and astringent foods. Fresh coconut water, barley, mint, coriander, and sweet fruits. Minimize pungent chilies, vinegar, fried foods, and excess caffeine which trigger metabolic fire.';
       proc = 'Cooling classical procedures: Greeva Basti for cervical relief, medicated ghee eye bath (Netra Tarpana), and gentle Trataka gazing to soothe optic nerve irritation.';
       recPlan = 'transformation';
-      recName = 'Transformation Reset (4 Days &bull; Deep)';
+      recName = 'The Complete Transformation (4 Days &bull; Deep Reset)';
+      recDesc = 'Four days of deep metabolic detox including 3 localized Bastis, dual eye care, daily 1:1 doctor consultations, and a 30-day anti-inflammatory protocol.';
       recDesc = 'Four days of deep metabolic detox including cooling preparatory Swedana, daily private physician clinical reviews, and personalized 30-day anti-inflammatory protocol.';
     } else {
       diag = 'Your constitution is grounded in Kapha (Earth and Water). While you possess natural physical endurance and calm, excessive routine stress manifests as lethargy, sluggish digestion, and a tendency to feel mentally weighed down.';
       diet = 'Stimulate your Agni with light, warm, spicy, and dry foods. Mustard greens, bitter vegetables, ginger-cinnamon infusions, and whole millets. Avoid heavy dairy, cold sweets, and rich oily preparations.';
       proc = 'Vigorous dry powder massage (Udvartana) followed by supervised Shatkarma (Kapalabhati and Jala Neti) to eliminate stagnant mucous and stimulate metabolic fire.';
       recPlan = 'serenity';
-      recName = 'Serenity Immersion (4 Days)';
+      recName = 'The Serenity Immersion (4 Days &bull; Restoration)';
+      recDesc = 'A targeted 4-day activation in Bir Billing with morning restorative Hatha yoga, Shatkarma introduction, and active Himalayan ridge walking.';
       recDesc = 'A targeted 4-day activation in Bir Billing with vigorous morning Hatha yoga, Shatkarma introduction, and active Himalayan ridge walking.';
     }
 
@@ -870,7 +873,7 @@
   function bookRecommendedPlan() {
     const plan = sessionStorage.getItem('trc_prakriti_plan') || 'awakening';
     const dosha = sessionStorage.getItem('trc_prakriti_dosha') || '';
-    window.location.href = 'index.html?plan=' + encodeURIComponent(plan) + '&dosha=' + encodeURIComponent(dosha) + '#reserve';
+    window.location.href = 'index.html?plan=' + encodeURIComponent(plan) + '&dosha=' + encodeURIComponent(dosha) + '#contact';
   }
 </script>
 
