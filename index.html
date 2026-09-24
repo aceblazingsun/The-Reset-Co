@@ -273,31 +273,58 @@
 
   /* ─── PRICING & PROGRAMMES ─── */
   .pricing { background: var(--stone); }
-  .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
-  .p-card { background: white; border: 1px solid rgba(201,168,76,0.22); padding: 2.5rem 2rem; position: relative; border-radius: 3px; display: flex; flex-direction: column; justify-content: space-between; }
-  .p-card.feat { background: var(--royal); border-color: var(--gold); box-shadow: 0 12px 35px rgba(15,35,71,0.14); }
-  .feat-badge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--royal-deep); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 14px; font-weight: 600; white-space: nowrap; border-radius: 2px; }
-  .p-tier { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; font-weight: 600; }
+  .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; margin-top: 3rem; align-items: stretch; }
+  .p-card {
+    background: white; border: 1px solid rgba(201,168,76,0.25); padding: 2.75rem 2.2rem;
+    position: relative; border-radius: 4px; display: flex; flex-direction: column; justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(15,35,71,0.04);
+  }
+  .p-card.feat {
+    background: var(--royal); border-color: var(--gold);
+    box-shadow: 0 14px 40px rgba(15,35,71,0.22);
+  }
+  .feat-badge {
+    position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--royal-deep); font-size: 0.65rem;
+    letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 16px;
+    font-weight: 600; white-space: nowrap; border-radius: 2px;
+  }
+  .p-tier { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; font-weight: 600; }
+  .p-card.feat .p-tier { color: var(--gold-light); }
   .p-name { font-family: var(--serif); font-size: 1.6rem; font-weight: 500; color: var(--royal-deep); margin-bottom: 1.25rem; }
   .p-card.feat .p-name { color: var(--ivory); }
-  .p-amt { font-family: var(--serif); font-size: 2.7rem; font-weight: 400; color: var(--royal); line-height: 1; }
+  .p-amt { font-family: var(--serif); font-size: 2.85rem; font-weight: 400; color: var(--royal); line-height: 1; }
   .p-card.feat .p-amt { color: var(--gold-light); }
-  .p-per { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 1.75rem; }
-  .p-card.feat .p-per { color: rgba(253,250,243,0.5); }
-  .p-list { list-style: none; text-align: left; margin-bottom: 2rem; }
-  .p-list li { font-size: 0.83rem; color: var(--text-muted); padding: 8px 0; border-bottom: 1px solid rgba(201,168,76,0.12); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
-  .p-card.feat .p-list li { color: rgba(253,250,243,0.75); border-bottom-color: rgba(201,168,76,0.18); }
-  .p-list li::before { content: '✦'; color: var(--gold); font-size: 0.55rem; margin-top: 5px; flex-shrink: 0; }
+  .p-per { font-size: 0.74rem; color: var(--text-muted); margin-bottom: 1.75rem; margin-top: 0.35rem; }
+  .p-card.feat .p-per { color: rgba(253,250,243,0.55); }
+
+  .p-list { list-style: none; text-align: left; margin-bottom: 2.2rem; }
+  .p-list li {
+    position: relative; padding: 9px 0 9px 18px;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    font-size: 0.86rem; line-height: 1.5; color: var(--text);
+  }
+  .p-card.feat .p-list li {
+    color: rgba(253,250,243,0.85);
+    border-bottom-color: rgba(201,168,76,0.18);
+  }
+  .p-list li::before {
+    content: '✦'; position: absolute; left: 0; top: 10px;
+    color: var(--gold); font-size: 0.6rem;
+  }
+  .p-list li strong { font-weight: 600; color: var(--royal-deep); }
+  .p-card.feat .p-list li strong { color: var(--ivory); }
 
   .btn-book {
-    display: block; width: 100%; font-size: 0.74rem; letter-spacing: 0.14em;
-    text-transform: uppercase; padding: 0.85rem; border: 1px solid var(--royal);
+    display: block; width: 100%; font-size: 0.75rem; letter-spacing: 0.14em;
+    text-transform: uppercase; padding: 0.95rem; border: 1px solid var(--royal);
     background: transparent; color: var(--royal); cursor: pointer; transition: all 0.2s;
     text-decoration: none; text-align: center; font-weight: 600; border-radius: 2px;
+    margin-top: auto;
   }
   .btn-book:hover { background: var(--royal); color: var(--ivory); }
-  .p-card.feat .btn-book { border-color: var(--gold); color: var(--gold); }
-  .p-card.feat .btn-book:hover { background: var(--gold); color: var(--royal-deep); }
+  .p-card.feat .btn-book { border-color: var(--gold); background: var(--gold); color: var(--royal-deep); }
+  .p-card.feat .btn-book:hover { background: var(--gold-light); }
 
   /* Community Dorm Box */
   .dorm-box {
@@ -864,16 +891,16 @@
           <div class="p-amt">&#8377;22,000</div>
           <div class="p-per">per guest &bull; complete 4-day retreat</div>
           <ul class="p-list">
-            <li>4 Days (3 Nights) uniform boutique stay</li>
-            <li>Three organic farm-fresh Sattvic meals daily</li>
-            <li>Condition-Adaptive Restorative Yoga &amp; Pranayama</li>
-            <li><strong>1 Prescribed Panchakarma Basti</strong> &bull; Kati or Greeva</li>
-            <li><strong>Ashchyotana</strong> &bull; Herbal Ocular Irrigation</li>
-            <li><strong>Classical Shatkarma Morning Kriya</strong> &bull; Day 3</li>
-            <li><strong>Mindful Pottery Workshop</strong> &bull; Artisan Schedule Permitting</li>
-            <li>1 Physician Intake Consultation &bull; Health Assessment</li>
-            <li>Sacred Welcome Kit &bull; Copper bottle, Neti vessel, tongue scraper &amp; herbal oils</li>
-            <li><strong>7-Day</strong> Post-Retreat Pathya &amp; Apathya Dietary Guidance</li>
+            <li><strong>4 Days (3 Nights)</strong> boutique sanctuary stay</li>
+            <li><strong>Sattvic meals</strong> and herbal teas daily</li>
+            <li><strong>Daily Yoga &amp; Pranayama</strong> morning sessions</li>
+            <li><strong>1 Panchakarma Basti:</strong> Kati or Greeva Basti</li>
+            <li><strong>Ashchyotana:</strong> Herbal ocular irrigation</li>
+            <li><strong>Shatkarma purification</strong> session (Day 3)</li>
+            <li><strong>Mindful pottery workshop</strong> with artisans</li>
+            <li><strong>1 Physician consultation</strong> with BAMS doctor</li>
+            <li><strong>Sacred Welcome Kit</strong> with copper bottle &amp; tools</li>
+            <li><strong>7-Day</strong> post-retreat Pathya &amp; Apathya guidance</li>
           </ul>
         </div>
         <a class="btn-book" href="#contact" onclick="preselectPlan('serenity')">Reserve Serenity</a>
@@ -883,23 +910,23 @@
       <div class="p-card feat" id="cardAwakening">
         <div class="feat-badge">Signature Programme &bull; Most Chosen</div>
         <div>
-          <div class="p-tier" style="color:var(--gold-light);">Core &bull; Tier 2 &bull; 4 Days</div>
+          <div class="p-tier">Core &bull; Tier 2 &bull; 4 Days</div>
           <h3 class="p-name">The Awakening Journey</h3>
           <div class="p-amt">&#8377;26,000</div>
           <div class="p-per">per guest &bull; complete 4-day retreat</div>
           <ul class="p-list">
-            <li>4 Days (3 Nights) uniform boutique stay</li>
-            <li>Three organic farm-fresh Sattvic meals daily</li>
-            <li>Condition-Adaptive Restorative Yoga &amp; Pranayama</li>
-            <li><strong>2 Prescribed Panchakarma Bastis</strong> &bull; Kati, Greeva, or Nabhi</li>
-            <li><strong>Netra Tarpana</strong> &bull; Medicated Ghee Ocular Bath Pool</li>
-            <li><strong>Classical Shatkarma Morning Kriya</strong> &bull; Day 3</li>
-            <li><strong>Mindful Pottery Workshop</strong> &bull; Artisan Schedule Permitting</li>
-            <li><strong>Guided Himalayan Pine Forest Nature Trek</strong></li>
-            <li><strong>Terrace Stargazing Session</strong> &bull; Clear Night Skies Permitting</li>
-            <li>2 Physician Consultations &bull; Day 1 Intake + Day 3 Review</li>
-            <li>Sacred Welcome Kit &bull; Copper bottle, Neti vessel, tongue scraper &amp; herbal oils</li>
-            <li><strong>15-Day</strong> Direct Pathya &amp; Apathya Guidance &bull; Retreat Queries</li>
+            <li><strong>4 Days (3 Nights)</strong> boutique sanctuary stay</li>
+            <li><strong>Sattvic meals</strong> and herbal teas daily</li>
+            <li><strong>Daily Yoga &amp; Pranayama</strong> morning sessions</li>
+            <li><strong>2 Panchakarma Bastis:</strong> Kati, Greeva, or Nabhi</li>
+            <li><strong>Netra Tarpana:</strong> Medicated ghee eye pool</li>
+            <li><strong>Shatkarma purification</strong> session (Day 3)</li>
+            <li><strong>Mindful pottery workshop</strong> with artisans</li>
+            <li><strong>Guided Himalayan trek</strong> through pine forests</li>
+            <li><strong>Terrace stargazing session</strong> under clear skies</li>
+            <li><strong>2 Physician consultations</strong> (intake and review)</li>
+            <li><strong>Sacred Welcome Kit</strong> with copper bottle &amp; tools</li>
+            <li><strong>15-Day</strong> post-retreat Pathya &amp; Apathya guidance</li>
           </ul>
         </div>
         <a class="btn-book" href="#contact" onclick="preselectPlan('awakening')">Reserve Awakening</a>
@@ -909,23 +936,23 @@
       <div class="p-card" id="cardTransformation">
         <div>
           <div class="p-tier">Master &bull; Tier 3 &bull; 4 Days</div>
-          <h3 class="p-name">The Complete Transformation</h3>
+          <h3 class="p-name">The Transformation</h3>
           <div class="p-amt">&#8377;35,000</div>
           <div class="p-per">per guest &bull; complete 4-day retreat</div>
           <ul class="p-list">
-            <li>4 Days (3 Nights) uniform boutique stay</li>
-            <li>Three organic farm-fresh Sattvic meals daily</li>
-            <li>Condition-Adaptive Restorative Yoga &amp; Pranayama</li>
-            <li><strong>3 Prescribed Panchakarma Bastis</strong> &bull; Localized Therapies</li>
-            <li><strong>Netra Tarpana &amp; Ashchyotana</strong> &bull; Dual Ocular Protocol</li>
-            <li><strong>Classical Shatkarma Morning Kriya</strong> &bull; Day 3</li>
-            <li><strong>Mindful Pottery Workshop</strong> &bull; Artisan Schedule Permitting</li>
-            <li><strong>Guided Himalayan Pine Forest Nature Trek</strong></li>
-            <li><strong>Terrace Stargazing Session</strong> &bull; Clear Night Skies Permitting</li>
-            <li><strong>Live Sufi Acoustic Jamming Night</strong> &bull; Cohort Confirmed</li>
-            <li>Daily 1:1 BAMS Physician Consultations &bull; All 4 Days</li>
-            <li>Sacred Welcome Kit &bull; Copper bottle, Neti vessel, tongue scraper &amp; herbal oils</li>
-            <li><strong>30-Day</strong> Personalized Pathya &amp; Apathya Guidance &bull; Retreat Queries</li>
+            <li><strong>4 Days (3 Nights)</strong> boutique sanctuary stay</li>
+            <li><strong>Sattvic meals</strong> and herbal teas daily</li>
+            <li><strong>Daily Yoga &amp; Pranayama</strong> morning sessions</li>
+            <li><strong>3 Panchakarma Bastis:</strong> Full localized protocol</li>
+            <li><strong>Netra Tarpana &amp; Ashchyotana:</strong> Dual eye care</li>
+            <li><strong>Shatkarma purification</strong> session (Day 3)</li>
+            <li><strong>Mindful pottery workshop</strong> with artisans</li>
+            <li><strong>Guided Himalayan trek</strong> through pine forests</li>
+            <li><strong>Terrace stargazing session</strong> under clear skies</li>
+            <li><strong>Live Sufi acoustic jamming</strong> night session</li>
+            <li><strong>Daily 1:1 doctor consultations</strong> (all 4 days)</li>
+            <li><strong>Sacred Welcome Kit</strong> with copper bottle &amp; tools</li>
+            <li><strong>30-Day</strong> post-retreat Pathya &amp; Apathya guidance</li>
           </ul>
         </div>
         <a class="btn-book" href="#contact" onclick="preselectPlan('transformation')">Reserve Transformation</a>
