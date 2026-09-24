@@ -288,15 +288,6 @@
   .p-list li { font-size: 0.83rem; color: var(--text-muted); padding: 8px 0; border-bottom: 1px solid rgba(201,168,76,0.12); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
   .p-card.feat .p-list li { color: rgba(253,250,243,0.75); border-bottom-color: rgba(201,168,76,0.18); }
   .p-list li::before { content: '✦'; color: var(--gold); font-size: 0.55rem; margin-top: 5px; flex-shrink: 0; }
-  
-  .risk-badge {
-    display: inline-flex; align-items: center; gap: 2px; font-size: 0.68rem;
-    color: #E8C97A; background: rgba(201,168,76,0.14); border: 1px solid rgba(201,168,76,0.35);
-    border-radius: 2px; padding: 1px 5px; font-weight: 600; margin-left: 4px;
-  }
-  .p-card.feat .risk-badge {
-    color: var(--gold-light); background: rgba(201,168,76,0.2); border-color: rgba(201,168,76,0.4);
-  }
 
   .btn-book {
     display: block; width: 100%; font-size: 0.74rem; letter-spacing: 0.14em;
@@ -307,15 +298,6 @@
   .btn-book:hover { background: var(--royal); color: var(--ivory); }
   .p-card.feat .btn-book { border-color: var(--gold); color: var(--gold); }
   .p-card.feat .btn-book:hover { background: var(--gold); color: var(--royal-deep); }
-
-  /* Safety Footnote Box */
-  .safety-box {
-    margin-top: 1.5rem; display: flex; align-items: flex-start; gap: 10px;
-    font-size: 0.8rem; color: var(--text-muted); line-height: 1.6;
-    padding: 0.85rem 1.25rem; background: rgba(255,255,255,0.7);
-    border-radius: 3px; border-left: 3px solid var(--gold);
-  }
-  .safety-box span.sym { color: var(--gold); font-size: 1.1rem; line-height: 1; flex-shrink: 0; margin-top: 1px; }
 
   /* Community Dorm Box */
   .dorm-box {
@@ -604,12 +586,13 @@
       <!-- 3: Shatkarma -->
       <div class="svc-card">
         <div class="svc-img">
-          <div class="svc-img-overlay" style="background:linear-gradient(135deg,#0F2347,#1A3A6B);"></div>
+          <img src="images/dinacharya_ritual.jpg" alt="Classical Shatkarma and Dinacharya ritual at The Reset Co" onerror="this.style.display='none'">
+          <div class="svc-img-overlay"></div>
         </div>
         <div class="svc-body">
           <div class="svc-name">Classical Shatkarma Purification</div>
-          <div class="svc-sub">Jal Neti &bull; Kapalabhati &bull; Clinical Screening</div>
-          <p class="svc-desc">The internal cleansing kriyas of classical Hatha yoga. Guests are first thoroughly taught the anatomy, methodology, and contraindications before practicing on Day 3. Administered only after clinical clearance by our BAMS doctors to ensure complete medical safety.</p>
+          <div class="svc-sub">Jal Neti &bull; Kapalabhati &bull; Trataka</div>
+          <p class="svc-desc">The classical internal cleansing kriyas of traditional Hatha yoga. Guests are guided through gentle nasal irrigation (Jal Neti), rhythmic respiratory breathwork (Kapalabhati), and candle gazing (Trataka) to cleanse respiratory pathways, clear nocturnal stagnation, and heighten mental clarity.</p>
         </div>
       </div>
       <!-- 4: Basti Procedures -->
@@ -886,7 +869,7 @@
             <li>Condition-Adaptive Restorative Yoga &amp; Pranayama</li>
             <li><strong>1 Prescribed Panchakarma Basti</strong> &bull; Kati or Greeva</li>
             <li><strong>Ashchyotana</strong> &bull; Herbal Ocular Irrigation</li>
-            <li><strong>Classical Shatkarma Morning Kriya</strong> &bull; Day 3 <span class="risk-badge">&#9888; Clinical Screen*</span></li>
+            <li><strong>Classical Shatkarma Morning Kriya</strong> &bull; Day 3</li>
             <li><strong>Mindful Pottery Workshop</strong> &bull; Artisan Schedule Permitting</li>
             <li>1 Physician Intake Consultation &bull; Health Assessment</li>
             <li>Sacred Welcome Kit &bull; Copper bottle, Neti vessel, tongue scraper &amp; herbal oils</li>
@@ -910,7 +893,7 @@
             <li>Condition-Adaptive Restorative Yoga &amp; Pranayama</li>
             <li><strong>2 Prescribed Panchakarma Bastis</strong> &bull; Kati, Greeva, or Nabhi</li>
             <li><strong>Netra Tarpana</strong> &bull; Medicated Ghee Ocular Bath Pool</li>
-            <li><strong>Classical Shatkarma Morning Kriya</strong> &bull; Day 3 <span class="risk-badge">&#9888; Clinical Screen*</span></li>
+            <li><strong>Classical Shatkarma Morning Kriya</strong> &bull; Day 3</li>
             <li><strong>Mindful Pottery Workshop</strong> &bull; Artisan Schedule Permitting</li>
             <li><strong>Guided Himalayan Pine Forest Nature Trek</strong></li>
             <li><strong>Terrace Stargazing Session</strong> &bull; Clear Night Skies Permitting</li>
@@ -935,7 +918,7 @@
             <li>Condition-Adaptive Restorative Yoga &amp; Pranayama</li>
             <li><strong>3 Prescribed Panchakarma Bastis</strong> &bull; Localized Therapies</li>
             <li><strong>Netra Tarpana &amp; Ashchyotana</strong> &bull; Dual Ocular Protocol</li>
-            <li><strong>Classical Shatkarma Morning Kriya</strong> &bull; Day 3 <span class="risk-badge">&#9888; Clinical Screen*</span></li>
+            <li><strong>Classical Shatkarma Morning Kriya</strong> &bull; Day 3</li>
             <li><strong>Mindful Pottery Workshop</strong> &bull; Artisan Schedule Permitting</li>
             <li><strong>Guided Himalayan Pine Forest Nature Trek</strong></li>
             <li><strong>Terrace Stargazing Session</strong> &bull; Clear Night Skies Permitting</li>
@@ -947,12 +930,6 @@
         </div>
         <a class="btn-book" href="#contact" onclick="preselectPlan('transformation')">Reserve Transformation</a>
       </div>
-    </div>
-
-    <!-- Clinical Safety Footnote -->
-    <div class="safety-box">
-      <span class="sym">&#9888;</span>
-      <span><strong>*Clinical Safety &amp; Risk Protocol:</strong> Shatkarma (internal cleansing kriyas) and specific active asanas are administered strictly following individual physician evaluation. Any procedure is omitted or modified for guests with hypertension (HTN), cardiovascular concerns, physical frailty, or acute medical history. Gentle restorative alternatives are provided instead.</span>
     </div>
 
     <!-- Community Dormitory Option -->
