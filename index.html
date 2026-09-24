@@ -243,33 +243,34 @@
   .prakriti-cta-card h3 { font-family: var(--serif); font-size: 1.85rem; color: var(--ivory); margin-bottom: 0.75rem; }
   .prakriti-cta-card p { font-size: 0.88rem; color: rgba(253,250,243,0.7); max-width: 580px; margin: 0 auto 1.75rem; line-height: 1.7; }
 
-  /* ─── RETREAT SCHEDULE & DAY IN THE LIFE ─── */
+  /* ─── RETREAT SCHEDULE & DAILY RHYTHM (NO CLOCK TIMINGS) ─── */
   .experience { background: var(--royal-deep); color: var(--ivory); border-top: 1px solid rgba(201,168,76,0.15); }
   .experience .sec-title { color: var(--ivory); }
-  .experience .sec-body { color: rgba(253,250,243,0.68); }
-  .exp-tabs { display: flex; gap: 0; margin-top: 2.5rem; border-bottom: 1px solid rgba(201,168,76,0.22); }
-  .exp-tab {
-    font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: rgba(253,250,243,0.45); padding: 0.85rem 2rem; border: none;
-    background: transparent; cursor: pointer; border-bottom: 2px solid transparent;
-    transition: all 0.25s ease; margin-bottom: -1px; font-family: var(--sans); font-weight: 500;
+  .experience .sec-body { color: rgba(253,250,243,0.7); }
+  .flow-list {
+    margin-top: 2.75rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
   }
-  .exp-tab:hover { color: rgba(253,250,243,0.8); }
-  .exp-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
-  .exp-panel { display: none; padding-top: 2.5rem; }
-  .exp-panel.active { display: block; }
-  .timeline { position: relative; }
-  .timeline::before {
-    content: ''; position: absolute; left: 85px; top: 0; bottom: 0; width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.35) 10%, rgba(201,168,76,0.35) 90%, transparent);
+  .flow-card {
+    background: rgba(255,255,255,0.035); border: 1px solid rgba(201,168,76,0.18);
+    padding: 1.75rem 1.85rem; border-radius: 3px; position: relative;
+    transition: border-color 0.25s, background 0.25s;
   }
-  .tl-item { display: grid; grid-template-columns: 85px 1fr; gap: 2.2rem; margin-bottom: 2.2rem; align-items: start; }
-  .tl-time { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--gold); text-align: right; padding-right: 1.75rem; padding-top: 0.25rem; font-weight: 600; position: relative; }
-  .tl-time::after { content: ''; position: absolute; right: -5px; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.18); }
-  .tl-content { background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.14); padding: 1.25rem 1.5rem; border-radius: 2px; }
-  .tl-tag { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.35rem; font-weight: 600; }
-  .tl-name { font-family: var(--serif); font-size: 1.15rem; color: var(--ivory); font-weight: 500; margin-bottom: 0.35rem; }
-  .tl-desc { font-size: 0.84rem; color: rgba(253,250,243,0.58); line-height: 1.7; }
+  .flow-card:hover { border-color: rgba(201,168,76,0.4); background: rgba(255,255,255,0.05); }
+  .flow-num {
+    font-family: var(--serif); font-size: 1.15rem; color: var(--gold);
+    font-weight: 500; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 8px;
+  }
+  .flow-tag {
+    font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(201,168,76,0.75); font-family: var(--sans); font-weight: 600;
+  }
+  .flow-title {
+    font-family: var(--serif); font-size: 1.35rem; color: var(--ivory);
+    font-weight: 500; margin-bottom: 0.45rem;
+  }
+  .flow-desc {
+    font-size: 0.86rem; color: rgba(253,250,243,0.65); line-height: 1.65;
+  }
 
   /* ─── PRICING & PROGRAMMES ─── */
   .pricing { background: var(--stone); }
@@ -425,7 +426,7 @@
     .nav-hamburger { display: flex; }
     section { padding: 4.5rem 1.5rem; }
     .strip { padding: 1rem 1.5rem; gap: 1.25rem; }
-    .about-grid, .founders-grid, .svc-grid, .price-grid, .contact-grid, .kit-grid, .testi-grid, .dosha-grid {
+    .about-grid, .founders-grid, .svc-grid, .price-grid, .contact-grid, .kit-grid, .testi-grid, .dosha-grid, .flow-list {
       grid-template-columns: 1fr; gap: 2rem;
     }
     .f-row { grid-template-columns: 1fr; }
@@ -679,194 +680,59 @@
 <section class="experience" id="retreats">
   <div class="inner">
     <div>
-      <p class="sec-label" style="color:var(--gold);">A day at The Reset Co</p>
-      <h2 class="sec-title">What your days <em>actually look like</em></h2>
+      <p class="sec-label" style="color:var(--gold);">Daily Retreat Flow</p>
+      <h2 class="sec-title">The rhythm of <em>your days</em></h2>
       <div class="divider"></div>
-      <p class="sec-body">Every retreat follows a biological rhythm architected by our doctors around the Ayurvedic science of Dinacharya. Explore the structured schedule across our programmes below.</p>
+      <p class="sec-body">Rather than watching the clock, every retreat flows through a natural biological progression designed around the classical Ayurvedic science of Dinacharya.</p>
     </div>
 
-    <!-- TABS -->
-    <div class="exp-tabs">
-      <button class="exp-tab active" onclick="switchTab('serenity',this)" id="tabSerenity">Serenity (4 Days)</button>
-      <button class="exp-tab" onclick="switchTab('awakening',this)" id="tabAwakening">Awakening (4 Days)</button>
-      <button class="exp-tab" onclick="switchTab('transformation',this)" id="tabTransformation">Transformation (4 Days)</button>
-    </div>
-
-    <!-- SERENITY PANEL -->
-    <div class="exp-panel active" id="panel-serenity">
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-time">6:00 AM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Brahma Muhurta &bull; Morning Dinacharya</div>
-            <div class="tl-name">Waking &amp; Tongue Scraping</div>
-            <p class="tl-desc">Gentle awakening with fresh mountain air. Warm water from your copper bottle, tongue scraping to clear oral toxins, and quiet grounding before sunrise.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">7:00 AM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Condition-Adaptive Yoga</div>
-            <div class="tl-name">Restorative Hatha &amp; Pranayama</div>
-            <p class="tl-desc">Gentle movement and conscious breathwork on the lawn facing the mountains. Tailored to spinal comfort and individual medical history.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">8:45 AM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Sattvic Nourishment</div>
-            <div class="tl-name">Fresh Mountain Breakfast</div>
-            <p class="tl-desc">Warm organic grains, stewed local fruits, and freshly prepared herbal decoctions served in mindful silence.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">10:30 AM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Clinical Care &bull; Shatkarma Preparation</div>
-            <div class="tl-name">Doctor Consultation &amp; Shatkarma Instruction</div>
-            <p class="tl-desc">Individual medical intake with Dr. Himanshu and Dr. Aditya. Guests learn the science and steps of Jal Neti and gentle Kapalabhati (practiced Day 3 after clinical clearance).</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">1:00 PM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Midday Dining &bull; Rest</div>
-            <div class="tl-name">Wholesome Sattvic Lunch &amp; Free Contemplation</div>
-            <p class="tl-desc">Light, easily digestible balanced lunch followed by unhurried terrace rest, reading, or quiet walks among the pines.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">3:30 PM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Panchakarma Procedure</div>
-            <div class="tl-name">Prescribed Basti &amp; Ashchyotana</div>
-            <p class="tl-desc">Targeted warm herbal oil retention (Kati or Greeva Basti) administered by our BAMS doctors, followed by soothing herbal eye irrigation (Ashchyotana).</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">5:30 PM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Mindful Workshop</div>
-            <div class="tl-name">Tactile Mindful Pottery Session</div>
-            <p class="tl-desc">Grounding work with local Himalayan clay, reconnecting the hands and senses to natural earth (subject to artisan availability).</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">7:30 PM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Evening Stillness</div>
-            <div class="tl-name">Nourishing Dinner &amp; Bonfire Reflection</div>
-            <p class="tl-desc">Warm soothing broth and grains, followed by fire-side reflection and deep restful sleep by 10:00 PM.</p>
-          </div>
-        </div>
+    <div class="flow-list">
+      <div class="flow-card">
+        <div class="flow-num">01 <span class="flow-tag">&bull; Dawn Waking</span></div>
+        <div class="flow-title">Morning Dinacharya &amp; Hydration</div>
+        <p class="flow-desc">Waking gently to crisp mountain air. Warm water resting overnight in your copper bottle, classical tongue scraping to clear oral toxins, and quiet grounding before sunrise.</p>
       </div>
-    </div>
 
-    <!-- AWAKENING PANEL -->
-    <div class="exp-panel" id="panel-awakening">
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-time">6:00 AM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Morning Dinacharya</div>
-            <div class="tl-name">Copper Water, Tongue Scraping &amp; Walking Meditation</div>
-            <p class="tl-desc">Classical morning cleansing routine followed by an unhurried walking meditation through fragrant pine trails.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">7:00 AM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Yoga &amp; Shatkarma</div>
-            <div class="tl-name">Classical Hatha &amp; Day 3 Supervised Shatkarma</div>
-            <p class="tl-desc">Invigorating yet gentle asana practice. On Day 3, cleared participants execute the supervised morning Shatkarma purification ritual.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">10:30 AM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Ocular Care</div>
-            <div class="tl-name">Netra Tarpana Ghee Eye Bath</div>
-            <p class="tl-desc">Medicated herbal ghee pool applied over the eyes using gram dough dams. Relieves digital screen strain and optic fatigue.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">3:30 PM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Panchakarma Therapy</div>
-            <div class="tl-name">Prescribed Basti (2 Procedures across Stay)</div>
-            <p class="tl-desc">Personalized Kati, Greeva, or Nabhi Basti oil retention administered by the physicians for deep tissue rejuvenation.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">5:00 PM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Himalayan Immersion</div>
-            <div class="tl-name">Pine Forest Nature Trek &amp; Pottery</div>
-            <p class="tl-desc">Guided pine forest trek through monastery paths and mindful pottery workshop with Himalayan artisans.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">8:30 PM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Night Sky Stillness</div>
-            <div class="tl-name">Terrace Stargazing &amp; Yoga Nidra</div>
-            <p class="tl-desc">Contemplative stargazing under clear mountain skies (weather permitting), followed by deeply grounding Yoga Nidra.</p>
-          </div>
-        </div>
+      <div class="flow-card">
+        <div class="flow-num">02 <span class="flow-tag">&bull; Morning Practice</span></div>
+        <div class="flow-title">Condition-Adaptive Yoga &amp; Pranayama</div>
+        <p class="flow-desc">Restorative classical Hatha asanas and conscious breathwork practiced outdoors facing the Dhauladhar peaks, tailored to spinal comfort and joint ease.</p>
       </div>
-    </div>
 
-    <!-- TRANSFORMATION PANEL -->
-    <div class="exp-panel" id="panel-transformation">
-      <div class="timeline">
-        <div class="tl-item">
-          <div class="tl-time">6:00 AM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Intensive Dinacharya</div>
-            <div class="tl-name">Morning Purification Ritual &amp; Meditation</div>
-            <p class="tl-desc">Full Ayurvedic morning routine with copper hydration, tongue scraping, and seated sunrise breathwork facing the snowcaps.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">7:00 AM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Therapeutic Movement</div>
-            <div class="tl-name">Adaptive Hatha &amp; Day 3 Shatkarma Mastery</div>
-            <p class="tl-desc">Doctor-supervised physical alignment, pranayama, and classical internal purification for cleared participants.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">10:30 AM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Dual Ocular Protocol</div>
-            <div class="tl-name">Netra Tarpana &amp; Ashchyotana</div>
-            <p class="tl-desc">Complete dual therapeutic eye restoration protocol: medicated ghee pooling followed by soothing herbal wash.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">3:30 PM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Intensive Panchakarma</div>
-            <div class="tl-name">3 Customized Basti Procedures</div>
-            <p class="tl-desc">Comprehensive localized treatments across your 4-day stay targeting chronic postural strain, spine, and core vitality.</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">5:30 PM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Cultural &amp; Creative Workshops</div>
-            <div class="tl-name">Forest Trek, Pottery &amp; Acoustic Sufi Night</div>
-            <p class="tl-desc">Himalayan nature walk, pottery session, and an intimate live acoustic Sufi music jamming session by the evening bonfire (cohort confirmed).</p>
-          </div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-time">8:30 PM</div>
-          <div class="tl-content">
-            <div class="tl-tag">Evening Restoration</div>
-            <div class="tl-name">Terrace Stargazing &amp; 30-Day Transition Briefing</div>
-            <p class="tl-desc">Clear sky stargazing followed by individual doctor briefing on your 30-day post-retreat Pathya &amp; Apathya dietary protocol.</p>
-          </div>
-        </div>
+      <div class="flow-card">
+        <div class="flow-num">03 <span class="flow-tag">&bull; Nourishment</span></div>
+        <div class="flow-title">Organic Sattvic Breakfast</div>
+        <p class="flow-desc">Warm organic grains, stewed seasonal mountain fruits, and freshly prepared herbal decoctions served in quiet mindfulness.</p>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-num">04 <span class="flow-tag">&bull; Clinical Consultation</span></div>
+        <div class="flow-title">Physician Evaluation &amp; Shatkarma</div>
+        <p class="flow-desc">Individual medical intake with Dr. Himanshu and Dr. Aditya. Instruction and guided practice of classical Jal Neti and gentle Kapalabhati purification.</p>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-num">05 <span class="flow-tag">&bull; Midday Pause</span></div>
+        <div class="flow-title">Sattvic Lunch &amp; Unhurried Rest</div>
+        <p class="flow-desc">Wholesome, easily digestible meal followed by dedicated downtime: quiet reading, pine terrace contemplation, or gentle unhurried walking.</p>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-num">06 <span class="flow-tag">&bull; Panchakarma</span></div>
+        <div class="flow-title">Prescribed Bastis &amp; Ocular Care</div>
+        <p class="flow-desc">Direct physician-administered warm oil reservoirs (Kati, Greeva, or Nabhi Basti) paired with restorative Netra Tarpana ghee eye pools and soothing Ashchyotana.</p>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-num">07 <span class="flow-tag">&bull; Experiential Discovery</span></div>
+        <div class="flow-title">Pottery Workshop &amp; Pine Nature Trek</div>
+        <p class="flow-desc">Tactile clay grounding sessions with local Himalayan artisans and guided mindful treks through fragrant pine trails and mountain monastery paths.</p>
+      </div>
+
+      <div class="flow-card">
+        <div class="flow-num">08 <span class="flow-tag">&bull; Night Reflection</span></div>
+        <div class="flow-title">Stargazing, Fireside Gathering &amp; Yoga Nidra</div>
+        <p class="flow-desc">Evening Sattvic supper, contemplation under clear mountain skies, acoustic fireside conversations, and deep nervous system restoration with guided Yoga Nidra.</p>
       </div>
     </div>
   </div>
@@ -1223,15 +1089,6 @@
       hamburger.classList.remove('open');
       mobMenu.classList.remove('open');
     }
-  }
-
-  // ─── TAB SWITCHING IN DAILY RHYTHM ──────────────────────────────────────────
-  function switchTab(tabId, btn) {
-    document.querySelectorAll('.exp-tab').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.exp-panel').forEach(p => p.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    const target = document.getElementById('panel-' + tabId);
-    if (target) target.classList.add('active');
   }
 
   // ─── PRESELECT PLAN IN BOOKING FORM ─────────────────────────────────────────
