@@ -1198,543 +1198,6 @@
     transform: translateY(-1px);
   }
 
-  /* ─── AMBIENT SCROLL-DRIVEN SURYA NAMASKAR BACKGROUND ─── */
-  .ambient-surya-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    height: 100dvh;
-    z-index: -2;
-    overflow: hidden;
-    pointer-events: none;
-  }
-  .surya-bg-slide {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center 25%;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transform: scale(1.03);
-    transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
-  }
-  .surya-bg-slide.active {
-    opacity: 0.34;
-    transform: scale(1);
-  }
-  .surya-bg-overlay {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 25%, rgba(10, 25, 49, 0.72) 0%, rgba(7, 18, 36, 0.94) 85%);
-    backdrop-filter: blur(1.5px);
-    -webkit-backdrop-filter: blur(1.5px);
-    z-index: 1;
-  }
-
-  /* ─── FLOATING CIRCADIAN ASANA COMPANION ─── */
-  .surya-companion {
-    position: fixed;
-    bottom: 2rem;
-    right: 2.5rem;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    font-family: var(--sans);
-  }
-  .companion-pill {
-    background: rgba(10, 25, 49, 0.92);
-    border: 1px solid rgba(201, 168, 76, 0.45);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(201, 168, 76, 0.12);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-radius: 9999px;
-    padding: 6px 14px 6px 8px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    user-select: none;
-  }
-  .companion-pill:hover, .companion-pill:focus-visible {
-    border-color: var(--gold);
-    background: rgba(19, 39, 79, 0.96);
-    transform: translateY(-2px);
-    outline: none;
-  }
-  .companion-ring-wrap {
-    position: relative;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .companion-ring {
-    transform: rotate(-90deg);
-  }
-  .companion-sun {
-    position: absolute;
-    font-size: 0.65rem;
-    color: var(--gold-light);
-    line-height: 1;
-  }
-  .companion-label {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    line-height: 1.15;
-  }
-  .companion-step-txt {
-    font-size: 0.62rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 700;
-  }
-  .companion-pose-name {
-    font-family: var(--serif);
-    font-size: 0.95rem;
-    color: var(--ivory);
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .companion-chevron {
-    font-size: 0.68rem;
-    color: var(--gold-light);
-    transition: transform 0.3s;
-  }
-  .companion-pill[aria-expanded="true"] .companion-chevron {
-    transform: rotate(180deg);
-  }
-
-  /* Collapsible Mini Guide Card */
-  .companion-card {
-    position: absolute;
-    bottom: calc(100% + 12px);
-    right: 0;
-    width: min(90vw, 340px);
-    background: linear-gradient(180deg, #0A1931 0%, #071224 100%);
-    border: 1px solid var(--gold);
-    border-radius: 8px;
-    padding: 1.4rem;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(8px);
-    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
-    pointer-events: none;
-    z-index: 1000;
-  }
-  .companion-card.open {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-  .companion-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.6rem;
-  }
-  .companion-card-sub {
-    font-family: var(--serif);
-    font-size: 0.82rem;
-    color: var(--gold-light);
-    font-style: italic;
-    display: block;
-    margin-bottom: 2px;
-  }
-  .companion-card-title {
-    font-family: var(--serif);
-    font-size: 1.25rem;
-    color: var(--ivory);
-    font-weight: 500;
-    line-height: 1.2;
-  }
-  .companion-close-btn {
-    background: transparent;
-    border: none;
-    color: var(--gold-light);
-    font-size: 1.2rem;
-    cursor: pointer;
-    line-height: 1;
-    padding: 2px 6px;
-  }
-  .companion-card-breath {
-    font-size: 0.72rem;
-    color: var(--gold);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 0.6rem;
-  }
-  .companion-card-desc {
-    font-size: 0.8rem;
-    color: rgba(250, 247, 240, 0.72);
-    line-height: 1.55;
-    margin-bottom: 1rem;
-  }
-  .companion-scrubber {
-    display: flex;
-    justify-content: space-between;
-    gap: 4px;
-    padding-top: 0.6rem;
-    border-top: 1px solid rgba(201, 168, 76, 0.2);
-  }
-  .comp-dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: rgba(19, 39, 79, 0.8);
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    cursor: pointer;
-    transition: all 0.2s;
-    padding: 0;
-  }
-  .comp-dot.active, .comp-dot:hover {
-    background: var(--gold);
-    border-color: var(--gold);
-    transform: scale(1.2);
-  }
-
-  /* ─── WHAT YOU WILL EXPERIENCE (5 IMMERSIVE PILLARS) ─── */
-  .experience-sec {
-    background: var(--stone);
-    padding: 7rem 0;
-  }
-  .exp-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 3rem;
-    margin-bottom: 3.5rem;
-    flex-wrap: wrap;
-  }
-  .exp-tab-btn {
-    background: transparent;
-    border: 1px solid rgba(201, 168, 76, 0.35);
-    padding: 0.75rem 1.6rem;
-    font-family: var(--sans);
-    font-size: 0.74rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--royal-deep);
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: all 0.25s;
-  }
-  .exp-tab-btn.active, .exp-tab-btn:hover {
-    background: var(--royal-deep);
-    color: var(--gold-light);
-    border-color: var(--royal-deep);
-  }
-  .exp-panel {
-    display: none;
-    grid-template-columns: 1fr 1fr;
-    gap: 3.5rem;
-    align-items: center;
-    background: #FFF;
-    border: 1px solid rgba(201, 168, 76, 0.22);
-    padding: 3.5rem;
-    box-shadow: 0 10px 40px rgba(10, 25, 49, 0.05);
-  }
-  .exp-panel.active {
-    display: grid;
-  }
-  .exp-text-content h3 {
-    font-family: var(--serif);
-    font-size: 2.2rem;
-    color: var(--royal-deep);
-    margin-bottom: 0.6rem;
-    line-height: 1.2;
-  }
-  .exp-text-time {
-    font-size: 0.75rem;
-    color: var(--gold);
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-  }
-  .exp-text-body {
-    font-size: 0.92rem;
-    color: var(--text-muted);
-    line-height: 1.85;
-    margin-bottom: 1.8rem;
-  }
-  .exp-highlights {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    margin-bottom: 2rem;
-  }
-  .exp-highlights li {
-    font-size: 0.85rem;
-    color: var(--text);
-    display: flex;
-    gap: 10px;
-    align-items: baseline;
-  }
-  .exp-highlights li::before {
-    content: '✦';
-    color: var(--gold);
-    font-size: 0.65rem;
-  }
-  .exp-img-frame {
-    height: 420px;
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid rgba(201, 168, 76, 0.3);
-  }
-  .exp-img-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* ─── HOW IT WILL HELP YOU (CLINICAL RECOVERY) ─── */
-  .clinical-sec {
-    background: var(--royal-deep);
-    padding: 7rem 0;
-  }
-  .clinical-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    margin-top: 4rem;
-  }
-  .clinical-card {
-    background: rgba(19, 39, 79, 0.65);
-    border: 1px solid rgba(201, 168, 76, 0.25);
-    border-radius: 6px;
-    padding: 2.5rem 1.8rem;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s;
-  }
-  .clinical-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-4px);
-    background: rgba(19, 39, 79, 0.95);
-  }
-  .clinical-num {
-    font-family: var(--serif);
-    font-size: 1.6rem;
-    color: var(--gold);
-    margin-bottom: 1rem;
-  }
-  .clinical-card h3 {
-    font-family: var(--serif);
-    font-size: 1.45rem;
-    color: var(--ivory);
-    margin-bottom: 0.8rem;
-    line-height: 1.25;
-  }
-  .clinical-metric {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gold-light);
-    margin-bottom: 1.2rem;
-    display: block;
-    font-weight: 600;
-  }
-  .clinical-card p {
-    font-size: 0.85rem;
-    color: rgba(250, 247, 240, 0.68);
-    line-height: 1.75;
-  }
-
-  /* ─── THE SACRED WELCOME KIT ─── */
-  .kit-sec {
-    background: #08162B;
-    padding: 7rem 0;
-    border-top: 1px solid rgba(201, 168, 76, 0.2);
-  }
-  .kit-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    margin-top: 4rem;
-  }
-  .kit-photo-card {
-    border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid var(--gold);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-    position: relative;
-  }
-  .kit-photo-card img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-  }
-  .kit-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-  }
-  .kit-item {
-    background: rgba(19, 39, 79, 0.5);
-    border: 1px solid rgba(201, 168, 76, 0.2);
-    padding: 1.2rem 1.6rem;
-    border-radius: 4px;
-    display: flex;
-    gap: 1.2rem;
-    align-items: flex-start;
-  }
-  .kit-icon {
-    font-family: var(--serif);
-    font-size: 1.4rem;
-    color: var(--gold);
-    line-height: 1;
-    margin-top: 2px;
-  }
-  .kit-info h4 {
-    font-family: var(--serif);
-    font-size: 1.15rem;
-    color: var(--ivory);
-    margin-bottom: 0.25rem;
-  }
-  .kit-info p {
-    font-size: 0.82rem;
-    color: rgba(250, 247, 240, 0.62);
-    line-height: 1.6;
-  }
-
-  /* ─── PROGRAM ESSENTIALS & GUEST CONDUCT ─── */
-  .conduct-sec {
-    background: var(--stone);
-    padding: 6.5rem 0;
-  }
-  .conduct-agreement-card {
-    background: #FFF;
-    border: 2px solid rgba(201, 168, 76, 0.4);
-    border-radius: 6px;
-    padding: 3.5rem;
-    margin-top: 3.5rem;
-    box-shadow: 0 15px 45px rgba(10, 25, 49, 0.05);
-  }
-  .conduct-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 3rem;
-  }
-  .conduct-header h3 {
-    font-family: var(--serif);
-    font-size: 2rem;
-    color: var(--royal-deep);
-    margin-bottom: 0.6rem;
-  }
-  .conduct-header p {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-  .conduct-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
-  }
-  .conduct-item {
-    display: flex;
-    gap: 1.4rem;
-    align-items: flex-start;
-  }
-  .conduct-badge {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(201, 168, 76, 0.15);
-    border: 1px solid var(--gold);
-    color: var(--royal-deep);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.85rem;
-    flex-shrink: 0;
-  }
-  .conduct-text h4 {
-    font-family: var(--serif);
-    font-size: 1.25rem;
-    color: var(--royal-deep);
-    margin-bottom: 0.4rem;
-  }
-  .conduct-text p {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  /* ─── ALL-INCLUSIVE PACKAGE INCLUSIONS MATRIX ─── */
-  .inclusions-sec {
-    background: var(--ivory);
-    padding: 6.5rem 0;
-  }
-  .inclusions-table-card {
-    background: white;
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    border-radius: 6px;
-    overflow-x: auto;
-    margin-top: 3.5rem;
-    box-shadow: 0 10px 30px rgba(10, 25, 49, 0.04);
-  }
-  .inc-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-  }
-  .inc-table th, .inc-table td {
-    padding: 1.2rem 1.6rem;
-    text-align: left;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
-  }
-  .inc-table th {
-    background: var(--royal-deep);
-    color: var(--ivory);
-    font-family: var(--serif);
-    font-size: 1.15rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-  }
-  .inc-table th.highlight {
-    background: var(--royal);
-    color: var(--gold-light);
-    border-bottom: 2px solid var(--gold);
-  }
-  .inc-table tr:hover td {
-    background: rgba(201, 168, 76, 0.04);
-  }
-  .inc-feature {
-    font-weight: 600;
-    color: var(--royal-deep);
-  }
-  .inc-feature-desc {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-weight: 400;
-    margin-top: 3px;
-  }
-  .inc-check {
-    color: #16A34A;
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
-
   /* ─── CANCELLATION POLICY MODAL ─── */
   .modal-overlay {
     position: fixed;
@@ -1933,16 +1396,7 @@
 </head>
 <body>
 
-<!-- AMBIENT SCROLL-DRIVEN SURYA NAMASKAR BACKGROUND CANVAS -->
-<div class="ambient-surya-bg" id="ambientSuryaBg" aria-hidden="true">
-  <div class="surya-bg-slide active" id="suryaSlide-1" style="background-image: url('images/surya_pose1.jpg');"></div>
-  <div class="surya-bg-slide" id="suryaSlide-2" style="background-image: url('images/surya_pose2.jpg');"></div>
-  <div class="surya-bg-slide" id="suryaSlide-3" style="background-image: url('images/surya_pose3.jpg');"></div>
-  <div class="surya-bg-slide" id="suryaSlide-4" style="background-image: url('images/surya_pose4.jpg');"></div>
-  <div class="surya-bg-slide" id="suryaSlide-5" style="background-image: url('images/surya_pose5.jpg');"></div>
-  <div class="surya-bg-slide" id="suryaSlide-6" style="background-image: url('images/surya_pose6.jpg');"></div>
-  <div class="surya-bg-slide" id="suryaSlide-7" style="background-image: url('images/surya_pose7.jpg');"></div>
-  <div class="surya-bg-slide" id="suryaSlide-8" style="background-image: url('images/surya_pose8.jpg');"></div>
+
   <div class="surya-bg-overlay"></div>
 </div>
 
@@ -2361,7 +1815,7 @@
               <div class="dina-r-time">11:30 AM</div>
               <div class="dina-r-content">
                 <h4>Personal Doctor Pulse Consultation &amp; Basti Session</h4>
-                <p>One-on-one Nadi Pariksha pulse examination with Dr. Himanshu or Dr. Aditya, followed by your personalized warm herbal oil procedure (Kati Basti, Greeva Basti, or Abhyanga).</p>
+                <p>One-on-one Ayurvedic clinical examination with Dr. Himanshu or Dr. Aditya, followed by your personalized warm herbal oil procedure (Kati Basti, Greeva Basti, or Abhyanga).</p>
               </div>
             </div>
             <div class="dina-ritual-item">
@@ -2511,12 +1965,12 @@
         <div class="exp-text-time">10:30 AM to 01:00 PM &bull; Clinical Treatment Shala</div>
         <h3>Doctor-Supervised Panchakarma</h3>
         <p class="exp-text-body">
-          Every procedure is formulated specifically for your Prakriti dosha following morning pulse diagnosis (Nadi Pariksha). Authentic four-hand synchronized warm oil Abhyanga, rhythmic Shirodhara oil flow over the forehead, and Himalayan herbal Swedana steam baths melt deep-seated somatic tension.
+          Every procedure is formulated specifically for your Prakriti dosha following morning clinical Ayurvedic evaluation. Authentic four-hand synchronized warm oil Abhyanga, rhythmic Shirodhara oil flow over the forehead, and Himalayan herbal Swedana steam baths melt deep-seated somatic tension.
         </p>
         <ul class="exp-highlights">
           <li>Warm Medicated Oil Abhyanga formulated with wild Himalayan herbs</li>
           <li>Shirodhara Continuous Forehead Flow &bull; Clinically proven alpha brainwave inducer</li>
-          <li>Targeted Basti Treatments for spinal and digestive channel restoration</li>
+          <li>Targeted Basti Treatments (Kati, Greeva, Nabhi) for spinal and digestive channel restoration</li>
         </ul>
         <a class="btn-outline" href="#doctors" style="color:var(--royal-deep); border-color:var(--royal-deep);">Consult Our Doctors</a>
       </div>
@@ -2538,7 +1992,7 @@
           <li>Pranayama series (Nadi Shodhana, Bhramari) to stimulate vagal tone</li>
           <li>Evening Yoga Nidra psychic sleep for profound neuro-endocrine repair</li>
         </ul>
-        <button class="btn-outline" type="button" onclick="openCompanionCard()" style="color:var(--royal-deep); border-color:var(--royal-deep); cursor:pointer;">Explore The 12 Asanas</button>
+        <a class="btn-outline" href="#reserve" style="color:var(--royal-deep); border-color:var(--royal-deep);">Inquire About Tailored Yoga</a>
       </div>
       <div class="exp-img-frame">
         <img src="images/yoga.png" alt="Classical Hatha Yoga instruction at 1525m altitude" loading="lazy">
@@ -2668,8 +2122,8 @@
         <div class="kit-item">
           <div class="kit-icon">✦</div>
           <div class="kit-info">
-            <h4>Jala Neti Vessel &amp; Mountain Saline Crystals</h4>
-            <p>Classical nasal irrigation vessel designed to decongest respiratory passages in mountain air (material arbitrary: ceramic, metal, or food-grade).</p>
+            <h4>Jal Neti &amp; Mountain Saline</h4>
+            <p>Classical nasal irrigation for morning upper respiratory cleansing and sinus clarity.</p>
           </div>
         </div>
 
@@ -2689,12 +2143,6 @@
           </div>
         </div>
 
-        <div class="kit-item">
-          <div class="kit-icon">✦</div>
-          <div class="kit-info">
-            <h4>Official Framed Certificate of Completion</h4>
-            <p>An embossed parchment keepsake validating your 4-day Ayurvedic Dinacharya immersion, signed by both BAMS founders.</p>
-          </div>
         </div>
 
         <div class="kit-item">
@@ -2799,8 +2247,8 @@
           </tr>
           <tr>
             <td>
-              <span class="inc-feature">Morning Surya Namaskar &amp; Breathwork</span>
-              <span class="inc-feature-desc">Dawn 12-asana sequences and Pranayama led by certified yoga instructors.</span>
+              <span class="inc-feature">Condition-Adaptive Yoga &amp; Breathwork</span>
+              <span class="inc-feature-desc">Gentle restorative asana and Pranayama tailored to individual musculoskeletal and health history; contraindicated postures strictly omitted.</span>
             </td>
             <td><span class="inc-check">&check;</span> Daily Dawn Sessions</td>
             <td><span class="inc-check">&check;</span> Daily Dawn Sessions</td>
@@ -2809,7 +2257,7 @@
           <tr>
             <td>
               <span class="inc-feature">Doctor Pulse &amp; Intake Consultations</span>
-              <span class="inc-feature-desc">1:1 Nadi Pariksha and personalized clinical review with BAMS physicians.</span>
+              <span class="inc-feature-desc">1:1 clinical intake evaluation and personalized review with BAMS physicians.</span>
             </td>
             <td><span class="inc-check">&check;</span> 1 Intake Review</td>
             <td><span class="inc-check">&check;</span> 2 Consultations (Day 1 &amp; 3)</td>
@@ -2818,7 +2266,7 @@
           <tr>
             <td>
               <span class="inc-feature">Panchakarma Basti Procedures</span>
-              <span class="inc-feature-desc">Targeted localized warm herbal oil pools (Kati, Greeva, Hridya, Nabhi).</span>
+              <span class="inc-feature-desc">Targeted localized warm herbal oil pools (Kati, Greeva, Nabhi Basti).</span>
             </td>
             <td><span class="inc-check">&check;</span> 1 Basti Procedure</td>
             <td><span class="inc-check">&check;</span> 2 Basti Procedures</td>
@@ -2887,23 +2335,14 @@
             <td><span class="inc-check">&check;</span> Complete Kit Included</td>
             <td><span class="inc-check">&check;</span> Complete Kit Included</td>
           </tr>
-          <tr>
-            <td>
-              <span class="inc-feature">Official Framed Certificate of Completion</span>
-              <span class="inc-feature-desc">Embossed certificate validating retreat completion, signed by both doctors.</span>
-            </td>
-            <td><span class="inc-check">&check;</span> Included</td>
-            <td><span class="inc-check">&check;</span> Included</td>
-            <td><span class="inc-check">&check;</span> Included</td>
-          </tr>
-          <tr>
+                    <tr>
             <td>
               <span class="inc-feature">Post-Retreat Doctor Continuity Guidance</span>
-              <span class="inc-feature-desc">Direct WhatsApp guidance to anchor Dinacharya habits at home.</span>
+              <span class="inc-feature-desc">Guidance strictly focused on Pathya &amp; Apathya (dietary rules) and retreat-related queries.</span>
             </td>
-            <td><span class="inc-check">&check;</span> 7 Days Support</td>
-            <td><span class="inc-check">&check;</span> 15 Days Direct WhatsApp</td>
-            <td><span class="inc-check">&check;</span> 30 Days Personalized WhatsApp</td>
+            <td><span class="inc-check">&check;</span> 7 Days (Pathya/Apathya)</td>
+            <td><span class="inc-check">&check;</span> 15 Days (Pathya/Apathya)</td>
+            <td><span class="inc-check">&check;</span> 30 Days (Pathya/Apathya)</td>
           </tr>
         </tbody>
       </table>
@@ -2928,7 +2367,7 @@
         ✦ Sanctuary Lodging Architecture
       </div>
       <p style="font-size:0.9rem; color:var(--ivory); line-height:1.6; max-width:820px; margin:0 auto;">
-        We do not price room luxury differently. All retreatants stay in the same serene mountain property at Bir Billing (1,525m), share the same organic farm-to-table Sattvic kitchen, participate in collective dawn Surya Namaskar, and receive the complete Sacred Welcome Kit. <strong>Our package tiers reflect clinical therapy intensity and doctor continuity.</strong>
+        We do not price room luxury differently. All retreatants stay in the same serene mountain property at Bir Billing (1,525m), share the same organic farm-to-table Sattvic kitchen, participate in gentle condition-tailored morning yoga, and receive the complete Sacred Welcome Kit. <strong>Our package tiers reflect clinical therapy intensity and doctor continuity.</strong>
       </p>
     </div>
 
@@ -2942,15 +2381,14 @@
         <ul class="suite-inclusions">
           <li>4 Days (3 Nights) uniform boutique sanctuary stay</li>
           <li>Three organic farm-fresh Sattvic meals daily</li>
-          <li>Daily morning Surya Namaskar &amp; Pranayama</li>
+          <li>Condition-Adaptive Yoga &amp; Pranayama (Tailored to Medical History)</li>
           <li><strong>1 Panchakarma Basti</strong> (Kati or Greeva lumbar/cervical)</li>
           <li><strong>Ashchyotana</strong> (herbal ocular wash for digital screen strain)</li>
           <li><strong>Shatkarma workshop &amp; Day 3 execution</strong> (omitted if HTN, elderly, or medical complications)</li>
           <li><strong>Mindful Pottery Workshop</strong> (when artisan available; informed prior)</li>
-          <li>1 Physician intake consultation (Nadi Pariksha)</li>
+          <li>1 Physician intake consultation (clinical intake pariksha)</li>
           <li>Sacred Welcome Kit (Copper bottle, Neti vessel, oils)</li>
-          <li><strong>Official Framed Certificate of Completion</strong></li>
-          <li><strong>7-Day</strong> post-retreat doctor guidance</li>
+                    <li><strong>7-Day</strong> post-retreat Pathya &amp; Apathya diet guidance (covering retreat-related queries)</li>
         </ul>
         <a class="btn-book" href="#reserve" onclick="preselectPlan('serenity')">Reserve Serenity</a>
       </div>
@@ -2965,16 +2403,16 @@
         <ul class="suite-inclusions">
           <li>4 Days (3 Nights) uniform boutique sanctuary stay</li>
           <li>Three organic farm-fresh Sattvic meals daily</li>
-          <li>Daily morning Surya Namaskar &amp; Pranayama</li>
-          <li><strong>2 Panchakarma Bastis</strong> (Kati/Greeva/Hridya/Nabhi)</li>
+          <li>Condition-Adaptive Yoga &amp; Pranayama (Tailored to Medical History)</li>
+          <li><strong>2 Panchakarma Bastis</strong> (Kati, Greeva, or Nabhi Basti)</li>
           <li><strong>Netra Tarpana</strong> (cooling medicated ghee eye bath pool)</li>
           <li><strong>Shatkarma training &amp; Day 3 execution</strong> (omitted if HTN, elderly, or medical complications)</li>
           <li><strong>Mindful Pottery Workshop</strong> (when artisan available; informed prior)</li>
           <li><strong>Guided Himalayan Pine Forest Nature Trek</strong></li>
           <li><strong>Terrace Stargazing Session</strong> (weather permitting)</li>
           <li>2 Physician consultations (Day 1 intake + Day 3 review)</li>
-          <li>Sacred Welcome Kit &amp; <strong>Framed Certificate</strong></li>
-          <li><strong>15-Day</strong> direct WhatsApp doctor continuity support</li>
+          <li>Sacred Welcome Kit (Copper bottle, Neti vessel, oils)</li>
+          <li><strong>15-Day</strong> WhatsApp guidance strictly focused on Pathya &amp; Apathya and retreat queries</li>
         </ul>
         <a class="btn-book" href="#reserve" onclick="preselectPlan('awakening')">Reserve Awakening</a>
       </div>
@@ -2988,7 +2426,7 @@
         <ul class="suite-inclusions">
           <li>4 Days (3 Nights) uniform boutique sanctuary stay</li>
           <li>Three organic farm-fresh Sattvic meals daily</li>
-          <li>Daily morning Surya Namaskar &amp; Pranayama</li>
+          <li>Condition-Adaptive Yoga &amp; Pranayama (Tailored to Medical History)</li>
           <li><strong>3 Panchakarma Bastis</strong> (custom localized oil pools)</li>
           <li><strong>Netra Tarpana &amp; Ashchyotana</strong> dual ocular therapy</li>
           <li><strong>Shatkarma mastery &amp; Day 3 practice</strong> (omitted if HTN, elderly, or medical complications)</li>
@@ -2997,8 +2435,8 @@
           <li><strong>Terrace Stargazing Session</strong> (weather permitting)</li>
           <li><strong>Live Sufi Acoustic Jamming Night</strong> (subject to confirmation)</li>
           <li>Daily 1:1 BAMS Physician consultations (all 4 days)</li>
-          <li>Sacred Welcome Kit &amp; <strong>Framed Certificate</strong></li>
-          <li><strong>30-Day</strong> personalized doctor WhatsApp continuity support</li>
+          <li>Sacred Welcome Kit (Copper bottle, Neti vessel, oils)</li>
+          <li><strong>30-Day</strong> WhatsApp guidance strictly focused on Pathya &amp; Apathya and retreat queries</li>
         </ul>
         <a class="btn-book" href="#reserve" onclick="preselectPlan('transformation')">Reserve Transformation</a>
       </div>
@@ -3056,12 +2494,12 @@
         <div class="doc-avatar" style="background:var(--gold);color:var(--royal-deep);">AK</div>
         <h3 class="doc-name">Dr. Aditya Kaundal</h3>
         <div class="doc-cred">BAMS &bull; Co-founder &bull; Guest Wellness</div>
-        <p class="doc-bio">Dr. Aditya completed his 5.5-year BAMS medical qualification in Mandi, HP, and advanced his clinical practice at Patanjali, one of India's pre-eminent institutions of traditional yogic medicine. At The Reset Co, he oversees guest wellness from preliminary Nadi Pariksha pulse diagnosis through post-retreat lifestyle integration.</p>
+        <p class="doc-bio">Dr. Aditya completed his 5.5-year BAMS medical qualification in Mandi, HP, and advanced his clinical practice at Patanjali, one of India's pre-eminent institutions of traditional yogic medicine. At The Reset Co, he oversees guest wellness from preliminary clinical intake pariksha pulse diagnosis through post-retreat lifestyle integration.</p>
         <div class="doc-tags">
           <span class="doc-tag">Mandi, HP</span>
           <span class="doc-tag">Patanjali Clinical Practice</span>
           <span class="doc-tag">5.5 Yrs BAMS Degree</span>
-          <span class="doc-tag">Nadi Pariksha Specialist</span>
+          <span class="doc-tag">clinical intake pariksha Specialist</span>
         </div>
       </div>
     </div>
@@ -3709,257 +3147,6 @@
     if (resSec) resSec.scrollIntoView({ behavior: 'smooth' });
   }
 
-  // B. AMBIENT SCROLL-DRIVEN SURYA NAMASKAR & FLOATING ASANA COMPANION
-  const suryaSteps = [
-    {
-      num: '01 / 12',
-      name: 'Pranamasana',
-      english: 'Prayer Pose',
-      mantra: '&#2384; मित्राय नमः &bull; Om Mitraya Namaha',
-      breath: 'Exhale (Rechaka)',
-      desc: 'Centering the nervous system at dawn. Stimulates the Anahata cardiac nerve plexus.',
-      slide: 1
-    },
-    {
-      num: '02 / 12',
-      name: 'Hastauttanasana',
-      english: 'Raised Arms Pose',
-      mantra: '&#2384; रवये नमः &bull; Om Ravaye Namaha',
-      breath: 'Inhale (Puraka)',
-      desc: 'Expands thoracic vital capacity and gently stretches abdominal viscera.',
-      slide: 2
-    },
-    {
-      num: '03 / 12',
-      name: 'Hastapadasana',
-      english: 'Standing Forward Fold',
-      mantra: '&#2384; सूर्याय नमः &bull; Om Suryaya Namaha',
-      breath: 'Exhale (Rechaka)',
-      desc: 'Decompresses lumbar vertebrae and increases cerebral blood circulation.',
-      slide: 3
-    },
-    {
-      num: '04 / 12',
-      name: 'Ashwa Sanchalanasana',
-      english: 'Equestrian Lunge (Right)',
-      mantra: '&#2384; भानवे नमः &bull; Om Bhanave Namaha',
-      breath: 'Inhale (Puraka)',
-      desc: 'Releases deep tension within the psoas muscle and opens the pelvic floor.',
-      slide: 4
-    },
-    {
-      num: '05 / 12',
-      name: 'Dandasana',
-      english: 'Plank Pose',
-      mantra: '&#2384; खगाय नमः &bull; Om Khagaya Namaha',
-      breath: 'Kumbhaka (Retention)',
-      desc: 'Kindles internal digestive fire (Agni) and strengthens axial spinal alignment.',
-      slide: 5
-    },
-    {
-      num: '06 / 12',
-      name: 'Ashtanga Namaskara',
-      english: 'Eight-Limbed Salute',
-      mantra: '&#2384; पूष्णे नमः &bull; Om Pushne Namaha',
-      breath: 'Exhale (Rechaka)',
-      desc: 'Eight contact points touch the earth, relieving thoracic kyphosis.',
-      slide: 6
-    },
-    {
-      num: '07 / 12',
-      name: 'Bhujangasana',
-      english: 'Cobra Pose',
-      mantra: '&#2384; हिरण्यगर्भाय नमः &bull; Om Hiranyagarbhaya Namaha',
-      breath: 'Inhale (Puraka)',
-      desc: 'Gentle compression of the adrenal glands, lowering systemic cortisol.',
-      slide: 7
-    },
-    {
-      num: '08 / 12',
-      name: 'Adho Mukha Svanasana',
-      english: 'Downward Dog',
-      mantra: '&#2384; मरीचये नमः &bull; Om Marichaye Namaha',
-      breath: 'Exhale (Rechaka)',
-      desc: 'Calming semi-inversion promoting venous blood return to the heart.',
-      slide: 8
-    },
-    {
-      num: '09 / 12',
-      name: 'Ashwa Sanchalanasana',
-      english: 'Equestrian Lunge (Left)',
-      mantra: '&#2384; आदित्याय नमः &bull; Om Adityaya Namaha',
-      breath: 'Inhale (Puraka)',
-      desc: 'Restores bilateral balance to the sacroiliac joint and hip flexors.',
-      slide: 4
-    },
-    {
-      num: '10 / 12',
-      name: 'Hastapadasana',
-      english: 'Forward Bend',
-      mantra: '&#2384; सवित्रे नमः &bull; Om Savitre Namaha',
-      breath: 'Exhale (Rechaka)',
-      desc: 'Deep cranial circulation and parasympathetic nervous activation.',
-      slide: 3
-    },
-    {
-      num: '11 / 12',
-      name: 'Hastauttanasana',
-      english: 'Raised Arms Arc',
-      mantra: '&#2384; अर्काय नमः &bull; Om Arkaya Namaha',
-      breath: 'Inhale (Puraka)',
-      desc: 'Vital Prana expansion, drawing fresh oxygenated blood to the lungs.',
-      slide: 2
-    },
-    {
-      num: '12 / 12',
-      name: 'Pranamasana',
-      english: 'Sacred Centering',
-      mantra: '&#2384; भास्कराय नमः &bull; Om Bhaskaraya Namaha',
-      breath: 'Exhale / Natural Baseline',
-      desc: 'Completes the solar circuit, returning blood pressure and breath to stillness.',
-      slide: 1
-    }
-  ];
-
-  let currentSuryaStep = -1;
-  const companionPill = document.getElementById('companionPill');
-  const companionCard = document.getElementById('companionCard');
-  const companionCloseBtn = document.getElementById('companionCloseBtn');
-  const companionStepTxt = document.getElementById('companionStepTxt');
-  const companionPoseName = document.getElementById('companionPoseName');
-  const companionRingPath = document.getElementById('companionRingPath');
-  const companionCardMantra = document.getElementById('companionCardMantra');
-  const companionCardTitle = document.getElementById('companionCardTitle');
-  const companionCardBreath = document.getElementById('companionCardBreath');
-  const companionCardDesc = document.getElementById('companionCardDesc');
-  const companionScrubber = document.getElementById('companionScrubber');
-
-  function updateSuryaState(stepIdx) {
-    if (stepIdx === currentSuryaStep) return;
-    currentSuryaStep = stepIdx;
-    const step = suryaSteps[stepIdx];
-    if (!step) return;
-
-    // Cross-fade background slide
-    const targetSlideId = 'suryaSlide-' + step.slide;
-    for (let i = 1; i <= 8; i++) {
-      const slide = document.getElementById('suryaSlide-' + i);
-      if (slide) {
-        slide.classList.toggle('active', 'suryaSlide-' + i === targetSlideId);
-      }
-    }
-
-    // Update pill text & circular gauge
-    if (companionStepTxt) companionStepTxt.textContent = step.num;
-    if (companionPoseName) companionPoseName.textContent = step.name;
-    if (companionRingPath) {
-      const progressPercent = ((stepIdx + 1) / 12) * 100;
-      const offset = 100 - progressPercent;
-      companionRingPath.style.strokeDashoffset = offset;
-    }
-
-    // Update card content
-    if (companionCardMantra) companionCardMantra.innerHTML = step.mantra;
-    if (companionCardTitle) companionCardTitle.textContent = step.name + ' (' + step.english + ')';
-    if (companionCardBreath) companionCardBreath.innerHTML = '<span>Breath: ' + step.breath + '</span>';
-    if (companionCardDesc) companionCardDesc.textContent = step.desc;
-
-    // Update mini-scrubber dots
-    if (companionScrubber) {
-      const dots = companionScrubber.querySelectorAll('.comp-dot');
-      dots.forEach((dot, i) => dot.classList.toggle('active', i === stepIdx));
-    }
-  }
-
-  // Smooth scroll listener via requestAnimationFrame
-  let suryaTicking = false;
-  function onScrollSurya() {
-    if (!suryaTicking) {
-      window.requestAnimationFrame(() => {
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (docHeight > 0) {
-          const scrollFrac = Math.min(Math.max(window.scrollY / docHeight, 0), 0.999);
-          const stepIndex = Math.floor(scrollFrac * 12);
-          updateSuryaState(stepIndex);
-        }
-        suryaTicking = false;
-      });
-      suryaTicking = true;
-    }
-  }
-  window.addEventListener('scroll', onScrollSurya, { passive: true });
-  updateSuryaState(0);
-
-  // Companion pill toggle & card controls
-  function openCompanionCard() {
-    if (companionCard) {
-      companionCard.classList.add('open');
-      if (companionPill) companionPill.setAttribute('aria-expanded', 'true');
-    }
-  }
-  function closeCompanionCard() {
-    if (companionCard) {
-      companionCard.classList.remove('open');
-      if (companionPill) companionPill.setAttribute('aria-expanded', 'false');
-    }
-  }
-  window.openCompanionCard = openCompanionCard;
-
-  if (companionPill) {
-    companionPill.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = companionCard && companionCard.classList.contains('open');
-      if (isOpen) {
-        closeCompanionCard();
-      } else {
-        openCompanionCard();
-      }
-    });
-    companionPill.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        companionPill.click();
-      }
-    });
-  }
-
-  if (companionCloseBtn) {
-    companionCloseBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      closeCompanionCard();
-    });
-  }
-
-  document.addEventListener('click', (e) => {
-    if (companionCard && companionCard.classList.contains('open')) {
-      if (!companionCard.contains(e.target) && (!companionPill || !companionPill.contains(e.target))) {
-        closeCompanionCard();
-      }
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && companionCard && companionCard.classList.contains('open')) {
-      closeCompanionCard();
-    }
-  });
-
-  // Micro scrubber click
-  if (companionScrubber) {
-    companionScrubber.addEventListener('click', (e) => {
-      const dot = e.target.closest('.comp-dot');
-      if (dot && dot.dataset.step !== undefined) {
-        const step = parseInt(dot.dataset.step, 10);
-        updateSuryaState(step);
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        if (docHeight > 0) {
-          const targetY = (step / 12) * docHeight;
-          window.scrollTo({ top: targetY, behavior: 'smooth' });
-        }
-      }
-    });
-  }
-
   // C. WHAT YOU WILL EXPERIENCE TABS
   function switchExpTab(tabNum, btn) {
     document.querySelectorAll('.exp-tab-btn').forEach(b => {
@@ -4011,54 +3198,7 @@
 
 </script>
 
-<!-- FLOATING CIRCADIAN ASANA COMPANION PILL & CARD -->
-<aside class="surya-companion" id="suryaCompanion" aria-label="Circadian Surya Namaskar Progress">
-  <div class="companion-pill" id="companionPill" role="button" tabindex="0" aria-expanded="false" aria-controls="companionCard">
-    <div class="companion-ring-wrap">
-      <svg class="companion-ring" width="28" height="28" viewBox="0 0 36 36">
-        <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(201,168,76,0.25)" stroke-width="3"/>
-        <path class="ring-progress" id="companionRingPath" stroke-dasharray="100, 100" stroke-dashoffset="92" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
-      </svg>
-      <span class="companion-sun">&#10022;</span>
-    </div>
-    <div class="companion-label">
-      <span class="companion-step-txt" id="companionStepTxt">01 / 12</span>
-      <span class="companion-pose-name" id="companionPoseName">Pranamasana</span>
-    </div>
-    <span class="companion-chevron">&#9662;</span>
-  </div>
 
-  <!-- Collapsible Mini Guide Card -->
-  <div class="companion-card" id="companionCard">
-    <div class="companion-card-header">
-      <div>
-        <span class="companion-card-sub" id="companionCardMantra">&#2384; मित्राय नमः &bull; Om Mitraya Namaha</span>
-        <h4 class="companion-card-title" id="companionCardTitle">Pranamasana (Prayer Pose)</h4>
-      </div>
-      <button class="companion-close-btn" id="companionCloseBtn" aria-label="Minimize Asana Guide">&times;</button>
-    </div>
-    <div class="companion-card-breath" id="companionCardBreath">
-      <span>Breath: Exhale (Rechaka)</span>
-    </div>
-    <p class="companion-card-desc" id="companionCardDesc">
-      Centering the nervous system at dawn. Stimulates the Anahata cardiac nerve plexus.
-    </p>
-    <div class="companion-scrubber" id="companionScrubber">
-      <button class="comp-dot active" data-step="0" aria-label="Step 1"></button>
-      <button class="comp-dot" data-step="1" aria-label="Step 2"></button>
-      <button class="comp-dot" data-step="2" aria-label="Step 3"></button>
-      <button class="comp-dot" data-step="3" aria-label="Step 4"></button>
-      <button class="comp-dot" data-step="4" aria-label="Step 5"></button>
-      <button class="comp-dot" data-step="5" aria-label="Step 6"></button>
-      <button class="comp-dot" data-step="6" aria-label="Step 7"></button>
-      <button class="comp-dot" data-step="7" aria-label="Step 8"></button>
-      <button class="comp-dot" data-step="8" aria-label="Step 9"></button>
-      <button class="comp-dot" data-step="9" aria-label="Step 10"></button>
-      <button class="comp-dot" data-step="10" aria-label="Step 11"></button>
-      <button class="comp-dot" data-step="11" aria-label="Step 12"></button>
-    </div>
-  </div>
-</aside>
 
 
 <!-- CANCELLATION & RESCHEDULING POLICY MODAL -->
