@@ -257,6 +257,7 @@
     padding: 1.75rem 1.85rem; border-radius: 3px; position: relative;
     transition: border-color 0.25s, background 0.25s;
   }
+  .flow-card:hover { border-color: rgba(13,115,119,0.55); background: rgba(13,115,119,0.04); }
   .flow-card:hover { border-color: rgba(201,168,76,0.4); background: rgba(255,255,255,0.05); }
   .flow-num {
     font-family: var(--serif); font-size: 1.15rem; color: var(--gold);
@@ -1154,9 +1155,23 @@
     }
   });
 
-  // ─── FORM SUBMIT TO WHATSAPP ────────────────────────────────────────────────
-  function handleBookingSubmit(e) {
+  // ─── SUPABASE & BACKEND CONFIGURATION ───────────────────────────────────────
+  // Paste your Supabase Project URL and anon key here when created:
+  const BACKEND_CONFIG = {
+    SUPABASE_URL: '',      // e.g. 'https://your-project.supabase.co'
+    SUPABASE_ANON_KEY: '', // e.g. 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+  };
+
+  // ─── FORM SUBMIT: DUAL-DISPATCH (SUPABASE DB + WHATSAPP CONCIERGE) ──────────
+  async function handleBookingSubmit(e) {
     e.preventDefault();
+    const submitBtn = e.target.querySelector('button[type="submit"]') || e.target.querySelector('.btn-primary') || e.target.querySelector('.f-submit');
+    const originalBtnText = submitBtn ? submitBtn.innerText : 'Submit';
+    if (submitBtn) {
+      submitBtn.innerText = 'Reserving...';
+      submitBtn.disabled = true;
+    }
+
     const name = document.getElementById('bName').value.trim();
     const phone = document.getElementById('bPhone').value.trim();
     const email = document.getElementById('bEmail').value.trim();
@@ -1169,6 +1184,31 @@
     if (plan === 'transformation') planName = 'The Complete Transformation (Rs 35,000)';
     if (plan === 'dorm') planName = 'The Community Dormitory (Rs 18,000)';
 
+    // 1. Asynchronously send to Supabase if credentials are provided
+    if (BACKEND_CONFIG.SUPABASE_URL && BACKEND_CONFIG.SUPABASE_ANON_KEY) {
+      try {
+        await fetch(`${BACKEND_CONFIG.SUPABASE_URL}/rest/v1/retreat_bookings`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': BACKEND_CONFIG.SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${BACKEND_CONFIG.SUPABASE_ANON_KEY}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            full_name: name,
+            phone: phone,
+            email: email || null,
+            selected_plan: planName,
+            health_notes: (dates ? `Dates: ${dates}\n` : '') + (notes || '')
+          })
+        });
+      } catch (err) {
+        console.warn('Supabase booking dispatch note:', err);
+      }
+    }
+
+    // 2. Open WhatsApp Concierge with pre-filled details
     const text = encodeURIComponent(
       'Namaste Dr. Himanshu & The Reset Co Team,\n\n' +
       'I would like to enquire about reserving a sanctuary retreat.\n\n' +
@@ -1180,6 +1220,14 @@
       (notes ? '• Health Notes / Considerations: ' + notes + '\n' : '') +
       '\nLooking forward to speaking with the doctors.'
     );
+
+    if (submitBtn) {
+      submitBtn.innerText = 'Reservation Sent ✓';
+      setTimeout(() => {
+        submitBtn.innerText = originalBtnText;
+        submitBtn.disabled = false;
+      }, 3000);
+    }
 
     window.open('https://wa.me/917888540046?text=' + text, '_blank', 'noopener,noreferrer');
   }
