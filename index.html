@@ -1010,8 +1010,25 @@
             <label for="bNotes">Health Goals or Medical Considerations</label>
             <textarea id="bNotes" name="notes" placeholder="Please mention any joint stiffness, back issues, hypertension, or lifestyle goals..."></textarea>
           </div>
-          <button class="f-submit" type="submit" id="bBtn">Send Reservation Enquiry via WhatsApp &rarr;</button>
+          <button class="f-submit" type="submit" id="bBtn">Request Sanctuary Reservation &rarr;</button>
         </form>
+
+        <!-- Booking Success Confirmation Screen -->
+        <div class="c-form-success" id="bookingSuccess" style="display:none; text-align:center; padding:3.5rem 2rem; background:white; border:1px solid rgba(201,168,76,0.3); border-radius:4px; box-shadow:0 8px 30px rgba(15,35,71,0.06);">
+          <div style="font-size:2.2rem; color:var(--gold); margin-bottom:1rem;">✦</div>
+          <h3 style="font-family:var(--serif); font-size:1.85rem; color:var(--royal-deep); margin-bottom:0.75rem; font-weight:500;">Sanctuary Reservation Received</h3>
+          <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.75; max-width:480px; margin:0 auto 2rem;">
+            Thank you, <strong id="successGuestName" style="color:var(--royal-deep);"></strong>. Your retreat enquiry and clinical considerations have been securely registered. Dr. Himanshu and Dr. Aditya will review your intake and contact you directly via phone or email to confirm suite availability.
+          </p>
+          <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; align-items:center;">
+            <a id="successWaBtn" href="#" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex; align-items:center; gap:8px; text-decoration:none; padding:0.75rem 1.6rem; border-radius:2px;">
+              Chat with Concierge on WhatsApp (Optional)
+            </a>
+            <button type="button" onclick="resetBookingForm()" class="btn-outline" style="background:transparent; cursor:pointer; padding:0.75rem 1.4rem; border-radius:2px;">
+              Submit Another Enquiry
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1161,13 +1178,18 @@
     SUPABASE_ANON_KEY: 'sb_publishable_0Vnbd-77R7dP5UklEz90Mw_uS_SCn_5',
   };
 
-  // ─── FORM SUBMIT: DUAL-DISPATCH (SUPABASE DB + WHATSAPP CONCIERGE) ──────────
+  // ─── FORM SUBMIT: DIRECT SUPABASE SUBMISSION + ON-SCREEN CONFIRMATION ──────
   async function handleBookingSubmit(e) {
     e.preventDefault();
-    const submitBtn = e.target.querySelector('button[type="submit"]') || e.target.querySelector('.btn-primary') || e.target.querySelector('.f-submit');
-    const originalBtnText = submitBtn ? submitBtn.innerText : 'Submit';
+    const form = document.getElementById('bookingForm');
+    const successCard = document.getElementById('bookingSuccess');
+    const guestNameSpan = document.getElementById('successGuestName');
+    const waBtn = document.getElementById('successWaBtn');
+    const submitBtn = document.getElementById('bBtn');
+
+    const originalBtnText = submitBtn ? submitBtn.innerText : 'Request Sanctuary Reservation →';
     if (submitBtn) {
-      submitBtn.innerText = 'Reserving...';
+      submitBtn.innerText = 'Registering Reservation...';
       submitBtn.disabled = true;
     }
 
@@ -1183,7 +1205,7 @@
     if (plan === 'transformation') planName = 'The Complete Transformation (Rs 35,000)';
     if (plan === 'dorm') planName = 'The Community Dormitory (Rs 18,000)';
 
-    // 1. Asynchronously send to Supabase if credentials are provided
+    // 1. Asynchronously send directly to Supabase database
     if (BACKEND_CONFIG.SUPABASE_URL && BACKEND_CONFIG.SUPABASE_ANON_KEY) {
       try {
         await fetch(`${BACKEND_CONFIG.SUPABASE_URL}/rest/v1/retreat_bookings`, {
@@ -1207,10 +1229,10 @@
       }
     }
 
-    // 2. Open WhatsApp Concierge with pre-filled details
+    // 2. Prepare optional WhatsApp link for the confirmation screen
     const text = encodeURIComponent(
       'Namaste Dr. Himanshu & The Reset Co Team,\n\n' +
-      'I would like to enquire about reserving a sanctuary retreat.\n\n' +
+      'I have submitted a sanctuary retreat reservation enquiry:\n\n' +
       '• Name: ' + name + '\n' +
       '• Phone: ' + phone + '\n' +
       '• Email: ' + email + '\n' +
@@ -1220,15 +1242,35 @@
       '\nLooking forward to speaking with the doctors.'
     );
 
-    if (submitBtn) {
-      submitBtn.innerText = 'Reservation Sent ✓';
-      setTimeout(() => {
-        submitBtn.innerText = originalBtnText;
-        submitBtn.disabled = false;
-      }, 3000);
+    if (waBtn) {
+      waBtn.href = 'https://wa.me/917888540046?text=' + text;
     }
 
-    window.open('https://wa.me/917888540046?text=' + text, '_blank', 'noopener,noreferrer');
+    if (guestNameSpan) {
+      guestNameSpan.innerText = name;
+    }
+
+    // 3. Smooth transition to confirmation screen on page (No forced redirect)
+    if (form && successCard) {
+      form.style.display = 'none';
+      successCard.style.display = 'block';
+      successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    if (submitBtn) {
+      submitBtn.innerText = originalBtnText;
+      submitBtn.disabled = false;
+    }
+  }
+
+  function resetBookingForm() {
+    const form = document.getElementById('bookingForm');
+    const successCard = document.getElementById('bookingSuccess');
+    if (form && successCard) {
+      form.reset();
+      successCard.style.display = 'none';
+      form.style.display = 'block';
+    }
   }
 </script>
 </body>
