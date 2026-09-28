@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Reset Co. | Founders' Retreat Sanctuary Portal</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --navy: #081426;
+      --navy-card: #0d1e38;
+      --navy-light: #13284a;
+      --gold: #C9A84C;
+      --gold-light: #dfc16e;
+      --gold-dim: rgba(201, 168, 76, 0.15);
+      --bg: #F5F1EA;
+      --bg-card: #FFFFFF;
+      --border: #E5DFD5;
+      --border-dark: #1E3557;
+      --text-main: #141B25;
+      --text-muted: #5C6779;
+      --text-light: #94A3B8;
+      --green: #1B7A4D;
+      --green-bg: #EBF8F1;
+      --amber: #B45309;
+      --amber-bg: #FEF3C7;
+      --blue: #1D4ED8;
+      --blue-bg: #EFF6FF;
+      --crimson: #991B1B;
+      --crimson-bg: #FEE2E2;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--sans);
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    /* ─── LOCK / AUTH SCREEN ─── */
+    #auth-screen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #060e1c 0%, #0d1e38 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      z-index: 9999;
+      color: #fff;
+    }
+
+    .auth-card {
+      background: rgba(13, 30, 56, 0.95);
+      border: 1px solid rgba(201, 168, 76, 0.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .auth-brand {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: #fff;
+      margin-bottom: 0.25rem;
+    }
+
+    .auth-brand span {
+      color: var(--gold);
+    }
+
+    .auth-sub {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    .auth-input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .auth-input-group input {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      font-size: 1.1rem;
+      text-align: center;
+      background: rgba(6, 14, 28, 0.7);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      color: #fff;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .auth-input-group input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.2);
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .auth-btn:hover {
+      background: var(--gold-light);
+    }
+
+    .auth-btn:active {
+      transform: scale(0.98);
+    }
+
+    .auth-err {
+      color: #F87171;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    /* ─── TOP APP HEADER ─── */
+    header {
+      background: var(--navy);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-title {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+
+    .header-title span {
+      color: var(--gold);
+    }
+
+    .header-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      background: rgba(201, 168, 76, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+      margin-left: 0.5rem;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .btn-icon {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 0.5rem 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+    }
+
+    .btn-icon:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .sync-status {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 6px #10B981;
+    }
+
+    /* ─── MAIN CONTENT ─── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+      width: 100%;
+      flex: 1;
+    }
+
+    /* ─── METRIC STATS ROW ─── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 800px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.15rem 1.25rem;
+      box-shadow: 0 2px 8px rgba(15, 35, 71, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+
+    .metric-val {
+      font-family: var(--serif);
+      font-size: 2.1rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1;
+    }
+
+    .metric-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    /* ─── SEARCH & FILTER CONTROLS ─── */
+    .controls-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(15, 35, 71, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input-box {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+
+    .search-input-box input {
+      width: 100%;
+      padding: 0.65rem 1rem 0.65rem 2.2rem;
+      font-size: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      outline: none;
+      background: #FAFAFA;
+      transition: all 0.2s;
+    }
+
+    .search-input-box input:focus {
+      background: #fff;
+      border-color: var(--navy);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.4rem;
+      overflow-x: auto;
+      padding-bottom: 0.2rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-btn {
+      padding: 0.45rem 0.85rem;
+      background: #F1ECE1;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover {
+      background: #E5DFD5;
+      color: var(--text-main);
+    }
+
+    .filter-btn.active {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .filter-btn .count-badge {
+      display: inline-block;
+      margin-left: 0.35rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .filter-btn.active .count-badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+
+    /* ─── INQUIRIES LIST & CARDS ─── */
+    .inquiries-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .inquiries-title {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .inquiries-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .inquiry-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem 1.4rem;
+      box-shadow: 0 2px 10px rgba(15, 35, 71, 0.04);
+      transition: transform 0.15s, box-shadow 0.15s;
+      position: relative;
+    }
+
+    .inquiry-card:hover {
+      box-shadow: 0 6px 18px rgba(15, 35, 71, 0.08);
+    }
+
+    .inquiry-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .guest-name {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .guest-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .status-select-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-select {
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border: 1px solid transparent;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 1.5rem;
+      background-position: right 0.6rem center;
+      background-repeat: no-repeat;
+      background-size: 8px;
+    }
+
+    /* Status Color Variations */
+    .status-new {
+      background-color: var(--amber-bg);
+      color: var(--amber);
+      border-color: rgba(180, 83, 9, 0.3);
+    }
+
+    .status-consultation {
+      background-color: var(--blue-bg);
+      color: var(--blue);
+      border-color: rgba(29, 78, 216, 0.3);
+    }
+
+    .status-confirmed {
+      background-color: var(--green-bg);
+      color: var(--green);
+      border-color: rgba(27, 122, 77, 0.3);
+    }
+
+    .status-cancelled {
+      background-color: var(--crimson-bg);
+      color: var(--crimson);
+      border-color: rgba(153, 27, 27, 0.3);
+    }
+
+    .plan-tag {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--gold-dim);
+      color: #8C6A1D;
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      margin-bottom: 0.85rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      background: #FAF8F5;
+      padding: 0.85rem 1rem;
+      border-radius: 4px;
+      border: 1px solid #ECE7DD;
+    }
+
+    @media (max-width: 600px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .info-item-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .info-item-val {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      word-break: break-all;
+    }
+
+    .info-item-val a {
+      color: var(--navy);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .clinical-notes-box {
+      background: #FFFFFF;
+      border: 1px dashed #D5CEBF;
+      border-radius: 4px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .clinical-notes-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .clinical-notes-text {
+      font-size: 0.85rem;
+      color: #374151;
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    /* ─── 1-TAP ACTION BUTTONS (MOBILE OPTIMIZED) ─── */
+    .card-actions {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      min-width: 140px;
+      min-height: 44px;
+      padding: 0.65rem 1rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-wa {
+      background: #128C7E;
+      color: #fff;
+      border: none;
+    }
+
+    .btn-wa:hover {
+      background: #0d7367;
+    }
+
+    .btn-call {
+      background: var(--navy);
+      color: #fff;
+      border: none;
+    }
+
+    .btn-call:hover {
+      background: var(--navy-light);
+    }
+
+    .btn-email {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .btn-email:hover {
+      background: #F1ECE1;
+    }
+
+    /* ─── EMPTY & LOADING STATES ─── */
+    .empty-state {
+      background: var(--bg-card);
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      padding: 4rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .empty-state svg {
+      width: 48px;
+      height: 48px;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+
+    .empty-title {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: var(--navy);
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 4px;
+      border: 1px solid var(--gold);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      font-size: 0.85rem;
+      z-index: 1000;
+      display: none;
+      animation: toastIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes toastIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── FOUNDERS PASSKEY GATE ─── -->
+  <div id="auth-screen">
+    <div class="auth-card">
+      <div class="auth-brand">The Reset <span>Co.</span></div>
+      <div class="auth-sub">Founders' Retreat Sanctuary Portal</div>
+      <p style="font-size:0.85rem; color:#CBD5E1; margin-bottom:1.5rem; line-height:1.6;">
+        Welcome Dr. Aditya and Dr. Himanshu.<br>Enter the sanctuary passkey to manage guest bookings.
+      </p>
+      <form onsubmit="handleAuthSubmit(event)">
+        <div class="auth-input-group">
+          <input type="password" id="passkeyInput" placeholder="Enter Sanctuary Passkey" autocomplete="current-password" autofocus required>
+        </div>
+        <button type="submit" class="auth-btn">Access Sanctuary Dashboard &rarr;</button>
+        <div class="auth-err" id="authError">Incorrect passkey. Please check with your founding partner.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── TOP APP BAR ─── -->
+  <header>
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="header-title">
+          The Reset <span>Co.</span>
+          <span class="header-badge">Founders</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="sync-status">
+          <span class="sync-dot"></span>
+          <span id="syncText">Live Sync</span>
+        </div>
+        <button class="btn-icon" onclick="fetchBookings()" title="Refresh Bookings">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          <span style="display:none;" id="refresh-label">Refresh</span>
+        </button>
+        <button class="btn-icon" onclick="lockDashboard()" title="Lock Screen">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── MAIN DASHBOARD ─── -->
+  <main>
+    <!-- Metrics Row -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Total Inquiries</div>
+        <div class="metric-val" id="stat-total">0</div>
+        <div class="metric-sub">All received reservations</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label" style="color:var(--amber);">Needs Review</div>
+        <div class="metric-val" id="stat-new" style="color:var(--amber);">0</div>
+        <div class="metric-sub">New / awaiting review</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label" style="color:var(--blue);">In Consultation</div>
+        <div class="metric-val" id="stat-consultation" style="color:var(--blue);">0</div>
+        <div class="metric-sub">Doctor call in progress</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label" style="color:var(--green);">Confirmed Cohort</div>
+        <div class="metric-val" id="stat-confirmed" style="color:var(--green);">0</div>
+        <div class="metric-sub">Reserved sanctuary suites</div>
+      </div>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="controls-card">
+      <div class="search-row">
+        <div class="search-input-box">
+          <span class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </span>
+          <input type="text" id="searchInput" placeholder="Search by guest name, phone, or email..." oninput="handleSearch(this.value)">
+        </div>
+      </div>
+
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-btn active" onclick="setFilter('all')">All <span class="count-badge" id="badge-all">0</span></button>
+        <button class="filter-btn" onclick="setFilter('new')">New <span class="count-badge" id="badge-new">0</span></button>
+        <button class="filter-btn" onclick="setFilter('consultation')">Consultation <span class="count-badge" id="badge-consultation">0</span></button>
+        <button class="filter-btn" onclick="setFilter('confirmed')">Confirmed <span class="count-badge" id="badge-confirmed">0</span></button>
+        <button class="filter-btn" onclick="setFilter('cancelled')">Cancelled <span class="count-badge" id="badge-cancelled">0</span></button>
+      </div>
+    </div>
+
+    <!-- Inquiries List -->
+    <div class="inquiries-header">
+      <div class="inquiries-title">Sanctuary Enquiries &amp; Intakes</div>
+      <div id="filterStatusText" style="font-size:0.85rem; color:var(--text-muted);">Showing all bookings</div>
+    </div>
+
+    <div class="inquiries-grid" id="inquiriesContainer">
+      <!-- Loading Skeleton -->
+      <div class="empty-state">
+        <p>Connecting to Supabase sanctuary database...</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toastMessage">Status updated</div>
+
+  <script>
+    // ─── CONFIGURATION ───
+    const SUPABASE_CONFIG = {
+      URL: 'https://vsscbjpuafnniouqzwvj.supabase.co',
+      ANON_KEY: 'sb_publishable_0Vnbd-77R7dP5UklEz90Mw_uS_SCn_5',
+      TABLE: 'retreat_bookings'
+    };
+
+    // Sanctuary Passkeys allowed (can be updated or expanded)
+    const VALID_PASSKEYS = ['reset2026', '2026', 'resetco'];
+
+    let allBookings = [];
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    // ─── AUTHENTICATION GATE ───
+    function checkAuth() {
+      const isAuth = sessionStorage.getItem('trc_portal_auth');
+      const authScreen = document.getElementById('auth-screen');
+      if (isAuth === 'true') {
+        authScreen.style.display = 'none';
+        fetchBookings();
+      } else {
+        authScreen.style.display = 'flex';
+      }
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('passkeyInput');
+      const err = document.getElementById('authError');
+      const val = input.value.trim().toLowerCase();
+
+      if (VALID_PASSKEYS.includes(val)) {
+        sessionStorage.setItem('trc_portal_auth', 'true');
+        document.getElementById('auth-screen').style.display = 'none';
+        err.style.display = 'none';
+        fetchBookings();
+      } else {
+        err.style.display = 'block';
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    function lockDashboard() {
+      sessionStorage.removeItem('trc_portal_auth');
+      document.getElementById('auth-screen').style.display = 'flex';
+      document.getElementById('passkeyInput').value = '';
+    }
+
+    // ─── FETCH SUPABASE BOOKINGS ───
+    async function fetchBookings() {
+      const syncText = document.getElementById('syncText');
+      if (syncText) syncText.innerText = 'Syncing...';
+
+      try {
+        const resp = await fetch(`${SUPABASE_CONFIG.URL}/rest/v1/${SUPABASE_CONFIG.TABLE}?select=*&order=created_at.desc`, {
+          method: 'GET',
+          headers: {
+            'apikey': SUPABASE_CONFIG.ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_CONFIG.ANON_KEY}`
+          }
+        });
+
+        if (!resp.ok) {
+          throw new Error('Supabase responded with code: ' + resp.status);
+        }
+
+        allBookings = await resp.json();
+        updateMetrics();
+        renderBookings();
+
+        if (syncText) {
+          const now = new Date();
+          syncText.innerText = 'Synced ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+      } catch (err) {
+        console.error('Fetch bookings error:', err);
+        if (syncText) syncText.innerText = 'Sync offline';
+        showToast('Error syncing with database. Tap refresh to retry.');
+      }
+    }
+
+    // ─── UPDATE METRICS ───
+    function updateMetrics() {
+      const total = allBookings.length;
+      const newCount = allBookings.filter(b => (!b.status || b.status === 'new')).length;
+      const consultationCount = allBookings.filter(b => (b.status === 'consultation' || b.status === 'pending')).length;
+      const confirmedCount = allBookings.filter(b => b.status === 'confirmed').length;
+      const cancelledCount = allBookings.filter(b => b.status === 'cancelled').length;
+
+      document.getElementById('stat-total').innerText = total;
+      document.getElementById('stat-new').innerText = newCount;
+      document.getElementById('stat-consultation').innerText = consultationCount;
+      document.getElementById('stat-confirmed').innerText = confirmedCount;
+
+      document.getElementById('badge-all').innerText = total;
+      document.getElementById('badge-new').innerText = newCount;
+      document.getElementById('badge-consultation').innerText = consultationCount;
+      document.getElementById('badge-confirmed').innerText = confirmedCount;
+      document.getElementById('badge-cancelled').innerText = cancelledCount;
+    }
+
+    // ─── FILTER & SEARCH ───
+    function setFilter(filterName) {
+      currentFilter = filterName;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = Array.from(document.querySelectorAll('.filter-btn')).find(b => b.innerText.toLowerCase().includes(filterName));
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const textEl = document.getElementById('filterStatusText');
+      if (filterName === 'all') textEl.innerText = 'Showing all bookings';
+      else textEl.innerText = `Filtered by: ${filterName.toUpperCase()}`;
+
+      renderBookings();
+    }
+
+    function handleSearch(val) {
+      searchQuery = (val || '').toLowerCase().trim();
+      renderBookings();
+    }
+
+    // ─── RENDER INQUIRY CARDS ───
+    function renderBookings() {
+      const container = document.getElementById('inquiriesContainer');
+      let filtered = allBookings;
+
+      // Filter by status tab
+      if (currentFilter === 'new') {
+        filtered = filtered.filter(b => !b.status || b.status === 'new');
+      } else if (currentFilter === 'consultation') {
+        filtered = filtered.filter(b => b.status === 'consultation' || b.status === 'pending');
+      } else if (currentFilter === 'confirmed') {
+        filtered = filtered.filter(b => b.status === 'confirmed');
+      } else if (currentFilter === 'cancelled') {
+        filtered = filtered.filter(b => b.status === 'cancelled');
+      }
+
+      // Filter by search query
+      if (searchQuery) {
+        filtered = filtered.filter(b => {
+          const name = (b.full_name || '').toLowerCase();
+          const phone = (b.phone || '').toLowerCase();
+          const email = (b.email || '').toLowerCase();
+          const plan = (b.selected_plan || '').toLowerCase();
+          return name.includes(searchQuery) || phone.includes(searchQuery) || email.includes(searchQuery) || plan.includes(searchQuery);
+        });
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <div class="empty-title">No Enquiries Found</div>
+            <p>No bookings match the current filter or search criteria.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(booking => {
+        const status = booking.status || 'new';
+        const dateStr = booking.created_at ? formatBookingDate(booking.created_at) : 'Recent';
+        const notes = booking['health notes'] || booking.health_notes || 'No specific health notes provided.';
+        const cleanPhone = (booking.phone || '').replace(/[^0-9]/g, '');
+        
+        // Prepare prefilled WhatsApp message for founders
+        const waMsg = encodeURIComponent(
+          `Namaste ${booking.full_name},\n\nDr. Aditya & Dr. Himanshu here from The Reset Co.\n\nWe received your retreat reservation enquiry for ${booking.selected_plan || 'our sanctuary retreat'}. We would love to discuss your retreat dates and clinical intake.\n\nAre you available for a brief conversation today?`
+        );
+        const waLink = `https://wa.me/${cleanPhone.startsWith('91') ? cleanPhone : '91' + cleanPhone}?text=${waMsg}`;
+
+        return `
+          <div class="inquiry-card" id="card-${booking.id}">
+            <div class="inquiry-top">
+              <div>
+                <div class="guest-name">
+                  ${escapeHtml(booking.full_name || 'Anonymous Guest')}
+                </div>
+                <div class="guest-meta">Received: ${dateStr} &bull; ID: ${booking.id.substring(0, 8)}</div>
+              </div>
+              <div class="status-select-wrap">
+                <select class="status-select status-${status}" onchange="updateBookingStatus('${booking.id}', this.value)">
+                  <option value="new" ${status === 'new' ? 'selected' : ''}>New Inquiry</option>
+                  <option value="consultation" ${status === 'consultation' || status === 'pending' ? 'selected' : ''}>In Consultation</option>
+                  <option value="confirmed" ${status === 'confirmed' ? 'selected' : ''}>Confirmed Guest</option>
+                  <option value="cancelled" ${status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="plan-tag">
+              ${escapeHtml(booking.selected_plan || 'Selected Programme')}
+            </div>
+
+            <div class="info-grid">
+              <div>
+                <div class="info-item-label">WhatsApp Contact</div>
+                <div class="info-item-val">
+                  <a href="tel:${escapeHtml(booking.phone)}">${escapeHtml(booking.phone || 'Not provided')}</a>
+                </div>
+              </div>
+              <div>
+                <div class="info-item-label">Email Address</div>
+                <div class="info-item-val">
+                  <a href="mailto:${escapeHtml(booking.email)}">${escapeHtml(booking.email || 'Not provided')}</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="clinical-notes-box">
+              <div class="clinical-notes-title">Clinical Intake &amp; Dates</div>
+              <div class="clinical-notes-text">${escapeHtml(notes)}</div>
+            </div>
+
+            <div class="card-actions">
+              <a href="${waLink}" target="_blank" rel="noopener" class="action-btn btn-wa">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                WhatsApp Guest
+              </a>
+              <a href="tel:${escapeHtml(booking.phone)}" class="action-btn btn-call">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Direct Call
+              </a>
+              <a href="mailto:${escapeHtml(booking.email)}?subject=${encodeURIComponent('The Reset Co. Retreat Inquiry: ' + (booking.full_name || 'Guest'))}" class="action-btn btn-email">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Email
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ─── UPDATE STATUS IN SUPABASE ───
+    async function updateBookingStatus(id, newStatus) {
+      try {
+        const resp = await fetch(`${SUPABASE_CONFIG.URL}/rest/v1/${SUPABASE_CONFIG.TABLE}?id=eq.${id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_CONFIG.ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_CONFIG.ANON_KEY}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({ status: newStatus })
+        });
+
+        if (!resp.ok) {
+          throw new Error('Update failed with status ' + resp.status);
+        }
+
+        // Update local state
+        const target = allBookings.find(b => b.id === id);
+        if (target) target.status = newStatus;
+        updateMetrics();
+        showToast(`Status updated to ${newStatus.toUpperCase()}`);
+
+        // Update card select styling
+        const card = document.getElementById(`card-${id}`);
+        if (card) {
+          const select = card.querySelector('.status-select');
+          if (select) {
+            select.className = `status-select status-${newStatus}`;
+          }
+        }
+      } catch (err) {
+        console.error('Update status error:', err);
+        showToast('Failed to update status. Please check connection.');
+      }
+    }
+
+    // ─── TOAST NOTIFICATION ───
+    function showToast(msg) {
+      const toast = document.getElementById('toastMessage');
+      if (toast) {
+        toast.innerText = msg;
+        toast.style.display = 'block';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    // ─── HELPERS ───
+    function formatBookingDate(isoString) {
+      try {
+        const date = new Date(isoString);
+        return date.toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      } catch (e) {
+        return isoString;
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Auto refresh every 45 seconds while viewing
+    setInterval(() => {
+      if (sessionStorage.getItem('trc_portal_auth') === 'true') {
+        fetchBookings();
+      }
+    }, 45000);
+
+    // Initial check
+    document.addEventListener('DOMContentLoaded', checkAuth);
+  </script>
+</body>
+</html>

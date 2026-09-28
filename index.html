@@ -1254,7 +1254,7 @@
     // 1. Asynchronously send directly to Supabase database
     if (BACKEND_CONFIG.SUPABASE_URL && BACKEND_CONFIG.SUPABASE_ANON_KEY) {
       try {
-        await fetch(`${BACKEND_CONFIG.SUPABASE_URL}/rest/v1/retreat_bookings`, {
+        const resp = await fetch(`${BACKEND_CONFIG.SUPABASE_URL}/rest/v1/retreat_bookings`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1267,9 +1267,12 @@
             phone: phone,
             email: email || null,
             selected_plan: planName,
-            health_notes: (dates ? `Dates: ${dates}\n` : '') + (notes || '')
+            "health notes": (dates ? `Dates: ${dates}\n` : '') + (notes || '')
           })
         });
+        if (!resp.ok) {
+          console.error('Supabase registration error:', await resp.text());
+        }
       } catch (err) {
         console.warn('Supabase booking dispatch note:', err);
       }
