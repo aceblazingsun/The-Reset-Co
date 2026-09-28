@@ -1051,13 +1051,13 @@
               </select>
             </div>
             <div class="f-field">
-              <label for="bDates">Preferred Month / Dates</label>
-              <input type="text" id="bDates" name="dates" placeholder="e.g. October 2026">
+              <label for="bDates">Preferred Month / Dates <span style="font-weight:400; opacity:0.75;">(Optional)</span></label>
+              <input type="text" id="bDates" name="dates" placeholder="e.g. October 2026 (Optional)">
             </div>
           </div>
           <div class="f-field">
-            <label for="bNotes">Health Goals or Medical Considerations</label>
-            <textarea id="bNotes" name="notes" placeholder="Please mention any joint stiffness, back issues, hypertension, or lifestyle goals..."></textarea>
+            <label for="bNotes">Health Goals or Medical Considerations <span style="font-weight:400; opacity:0.75;">(Optional)</span></label>
+            <textarea id="bNotes" name="notes" placeholder="Optional: Mention any joint stiffness, back issues, or lifestyle goals (can be discussed later on call)..."></textarea>
           </div>
           <button class="f-submit" type="submit" id="bBtn">Request Sanctuary Reservation &rarr;</button>
         </form>
@@ -1257,6 +1257,7 @@
     // 1. Asynchronously send directly to Supabase database
     if (BACKEND_CONFIG.SUPABASE_URL && BACKEND_CONFIG.SUPABASE_ANON_KEY) {
       const combinedNotes = (dates ? `Dates: ${dates}\n` : '') + (notes || '');
+      const notesPayload = combinedNotes.trim() ? combinedNotes.trim() : null;
       try {
         // Attempt 1: Space-separated "health notes" (current Supabase schema)
         let resp = await fetch(`${BACKEND_CONFIG.SUPABASE_URL}/rest/v1/retreat_bookings`, {
@@ -1272,7 +1273,7 @@
             phone: phone,
             email: email || null,
             selected_plan: planName,
-            "health notes": combinedNotes
+            "health notes": notesPayload
           })
         });
 
@@ -1291,7 +1292,7 @@
               phone: phone,
               email: email || null,
               selected_plan: planName,
-              health_notes: combinedNotes
+              health_notes: notesPayload
             })
           });
         }

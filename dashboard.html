@@ -633,6 +633,20 @@
       background: #F1ECE1;
     }
 
+    .btn-delete {
+      background: transparent;
+      border: 1px solid rgba(153, 27, 27, 0.2);
+      color: #991B1B;
+      flex: 0 0 auto;
+      min-width: 44px;
+      padding: 0.65rem 0.85rem;
+    }
+
+    .btn-delete:hover {
+      background: #FEE2E2;
+      border-color: #991B1B;
+    }
+
     /* ─── EMPTY & LOADING STATES ─── */
     .empty-state {
       background: var(--bg-card);
@@ -838,6 +852,29 @@
       document.getElementById('passkeyInput').value = '';
     }
 
+    // ─── DEMO FILTERING & EXCLUSION ───
+    function isExcludedBooking(b) {
+      if (!b) return true;
+      const name = (b.full_name || '').toLowerCase().trim();
+      const phone = (b.phone || '').trim();
+      const email = (b.email || '').toLowerCase().trim();
+      const isDemo = name.includes('test') || 
+                     name.includes('demo') || 
+                     name.includes('plan test') || 
+                     name.includes('empty notes') || 
+                     name.includes('empty email') || 
+                     name.includes('verification') || 
+                     name.includes('schema test') ||
+                     phone === '1234567890' ||
+                     phone === '+91 99999 11111' ||
+                     phone === '9999999999' ||
+                     phone === '+91 99887 76655' ||
+                     email.includes('test@') ||
+                     email.includes('example.com');
+      const dismissed = JSON.parse(localStorage.getItem('trc_dismissed_bookings') || '[]');
+      return isDemo || dismissed.includes(b.id);
+    }
+
     // ─── FETCH SUPABASE BOOKINGS ───
     async function fetchBookings() {
       const syncText = document.getElementById('syncText');
@@ -856,7 +893,8 @@
           throw new Error('Supabase responded with code: ' + resp.status);
         }
 
-        allBookings = await resp.json();
+        const raw = await resp.json();
+        allBookings = raw.filter(b => !isExcludedBooking(b));
         updateMetrics();
         renderBookings();
 
@@ -1016,10 +1054,43 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 Email
               </a>
+              <button type="button" onclick="deleteBooking('${booking.id}')" class="action-btn btn-delete" title="Delete enquiry from dashboard">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Delete
+              </button>
             </div>
           </div>
         `;
       }).join('');
+    }
+
+    // ─── DELETE BOOKING ───
+    async function deleteBooking(id) {
+      if (!confirm('Are you sure you want to remove this enquiry from your dashboard?')) return;
+
+      try {
+        await fetch(`${SUPABASE_CONFIG.URL}/rest/v1/${SUPABASE_CONFIG.TABLE}?id=eq.${id}`, {
+          method: 'DELETE',
+          headers: {
+            'apikey': SUPABASE_CONFIG.ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_CONFIG.ANON_KEY}`
+          }
+        });
+      } catch (err) {
+        console.warn('Supabase remote delete notice:', err);
+      }
+
+      // Persist in local exclusion list so it vanishes permanently from dashboard
+      const dismissed = JSON.parse(localStorage.getItem('trc_dismissed_bookings') || '[]');
+      if (!dismissed.includes(id)) {
+        dismissed.push(id);
+        localStorage.setItem('trc_dismissed_bookings', JSON.stringify(dismissed));
+      }
+
+      allBookings = allBookings.filter(b => b.id !== id);
+      updateMetrics();
+      renderBookings();
+      showToast('Enquiry removed from dashboard');
     }
 
     // ─── UPDATE STATUS IN SUPABASE ───
