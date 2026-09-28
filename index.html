@@ -9,14 +9,14 @@
 <meta name="description" content="Authentic Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh. 4-day doctor-led restorative retreats with localized Basti, Netra Tarpana, Shatkarma and Sattvic dining. Led by on-site BAMS physicians.">
 <meta name="keywords" content="yoga retreat Bir Billing, Ayurvedic retreat Himachal Pradesh, wellness retreat India, Shatkarma, Panchakarma Basti, Netra Tarpana, The Reset Co">
 <meta name="author" content="The Reset Co, Dr. Himanshu Bhatt & Dr. Aditya Kaundal">
-<link rel="canonical" href="https://theresetco.in">
+<link rel="canonical" href="https://www.thereset-co.in">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Reset Co: Ayurvedic Wellness Retreats, Bir Billing">
 <meta property="og:description" content="Authentic Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh. Doctor-led 4-day closed cohorts from Rs 22,000 all-inclusive. Maximum 15 guests.">
-<meta property="og:url" content="https://theresetco.in">
-<meta property="og:image" content="https://theresetco.in/images/hero.png">
+<meta property="og:url" content="https://www.thereset-co.in">
+<meta property="og:image" content="https://www.thereset-co.in/images/hero.png">
 <meta property="og:locale" content="en_IN">
 <meta property="og:site_name" content="The Reset Co">
 
@@ -24,7 +24,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Reset Co: Ayurvedic Retreats, Bir Billing">
 <meta name="twitter:description" content="Authentic 4-day doctor-led wellness retreats in Bir Billing, HP.">
-<meta name="twitter:image" content="https://theresetco.in/images/hero.png">
+<meta name="twitter:image" content="https://www.thereset-co.in/images/hero.png">
 
 <!-- Favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127807;</text></svg>">
@@ -75,6 +75,52 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+  }
+
+  /* ─── LUXURY GOLD CUSTOM CURSOR (DESKTOP POINTER AWARE) ─── */
+  @media (pointer: fine) and (hover: hover) {
+    body.custom-cursor-active,
+    body.custom-cursor-active a,
+    body.custom-cursor-active button,
+    body.custom-cursor-active .btn-primary,
+    body.custom-cursor-active .btn-outline,
+    body.custom-cursor-active .btn-book,
+    body.custom-cursor-active .nav-cta,
+    body.custom-cursor-active .f-card,
+    body.custom-cursor-active .flow-card,
+    body.custom-cursor-active .prog-card,
+    body.custom-cursor-active .f-submit,
+    body.custom-cursor-active .kit-item,
+    body.custom-cursor-active .wa-fab,
+    body.custom-cursor-active .strip-item {
+      cursor: none !important;
+    }
+    body.custom-cursor-active input,
+    body.custom-cursor-active textarea,
+    body.custom-cursor-active select {
+      cursor: text !important;
+    }
+  }
+  .cursor-ring {
+    position: fixed; top: 0; left: 0; width: 34px; height: 34px;
+    border: 1.5px solid var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+    opacity: 0; will-change: left, top, width, height;
+  }
+  .cursor-ring.hovered { width: 54px; height: 54px; background: rgba(201,168,76,0.14); border-color: var(--gold-light); }
+  .cursor-ring.clicking { width: 22px; height: 22px; background: rgba(201,168,76,0.3); transform: translate(-50%, -50%) scale(0.9); }
+  .cursor-dot {
+    position: fixed; top: 0; left: 0; width: 6px; height: 6px;
+    background: var(--gold-light); border-radius: 50%;
+    pointer-events: none; z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.25s ease;
+    opacity: 0; will-change: left, top;
+  }
+  @media (pointer: coarse), (hover: none) {
+    .cursor-ring, .cursor-dot { display: none !important; }
   }
 
   /* ─── NAVIGATION ─── */
@@ -551,7 +597,7 @@
       <div class="f-card">
         <div class="f-init">HB</div>
         <div class="f-name">Dr. Himanshu Bhatt</div>
-        <div class="f-cred">BAMS &bull; Co-founder &bull; Retreat Design</div>
+        <div class="f-cred">BAMS &bull; Founder &bull; Retreat Design</div>
         <p class="f-bio">Educated across Mandi and Paprola, two of Himachal Pradesh's premier institutions of classical Ayurvedic scholarship. Dr. Himanshu brings 5.5 years of rigorous medical study and clinical hospital practice to The Reset Co. He designs each retreat curriculum, ensuring procedures are medically grounded and therapeutically profound.</p>
         <p class="f-bio">His conviction: restoration, not intervention, is where authentic biological rejuvenation begins.</p>
         <div class="f-tags">
@@ -565,7 +611,7 @@
       <div class="f-card">
         <div class="f-init" style="background:var(--gold); color:var(--royal-deep);">AK</div>
         <div class="f-name">Dr. Aditya Kaundal</div>
-        <div class="f-cred">BAMS &bull; Co-founder &bull; Clinical Care</div>
+        <div class="f-cred">BAMS &bull; Founder &bull; Clinical Care</div>
         <p class="f-bio">Dr. Aditya studied Ayurvedic medicine in Mandi, Himachal Pradesh, followed by extensive clinical practice with Patanjali institutions. Over five and a half years of academic training combined with active hospital work gives him an instinctive diagnostic insight into nervous exhaustion and dosha imbalances.</p>
         <p class="f-bio">At The Reset Co, he oversees guest wellness from comprehensive intake consultations to localized Panchakarma Basti therapies and post-retreat dietary protocols.</p>
         <div class="f-tags">
@@ -949,7 +995,7 @@
           </div>
           <div>
             <div class="c-label">Email Enquiries</div>
-            <div class="c-val"><a href="mailto:hello@theresetco.in">hello@theresetco.in</a></div>
+            <div class="c-val"><a href="mailto:hello@thereset-co.in">hello@thereset-co.in</a></div>
             <div class="c-note">Direct response within 24 hours</div>
           </div>
         </div>
@@ -1272,6 +1318,46 @@
       form.style.display = 'block';
     }
   }
+
+  // ─── LUXURY GOLD CURSOR ENGINE ──────────────────────────────────────────────
+  (() => {
+    if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return;
+    const ring = document.createElement('div'); ring.className = 'cursor-ring';
+    const dot  = document.createElement('div'); dot.className  = 'cursor-dot';
+    document.body.append(ring, dot);
+    document.body.classList.add('custom-cursor-active');
+
+    let mx = -100, my = -100, rx = -100, ry = -100;
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      if (dot.style.opacity !== '1') {
+        dot.style.opacity = '1'; ring.style.opacity = '1';
+      }
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => {
+      dot.style.opacity = '0'; ring.style.opacity = '0';
+    });
+
+    function loopCursor() {
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(loopCursor);
+    }
+    requestAnimationFrame(loopCursor);
+
+    const hoverSelectors = 'a, button, input, select, textarea, .btn-primary, .btn-outline, .btn-book, .nav-cta, .f-card, .flow-card, .prog-card, .f-submit, .kit-item, .wa-fab, .strip-item';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(hoverSelectors)) ring.classList.add('hovered');
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest(hoverSelectors)) ring.classList.remove('hovered');
+    });
+    document.addEventListener('mousedown', () => ring.classList.add('clicking'));
+    document.addEventListener('mouseup',   () => ring.classList.remove('clicking'));
+  })();
 </script>
 </body>
 </html>
