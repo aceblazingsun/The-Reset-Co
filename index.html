@@ -10,6 +10,9 @@
 <meta name="keywords" content="yoga retreat Bir Billing, Ayurvedic retreat Himachal Pradesh, wellness retreat India, Shatkarma, Panchakarma Basti, Netra Tarpana, The Reset Co">
 <meta name="author" content="The Reset Co, Dr. Himanshu Bhatt & Dr. Aditya Kaundal">
 <link rel="canonical" href="https://www.thereset-co.in">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -1253,24 +1256,68 @@
 
     // 1. Asynchronously send directly to Supabase database
     if (BACKEND_CONFIG.SUPABASE_URL && BACKEND_CONFIG.SUPABASE_ANON_KEY) {
+      const combinedNotes = (dates ? `Dates: ${dates}\n` : '') + (notes || '');
       try {
-        const resp = await fetch(`${BACKEND_CONFIG.SUPABASE_URL}/rest/v1/retreat_bookings`, {
+        // Attempt 1: Space-separated "health notes" (current Supabase schema)
+        let resp = await fetch(`${BACKEND_CONFIG.SUPABASE_URL}/rest/v1/retreat_bookings`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'apikey': BACKEND_CONFIG.SUPABASE_ANON_KEY,
             'Authorization': `Bearer ${BACKEND_CONFIG.SUPABASE_ANON_KEY}`,
-            'Prefer': 'return=minimal'
+            'Prefer': 'return=representation'
           },
           body: JSON.stringify({
             full_name: name,
             phone: phone,
             email: email || null,
             selected_plan: planName,
-            "health notes": (dates ? `Dates: ${dates}\n` : '') + (notes || '')
+            "health notes": combinedNotes
           })
         });
+
+        // Attempt 2 Fallback: If "health notes" failed, try "health_notes" (with underscore)
         if (!resp.ok) {
+          resp = await fetch(`${BACKEND_CONFIG.SUPABASE_URL}/rest/v1/retreat_bookings`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': BACKEND_CONFIG.SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${BACKEND_CONFIG.SUPABASE_ANON_KEY}`,
+              'Prefer': 'return=representation'
+            },
+            body: JSON.stringify({
+              full_name: name,
+              phone: phone,
+              email: email || null,
+              selected_plan: planName,
+              health_notes: combinedNotes
+            })
+          });
+        }
+
+        // Attempt 3 Fallback: If both fail, save without health notes to never lose the guest contact
+        if (!resp.ok) {
+          resp = await fetch(`${BACKEND_CONFIG.SUPABASE_URL}/rest/v1/retreat_bookings`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': BACKEND_CONFIG.SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${BACKEND_CONFIG.SUPABASE_ANON_KEY}`,
+              'Prefer': 'return=representation'
+            },
+            body: JSON.stringify({
+              full_name: name,
+              phone: phone,
+              email: email || null,
+              selected_plan: planName
+            })
+          });
+        }
+
+        if (resp.ok) {
+          console.log('Sanctuary reservation saved successfully in Supabase.');
+        } else {
           console.error('Supabase registration error:', await resp.text());
         }
       } catch (err) {
