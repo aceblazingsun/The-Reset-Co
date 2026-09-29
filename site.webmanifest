@@ -1,0 +1,17 @@
+{
+  "name": "The Reset Co. | Ayurvedic Wellness Retreats",
+  "short_name": "The Reset Co",
+  "description": "Doctor-led classical Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDFAF3",
+  "theme_color": "#0F2347",
+  "icons": [
+    {
+      "src": "/images/hero.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
