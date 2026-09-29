@@ -363,11 +363,44 @@
   }
 
   .drawer-body {
-    padding: 1.75rem 2rem;
+    padding: 1.75rem 2rem 1.75rem 2.75rem;
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    position: relative;
+    overflow-y: auto;
+  }
+  .drawer-godly-bead {
+    position: absolute;
+    left: 1.45rem;
+    top: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 0 10px rgba(232, 201, 122, 0.95), 0 0 20px rgba(201, 168, 76, 0.6);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    will-change: transform, opacity;
+    transform-origin: center center;
+    transition: opacity 0.3s ease;
+  }
+  .drawer-godly-bead::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 168, 76, 0.6);
+  }
+  .drawer-godly-bead.ripple {
+    animation: drawerBeadPulse 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes drawerBeadPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.6); box-shadow: 0 0 25px rgba(232, 201, 122, 1); }
+    100% { transform: scale(1); }
   }
   .drawer-link {
     display: flex;
@@ -381,6 +414,8 @@
     font-weight: 400;
     border-bottom: 1px solid rgba(201, 168, 76, 0.08);
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    z-index: 2;
   }
   .drawer-link span.num {
     font-family: var(--sans);
@@ -766,7 +801,8 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
   </div>
-  <div class="drawer-body">
+  <div class="drawer-body" id="drawerBody">
+    <div class="drawer-godly-bead" id="drawerGodlyBead" aria-hidden="true"></div>
     <a class="drawer-link" href="#about" onclick="closeNavDrawer()">
       <span class="num">01</span>
       <span>The Sanctuary</span>
@@ -1441,6 +1477,7 @@
       menuOverlay.classList.add('open');
       hamburger.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
+      setTimeout(initDrawerBead, 150);
     }
   }
 
@@ -1451,6 +1488,7 @@
       menuOverlay.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
+      if (drawerBead) drawerBead.style.opacity = '0';
     }
   }
 
@@ -1467,6 +1505,100 @@
         closeNavDrawer();
         hamburger.focus();
       }
+    });
+  }
+
+  // ─── GODLY CURVED KINETIC BEAD NAVIGATION ──────────────────────────────────
+  const drawerBody = document.getElementById('drawerBody');
+  const drawerBead = document.getElementById('drawerGodlyBead');
+  let drawerBeadRaf = null;
+  let drawerBeadY = 0;
+  let drawerActiveIndex = 0;
+
+  function initDrawerBead() {
+    if (!drawerBody || !drawerBead) return;
+    const links = Array.from(drawerBody.querySelectorAll('.drawer-link'));
+    if (!links.length) return;
+
+    const currentHash = window.location.hash;
+    let targetIdx = 0;
+    if (currentHash) {
+      const foundIdx = links.findIndex(l => l.getAttribute('href') === currentHash);
+      if (foundIdx !== -1) targetIdx = foundIdx;
+    }
+    drawerActiveIndex = targetIdx;
+
+    const bRect = drawerBody.getBoundingClientRect();
+    const lRect = links[targetIdx].getBoundingClientRect();
+    drawerBeadY = (lRect.top + lRect.height / 2) - bRect.top + drawerBody.scrollTop;
+
+    drawerBead.style.transform = `translate3d(0px, ${drawerBeadY}px, 0)`;
+    drawerBead.style.opacity = '1';
+  }
+
+  function flyDrawerBead(destIndex) {
+    if (!drawerBody || !drawerBead) return;
+    const links = Array.from(drawerBody.querySelectorAll('.drawer-link'));
+    const targetLink = links[destIndex];
+    if (!targetLink) return;
+
+    if (drawerBeadRaf) cancelAnimationFrame(drawerBeadRaf);
+
+    const bRect = drawerBody.getBoundingClientRect();
+    const lRect = targetLink.getBoundingClientRect();
+    const destY = (lRect.top + lRect.height / 2) - bRect.top + drawerBody.scrollTop;
+    const dy = destY - drawerBeadY;
+
+    if (Math.abs(dy) < 1) {
+      drawerBeadY = destY;
+      drawerBead.style.transform = `translate3d(0px, ${destY}px, 0)`;
+      return;
+    }
+
+    const startY = drawerBeadY;
+    const startTime = performance.now();
+    const duration = Math.min(460, Math.max(300, Math.abs(dy) * 1.15));
+    const arcMax = -22; // Outward arc into left margin
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+
+      const y = startY + dy * eased;
+      const arc = Math.sin(progress * Math.PI) * arcMax;
+
+      const speed = Math.sin(progress * Math.PI);
+      const stretchY = 1 + speed * 0.44;
+      const stretchX = 1 / Math.sqrt(stretchY);
+
+      drawerBeadY = y;
+      drawerBead.style.transform = `translate3d(${arc}px, ${y}px, 0) scale(${stretchX}, ${stretchY})`;
+
+      if (progress < 1) {
+        drawerBeadRaf = requestAnimationFrame(step);
+      } else {
+        drawerBead.style.transform = `translate3d(0px, ${destY}px, 0) scale(1, 1)`;
+        drawerBead.classList.add('ripple');
+        setTimeout(() => drawerBead.classList.remove('ripple'), 400);
+        drawerActiveIndex = destIndex;
+      }
+    }
+
+    drawerBeadRaf = requestAnimationFrame(step);
+  }
+
+  if (drawerBody) {
+    const links = Array.from(drawerBody.querySelectorAll('.drawer-link'));
+    links.forEach((link, idx) => {
+      link.addEventListener('mouseenter', () => flyDrawerBead(idx));
+      link.addEventListener('click', () => {
+        drawerActiveIndex = idx;
+        flyDrawerBead(idx);
+      });
+    });
+    drawerBody.addEventListener('mouseleave', () => {
+      flyDrawerBead(drawerActiveIndex);
     });
   }
 

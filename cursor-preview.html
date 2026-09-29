@@ -462,6 +462,188 @@
     border-color: #081426;
   }
 
+  /* GODLY CURVED BEAD LAB */
+  .godly-showcase-section {
+    max-width: 1240px;
+    margin: 0 auto 5rem;
+    padding: 0 1.5rem;
+  }
+  .godly-showcase-card {
+    background: rgba(15, 35, 71, 0.55);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3rem;
+    align-items: start;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  @media (max-width: 900px) {
+    .godly-showcase-card { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  .godly-sidebar-box {
+    position: relative;
+    background: #081426;
+    border: 1px solid rgba(201, 168, 76, 0.22);
+    border-radius: 12px;
+    padding: 2rem 1.5rem 2rem 3.4rem;
+    overflow: hidden;
+  }
+  .godly-svg-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .godly-svg-trail {
+    fill: none;
+    stroke: rgba(232, 201, 122, 0.45);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 4;
+    transition: opacity 0.4s ease;
+  }
+
+  .godly-kinetic-bead {
+    position: absolute;
+    left: 1.45rem;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    box-shadow: 0 0 12px rgba(232, 201, 122, 0.9), 0 0 4px #FFFFFF, 0 0 24px rgba(201, 168, 76, 0.5);
+    pointer-events: none;
+    z-index: 3;
+    will-change: transform, opacity;
+    transform-origin: center center;
+    transition: box-shadow 0.25s ease;
+  }
+  .godly-kinetic-bead::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 168, 76, 0.6);
+  }
+  .godly-kinetic-bead.ripple {
+    animation: beadPulse 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes beadPulse {
+    0% { transform: scale(1); box-shadow: 0 0 12px rgba(232, 201, 122, 0.9); }
+    50% { transform: scale(1.6); box-shadow: 0 0 25px rgba(232, 201, 122, 1); }
+    100% { transform: scale(1); box-shadow: 0 0 12px rgba(232, 201, 122, 0.9); }
+  }
+
+  .godly-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    position: relative;
+    z-index: 2;
+  }
+  .godly-item {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    text-align: left;
+    color: rgba(253, 250, 243, 0.7);
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .godly-item:hover {
+    color: var(--ivory);
+    background: rgba(201, 168, 76, 0.08);
+    padding-left: 1.25rem;
+  }
+  .godly-item.active {
+    color: var(--gold-light);
+    font-weight: 500;
+  }
+  .godly-num {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .godly-controls-box {
+    background: rgba(8, 20, 38, 0.75);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  .godly-controls-box h3 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: var(--gold-light);
+    margin-bottom: 0.4rem;
+  }
+  .godly-controls-box p {
+    font-size: 0.84rem;
+    color: rgba(253, 250, 243, 0.7);
+    margin-bottom: 1.8rem;
+    line-height: 1.5;
+  }
+  .godly-control-group {
+    margin-bottom: 1.4rem;
+  }
+  .godly-control-group label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(253, 250, 243, 0.85);
+    margin-bottom: 0.5rem;
+  }
+  .godly-control-group label span {
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .godly-control-group input[type="range"] {
+    width: 100%;
+    accent-color: var(--gold);
+    cursor: pointer;
+  }
+  .toggle-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .control-toggle-btn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    color: rgba(253, 250, 243, 0.7);
+    padding: 0.55rem 0.75rem;
+    border-radius: 6px;
+    font-family: var(--sans);
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .control-toggle-btn:hover {
+    color: var(--ivory);
+    border-color: var(--gold);
+  }
+  .control-toggle-btn.active {
+    background: var(--gold);
+    color: #081426;
+    font-weight: 600;
+    border-color: var(--gold);
+  }
+
   /* INSPIRATION & DIRECTORY SECTION */
   .inspo-section {
     max-width: 1100px;
@@ -897,6 +1079,97 @@
     </div>
   </section>
 
+  <!-- GODLY CURVED BEAD NAVIGATION LAB -->
+  <section class="godly-showcase-section">
+    <div class="inspo-header">
+      <span class="sub-tag">Godly Website Iconic Micro-Interaction</span>
+      <h2>The Curved Kinetic Bead Indicator</h2>
+      <p>Inspired by the iconic navigation on Godly.website. When switching between sidebar options, the active indicator arcs outward along an organic trajectory with liquid velocity stretch and spring settling.</p>
+    </div>
+
+    <div class="godly-showcase-card">
+      <div class="godly-sidebar-box" id="godlySidebarBox">
+        <!-- SVG Curved Trail Line Overlay -->
+        <svg class="godly-svg-canvas" id="godlySvgCanvas"></svg>
+
+        <!-- Godly Bead -->
+        <div class="godly-kinetic-bead" id="godlyKineticBead"></div>
+
+        <nav class="godly-nav-list" id="godlyNavList">
+          <button class="godly-item active" data-index="0">
+            <span class="godly-num">01</span>
+            <span class="godly-text">The Himalayan Sanctuary</span>
+          </button>
+          <button class="godly-item" data-index="1">
+            <span class="godly-num">02</span>
+            <span class="godly-text">Clinical Disciplines</span>
+          </button>
+          <button class="godly-item" data-index="2">
+            <span class="godly-num">03</span>
+            <span class="godly-text">Prakriti &amp; Doshic Diagnosis</span>
+          </button>
+          <button class="godly-item" data-index="3">
+            <span class="godly-num">04</span>
+            <span class="godly-text">Daily Panchakarma Rhythm</span>
+          </button>
+          <button class="godly-item" data-index="4">
+            <span class="godly-num">05</span>
+            <span class="godly-text">Curated Sanctuary Tariffs</span>
+          </button>
+          <button class="godly-item" data-index="5">
+            <span class="godly-num">06</span>
+            <span class="godly-text">Sacred Welcome Kit</span>
+          </button>
+          <button class="godly-item" data-index="6">
+            <span class="godly-num">07</span>
+            <span class="godly-text">Vaidya Medical Intake</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- INTERACTION CONTROLS -->
+      <div class="godly-controls-box">
+        <h3>Live Physics Fine-Tuning</h3>
+        <p>Test how different curve amplitudes and spring tensions alter the tactile personality of the bead movement:</p>
+
+        <div class="godly-control-group">
+          <label>Curvature Amplitude: <span id="valCurvature">28px</span></label>
+          <input type="range" id="rangeCurvature" min="8" max="55" value="28">
+        </div>
+
+        <div class="godly-control-group">
+          <label>Transit Duration: <span id="valDuration">420ms</span></label>
+          <input type="range" id="rangeDuration" min="200" max="750" value="420" step="20">
+        </div>
+
+        <div class="godly-control-group">
+          <label>Interaction Trigger</label>
+          <div class="toggle-row">
+            <button class="control-toggle-btn active" id="btnTriggerClick">Click to Select</button>
+            <button class="control-toggle-btn" id="btnTriggerHover">Hover to Follow</button>
+          </div>
+        </div>
+
+        <div class="godly-control-group">
+          <label>Curve Direction</label>
+          <div class="toggle-row">
+            <button class="control-toggle-btn active" id="btnDirOutward">Outward Arc (Left)</button>
+            <button class="control-toggle-btn" id="btnDirSway">Dynamic Sway</button>
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem; padding-top:1.2rem; border-top:1px solid rgba(201,168,76,0.2);">
+          <div style="font-size:0.75rem; color:var(--gold-light); margin-bottom:0.75rem; text-align:center;">
+            ✦ Ready for production integration on The Reset Co.
+          </div>
+          <button class="apply-btn" id="btnApplyGodlyToWebsite" style="width:100%; text-align:center; padding:0.75rem; border-radius:4px;">
+            Deploy This Bead To Website Navigation Drawer &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- INSPIRATION DIRECTORY & CURATORIAL SOURCES -->
   <section class="inspo-section">
     <div class="inspo-header">
@@ -1141,6 +1414,209 @@
     const activeData = modeData[currentMode];
     alert(`You selected:\n"${activeData.title}"\n\nTell the assistant in the chat: "Apply Cursor ${currentMode}" and it will be permanently deployed to the live website!`);
   });
+
+  // ========================================================
+  // GODLY WEBSITE CURVED BEAD ENGINE
+  // ========================================================
+  (() => {
+    const sidebarBox = document.getElementById('godlySidebarBox');
+    if (!sidebarBox) return;
+
+    const bead       = document.getElementById('godlyKineticBead');
+    const svgCanvas  = document.getElementById('godlySvgCanvas');
+    const items      = Array.from(sidebarBox.querySelectorAll('.godly-item'));
+
+    let currentIndex = 0;
+    let curvature    = 28;
+    let duration     = 420;
+    let triggerMode  = 'click'; // 'click' | 'hover'
+    let curveMode    = 'outward'; // 'outward' | 'sway'
+    let currentY     = 0;
+    let baseX        = 0;
+    let rafId        = null;
+
+    // Range controls
+    const rangeCurvature = document.getElementById('rangeCurvature');
+    const valCurvature   = document.getElementById('valCurvature');
+    const rangeDuration  = document.getElementById('rangeDuration');
+    const valDuration    = document.getElementById('valDuration');
+
+    if (rangeCurvature) {
+      rangeCurvature.addEventListener('input', e => {
+        curvature = parseInt(e.target.value, 10);
+        valCurvature.textContent = curvature + 'px';
+      });
+    }
+
+    if (rangeDuration) {
+      rangeDuration.addEventListener('input', e => {
+        duration = parseInt(e.target.value, 10);
+        valDuration.textContent = duration + 'ms';
+      });
+    }
+
+    // Toggle buttons
+    const btnClick = document.getElementById('btnTriggerClick');
+    const btnHover = document.getElementById('btnTriggerHover');
+    if (btnClick && btnHover) {
+      btnClick.addEventListener('click', () => {
+        btnClick.classList.add('active');
+        btnHover.classList.remove('active');
+        triggerMode = 'click';
+      });
+      btnHover.addEventListener('click', () => {
+        btnHover.classList.add('active');
+        btnClick.classList.remove('active');
+        triggerMode = 'hover';
+      });
+    }
+
+    const btnOutward = document.getElementById('btnDirOutward');
+    const btnSway    = document.getElementById('btnDirSway');
+    if (btnOutward && btnSway) {
+      btnOutward.addEventListener('click', () => {
+        btnOutward.classList.add('active');
+        btnSway.classList.remove('active');
+        curveMode = 'outward';
+      });
+      btnSway.addEventListener('click', () => {
+        btnSway.classList.add('active');
+        btnOutward.classList.remove('active');
+        curveMode = 'sway';
+      });
+    }
+
+    // Measure item position relative to sidebarBox
+    function getItemY(idx) {
+      const item = items[idx];
+      if (!item) return 0;
+      const bRect = sidebarBox.getBoundingClientRect();
+      const iRect = item.getBoundingClientRect();
+      return (iRect.top + iRect.height / 2) - bRect.top;
+    }
+
+    // Draw temporary SVG trail
+    function renderSvgTrail(y1, y2, arcOffset) {
+      if (!svgCanvas) return;
+      const w = sidebarBox.clientWidth;
+      const h = sidebarBox.clientHeight;
+      svgCanvas.setAttribute('viewBox', `0 0 ${w} ${h}`);
+
+      const midY = (y1 + y2) / 2;
+      const midX = baseX + arcOffset;
+
+      svgCanvas.innerHTML = `
+        <path class="godly-svg-trail" d="M ${baseX} ${y1} Q ${midX} ${midY} ${baseX} ${y2}" opacity="0.8"/>
+      `;
+
+      setTimeout(() => {
+        const trail = svgCanvas.querySelector('.godly-svg-trail');
+        if (trail) trail.style.opacity = '0';
+      }, duration + 80);
+    }
+
+    // Curved Flight Animation
+    function flyTo(targetIndex) {
+      if (rafId) cancelAnimationFrame(rafId);
+
+      items.forEach((it, i) => {
+        it.classList.toggle('active', i === targetIndex);
+      });
+
+      const destY = getItemY(targetIndex);
+      const dy = destY - currentY;
+      if (Math.abs(dy) < 1) {
+        currentY = destY;
+        bead.style.transform = `translate3d(${baseX}px, ${destY}px, 0)`;
+        return;
+      }
+
+      const startY = currentY;
+      const startTime = performance.now();
+
+      // Determine curve sign
+      let curveSign = -1; // curves outward to left
+      if (curveMode === 'sway') {
+        curveSign = (dy > 0) ? -1 : 1;
+      }
+
+      const arcDistanceFactor = Math.min(1.5, Math.max(0.7, Math.abs(dy) / 120));
+      const peakArc = curvature * arcDistanceFactor * curveSign;
+
+      renderSvgTrail(startY, destY, peakArc);
+
+      function step(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Cubic bezier approximation: easeOutCubic
+        const t = progress;
+        const eased = 1 - Math.pow(1 - t, 3);
+
+        const y = startY + dy * eased;
+        const arc = Math.sin(progress * Math.PI) * peakArc;
+        const x = baseX + arc;
+
+        // Velocity-based liquid stretch
+        const speed = Math.sin(progress * Math.PI);
+        const stretchY = 1 + speed * 0.48;
+        const stretchX = 1 / Math.sqrt(stretchY);
+
+        currentY = y;
+        bead.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${stretchX}, ${stretchY})`;
+
+        if (progress < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          // Landing bounce ripple
+          bead.style.transform = `translate3d(${baseX}px, ${destY}px, 0) scale(1, 1)`;
+          bead.classList.add('ripple');
+          setTimeout(() => bead.classList.remove('ripple'), 420);
+          currentIndex = targetIndex;
+        }
+      }
+
+      rafId = requestAnimationFrame(step);
+    }
+
+    // Initialize position
+    function initPosition() {
+      baseX = 0; // Relative to bead's absolute left CSS
+      currentY = getItemY(0);
+      bead.style.transform = `translate3d(${baseX}px, ${currentY}px, 0)`;
+      bead.style.opacity = '1';
+    }
+
+    // Attach item listeners
+    items.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        flyTo(index);
+      });
+      item.addEventListener('mouseenter', () => {
+        if (triggerMode === 'hover') {
+          flyTo(index);
+        }
+      });
+    });
+
+    sidebarBox.addEventListener('mouseleave', () => {
+      if (triggerMode === 'hover') {
+        flyTo(currentIndex);
+      }
+    });
+
+    // Deploy notification button
+    const btnApply = document.getElementById('btnApplyGodlyToWebsite');
+    if (btnApply) {
+      btnApply.addEventListener('click', () => {
+        alert('This Godly curved bead navigation is being integrated into the live Navigation Drawer of The Reset Co. website!');
+      });
+    }
+
+    // Init on load & resize
+    setTimeout(initPosition, 100);
+    window.addEventListener('resize', initPosition);
+  })();
 
 })();
 </script>
