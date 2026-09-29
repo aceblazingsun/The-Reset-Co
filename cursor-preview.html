@@ -527,15 +527,16 @@
     position: absolute;
     inset: -3px;
     border-radius: 50%;
-    border: 1px solid rgba(201, 168, 76, 0.6);
+    border: 1px solid rgba(201, 168, 76, 0.7);
+    pointer-events: none;
+    opacity: 0;
   }
-  .godly-kinetic-bead.ripple {
-    animation: beadPulse 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .godly-kinetic-bead.ripple::after {
+    animation: beadPulseRing 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
-  @keyframes beadPulse {
-    0% { transform: scale(1); box-shadow: 0 0 12px rgba(232, 201, 122, 0.9); }
-    50% { transform: scale(1.6); box-shadow: 0 0 25px rgba(232, 201, 122, 1); }
-    100% { transform: scale(1); box-shadow: 0 0 12px rgba(232, 201, 122, 0.9); }
+  @keyframes beadPulseRing {
+    0%   { transform: scale(1); opacity: 0.9; }
+    100% { transform: scale(2.4); opacity: 0; }
   }
 
   .godly-nav-list {
@@ -1553,7 +1554,8 @@
       if (progress < 1) {
         rafId = requestAnimationFrame(step);
       } else {
-        bead.style.transform = `translate3d(${baseX}px, ${destY}px, 0) scale(1, 1)`;
+        currentY = destY;
+        bead.style.transform = `translate3d(${baseX}px, ${destY}px, 0)`;
         bead.classList.add('ripple');
         setTimeout(() => bead.classList.remove('ripple'), 400);
       }

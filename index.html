@@ -162,50 +162,12 @@
     justify-content: center;
   }
 
-  /* ─── LUXURY GOLD CUSTOM CURSOR (DESKTOP POINTER AWARE) ─── */
-  @media (pointer: fine) and (hover: hover) {
-    body.custom-cursor-active,
-    body.custom-cursor-active a,
-    body.custom-cursor-active button,
-    body.custom-cursor-active .btn-primary,
-    body.custom-cursor-active .btn-outline,
-    body.custom-cursor-active .btn-book,
-    body.custom-cursor-active .nav-cta,
-    body.custom-cursor-active .f-card,
-    body.custom-cursor-active .flow-card,
-    body.custom-cursor-active .prog-card,
-    body.custom-cursor-active .f-submit,
-    body.custom-cursor-active .kit-item,
-    body.custom-cursor-active .wa-fab,
-    body.custom-cursor-active .strip-item {
-      cursor: none !important;
-    }
-    body.custom-cursor-active input,
-    body.custom-cursor-active textarea,
-    body.custom-cursor-active select {
-      cursor: text !important;
-    }
+  /* ─── STANDARD RESPONSIVE CURSOR ─── */
+  body {
+    cursor: default;
   }
-  .cursor-ring {
-    position: fixed; top: 0; left: 0; width: 34px; height: 34px;
-    border: 1.5px solid var(--gold); border-radius: 50%;
-    pointer-events: none; z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
-    opacity: 0; will-change: left, top, width, height;
-  }
-  .cursor-ring.hovered { width: 54px; height: 54px; background: rgba(201,168,76,0.14); border-color: var(--gold-light); }
-  .cursor-ring.clicking { width: 22px; height: 22px; background: rgba(201,168,76,0.3); transform: translate(-50%, -50%) scale(0.9); }
-  .cursor-dot {
-    position: fixed; top: 0; left: 0; width: 6px; height: 6px;
-    background: var(--gold-light); border-radius: 50%;
-    pointer-events: none; z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.25s ease;
-    opacity: 0; will-change: left, top;
-  }
-  @media (pointer: coarse), (hover: none) {
-    .cursor-ring, .cursor-dot { display: none !important; }
+  a, button, [role="button"], input[type="submit"] {
+    cursor: pointer;
   }
 
   /* ─── NAVIGATION ─── */
@@ -393,15 +355,22 @@
     position: absolute;
     inset: -3px;
     border-radius: 50%;
-    border: 1px solid rgba(201, 168, 76, 0.6);
+    border: 1px solid rgba(201, 168, 76, 0.7);
+    pointer-events: none;
+    opacity: 0;
   }
-  .drawer-godly-bead.ripple {
-    animation: drawerBeadPulse 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .drawer-godly-bead.ripple::after {
+    animation: drawerBeadPulseRing 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
-  @keyframes drawerBeadPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.6); box-shadow: 0 0 25px rgba(232, 201, 122, 1); }
-    100% { transform: scale(1); }
+  @keyframes drawerBeadPulseRing {
+    0% {
+      transform: scale(1);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(2.4);
+      opacity: 0;
+    }
   }
   .drawer-link {
     display: flex;
@@ -1548,7 +1517,8 @@
       menuOverlay.classList.add('open');
       hamburger.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
-      setTimeout(initDrawerBead, 150);
+      initDrawerBead();
+      setTimeout(initDrawerBead, 80);
     }
   }
 
@@ -1618,6 +1588,14 @@
     drawerActiveIndex = destIndex; // Update immediately to prevent resetting to top
 
     const destY = targetLink.offsetTop + (targetLink.offsetHeight / 2);
+
+    // If drawerBeadY is uninitialized, snap directly without resetting to top
+    if (!drawerBeadY || drawerBeadY === 0) {
+      drawerBeadY = destY;
+      drawerBead.style.transform = `translate3d(0px, ${destY}px, 0)`;
+      return;
+    }
+
     const dy = destY - drawerBeadY;
 
     if (Math.abs(dy) < 1) {
@@ -1628,7 +1606,7 @@
 
     const startY = drawerBeadY;
     const startTime = performance.now();
-    const duration = Math.min(460, Math.max(300, Math.abs(dy) * 1.15));
+    const duration = Math.min(420, Math.max(260, Math.abs(dy) * 1.1));
     const arcMax = -22; // Outward arc into left margin
 
     function step(now) {
@@ -1649,7 +1627,8 @@
       if (progress < 1) {
         drawerBeadRaf = requestAnimationFrame(step);
       } else {
-        drawerBead.style.transform = `translate3d(0px, ${destY}px, 0) scale(1, 1)`;
+        drawerBeadY = destY;
+        drawerBead.style.transform = `translate3d(0px, ${destY}px, 0)`;
         drawerBead.classList.add('ripple');
         setTimeout(() => drawerBead.classList.remove('ripple'), 400);
       }
@@ -1872,45 +1851,6 @@
     document.querySelectorAll('.fade-up').forEach(el => el.classList.add('vis'));
   }
 
-  // ─── LUXURY GOLD CURSOR ENGINE ──────────────────────────────────────────────
-  (() => {
-    if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return;
-    const ring = document.createElement('div'); ring.className = 'cursor-ring';
-    const dot  = document.createElement('div'); dot.className  = 'cursor-dot';
-    document.body.append(ring, dot);
-    document.body.classList.add('custom-cursor-active');
-
-    let mx = -100, my = -100, rx = -100, ry = -100;
-    window.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-      if (dot.style.opacity !== '1') {
-        dot.style.opacity = '1'; ring.style.opacity = '1';
-      }
-    }, { passive: true });
-
-    document.addEventListener('mouseleave', () => {
-      dot.style.opacity = '0'; ring.style.opacity = '0';
-    });
-
-    function loopCursor() {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-      requestAnimationFrame(loopCursor);
-    }
-    requestAnimationFrame(loopCursor);
-
-    const hoverSelectors = 'a, button, input, select, textarea, .btn-primary, .btn-outline, .btn-book, .nav-cta, .f-card, .flow-card, .prog-card, .f-submit, .kit-item, .wa-fab, .strip-item';
-    document.addEventListener('mouseover', e => {
-      if (e.target.closest(hoverSelectors)) ring.classList.add('hovered');
-    });
-    document.addEventListener('mouseout', e => {
-      if (e.target.closest(hoverSelectors)) ring.classList.remove('hovered');
-    });
-    document.addEventListener('mousedown', () => ring.classList.add('clicking'));
-    document.addEventListener('mouseup',   () => ring.classList.remove('clicking'));
-  })();
 </script>
 </body>
 </html>
