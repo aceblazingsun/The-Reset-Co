@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Cursor Laboratory | The Reset Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8C651E;
+    --gold-pale: #F7F0DC;
+    --royal: #1A3A6B;
+    --royal-deep: #081426;
+    --royal-card: #0F2347;
+    --ivory: #FDFAF3;
+    --stone: #F3EFE6;
+    --text: #1A1A1A;
+    --text-muted: #6B6355;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: #081426;
+    color: var(--ivory);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* TOP STICKY CONTROL PANEL */
+  .control-dock {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    background: rgba(8, 20, 38, 0.94);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+    padding: 0.9rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .brand-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+  .brand-logo {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--ivory);
+    letter-spacing: 0.05em;
+  }
+  .brand-logo span { color: var(--gold); }
+  .badge-lab {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(201, 168, 76, 0.08);
+  }
+
+  /* CURSOR MODE SWITCHER TABS */
+  .mode-tabs {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(201, 168, 76, 0.22);
+    border-radius: 999px;
+    padding: 0.25rem;
+    gap: 0.25rem;
+    overflow-x: auto;
+  }
+
+  .mode-btn {
+    border: none;
+    background: transparent;
+    color: rgba(253, 250, 243, 0.7);
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .mode-btn:hover {
+    color: var(--ivory);
+    background: rgba(201, 168, 76, 0.12);
+  }
+  .mode-btn.active {
+    background: var(--gold);
+    color: #081426;
+    font-weight: 600;
+    box-shadow: 0 2px 12px rgba(201, 168, 76, 0.35);
+  }
+
+  .action-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .apply-btn {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.15rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.25s ease;
+  }
+  .apply-btn:hover {
+    background: var(--gold);
+    color: #081426;
+  }
+
+  /* MAIN CONTENT AREA */
+  main {
+    padding-top: 5rem;
+  }
+
+  /* HERO BANNER */
+  .hero-lab {
+    padding: 3.5rem 2rem 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .sub-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .hero-lab h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.18;
+    color: var(--ivory);
+    margin-bottom: 1rem;
+  }
+  .hero-lab h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-lab p {
+    font-size: 0.95rem;
+    color: rgba(253, 250, 243, 0.75);
+    max-width: 680px;
+    margin: 0 auto 1.5rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* CURRENT MODE INFO CARD */
+  .mode-desc-card {
+    background: rgba(15, 35, 71, 0.6);
+    border: 1px solid rgba(201, 168, 76, 0.28);
+    border-radius: 12px;
+    padding: 1.25rem 2rem;
+    max-width: 850px;
+    margin: 0 auto 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    text-align: left;
+  }
+  .mode-desc-left h3 {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--gold-light);
+    margin-bottom: 0.25rem;
+  }
+  .mode-desc-left p {
+    font-size: 0.85rem;
+    color: rgba(253, 250, 243, 0.7);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .mode-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+  .mode-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    color: var(--gold-light);
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+  }
+
+  /* TEST GROUNDS (LIGHT & DARK DUAL SPLIT) */
+  .testing-grounds {
+    max-width: 1240px;
+    margin: 0 auto 4rem;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  @media (max-width: 900px) {
+    .testing-grounds { grid-template-columns: 1fr; }
+  }
+
+  .canvas-panel {
+    border-radius: 16px;
+    padding: 2.5rem;
+    position: relative;
+    box-shadow: 0 8px 36px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+  }
+  .canvas-dark {
+    background: #081426;
+    color: var(--ivory);
+  }
+  .canvas-light {
+    background: #FDFAF3;
+    color: #1A1A1A;
+    border-color: rgba(201, 168, 76, 0.35);
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  }
+  .panel-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+  .canvas-light .panel-title { color: #081426; }
+  .canvas-dark .panel-title { color: var(--gold-light); }
+
+  .theme-badge {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+  }
+  .canvas-dark .theme-badge {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(253, 250, 243, 0.7);
+  }
+  .canvas-light .theme-badge {
+    background: rgba(8, 20, 38, 0.07);
+    color: #081426;
+  }
+
+  /* INTERACTIVE ELEMENTS FOR TESTING */
+  .test-section {
+    margin-bottom: 2rem;
+  }
+  .test-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+    display: block;
+    opacity: 0.6;
+  }
+
+  .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  /* BUTTON STYLES FOR TEST */
+  .btn-test {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.45rem;
+    border-radius: 2px;
+    font-weight: 500;
+    border: none;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .canvas-dark .btn-primary {
+    background: var(--gold);
+    color: #081426;
+  }
+  .canvas-dark .btn-primary:hover {
+    background: var(--gold-light);
+  }
+
+  .canvas-dark .btn-outline {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+  }
+  .canvas-dark .btn-outline:hover {
+    background: rgba(201, 168, 76, 0.1);
+  }
+
+  .canvas-light .btn-primary {
+    background: #081426;
+    color: var(--gold-light);
+  }
+  .canvas-light .btn-primary:hover {
+    background: #0F2347;
+  }
+
+  .canvas-light .btn-outline {
+    background: transparent;
+    border: 1px solid #081426;
+    color: #081426;
+  }
+  .canvas-light .btn-outline:hover {
+    background: rgba(8, 20, 38, 0.06);
+  }
+
+  /* CARDS GRID FOR HOVER TEST */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .test-card {
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .canvas-dark .test-card {
+    background: rgba(15, 35, 71, 0.6);
+    border: 1px solid rgba(201, 168, 76, 0.18);
+  }
+  .canvas-dark .test-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .canvas-light .test-card {
+    background: #FFFFFF;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+  }
+  .canvas-light .test-card:hover {
+    border-color: #081426;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .test-card h4 {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    margin-bottom: 0.35rem;
+  }
+  .canvas-dark .test-card h4 { color: var(--ivory); }
+  .canvas-light .test-card h4 { color: #081426; }
+
+  .test-card p {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    opacity: 0.7;
+  }
+
+  /* IMAGE ELEMENT FOR CONTEXT HOVER */
+  .image-box {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 140px;
+    background: #14243b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(201, 168, 76, 0.2);
+  }
+  .canvas-light .image-box {
+    background: #EAE3D2;
+  }
+  .image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.65;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  }
+  .image-box:hover img {
+    transform: scale(1.04);
+    opacity: 0.85;
+  }
+  .image-box .img-caption {
+    position: absolute;
+    bottom: 0.85rem;
+    left: 1rem;
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    color: var(--ivory);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  }
+
+  /* INPUT FIELD FOR NATIVE CARET TEST */
+  .test-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.25s ease;
+  }
+  .canvas-dark .test-input {
+    background: rgba(15, 35, 71, 0.5);
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    color: var(--ivory);
+  }
+  .canvas-dark .test-input:focus {
+    border-color: var(--gold);
+  }
+  .canvas-light .test-input {
+    background: #FFFFFF;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    color: #1A1A1A;
+  }
+  .canvas-light .test-input:focus {
+    border-color: #081426;
+  }
+
+  /* INSPIRATION & DIRECTORY SECTION */
+  .inspo-section {
+    max-width: 1100px;
+    margin: 0 auto 5rem;
+    padding: 3rem 2rem;
+    background: rgba(15, 35, 71, 0.45);
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    border-radius: 16px;
+  }
+  .inspo-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .inspo-header h2 {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+  }
+  .inspo-header p {
+    font-size: 0.9rem;
+    color: rgba(253, 250, 243, 0.7);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .inspo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .inspo-card {
+    background: rgba(8, 20, 38, 0.7);
+    border: 1px solid rgba(201, 168, 76, 0.16);
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.25s ease;
+  }
+  .inspo-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+  .inspo-site-name {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    color: var(--ivory);
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .inspo-site-name .badge {
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(201, 168, 76, 0.12);
+    color: var(--gold);
+  }
+  .inspo-desc {
+    font-size: 0.82rem;
+    color: rgba(253, 250, 243, 0.65);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+  .inspo-link {
+    font-size: 0.75rem;
+    color: var(--gold-light);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: gap 0.2s ease;
+  }
+  .inspo-link:hover {
+    gap: 0.6rem;
+    color: #FFFFFF;
+  }
+
+  /* ========================================================
+     CURSOR STYLES ENGINE (DESKTOP ONLY)
+     ======================================================== */
+  @media (pointer: fine) and (hover: hover) {
+    body.custom-cursor-on,
+    body.custom-cursor-on a,
+    body.custom-cursor-on button,
+    body.custom-cursor-on .btn-test,
+    body.custom-cursor-on .test-card,
+    body.custom-cursor-on .image-box,
+    body.custom-cursor-on .inspo-card,
+    body.custom-cursor-on .mode-btn {
+      cursor: none !important;
+    }
+    body.custom-cursor-on input,
+    body.custom-cursor-on textarea {
+      cursor: text !important;
+    }
+  }
+
+  /* ROOT CURSOR CONTAINER */
+  #cursor-stage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 999999;
+    will-change: transform;
+  }
+  @media (pointer: coarse), (hover: none) {
+    #cursor-stage { display: none !important; }
+  }
+
+  /* --- STYLE 1: PRANA HALO --- */
+  .cursor-prana-halo .ch-ring {
+    position: fixed; top: 0; left: 0; width: 40px; height: 40px;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.22) 0%, rgba(201, 168, 76, 0.04) 60%, transparent 80%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.25s ease,
+                background 0.3s ease;
+  }
+  .cursor-prana-halo.is-hover .ch-ring {
+    width: 68px; height: 68px;
+    border-color: rgba(232, 201, 122, 0.7);
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.35) 0%, rgba(201, 168, 76, 0.08) 70%, transparent 90%);
+  }
+  .cursor-prana-halo .ch-dot {
+    position: fixed; top: 0; left: 0; width: 6px; height: 6px;
+    background: #E8C97A;
+    box-shadow: 0 0 10px rgba(232, 201, 122, 0.8);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .cursor-prana-halo.is-hover .ch-dot {
+    transform: translate(-50%, -50%) scale(1.4);
+    background: #FFFFFF;
+  }
+  .cursor-prana-halo.is-down .ch-ring {
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  /* --- STYLE 2: DIFFERENCE INVERT LENS --- */
+  .cursor-diff-lens .ch-ring {
+    position: fixed; top: 0; left: 0; width: 32px; height: 32px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.2s ease;
+  }
+  .cursor-diff-lens.is-hover .ch-ring {
+    width: 64px; height: 64px;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .cursor-diff-lens .ch-dot {
+    display: none;
+  }
+  .cursor-diff-lens.is-down .ch-ring {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  /* --- STYLE 3: SACRED GEOMETRY RETICLE --- */
+  .cursor-reticle .ch-ring {
+    position: fixed; top: 0; left: 0; width: 38px; height: 38px;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease;
+  }
+  .cursor-reticle .ch-ring::before,
+  .cursor-reticle .ch-ring::after {
+    content: ''; position: absolute; inset: 0;
+    border: 1px solid rgba(201, 168, 76, 0.65);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .cursor-reticle .ch-ring::before {
+    border-radius: 2px;
+  }
+  .cursor-reticle .ch-ring::after {
+    border-radius: 2px;
+    transform: rotate(45deg);
+    border-color: rgba(232, 201, 122, 0.4);
+  }
+  .cursor-reticle.is-hover .ch-ring {
+    width: 58px; height: 58px;
+  }
+  .cursor-reticle.is-hover .ch-ring::before {
+    transform: rotate(90deg);
+    border-color: var(--gold-light);
+  }
+  .cursor-reticle.is-hover .ch-ring::after {
+    transform: rotate(135deg);
+  }
+  .cursor-reticle .ch-dot {
+    position: fixed; top: 0; left: 0; width: 4px; height: 4px;
+    background: var(--gold-light);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-reticle.is-down .ch-ring {
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  /* --- STYLE 4: AYURVEDIC KINETIC SEED --- */
+  .cursor-kinetic-seed .ch-ring {
+    position: fixed; top: 0; left: 0; width: 22px; height: 32px;
+    border: 1.5px solid var(--gold);
+    background: rgba(201, 168, 76, 0.12);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease, background 0.3s ease;
+  }
+  .cursor-kinetic-seed.is-hover .ch-ring {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(201, 168, 76, 0.22);
+    border-color: var(--gold-light);
+  }
+  .cursor-kinetic-seed .ch-dot {
+    position: fixed; top: 0; left: 0; width: 5px; height: 5px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-kinetic-seed.is-down .ch-ring {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  /* --- STYLE 5: CONTEXT MAGNETIC PILL --- */
+  .cursor-context-pill .ch-ring {
+    position: fixed; top: 0; left: 0;
+    width: 28px; height: 28px;
+    border-radius: 999px;
+    background: rgba(201, 168, 76, 0.95);
+    color: #081426;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.3s ease,
+                background 0.25s ease;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+  }
+  .cursor-context-pill .ch-label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #081426;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .cursor-context-pill.is-hover .ch-ring {
+    width: auto;
+    height: 34px;
+    padding: 0 1.15rem;
+    background: #E8C97A;
+  }
+  .cursor-context-pill.is-hover .ch-label {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .cursor-context-pill .ch-dot {
+    display: none;
+  }
+</style>
+</head>
+<body class="custom-cursor-on">
+
+<!-- DOCK NAVIGATION -->
+<header class="control-dock">
+  <a href="index.html" class="brand-tag">
+    <span class="brand-logo">The Reset <span>Co.</span></span>
+    <span class="badge-lab">Interactive Cursor Lab</span>
+  </a>
+
+  <!-- MODE SELECTOR -->
+  <div class="mode-tabs">
+    <button class="mode-btn active" data-cursor="prana-halo">
+      <span>1. Prana Halo</span>
+    </button>
+    <button class="mode-btn" data-cursor="diff-lens">
+      <span>2. Difference Lens</span>
+    </button>
+    <button class="mode-btn" data-cursor="reticle">
+      <span>3. Sacred Reticle</span>
+    </button>
+    <button class="mode-btn" data-cursor="kinetic-seed">
+      <span>4. Ayurvedic Seed</span>
+    </button>
+    <button class="mode-btn" data-cursor="context-pill">
+      <span>5. Context Pill</span>
+    </button>
+  </div>
+
+  <div class="action-wrap">
+    <button class="apply-btn" id="btn-deploy-info">Choose For Website</button>
+  </div>
+</header>
+
+<main>
+  <!-- INTRO BANNER -->
+  <section class="hero-lab">
+    <span class="sub-tag">Tactile Luxury Experience</span>
+    <h1>Explore Bespoke Cursors For <em>The Sanctuary</em></h1>
+    <p>Move your mouse across both ivory and navy canvas panels below. Test the tactile feel on luxury buttons, interactive cards, imagery, and text inputs in real time.</p>
+
+    <!-- LIVE DESCRIPTION BADGE -->
+    <div class="mode-desc-card" id="mode-desc-box">
+      <div class="mode-desc-left">
+        <h3 id="mode-title">1. The Prana Halo (Golden Luminous Aura)</h3>
+        <p id="mode-text">A 6px high-precision golden core wrapped in an ethereal 40px breathing aura. Fluid RAF physics create an effortless floating sensation reminiscent of high-end meditation retreats.</p>
+      </div>
+      <div class="mode-tags">
+        <span class="mode-tag" id="tag-mood">Serene &amp; Regal</span>
+        <span class="mode-tag" id="tag-blend">Ambient Glow</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DUAL THEME TEST CANVAS -->
+  <section class="testing-grounds">
+
+    <!-- PANEL 1: NAVY DEEP (Night / Sanctuary View) -->
+    <div class="canvas-panel canvas-dark">
+      <div class="panel-header">
+        <h3 class="panel-title">Royal Navy Canvas</h3>
+        <span class="theme-badge">Dark Surface (#081426)</span>
+      </div>
+
+      <!-- Test 1: Buttons -->
+      <div class="test-section">
+        <span class="test-label">Interactive Luxury Buttons</span>
+        <div class="btn-row">
+          <button class="btn-test btn-primary" data-label="Reserve">Reserve Sanctuary</button>
+          <button class="btn-test btn-outline" data-label="Explore">Clinical Protocols</button>
+        </div>
+      </div>
+
+      <!-- Test 2: Cards -->
+      <div class="test-section">
+        <span class="test-label">Interactive Treatment Modules</span>
+        <div class="cards-grid">
+          <div class="test-card" data-label="Discover">
+            <h4>Panchakarma Reset</h4>
+            <p>14-Day deep cellular detoxification under Ayurvedic Vaidya supervision.</p>
+          </div>
+          <div class="test-card" data-label="Listen">
+            <h4>Himalayan Sound</h4>
+            <p>Vibrational singing bowls tuned to somatic grounding frequencies.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test 3: Media Box -->
+      <div class="test-section">
+        <span class="test-label">Image Context Interaction</span>
+        <div class="image-box" data-label="View Bir Billing">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Himalayas">
+          <span class="img-caption">Bir Billing High Valley Sanctuary</span>
+        </div>
+      </div>
+
+      <!-- Test 4: Form Input -->
+      <div class="test-section">
+        <span class="test-label">Form Input Caret Behavior</span>
+        <input type="text" class="test-input" placeholder="Type here to verify natural text cursor restores...">
+      </div>
+    </div>
+
+    <!-- PANEL 2: IVORY & STONE (Day / Editorial View) -->
+    <div class="canvas-panel canvas-light">
+      <div class="panel-header">
+        <h3 class="panel-title">Warm Ivory Canvas</h3>
+        <span class="theme-badge">Editorial Surface (#FDFAF3)</span>
+      </div>
+
+      <!-- Test 1: Buttons -->
+      <div class="test-section">
+        <span class="test-label">Interactive Editorial Buttons</span>
+        <div class="btn-row">
+          <button class="btn-test btn-primary" data-label="Schedule">Consult Vaidya</button>
+          <button class="btn-test btn-outline" data-label="Overview">Curated Suites</button>
+        </div>
+      </div>
+
+      <!-- Test 2: Cards -->
+      <div class="test-section">
+        <span class="test-label">Holistic Wellness Cards</span>
+        <div class="cards-grid">
+          <div class="test-card" data-label="Assess">
+            <h4>Prakriti Assessment</h4>
+            <p>Constitutional doshic mapping tailored to your metabolic rhythm.</p>
+          </div>
+          <div class="test-card" data-label="Nourish">
+            <h4>Ayurvedic Cuisine</h4>
+            <p>Organically cultivated seasonal Sattvic nutrition tailored daily.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test 3: Media Box -->
+      <div class="test-section">
+        <span class="test-label">Editorial Imagery</span>
+        <div class="image-box" data-label="Architecture">
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Sanctuary Spa">
+          <span class="img-caption" style="color:#081426; text-shadow:none; font-weight:600;">The Stone &amp; Cedar Pavilion</span>
+        </div>
+      </div>
+
+      <!-- Test 4: Form Input -->
+      <div class="test-section">
+        <span class="test-label">Guest Intake Field</span>
+        <input type="text" class="test-input" placeholder="Type here to verify smooth interaction...">
+      </div>
+    </div>
+  </section>
+
+  <!-- INSPIRATION DIRECTORY & CURATORIAL SOURCES -->
+  <section class="inspo-section">
+    <div class="inspo-header">
+      <h2>Where Top Luxury Brands Find Cursor Inspiration</h2>
+      <p>A curated directory of global web design archives, design awards, and high-fashion agency benchmarks for micro-interactions.</p>
+    </div>
+
+    <div class="inspo-grid">
+      <div class="inspo-card">
+        <div>
+          <div class="inspo-site-name">
+            Awwwards
+            <span class="badge">Industry Standard</span>
+          </div>
+          <p class="inspo-desc">Filter by "Site of the Day" and search tags like <em>custom cursor</em>, <em>minimal cursor</em>, and <em>luxury hospitality</em> to see awarded physics and animations.</p>
+        </div>
+        <a href="https://www.awwwards.com/websites/custom-cursor/" target="_blank" rel="noopener" class="inspo-link">Explore Awwwards Cursors &rarr;</a>
+      </div>
+
+      <div class="inspo-card">
+        <div>
+          <div class="inspo-site-name">
+            Godly Website
+            <span class="badge">Curated Aesthetic</span>
+          </div>
+          <p class="inspo-desc">The cleanest showcase of ultra-modern web design. Filter by <em>Micro-interactions</em> and <em>Luxury</em> for understated typography-first cursors.</p>
+        </div>
+        <a href="https://godly.website/" target="_blank" rel="noopener" class="inspo-link">Explore Godly &rarr;</a>
+      </div>
+
+      <div class="inspo-card">
+        <div>
+          <div class="inspo-site-name">
+            Hoverstat.es
+            <span class="badge">Interaction Lab</span>
+          </div>
+          <p class="inspo-desc">Dedicated catalog documenting experimental hovers, cursor morphs, blend modes, and creative physics from avant-garde studios.</p>
+        </div>
+        <a href="https://www.hoverstat.es/" target="_blank" rel="noopener" class="inspo-link">Explore Hoverstat.es &rarr;</a>
+      </div>
+
+      <div class="inspo-card">
+        <div>
+          <div class="inspo-site-name">
+            Locomotive Agency
+            <span class="badge">Studio Benchmark</span>
+          </div>
+          <p class="inspo-desc">Pioneers of smooth scroll and magnetic micro-cursor libraries. Their work sets the luxury baseline for brands like Rolex and Celine.</p>
+        </div>
+        <a href="https://locomotive.ca/en" target="_blank" rel="noopener" class="inspo-link">View Locomotive Agency &rarr;</a>
+      </div>
+
+      <div class="inspo-card">
+        <div>
+          <div class="inspo-site-name">
+            Studio Freight
+            <span class="badge">Creative Physics</span>
+          </div>
+          <p class="inspo-desc">Creators of Lenis scroll and magnetic context pills that dynamically display preview actions when hovering over photos and interactive cards.</p>
+        </div>
+        <a href="https://studiofreight.com/" target="_blank" rel="noopener" class="inspo-link">View Studio Freight &rarr;</a>
+      </div>
+
+      <div class="inspo-card">
+        <div>
+          <div class="inspo-site-name">
+            Siteinspire
+            <span class="badge">Editorial Elegance</span>
+          </div>
+          <p class="inspo-desc">Focuses on calm, serene, architectural and hospitality designs with restrained, non-intrusive cursor micro-details.</p>
+        </div>
+        <a href="https://www.siteinspire.com/" target="_blank" rel="noopener" class="inspo-link">Explore Siteinspire &rarr;</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- CURSOR DOM STAGE -->
+<div id="cursor-stage" class="cursor-prana-halo">
+  <div class="ch-ring">
+    <span class="ch-label">EXPLORE</span>
+  </div>
+  <div class="ch-dot"></div>
+</div>
+
+<script>
+(() => {
+  // Mobile / Touch Check
+  if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) {
+    document.body.classList.remove('custom-cursor-on');
+    return;
+  }
+
+  const stage = document.getElementById('cursor-stage');
+  const ring  = stage.querySelector('.ch-ring');
+  const dot   = stage.querySelector('.ch-dot');
+  const label = stage.querySelector('.ch-label');
+
+  let currentMode = 'prana-halo';
+  let mx = window.innerWidth / 2;
+  let my = window.innerHeight / 2;
+  let rx = mx;
+  let ry = my;
+  let prevMx = mx;
+  let prevMy = my;
+  let angle = 0;
+
+  // Metadata for each mode
+  const modeData = {
+    'prana-halo': {
+      title: '1. The Prana Halo (Golden Luminous Aura)',
+      text: 'A 6px high-precision golden core wrapped in an ethereal 40px breathing aura. Fluid RAF physics create an effortless floating sensation reminiscent of high-end meditation retreats.',
+      mood: 'Serene & Regal',
+      blend: 'Ambient Glow',
+      cls: 'cursor-prana-halo'
+    },
+    'diff-lens': {
+      title: '2. The Difference Lens (Architectural Invert)',
+      text: 'Modern luxury circular lens using mix-blend-mode difference. It turns pure white against deep navy and inverts to dark ink against light ivory with surgical contrast.',
+      mood: 'Minimalist & Modern',
+      blend: 'Difference Blend',
+      cls: 'cursor-diff-lens'
+    },
+    'reticle': {
+      title: '3. Sacred Geometry Reticle (Ayurvedic Precision)',
+      text: 'Concentric square brackets inspired by Ayurvedic Yantra geometry. On hover, the dual frames rotate 45 degrees into an octagonal sacred seal around clickable elements.',
+      mood: 'Scientific & Sacred',
+      blend: 'Yantra Geometric',
+      cls: 'cursor-reticle'
+    },
+    'kinetic-seed': {
+      title: '4. Ayurvedic Kinetic Seed (Directional Physics)',
+      text: 'An organic botanical teardrop that angles dynamically toward the direction of your movement. When hovering interactive targets, it blossoms into a harmonious circular ring.',
+      mood: 'Natural & Botanical',
+      blend: 'Velocity Physics',
+      cls: 'cursor-kinetic-seed'
+    },
+    'context-pill': {
+      title: '5. Context Magnetic Pill (Interactive Action Labels)',
+      text: 'A luxury gold capsule that dynamically reveals relevant contextual words (e.g. RESERVE, EXPLORE, DISCOVER) when hovering distinct sanctuary modules and images.',
+      mood: 'Editorial & Bespoke',
+      blend: 'Dynamic Context',
+      cls: 'cursor-context-pill'
+    }
+  };
+
+  // Mouse move listener
+  window.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+  }, { passive: true });
+
+  // RAF loop for smooth lag physics
+  function animate() {
+    const lagFactor = (currentMode === 'diff-lens') ? 0.22 : 0.16;
+    rx += (mx - rx) * lagFactor;
+    ry += (my - ry) * lagFactor;
+
+    // Angle calculation for kinetic seed
+    if (currentMode === 'kinetic-seed') {
+      const dx = mx - prevMx;
+      const dy = my - prevMy;
+      const dist = Math.hypot(dx, dy);
+      if (dist > 1.5) {
+        angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+      }
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      if (!stage.classList.contains('is-hover')) {
+        ring.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+      } else {
+        ring.style.transform = 'translate(-50%, -50%) rotate(0deg)';
+      }
+      prevMx = mx;
+      prevMy = my;
+    } else {
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+    }
+
+    requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
+
+  // Hover detection
+  const interactiveSelector = 'a, button, .btn-test, .test-card, .image-box, .inspo-card, .mode-btn';
+  document.addEventListener('mouseover', e => {
+    const target = e.target.closest(interactiveSelector);
+    if (target) {
+      stage.classList.add('is-hover');
+      const customLabel = target.getAttribute('data-label');
+      if (label) {
+        label.textContent = customLabel || 'VIEW';
+      }
+    }
+  });
+
+  document.addEventListener('mouseout', e => {
+    const target = e.target.closest(interactiveSelector);
+    if (target) {
+      stage.classList.remove('is-hover');
+    }
+  });
+
+  // Mouse down / up
+  document.addEventListener('mousedown', () => stage.classList.add('is-down'));
+  document.addEventListener('mouseup',   () => stage.classList.remove('is-down'));
+
+  // Switcher buttons
+  const modeBtns = document.querySelectorAll('.mode-btn');
+  const titleEl  = document.getElementById('mode-title');
+  const textEl   = document.getElementById('mode-text');
+  const moodEl   = document.getElementById('tag-mood');
+  const blendEl  = document.getElementById('tag-blend');
+
+  modeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const modeKey = btn.getAttribute('data-cursor');
+      currentMode = modeKey;
+      const data = modeData[modeKey];
+
+      // Update stage classes
+      stage.className = '';
+      stage.classList.add(data.cls);
+
+      // Update description
+      titleEl.textContent = data.title;
+      textEl.textContent  = data.text;
+      moodEl.textContent  = data.mood;
+      blendEl.textContent = data.blend;
+    });
+  });
+
+  // Deploy info button
+  const deployBtn = document.getElementById('btn-deploy-info');
+  deployBtn.addEventListener('click', () => {
+    const activeData = modeData[currentMode];
+    alert(`You selected:\n"${activeData.title}"\n\nTell the assistant in the chat: "Apply Cursor ${currentMode}" and it will be permanently deployed to the live website!`);
+  });
+
+})();
+</script>
+</body>
+</html>
