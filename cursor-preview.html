@@ -563,7 +563,7 @@
   .godly-item:hover {
     color: var(--ivory);
     background: rgba(201, 168, 76, 0.08);
-    padding-left: 1.25rem;
+    transform: translateX(6px);
   }
   .godly-item.active {
     color: var(--gold-light);
@@ -1486,13 +1486,11 @@
       });
     }
 
-    // Measure item position relative to sidebarBox
+    // Measure item position relative to sidebarBox using rock-solid offsetTop
     function getItemY(idx) {
       const item = items[idx];
-      if (!item) return 0;
-      const bRect = sidebarBox.getBoundingClientRect();
-      const iRect = item.getBoundingClientRect();
-      return (iRect.top + iRect.height / 2) - bRect.top;
+      if (!item) return currentY;
+      return item.offsetTop + (item.offsetHeight / 2);
     }
 
     // Draw temporary SVG trail
@@ -1517,8 +1515,10 @@
 
     // Curved Flight Animation
     function flyTo(targetIndex) {
+      if (targetIndex < 0 || targetIndex >= items.length) return;
       if (rafId) cancelAnimationFrame(rafId);
 
+      currentIndex = targetIndex; // Update immediately to prevent resetting
       items.forEach((it, i) => {
         it.classList.toggle('active', i === targetIndex);
       });
@@ -1572,7 +1572,6 @@
           bead.style.transform = `translate3d(${baseX}px, ${destY}px, 0) scale(1, 1)`;
           bead.classList.add('ripple');
           setTimeout(() => bead.classList.remove('ripple'), 420);
-          currentIndex = targetIndex;
         }
       }
 
@@ -1582,27 +1581,19 @@
     // Initialize position
     function initPosition() {
       baseX = 0; // Relative to bead's absolute left CSS
-      currentY = getItemY(0);
+      currentY = getItemY(currentIndex);
       bead.style.transform = `translate3d(${baseX}px, ${currentY}px, 0)`;
       bead.style.opacity = '1';
     }
 
-    // Attach item listeners
+    // Attach item listeners: both click and hover work smoothly
     items.forEach((item, index) => {
       item.addEventListener('click', () => {
         flyTo(index);
       });
       item.addEventListener('mouseenter', () => {
-        if (triggerMode === 'hover') {
-          flyTo(index);
-        }
+        flyTo(index);
       });
-    });
-
-    sidebarBox.addEventListener('mouseleave', () => {
-      if (triggerMode === 'hover') {
-        flyTo(currentIndex);
-      }
     });
 
     // Deploy notification button

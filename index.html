@@ -426,7 +426,7 @@
   }
   .drawer-link:hover {
     color: var(--gold-light);
-    padding-left: 0.85rem;
+    transform: translateX(6px);
     background: rgba(201, 168, 76, 0.06);
   }
 
@@ -1528,9 +1528,8 @@
     }
     drawerActiveIndex = targetIdx;
 
-    const bRect = drawerBody.getBoundingClientRect();
-    const lRect = links[targetIdx].getBoundingClientRect();
-    drawerBeadY = (lRect.top + lRect.height / 2) - bRect.top + drawerBody.scrollTop;
+    const targetLink = links[targetIdx];
+    drawerBeadY = targetLink.offsetTop + (targetLink.offsetHeight / 2);
 
     drawerBead.style.transform = `translate3d(0px, ${drawerBeadY}px, 0)`;
     drawerBead.style.opacity = '1';
@@ -1539,14 +1538,15 @@
   function flyDrawerBead(destIndex) {
     if (!drawerBody || !drawerBead) return;
     const links = Array.from(drawerBody.querySelectorAll('.drawer-link'));
+    if (destIndex < 0 || destIndex >= links.length) return;
     const targetLink = links[destIndex];
     if (!targetLink) return;
 
     if (drawerBeadRaf) cancelAnimationFrame(drawerBeadRaf);
 
-    const bRect = drawerBody.getBoundingClientRect();
-    const lRect = targetLink.getBoundingClientRect();
-    const destY = (lRect.top + lRect.height / 2) - bRect.top + drawerBody.scrollTop;
+    drawerActiveIndex = destIndex; // Update immediately to prevent resetting to top
+
+    const destY = targetLink.offsetTop + (targetLink.offsetHeight / 2);
     const dy = destY - drawerBeadY;
 
     if (Math.abs(dy) < 1) {
@@ -1581,7 +1581,6 @@
         drawerBead.style.transform = `translate3d(0px, ${destY}px, 0) scale(1, 1)`;
         drawerBead.classList.add('ripple');
         setTimeout(() => drawerBead.classList.remove('ripple'), 400);
-        drawerActiveIndex = destIndex;
       }
     }
 
@@ -1593,13 +1592,10 @@
     links.forEach((link, idx) => {
       link.addEventListener('mouseenter', () => flyDrawerBead(idx));
       link.addEventListener('click', () => {
-        drawerActiveIndex = idx;
         flyDrawerBead(idx);
       });
     });
-    drawerBody.addEventListener('mouseleave', () => {
-      flyDrawerBead(drawerActiveIndex);
-    });
+    // Bead stays securely on selected destination when moving cursor to footer or outside
   }
 
   // ─── PRESELECT PLAN & PRAKRITI HANDOVER ─────────────────────────────────────
