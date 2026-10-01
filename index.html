@@ -427,7 +427,7 @@
   }
 
   .drawer-footer {
-    padding: 1.5rem 2rem 2.5rem;
+    padding: 1.5rem 2rem calc(2rem + env(safe-area-inset-bottom));
     border-top: 1px solid rgba(201, 168, 76, 0.18);
     display: flex;
     flex-direction: column;
@@ -438,6 +438,7 @@
   /* ─── HERO ─── */
   section.hero {
     min-height: 100vh;
+    min-height: 100dvh;
     background-color: var(--royal-deep);
     background-image: url('images/hero.png');
     background-size: cover; background-position: center center;
@@ -648,7 +649,6 @@
     padding: 1.75rem 1.85rem; border-radius: 3px; position: relative;
     transition: border-color 0.25s, background 0.25s;
   }
-  .flow-card:hover { border-color: rgba(13,115,119,0.55); background: rgba(13,115,119,0.04); }
   .flow-card:hover { border-color: rgba(201,168,76,0.4); background: rgba(255,255,255,0.05); }
   .flow-num {
     font-family: var(--serif); font-size: 1.15rem; color: var(--gold);
@@ -664,6 +664,225 @@
   }
   .flow-desc {
     font-size: 0.86rem; color: rgba(253,250,243,0.65); line-height: 1.65;
+  }
+
+  /* ─── MOBILE DINACHARYA TINDER-STYLE CARD DECK (<= 768px) ─── */
+  .flow-deck-mobile {
+    display: none;
+    margin-top: 2rem;
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (max-width: 768px) {
+    .flow-list.desktop-flow {
+      display: none !important;
+    }
+    .flow-deck-mobile {
+      display: block;
+    }
+  }
+
+  .deck-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+    padding: 0 0.25rem;
+  }
+  .deck-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-family: var(--sans);
+    font-weight: 500;
+  }
+  .deck-badge strong {
+    color: var(--ivory);
+    font-size: 0.85rem;
+  }
+  .deck-indicator-segments {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .deck-indicator-segments .seg {
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.18);
+    transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .deck-indicator-segments .seg.active {
+    background: var(--gold);
+    width: 24px;
+  }
+  .deck-indicator-segments .seg.passed {
+    background: rgba(201, 168, 76, 0.5);
+  }
+
+  .deck-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(253, 250, 243, 0.5);
+    margin-bottom: 1.15rem;
+  }
+  .deck-hint svg {
+    opacity: 0.7;
+    animation: swayHint 1.8s ease-in-out infinite;
+  }
+  @keyframes swayHint {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+  }
+
+  .deck-stack {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    perspective: 1000px;
+    touch-action: pan-y;
+  }
+
+  .deck-card {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #10213d 0%, #060e1c 100%);
+    border: 1px solid rgba(201, 168, 76, 0.32);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    border-radius: 8px;
+    padding: 1.65rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    user-select: none;
+    -webkit-user-select: none;
+    will-change: transform, opacity;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    cursor: grab;
+  }
+  .deck-card:active {
+    cursor: grabbing;
+  }
+
+  .deck-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.35rem;
+  }
+  .deck-num {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .deck-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(201, 168, 76, 0.9);
+    background: rgba(201, 168, 76, 0.12);
+    border: 1px solid rgba(201, 168, 76, 0.28);
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .deck-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: var(--ivory);
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: 0.55rem;
+  }
+  .deck-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right, rgba(201, 168, 76, 0.35), transparent);
+    margin-bottom: 0.75rem;
+  }
+  .deck-desc {
+    font-size: 0.88rem;
+    color: rgba(253, 250, 243, 0.72);
+    line-height: 1.65;
+    flex: 1;
+  }
+  .deck-footer-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-top: 0.75rem;
+    opacity: 0.85;
+    font-family: var(--sans);
+  }
+
+  .deck-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.25rem;
+    gap: 0.75rem;
+  }
+  .deck-nav-btn {
+    min-height: 44px;
+    min-width: 84px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    color: var(--ivory);
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .deck-nav-btn:active {
+    background: rgba(201, 168, 76, 0.2);
+    transform: scale(0.96);
+  }
+  .deck-nav-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .deck-reset-btn {
+    min-height: 44px;
+    padding: 0 1rem;
+    background: rgba(201, 168, 76, 0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    border-radius: 4px;
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 500;
+    display: none;
+    transition: all 0.2s;
+  }
+  .deck-reset-btn.visible {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* ─── PRICING & PROGRAMMES ─── */
@@ -818,23 +1037,53 @@
   }
   .wa-fab:hover .wa-tooltip { opacity: 1; transform: translateX(0); }
 
-  /* ─── RESPONSIVE ─── */
+  /* ─── RESPONSIVE & MOBILE RESILIENCE ─── */
+  html, body {
+    overflow-x: clip;
+    max-width: 100vw;
+  }
   @media (max-width: 900px) {
-    nav { padding: 1rem 1.5rem; }
-    nav.scrolled { padding: 0.85rem 1.5rem; }
-    section { padding: 4.5rem 1.5rem; }
-    .strip { padding: 1rem 1.5rem; gap: 1.25rem; }
+    nav { padding: 0.95rem 1.25rem; }
+    nav.scrolled { padding: 0.8rem 1.25rem; }
+    section { padding: 4rem 1.25rem; }
+    .strip { padding: 1rem 1.25rem; gap: 1.25rem; }
     .about-grid, .founders-grid, .svc-grid, .price-grid, .contact-grid, .kit-grid, .testi-grid, .dosha-grid, .flow-list {
       grid-template-columns: 1fr; gap: 2rem;
     }
     .f-row { grid-template-columns: 1fr; }
-    footer { padding: 2.5rem 1.5rem 1.5rem; }
+    .f-field input, .f-field select, .f-field textarea {
+      font-size: 16px !important; /* Strictly prevents iOS Safari automatic viewport zoom-in */
+    }
+    .f-submit {
+      min-height: 48px;
+    }
+    footer {
+      padding: 2.5rem 1.25rem calc(2rem + env(safe-area-inset-bottom));
+    }
     .footer-top { flex-direction: column; }
     .footer-bottom { flex-direction: column; text-align: center; }
-    .wa-fab { bottom: 1.25rem; right: 1.25rem; }
+    .wa-fab {
+      bottom: calc(1.25rem + env(safe-area-inset-bottom));
+      right: calc(1.25rem + env(safe-area-inset-right));
+    }
   }
   @media (max-width: 600px) {
     .nav-cta { display: none; }
+    .hero-cta-row {
+      flex-direction: column;
+      width: 100%;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-cta-row a {
+      width: 100%;
+      text-align: center;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 </style>
 </head>
@@ -1130,7 +1379,7 @@
       <p class="sec-body">Rather than watching the clock, every retreat flows through a natural biological progression designed around the classical Ayurvedic science of Dinacharya.</p>
     </div>
 
-    <div class="flow-list">
+    <div class="flow-list desktop-flow">
       <div class="flow-card fade-up">
         <div class="flow-num">01 <span class="flow-tag">&bull; Dawn Waking</span></div>
         <div class="flow-title">Morning Dinacharya &amp; Hydration</div>
@@ -1177,6 +1426,143 @@
         <div class="flow-num">08 <span class="flow-tag">&bull; Night Reflection</span></div>
         <div class="flow-title">Stargazing, Fireside Gathering &amp; Yoga Nidra</div>
         <p class="flow-desc">Evening Sattvic supper, contemplation under clear mountain skies, acoustic fireside conversations, and deep nervous system restoration with guided Yoga Nidra.</p>
+      </div>
+    </div>
+
+    <!-- MOBILE DINACHARYA TINDER-STYLE CARD DECK (<= 768px) -->
+    <div class="flow-deck-mobile" id="dinacharyaDeck">
+      <div class="deck-top-bar">
+        <div class="deck-badge">
+          <span class="deck-glyph">&#10022;</span>
+          <span>Moment <strong id="deckStepNum">01</strong> of 08</span>
+        </div>
+        <div class="deck-indicator-segments" id="deckSegments" aria-label="Dinacharya rhythm progress">
+          <span class="seg active"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+        </div>
+      </div>
+
+      <div class="deck-hint">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span>Swipe card left/right or tap buttons</span>
+      </div>
+
+      <div class="deck-stack" id="deckStack">
+        <!-- Card 1 -->
+        <div class="deck-card" data-index="0">
+          <div class="deck-card-top">
+            <span class="deck-num">01</span>
+            <span class="deck-tag">Dawn Waking</span>
+          </div>
+          <h3 class="deck-title">Morning Dinacharya &amp; Hydration</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Waking gently to crisp mountain air. Warm water resting overnight in your copper bottle, classical tongue scraping to clear oral toxins, and quiet grounding before sunrise.</p>
+          <div class="deck-footer-tag">&#10022; Phase 1: Cleansing &amp; Awakening</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="deck-card" data-index="1">
+          <div class="deck-card-top">
+            <span class="deck-num">02</span>
+            <span class="deck-tag">Morning Practice</span>
+          </div>
+          <h3 class="deck-title">Condition-Adaptive Yoga &amp; Pranayama</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Restorative classical Hatha asanas and conscious breathwork practiced outdoors facing the Dhauladhar peaks, tailored to spinal comfort and joint ease.</p>
+          <div class="deck-footer-tag">&#10022; Phase 2: Spinal Flow &amp; Prana</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="deck-card" data-index="2">
+          <div class="deck-card-top">
+            <span class="deck-num">03</span>
+            <span class="deck-tag">Nourishment</span>
+          </div>
+          <h3 class="deck-title">Organic Sattvic Breakfast</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Warm organic grains, stewed seasonal mountain fruits, and freshly prepared herbal decoctions served in quiet mindfulness.</p>
+          <div class="deck-footer-tag">&#10022; Phase 3: Mountain Sustenance</div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="deck-card" data-index="3">
+          <div class="deck-card-top">
+            <span class="deck-num">04</span>
+            <span class="deck-tag">Clinical Consultation</span>
+          </div>
+          <h3 class="deck-title">Physician Evaluation &amp; Shatkarma</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Individual medical intake with Dr. Himanshu and Dr. Aditya. Instruction and guided practice of classical Jal Neti and gentle Kapalabhati purification.</p>
+          <div class="deck-footer-tag">&#10022; Phase 4: Doctor Diagnosis</div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="deck-card" data-index="4">
+          <div class="deck-card-top">
+            <span class="deck-num">05</span>
+            <span class="deck-tag">Midday Pause</span>
+          </div>
+          <h3 class="deck-title">Sattvic Lunch &amp; Unhurried Rest</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Wholesome, easily digestible meal followed by dedicated downtime: quiet reading, pine terrace contemplation, or gentle unhurried walking.</p>
+          <div class="deck-footer-tag">&#10022; Phase 5: Midday Assimilation</div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="deck-card" data-index="5">
+          <div class="deck-card-top">
+            <span class="deck-num">06</span>
+            <span class="deck-tag">Panchakarma</span>
+          </div>
+          <h3 class="deck-title">Prescribed Bastis &amp; Ocular Care</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Direct physician-administered warm oil reservoirs (Kati, Greeva, or Nabhi Basti) paired with restorative Netra Tarpana ghee eye pools and soothing Ashchyotana.</p>
+          <div class="deck-footer-tag">&#10022; Phase 6: Clinical Restoration</div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="deck-card" data-index="6">
+          <div class="deck-card-top">
+            <span class="deck-num">07</span>
+            <span class="deck-tag">Experiential Discovery</span>
+          </div>
+          <h3 class="deck-title">Pottery Workshop &amp; Pine Nature Trek</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Tactile clay grounding sessions with local Himalayan artisans and guided mindful treks through fragrant pine trails and mountain monastery paths.</p>
+          <div class="deck-footer-tag">&#10022; Phase 7: Earth Connection</div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="deck-card" data-index="7">
+          <div class="deck-card-top">
+            <span class="deck-num">08</span>
+            <span class="deck-tag">Night Reflection</span>
+          </div>
+          <h3 class="deck-title">Stargazing, Fireside &amp; Yoga Nidra</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Evening Sattvic supper, contemplation under clear mountain skies, acoustic fireside conversations, and deep nervous system restoration with guided Yoga Nidra.</p>
+          <div class="deck-footer-tag">&#10022; Phase 8: Deep Cellular Rest</div>
+        </div>
+      </div>
+
+      <div class="deck-controls">
+        <button class="deck-nav-btn" id="deckPrevBtn" aria-label="Previous Dinacharya moment" onclick="swipeDeckCard('prev')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          <span>Prev</span>
+        </button>
+        <button class="deck-reset-btn" id="deckResetBtn" onclick="resetDeckStack()">
+          <span>Restart Dawn ↺</span>
+        </button>
+        <button class="deck-nav-btn" id="deckNextBtn" aria-label="Next Dinacharya moment" onclick="swipeDeckCard('next')">
+          <span>Next</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
       </div>
     </div>
   </div>
@@ -1421,16 +1807,16 @@
           <div class="f-row">
             <div class="f-field">
               <label for="bName">Your Name *</label>
-              <input type="text" id="bName" name="name" placeholder="Full name" required>
+              <input type="text" id="bName" name="name" placeholder="Full name" autocomplete="name" required>
             </div>
             <div class="f-field">
               <label for="bPhone">WhatsApp Number *</label>
-              <input type="tel" id="bPhone" name="phone" placeholder="+91 98765 43210" required>
+              <input type="tel" id="bPhone" name="phone" placeholder="+91 98765 43210" inputmode="tel" autocomplete="tel" required>
             </div>
           </div>
           <div class="f-field">
             <label for="bEmail">Email Address *</label>
-            <input type="email" id="bEmail" name="email" placeholder="your@email.com" required>
+            <input type="email" id="bEmail" name="email" placeholder="your@email.com" inputmode="email" autocomplete="email" required>
           </div>
           <div class="f-row">
             <div class="f-field">
@@ -1673,11 +2059,231 @@
     const links = Array.from(drawerBody.querySelectorAll('.drawer-link'));
     links.forEach((link, idx) => {
       link.addEventListener('mouseenter', () => flyDrawerBead(idx));
+      link.addEventListener('touchstart', () => flyDrawerBead(idx), { passive: true });
       link.addEventListener('click', () => {
         flyDrawerBead(idx);
       });
     });
-    // Bead stays securely on selected destination when moving cursor to footer or outside
+  }
+
+  // ─── MOBILE DINACHARYA TINDER-STYLE CARD DECK ──────────────────────────────
+  let deckCurrentIndex = 0;
+  let deckCards = [];
+  const deckStack = document.getElementById('deckStack');
+  const deckStepNum = document.getElementById('deckStepNum');
+  const deckSegments = document.getElementById('deckSegments');
+  const deckPrevBtn = document.getElementById('deckPrevBtn');
+  const deckNextBtn = document.getElementById('deckNextBtn');
+  const deckResetBtn = document.getElementById('deckResetBtn');
+
+  function initDinacharyaDeck() {
+    if (!deckStack) return;
+    deckCards = Array.from(deckStack.querySelectorAll('.deck-card'));
+    if (!deckCards.length) return;
+
+    updateDeckPositions(false);
+    setupDeckGestures();
+  }
+
+  function updateDeckPositions(withAnimation = true) {
+    if (!deckCards.length) return;
+
+    deckCards.forEach((card, idx) => {
+      card.style.transition = withAnimation
+        ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease'
+        : 'none';
+
+      const diff = idx - deckCurrentIndex;
+
+      if (diff === 0) {
+        card.style.transform = 'translate3d(0, 0, 0) scale(1) rotate(0deg)';
+        card.style.opacity = '1';
+        card.style.zIndex = '10';
+        card.style.pointerEvents = 'auto';
+        card.setAttribute('aria-hidden', 'false');
+      } else if (diff === 1) {
+        card.style.transform = 'translate3d(0, 14px, 0) scale(0.95) rotate(0deg)';
+        card.style.opacity = '0.78';
+        card.style.zIndex = '9';
+        card.style.pointerEvents = 'none';
+        card.setAttribute('aria-hidden', 'true');
+      } else if (diff === 2) {
+        card.style.transform = 'translate3d(0, 26px, 0) scale(0.90) rotate(0deg)';
+        card.style.opacity = '0.45';
+        card.style.zIndex = '8';
+        card.style.pointerEvents = 'none';
+        card.setAttribute('aria-hidden', 'true');
+      } else if (diff < 0) {
+        card.style.transform = 'translate3d(-140%, 0, 0) rotate(-20deg)';
+        card.style.opacity = '0';
+        card.style.zIndex = '1';
+        card.style.pointerEvents = 'none';
+        card.setAttribute('aria-hidden', 'true');
+      } else {
+        card.style.transform = 'translate3d(0, 36px, 0) scale(0.85) rotate(0deg)';
+        card.style.opacity = '0';
+        card.style.zIndex = '1';
+        card.style.pointerEvents = 'none';
+        card.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    if (deckStepNum) {
+      deckStepNum.textContent = String(deckCurrentIndex + 1).padStart(2, '0');
+    }
+
+    if (deckSegments) {
+      const segs = Array.from(deckSegments.querySelectorAll('.seg'));
+      segs.forEach((seg, sIdx) => {
+        seg.className = 'seg';
+        if (sIdx === deckCurrentIndex) {
+          seg.classList.add('active');
+        } else if (sIdx < deckCurrentIndex) {
+          seg.classList.add('passed');
+        }
+      });
+    }
+
+    if (deckPrevBtn) {
+      deckPrevBtn.disabled = deckCurrentIndex === 0;
+    }
+    if (deckNextBtn) {
+      deckNextBtn.disabled = deckCurrentIndex >= deckCards.length - 1;
+    }
+    if (deckResetBtn) {
+      if (deckCurrentIndex >= deckCards.length - 1) {
+        deckResetBtn.classList.add('visible');
+      } else {
+        deckResetBtn.classList.remove('visible');
+      }
+    }
+  }
+
+  function swipeDeckCard(direction) {
+    if (direction === 'next' && deckCurrentIndex < deckCards.length - 1) {
+      const currentCard = deckCards[deckCurrentIndex];
+      if (currentCard) {
+        currentCard.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease';
+        currentCard.style.transform = 'translate3d(-140%, 15px, 0) rotate(-18deg)';
+        currentCard.style.opacity = '0';
+      }
+      deckCurrentIndex++;
+      setTimeout(() => updateDeckPositions(true), 120);
+    } else if (direction === 'prev' && deckCurrentIndex > 0) {
+      deckCurrentIndex--;
+      updateDeckPositions(true);
+    }
+  }
+
+  function resetDeckStack() {
+    deckCurrentIndex = 0;
+    updateDeckPositions(true);
+  }
+
+  function setupDeckGestures() {
+    if (!deckStack) return;
+
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isDragging = false;
+    let isHorizontal = null;
+
+    function onPointerStart(e) {
+      const activeCard = deckCards[deckCurrentIndex];
+      if (!activeCard) return;
+
+      const touch = e.touches ? e.touches[0] : e;
+      startX = touch.clientX;
+      startY = touch.clientY;
+      currentX = startX;
+      currentY = startY;
+      isDragging = true;
+      isHorizontal = null;
+
+      activeCard.style.transition = 'none';
+      if (deckCards[deckCurrentIndex + 1]) {
+        deckCards[deckCurrentIndex + 1].style.transition = 'none';
+      }
+    }
+
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      const touch = e.touches ? e.touches[0] : e;
+      currentX = touch.clientX;
+      currentY = touch.clientY;
+
+      const deltaX = currentX - startX;
+      const deltaY = currentY - startY;
+
+      if (isHorizontal === null) {
+        if (Math.abs(deltaX) > 6 || Math.abs(deltaY) > 6) {
+          isHorizontal = Math.abs(deltaX) > Math.abs(deltaY);
+        }
+      }
+
+      if (!isHorizontal) return;
+
+      if (e.cancelable && e.type.startsWith('touch')) {
+        e.preventDefault();
+      }
+
+      const activeCard = deckCards[deckCurrentIndex];
+      if (activeCard) {
+        const rot = deltaX * 0.08;
+        activeCard.style.transform = `translate3d(${deltaX}px, ${deltaY * 0.2}px, 0) rotate(${rot}deg)`;
+        activeCard.style.opacity = `${1 - Math.min(0.5, Math.abs(deltaX) / 360)}`;
+      }
+
+      const nextCard = deckCards[deckCurrentIndex + 1];
+      if (nextCard) {
+        const pullFactor = Math.min(1, Math.abs(deltaX) / 140);
+        const nextY = 14 - (14 * pullFactor);
+        const nextScale = 0.95 + (0.05 * pullFactor);
+        const nextOpacity = 0.78 + (0.22 * pullFactor);
+        nextCard.style.transform = `translate3d(0, ${nextY}px, 0) scale(${nextScale})`;
+        nextCard.style.opacity = `${nextOpacity}`;
+      }
+    }
+
+    function onPointerEnd(e) {
+      if (!isDragging) return;
+      isDragging = false;
+
+      const deltaX = currentX - startX;
+      const activeCard = deckCards[deckCurrentIndex];
+
+      if (isHorizontal && Math.abs(deltaX) > 65) {
+        const direction = deltaX > 0 ? 1 : -1;
+        if (activeCard) {
+          activeCard.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease';
+          activeCard.style.transform = `translate3d(${direction * 140}%, ${(currentY - startY) * 0.3}px, 0) rotate(${direction * 22}deg)`;
+          activeCard.style.opacity = '0';
+        }
+
+        if (deckCurrentIndex < deckCards.length - 1) {
+          deckCurrentIndex++;
+        } else {
+          deckCurrentIndex = 0;
+        }
+
+        setTimeout(() => updateDeckPositions(true), 120);
+      } else {
+        updateDeckPositions(true);
+      }
+
+      isHorizontal = null;
+    }
+
+    deckStack.addEventListener('touchstart', onPointerStart, { passive: true });
+    deckStack.addEventListener('touchmove', onPointerMove, { passive: false });
+    deckStack.addEventListener('touchend', onPointerEnd, { passive: true });
+    deckStack.addEventListener('touchcancel', onPointerEnd, { passive: true });
+
+    deckStack.addEventListener('mousedown', onPointerStart);
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('mouseup', onPointerEnd);
   }
 
   // ─── PRESELECT PLAN & PRAKRITI HANDOVER ─────────────────────────────────────
@@ -1688,8 +2294,9 @@
     }
   }
 
-  // Handle URL parameters and sessionStorage from Prakriti assessment on load
+  // Handle URL parameters, sessionStorage and deck initialization on load
   document.addEventListener('DOMContentLoaded', () => {
+    initDinacharyaDeck();
     try {
       const params = new URLSearchParams(window.location.search);
       const urlPlan = params.get('plan');
