@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Reset Co. (TheResetCo) | Doctor-Led Ayurvedic Wellness Retreats, Bir Billing</title>
+<title>The Reset Co. | Ayurvedic Retreats Bir Billing</title>
 
 <!-- SEO & Search Engine Indexing -->
-<meta name="description" content="The Reset Co. (TheResetCo) is an authentic doctor-led Ayurvedic restorative sanctuary in Bir Billing, Himachal Pradesh. 4-day closed cohorts by on-site BAMS physicians Dr. Himanshu Bhatt and Dr. Aditya Kaundal.">
+<meta name="description" content="Doctor-led 4-day Ayurvedic restorative retreats in Bir Billing, Himachal Pradesh. Classical Panchakarma, yoga &amp; quiet Himalayan healing.">
 <meta name="keywords" content="theresetco, the reset co, theresetco in, the reset co in, the reset company, the reset co bir billing, ayurvedic retreat bir billing, wellness retreats himachal pradesh, doctor led retreat india, panchakarma himachal, shatkarma, basti ayurveda, bir billing retreats, himachal ayurveda retreat">
-<meta name="author" content="The Reset Co., Dr. Himanshu Bhatt & Dr. Aditya Kaundal">
+<meta name="author" content="The Reset Co., Dr. Himanshu Bhatt &amp; Dr. Aditya Kaundal">
 <link rel="canonical" href="https://www.thereset-co.in/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -106,7 +106,7 @@
           "@type": "ListItem",
           "position": 2,
           "name": "Ayurvedic Constitution Assessment",
-          "item": "https://www.thereset-co.in/dosha-prakriti-assessment.html"
+          "item": "https://www.thereset-co.in/dosha-prakriti-assessment"
         }
       ]
     }
@@ -178,8 +178,26 @@
     background: rgba(253,250,243,0.95); backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(201,168,76,0.22); transition: all 0.3s;
   }
-  nav.scrolled { box-shadow: 0 2px 20px rgba(15,35,71,0.08); padding: 0.85rem 4rem; }
-  .nav-logo { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; color: var(--royal-deep); letter-spacing: 0.02em; text-decoration: none; }
+  .nav-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--royal-deep);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  .nav-logo:hover img {
+    transform: scale(1.08) rotate(2deg);
+  }
   .nav-logo span { color: var(--gold); }
   .nav-right {
     display: flex;
@@ -299,11 +317,19 @@
     border-bottom: 1px solid rgba(201, 168, 76, 0.18);
   }
   .drawer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
     font-family: var(--serif);
     font-size: 1.45rem;
     font-weight: 500;
     color: var(--ivory);
     text-decoration: none;
+  }
+  .drawer-brand img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
   }
   .drawer-brand span { color: var(--gold); }
   .drawer-close {
@@ -824,7 +850,10 @@
 
 <!-- FIXED NAVIGATION -->
 <nav id="mainNav" role="navigation" aria-label="Main navigation">
-  <a class="nav-logo" href="#home">The Reset <span>Co.</span></a>
+  <a class="nav-logo" href="#home">
+    <img src="images/logo-emblem.png" alt="The Reset Co Emblem" width="32" height="32" class="nav-logo-mark">
+    <span>The Reset <span>Co.</span></span>
+  </a>
   <div class="nav-right">
     <a class="nav-cta" href="#pricing">Reserve Sanctuary</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Toggle sanctuary navigation menu" aria-expanded="false">
@@ -840,7 +869,10 @@
 <div class="menu-overlay" id="menuOverlay" onclick="closeNavDrawer()"></div>
 <aside class="nav-drawer" id="navDrawer" role="dialog" aria-modal="true" aria-label="Sanctuary Navigation Menu">
   <div class="drawer-header">
-    <a class="drawer-brand" href="#home" onclick="closeNavDrawer()">The Reset <span>Co.</span></a>
+    <a class="drawer-brand" href="#home" onclick="closeNavDrawer()">
+      <img src="images/logo-emblem.png" alt="The Reset Co Emblem" width="32" height="32">
+      <span>The Reset <span>Co.</span></span>
+    </a>
     <button class="drawer-close" id="drawerClose" onclick="closeNavDrawer()" aria-label="Close menu">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
@@ -1002,7 +1034,7 @@
       <!-- 1: Yoga -->
       <div class="svc-card fade-up">
         <div class="svc-img">
-          <img src="images/yoga.png" alt="Yoga session in Bir Billing Himalayas" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          <img src="images/yoga.jpg" alt="Yoga session in Bir Billing Himalayas" width="680" height="680" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <div class="svc-img-overlay"></div>
         </div>
         <div class="svc-body">
@@ -1014,7 +1046,7 @@
       <!-- 2: Meditation -->
       <div class="svc-card fade-up stagger-1">
         <div class="svc-img">
-          <img src="images/meditation.png" alt="Meditation in the Himalayas" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          <img src="images/meditation.jpg" alt="Meditation in the Himalayas" width="680" height="680" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <div class="svc-img-overlay"></div>
         </div>
         <div class="svc-body">
@@ -1026,7 +1058,7 @@
       <!-- 3: Shatkarma -->
       <div class="svc-card fade-up stagger-2">
         <div class="svc-img">
-          <img src="images/dinacharya_ritual.jpg" alt="Classical Shatkarma and Dinacharya ritual at The Reset Co" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          <img src="images/dinacharya_ritual.jpg" alt="Classical Shatkarma and Dinacharya ritual at The Reset Co" width="800" height="447" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <div class="svc-img-overlay"></div>
         </div>
         <div class="svc-body">
@@ -1038,7 +1070,7 @@
       <!-- 4: Basti Procedures -->
       <div class="svc-card fade-up stagger-3">
         <div class="svc-img">
-          <img src="images/ayurveda.png" alt="Ayurvedic Panchakarma procedure" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          <img src="images/ayurveda.jpg" alt="Ayurvedic Panchakarma procedure" width="680" height="680" loading="lazy" decoding="async" onerror="this.style.display='none'">
           <div class="svc-img-overlay"></div>
         </div>
         <div class="svc-body">
@@ -1083,7 +1115,7 @@
       <div style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:0.6rem; font-weight:600;">Comprehensive 30-Question Clinical Evaluation</div>
       <h3>Take the Complete Prakriti Parikshan</h3>
       <p>Analyze your constitutional tendencies across eight classical diagnostic domains: body frame, skin, digestion, sleep cycles, mental tendencies, and seasonal adaptations.</p>
-      <a href="dosha-prakriti-assessment.html" class="btn-primary" style="text-decoration:none;">Take Full Assessment &rarr;</a>
+      <a href="dosha-prakriti-assessment" class="btn-primary" style="text-decoration:none;">Take Full Assessment &rarr;</a>
     </div>
   </div>
 </section>
@@ -1470,7 +1502,7 @@
           <h4>Exploration</h4>
           <a href="#about">About Sanctuary</a>
           <a href="#founders">Founding Doctors</a>
-          <a href="dosha-prakriti-assessment.html">Prakriti Assessment</a>
+          <a href="dosha-prakriti-assessment">Prakriti Assessment</a>
           <a href="#welcome-kit">Welcome Kit</a>
         </div>
       </div>
