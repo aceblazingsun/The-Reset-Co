@@ -744,7 +744,8 @@
   }
   @keyframes swayHint {
     0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(4px); }
+    25% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
   }
 
   .deck-stack {
@@ -1449,8 +1450,8 @@
       </div>
 
       <div class="deck-hint">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        <span>Swipe card left/right or tap buttons</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M3 12h18"/></svg>
+        <span>Swipe right for next moment &bull; Swipe left for previous</span>
       </div>
 
       <div class="deck-stack" id="deckStack">
@@ -2089,37 +2090,46 @@
     if (!deckCards.length) return;
 
     deckCards.forEach((card, idx) => {
-      card.style.transition = withAnimation
-        ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease'
-        : 'none';
-
       const diff = idx - deckCurrentIndex;
 
       if (diff === 0) {
+        card.style.transition = withAnimation
+          ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease'
+          : 'none';
         card.style.transform = 'translate3d(0, 0, 0) scale(1) rotate(0deg)';
         card.style.opacity = '1';
         card.style.zIndex = '10';
         card.style.pointerEvents = 'auto';
         card.setAttribute('aria-hidden', 'false');
       } else if (diff === 1) {
+        card.style.transition = withAnimation
+          ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease'
+          : 'none';
         card.style.transform = 'translate3d(0, 14px, 0) scale(0.95) rotate(0deg)';
         card.style.opacity = '0.78';
         card.style.zIndex = '9';
         card.style.pointerEvents = 'none';
         card.setAttribute('aria-hidden', 'true');
       } else if (diff === 2) {
+        card.style.transition = withAnimation
+          ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease'
+          : 'none';
         card.style.transform = 'translate3d(0, 26px, 0) scale(0.90) rotate(0deg)';
         card.style.opacity = '0.45';
         card.style.zIndex = '8';
         card.style.pointerEvents = 'none';
         card.setAttribute('aria-hidden', 'true');
       } else if (diff < 0) {
+        card.style.transition = 'none';
         card.style.transform = 'translate3d(-140%, 0, 0) rotate(-20deg)';
         card.style.opacity = '0';
         card.style.zIndex = '1';
         card.style.pointerEvents = 'none';
         card.setAttribute('aria-hidden', 'true');
       } else {
+        card.style.transition = withAnimation
+          ? 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease'
+          : 'none';
         card.style.transform = 'translate3d(0, 36px, 0) scale(0.85) rotate(0deg)';
         card.style.opacity = '0';
         card.style.zIndex = '1';
@@ -2163,13 +2173,21 @@
     if (direction === 'next' && deckCurrentIndex < deckCards.length - 1) {
       const currentCard = deckCards[deckCurrentIndex];
       if (currentCard) {
-        currentCard.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease';
-        currentCard.style.transform = 'translate3d(-140%, 15px, 0) rotate(-18deg)';
+        currentCard.style.transition = 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease';
+        currentCard.style.transform = 'translate3d(140%, 15px, 0) rotate(22deg)';
         currentCard.style.opacity = '0';
       }
       deckCurrentIndex++;
-      setTimeout(() => updateDeckPositions(true), 120);
+      setTimeout(() => updateDeckPositions(true), 110);
     } else if (direction === 'prev' && deckCurrentIndex > 0) {
+      const prevCard = deckCards[deckCurrentIndex - 1];
+      if (prevCard) {
+        prevCard.style.transition = 'none';
+        prevCard.style.transform = 'translate3d(-140%, 15px, 0) rotate(-18deg)';
+        prevCard.style.opacity = '0';
+        prevCard.style.zIndex = '15';
+        prevCard.offsetHeight;
+      }
       deckCurrentIndex--;
       updateDeckPositions(true);
     }
@@ -2206,6 +2224,9 @@
       if (deckCards[deckCurrentIndex + 1]) {
         deckCards[deckCurrentIndex + 1].style.transition = 'none';
       }
+      if (deckCurrentIndex > 0 && deckCards[deckCurrentIndex - 1]) {
+        deckCards[deckCurrentIndex - 1].style.transition = 'none';
+      }
     }
 
     function onPointerMove(e) {
@@ -2230,20 +2251,48 @@
       }
 
       const activeCard = deckCards[deckCurrentIndex];
-      if (activeCard) {
-        const rot = deltaX * 0.08;
-        activeCard.style.transform = `translate3d(${deltaX}px, ${deltaY * 0.2}px, 0) rotate(${rot}deg)`;
-        activeCard.style.opacity = `${1 - Math.min(0.5, Math.abs(deltaX) / 360)}`;
-      }
+      if (!activeCard) return;
 
-      const nextCard = deckCards[deckCurrentIndex + 1];
-      if (nextCard) {
-        const pullFactor = Math.min(1, Math.abs(deltaX) / 140);
-        const nextY = 14 - (14 * pullFactor);
-        const nextScale = 0.95 + (0.05 * pullFactor);
-        const nextOpacity = 0.78 + (0.22 * pullFactor);
-        nextCard.style.transform = `translate3d(0, ${nextY}px, 0) scale(${nextScale})`;
-        nextCard.style.opacity = `${nextOpacity}`;
+      if (deltaX > 0) {
+        // SWIPE RIGHT: Forward toward next moment
+        if (deckCurrentIndex < deckCards.length - 1) {
+          const rot = deltaX * 0.08;
+          activeCard.style.transform = "translate3d(" + deltaX + "px, " + (deltaY * 0.15) + "px, 0) rotate(" + rot + "deg)";
+          activeCard.style.opacity = "" + (1 - Math.min(0.5, deltaX / 360));
+
+          const nextCard = deckCards[deckCurrentIndex + 1];
+          if (nextCard) {
+            const pullFactor = Math.min(1, deltaX / 140);
+            const nextY = 14 - (14 * pullFactor);
+            const nextScale = 0.95 + (0.05 * pullFactor);
+            const nextOpacity = 0.78 + (0.22 * pullFactor);
+            nextCard.style.transform = "translate3d(0, " + nextY + "px, 0) scale(" + nextScale + ")";
+            nextCard.style.opacity = "" + nextOpacity;
+          }
+        } else {
+          // At final card, gentle elastic resistance
+          const dampedX = deltaX * 0.22;
+          activeCard.style.transform = "translate3d(" + dampedX + "px, 0, 0) rotate(" + (dampedX * 0.05) + "deg)";
+        }
+      } else {
+        // SWIPE LEFT: Backward toward previous moment
+        if (deckCurrentIndex > 0) {
+          const prevCard = deckCards[deckCurrentIndex - 1];
+          const pullFactor = Math.min(1, Math.abs(deltaX) / 140);
+
+          activeCard.style.transform = "translate3d(" + (deltaX * 0.25) + "px, 0, 0) scale(" + (1 - (0.05 * pullFactor)) + ")";
+          activeCard.style.opacity = "" + (1 - (0.2 * pullFactor));
+
+          if (prevCard) {
+            prevCard.style.zIndex = "15";
+            prevCard.style.transform = "translate3d(" + (-130 + (130 * pullFactor)) + "%, " + (15 - (15 * pullFactor)) + "px, 0) rotate(" + (-18 + (18 * pullFactor)) + "deg)";
+            prevCard.style.opacity = "" + (0.3 + (0.7 * pullFactor));
+          }
+        } else {
+          // At first card, gentle elastic resistance
+          const dampedX = deltaX * 0.22;
+          activeCard.style.transform = "translate3d(" + dampedX + "px, 0, 0) rotate(" + (dampedX * 0.05) + "deg)";
+        }
       }
     }
 
@@ -2254,22 +2303,36 @@
       const deltaX = currentX - startX;
       const activeCard = deckCards[deckCurrentIndex];
 
-      if (isHorizontal && Math.abs(deltaX) > 65) {
-        const direction = deltaX > 0 ? 1 : -1;
-        if (activeCard) {
-          activeCard.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease';
-          activeCard.style.transform = `translate3d(${direction * 140}%, ${(currentY - startY) * 0.3}px, 0) rotate(${direction * 22}deg)`;
-          activeCard.style.opacity = '0';
-        }
-
+      if (isHorizontal && deltaX > 60) {
+        // SWIPE RIGHT CONFIRMED: Go forward
         if (deckCurrentIndex < deckCards.length - 1) {
+          if (activeCard) {
+            activeCard.style.transition = 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease';
+            activeCard.style.transform = "translate3d(140%, " + ((currentY - startY) * 0.3) + "px, 0) rotate(22deg)";
+            activeCard.style.opacity = '0';
+          }
           deckCurrentIndex++;
+          setTimeout(() => updateDeckPositions(true), 110);
         } else {
-          deckCurrentIndex = 0;
+          updateDeckPositions(true);
         }
-
-        setTimeout(() => updateDeckPositions(true), 120);
+      } else if (isHorizontal && deltaX < -60) {
+        // SWIPE LEFT CONFIRMED: Return to previous moment
+        if (deckCurrentIndex > 0) {
+          const prevCard = deckCards[deckCurrentIndex - 1];
+          if (prevCard) {
+            prevCard.style.transition = 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease';
+            prevCard.style.transform = 'translate3d(0, 0, 0) scale(1) rotate(0deg)';
+            prevCard.style.opacity = '1';
+            prevCard.style.zIndex = '12';
+          }
+          deckCurrentIndex--;
+          setTimeout(() => updateDeckPositions(true), 110);
+        } else {
+          updateDeckPositions(true);
+        }
       } else {
+        // Drag canceled or below threshold: restore current positions
         updateDeckPositions(true);
       }
 
