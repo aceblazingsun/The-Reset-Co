@@ -1,0 +1,25 @@
+{
+  "name": "the-reset-co",
+  "version": "1.0.0",
+  "description": "> **Stillness is not a luxury. It is a prescription.**   > Authentic, physician-led Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh (1,525m). Founded and clinically directed by licensed BAMS doctors.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aceblazingsun/The-Reset-Co.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/aceblazingsun/The-Reset-Co/issues"
+  },
+  "homepage": "https://github.com/aceblazingsun/The-Reset-Co#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
