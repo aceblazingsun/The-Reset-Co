@@ -184,7 +184,8 @@ export default async function handler(req, res) {
     // 3. Dispatch via Configured Email Provider
     const resendApiKey = process.env.RESEND_API_KEY;
     const zeptoMailToken = process.env.ZEPTOMAIL_TOKEN;
-    const doctorInbox = process.env.DOCTOR_EMAIL || 'hello@thereset-co.in';
+    const rawDoctorEmails = process.env.DOCTOR_EMAIL || 'hello@thereset-co.in';
+    const doctorList = rawDoctorEmails.split(',').map(e => e.trim()).filter(Boolean);
     const senderEmail = process.env.SENDER_EMAIL || 'The Reset Co <hello@thereset-co.in>';
 
     let guestEmailSent = false;
@@ -211,7 +212,7 @@ export default async function handler(req, res) {
       });
       if (guestRes.ok) guestEmailSent = true;
 
-      // Send to Doctors
+      // Send to Doctors / Both Partners
       const docRes = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -220,7 +221,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           from: senderEmail,
-          to: [doctorInbox],
+          to: doctorList,
           reply_to: email,
           subject: `[New Lead] ${name} - ${chosenPlan} (${requestedDates})`,
           html: doctorAlertHtml
@@ -248,6 +249,23 @@ export default async function handler(req, res) {
         })
       });
       if (zeptoRes.ok) guestEmailSent = true;
+
+      // Send to Doctors / Both Partners via ZeptoMail
+      const docZeptoRes = await fetch('https://api.zeptomail.in/v1.1/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Zoho-enczapikey ${zeptoMailToken}`
+        },
+        body: JSON.stringify({
+          bounce_address: `bounces@${process.env.EMAIL_DOMAIN || 'em.thereset-co.in'}`,
+          from: { address: 'hello@thereset-co.in', name: 'The Reset Co' },
+          to: doctorList.map(addr => ({ email_address: { address: addr } })),
+          subject: `[New Lead] ${name} - ${chosenPlan} (${requestedDates})`,
+          htmlbody: doctorAlertHtml
+        })
+      });
+      if (docZeptoRes.ok) doctorEmailSent = true;
     }
 
     return res.status(200).json({
