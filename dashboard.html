@@ -1360,19 +1360,29 @@
         return;
       }
 
+      const guestEmail = document.getElementById('modalGuestEmail').value.trim();
+      if (!guestEmail) {
+        alert('Please enter a valid guest email address to dispatch the booking pass.');
+        return;
+      }
+
       const submitBtn = document.getElementById('modalSubmitBtn');
       const originalHtml = submitBtn.innerHTML;
       submitBtn.disabled = true;
       submitBtn.innerHTML = 'Securing Dates &amp; Sending Pass...';
 
+      const apiEndpoint = (window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes('localhost') && !window.location.origin.includes('127.0.0.1'))
+        ? '/api/confirm-booking'
+        : 'https://thereset-co.in/api/confirm-booking';
+
       try {
-        const resp = await fetch('/api/confirm-booking', {
+        const resp = await fetch(apiEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             id: b.id,
             full_name: b.full_name,
-            email: b.email,
+            email: guestEmail,
             phone: b.phone,
             selected_plan: b.selected_plan,
             check_in_date: checkIn,
@@ -1467,8 +1477,8 @@
             <input type="text" id="modalGuestName" class="modal-input" readonly style="background:#F1ECE1; color:#0F2347; font-weight:600;">
           </div>
           <div class="modal-field">
-            <label class="modal-label">Guest Email</label>
-            <input type="email" id="modalGuestEmail" class="modal-input" readonly style="background:#F1ECE1;">
+            <label class="modal-label">Guest Email (Recipient of Confirmation Pass) *</label>
+            <input type="email" id="modalGuestEmail" class="modal-input" required placeholder="name@example.com">
           </div>
           <div class="modal-field">
             <label class="modal-label">Selected Programme</label>

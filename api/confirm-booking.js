@@ -2,6 +2,15 @@
 // Endpoint: POST /api/confirm-booking
 
 export default async function handler(req, res) {
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed. Use POST.' });
   }
@@ -297,6 +306,16 @@ export default async function handler(req, res) {
     }
 
     const resendResult = await r.json();
+
+    if (!r.ok) {
+      const errMsg = resendResult && resendResult.message ? resendResult.message : 'Email delivery failed';
+      return res.status(400).json({
+        success: false,
+        error: errMsg.includes('example.com')
+          ? 'Email address cannot be a placeholder like example.com. Please enter a real email address.'
+          : errMsg
+      });
+    }
 
     // 5. Send copy / internal notification to doctors
     try {
