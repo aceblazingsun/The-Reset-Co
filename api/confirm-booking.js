@@ -69,10 +69,10 @@ export default async function handler(req, res) {
     const checkOutFormatted = isNaN(checkOutDateObj.getTime()) ? checkOut : checkOutDateObj.toLocaleDateString('en-US', options);
 
     // Calculate nights
-    let nights = 7;
+    let nights = 3;
     if (!isNaN(checkInDateObj.getTime()) && !isNaN(checkOutDateObj.getTime())) {
       const diffTime = Math.abs(checkOutDateObj - checkInDateObj);
-      nights = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      nights = Math.max(1, Math.round(diffTime / (1000 * 60 * 60 * 24)));
     }
 
     // Compact date tokens for calendar (YYYYMMDD)
@@ -82,15 +82,15 @@ export default async function handler(req, res) {
     // 1. Generate Google Calendar 1-Click Link
     const gCalTitle = encodeURIComponent('The Reset Co. Ayurvedic Sanctuary Retreat');
     const gCalDetails = encodeURIComponent(
-      'Your confirmed Ayurvedic sanctuary retreat in Bir Billing (1,525m).\n\n' +
+      'Your confirmed Ayurvedic sanctuary retreat at The Reset Co.\n\n' +
       'Programme: ' + planName + '\n' +
       'Suite: ' + suiteAssigned + '\n' +
       'Reservation Ref: ' + bookingId + '\n' +
       'Clinical Directors: Dr. Aditya Kaundal & Dr. Himanshu Bhatt\n' +
       'Concierge WhatsApp: +91 78885 40046\n\n' +
-      'Location: The Reset Co. Sanctuary, Bir Billing, Himachal Pradesh 176077, India'
+      'Location: The Reset Co.'
     );
-    const gCalLocation = encodeURIComponent('The Reset Co. Sanctuary, Bir Billing, Himachal Pradesh 176077, India');
+    const gCalLocation = encodeURIComponent('The Reset Co.');
     const gCalLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${gCalTitle}&dates=${sDateClean}T090000Z/${eDateClean}T060000Z&details=${gCalDetails}&location=${gCalLocation}`;
 
     // 2. Generate RFC 5545 iCalendar (.ics) Attachment
@@ -107,8 +107,8 @@ export default async function handler(req, res) {
       `DTSTART;VALUE=DATE:${sDateClean}`,
       `DTEND;VALUE=DATE:${eDateClean}`,
       'SUMMARY:The Reset Co. Ayurvedic Sanctuary Retreat',
-      `DESCRIPTION:Your confirmed Ayurvedic retreat in Bir Billing. Programme: ${planName}. Suite: ${suiteAssigned}. Clinical Directors: Dr. Aditya Kaundal & Dr. Himanshu Bhatt. Concierge: +91 78885 40046.`,
-      'LOCATION:The Reset Co. Sanctuary, Bir Billing, Himachal Pradesh 176077, India',
+      `DESCRIPTION:Your confirmed Ayurvedic retreat at The Reset Co. Programme: ${planName}. Suite: ${suiteAssigned}. Clinical Directors: Dr. Aditya Kaundal & Dr. Himanshu Bhatt. Concierge: +91 78885 40046.`,
+      'LOCATION:The Reset Co.',
       'STATUS:CONFIRMED',
       'SEQUENCE:0',
       'BEGIN:VALARM',
@@ -134,12 +134,14 @@ export default async function handler(req, res) {
       <td align="center">
         <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width:600px; width:100%; background-color:#FFFFFF; border:1px solid #E8DFCC; border-radius:4px; overflow:hidden; box-shadow:0 8px 30px rgba(15,35,71,0.06);">
           
-          <!-- Header Banner -->
+          <!-- Header Banner with Logo -->
           <tr>
-            <td style="background-color:#0F2347; padding:40px 30px; text-align:center;">
-              <div style="color:#C9A84C; font-size:24px; margin-bottom:8px;">&#10022;</div>
+            <td style="background-color:#0F2347; padding:36px 30px; text-align:center;">
+              <div style="text-align:center; margin-bottom:12px;">
+                <img src="https://thereset-co.in/images/logo-emblem.png" alt="The Reset Co." width="58" height="58" style="display:inline-block; border:0; outline:none;" />
+              </div>
               <h1 style="margin:0; color:#FDFAF3; font-size:24px; letter-spacing:0.18em; text-transform:uppercase; font-weight:400;">The Reset Co.</h1>
-              <p style="margin:8px 0 0 0; color:#DFBF6A; font-size:11px; letter-spacing:0.16em; text-transform:uppercase;">Ayurvedic Wellness Sanctuary &bull; Bir Billing</p>
+              <p style="margin:8px 0 0 0; color:#DFBF6A; font-size:11px; letter-spacing:0.16em; text-transform:uppercase;">Ayurvedic Wellness Sanctuary</p>
             </td>
           </tr>
 
@@ -161,7 +163,7 @@ export default async function handler(req, res) {
             <td style="padding:15px 35px 25px 35px; font-size:15px; line-height:1.7; color:#4A5568;">
               <p style="margin-top:0;">Dear <strong>${guestName}</strong>,</p>
               <p>
-                We are delighted to confirm your upcoming clinical retreat at The Reset Co. in Bir Billing, Himachal Pradesh (1,525m). Your suite and bespoke Ayurvedic cohort schedule have been officially secured.
+                We are delighted to confirm your upcoming clinical retreat at The Reset Co. Your suite and bespoke Ayurvedic cohort schedule have been officially secured.
               </p>
 
               <!-- Confirmed Dates Card -->
@@ -221,9 +223,9 @@ export default async function handler(req, res) {
               <!-- Clinical Preparation Advice -->
               <h3 style="color:#0F2347; font-size:16px; margin:26px 0 10px 0; font-weight:600;">Sanctuary Preparation Guidance</h3>
               <ul style="padding-left:20px; margin:0 0 20px 0; line-height:1.8;">
-                <li><strong>Arrival &amp; Transit:</strong> We recommend flying into Kangra / Dharamshala Airport (DHM, ~2 hrs drive) or Pathankot Railway Station (~3 hrs). Private sanctuary transfers can be coordinated via our concierge.</li>
+                <li><strong>Arrival &amp; Transit:</strong> Private sanctuary transfers can be coordinated via our concierge upon request.</li>
                 <li><strong>Pre-Retreat Nutrition:</strong> 3 days prior to your arrival, gently transition toward lighter, warm, home-cooked meals and minimise iced beverages and excess caffeine to prime your digestive agni.</li>
-                <li><strong>Attire:</strong> Bring comfortable, breathable organic cotton or linen clothing for yoga and daily therapy sessions, alongside warm layers for crisp mountain evenings at 1,525m.</li>
+                <li><strong>Attire:</strong> Bring comfortable, breathable organic cotton or linen clothing for yoga and daily therapy sessions, alongside warm layers for crisp mountain evenings.</li>
               </ul>
 
               ${customNotes ? `
@@ -258,8 +260,10 @@ export default async function handler(req, res) {
           <!-- Footer -->
           <tr>
             <td style="background-color:#F7F2E7; border-top:1px solid #E8DFCC; padding:24px 30px; text-align:center; font-size:12px; color:#718096; line-height:1.6;">
-              <p style="margin:0 0 6px 0; color:#0F2347; font-weight:600;">The Reset Co. Sanctuary</p>
-              <p style="margin:0 0 6px 0;">Bir Billing, Himachal Pradesh 176077, India</p>
+              <div style="text-align:center; margin-bottom:8px;">
+                <img src="https://thereset-co.in/images/logo-emblem-navy.png" alt="The Reset Co." width="36" height="36" style="display:inline-block; border:0;" />
+              </div>
+              <p style="margin:0 0 6px 0; color:#0F2347; font-weight:600;">The Reset Co.</p>
               <p style="margin:0;">Clinically Directed by Dr. Aditya Kaundal (BAMS) &amp; Dr. Himanshu Bhatt (BAMS)</p>
             </td>
           </tr>

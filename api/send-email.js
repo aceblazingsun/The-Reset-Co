@@ -47,12 +47,14 @@ export default async function handler(req, res) {
       <td align="center">
         <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width:600px; width:100%; background-color:#FFFFFF; border:1px solid #E8DFCC; border-radius:4px; overflow:hidden; box-shadow:0 8px 30px rgba(15,35,71,0.06);">
           
-          <!-- Header Banner -->
+          <!-- Header Banner with Logo -->
           <tr>
-            <td style="background-color:#0F2347; padding:38px 30px; text-align:center;">
-              <div style="color:#C9A84C; font-size:24px; margin-bottom:8px;">&#10022;</div>
+            <td style="background-color:#0F2347; padding:36px 30px; text-align:center;">
+              <div style="text-align:center; margin-bottom:12px;">
+                <img src="https://thereset-co.in/images/logo-emblem.png" alt="The Reset Co." width="58" height="58" style="display:inline-block; border:0; outline:none;" />
+              </div>
               <h1 style="margin:0; color:#FDFAF3; font-size:24px; letter-spacing:0.18em; text-transform:uppercase; font-weight:400;">The Reset Co.</h1>
-              <p style="margin:8px 0 0 0; color:#DFBF6A; font-size:11px; letter-spacing:0.16em; text-transform:uppercase;">Ayurvedic Wellness Sanctuary &bull; Bir Billing</p>
+              <p style="margin:8px 0 0 0; color:#DFBF6A; font-size:11px; letter-spacing:0.16em; text-transform:uppercase;">Ayurvedic Wellness Sanctuary</p>
             </td>
           </tr>
 
@@ -72,7 +74,7 @@ export default async function handler(req, res) {
             <td style="padding:10px 35px 25px 35px; font-size:15px; line-height:1.7; color:#4A5568;">
               <p style="margin-top:0;">Dear <strong>${name}</strong>,</p>
               <p>
-                Thank you for reaching out to The Reset Co. Your enquiry and clinical intake considerations for our closed-cohort retreat in Bir Billing (1,525m) have been safely recorded.
+                Thank you for reaching out to The Reset Co. Your enquiry and clinical intake considerations for our retreat at The Reset Co. have been safely recorded.
               </p>
               
               <!-- Reservation Summary Box -->
@@ -138,8 +140,10 @@ export default async function handler(req, res) {
           <!-- Footer -->
           <tr>
             <td style="background-color:#F7F2E7; border-top:1px solid #E8DFCC; padding:24px 30px; text-align:center; font-size:12px; color:#718096; line-height:1.6;">
-              <p style="margin:0 0 6px 0; color:#0F2347; font-weight:600;">The Reset Co. Sanctuary</p>
-              <p style="margin:0 0 6px 0;">Bir Billing, Himachal Pradesh 176077, India</p>
+              <div style="text-align:center; margin-bottom:8px;">
+                <img src="https://thereset-co.in/images/logo-emblem-navy.png" alt="The Reset Co." width="36" height="36" style="display:inline-block; border:0;" />
+              </div>
+              <p style="margin:0 0 6px 0; color:#0F2347; font-weight:600;">The Reset Co.</p>
               <p style="margin:0;">Clinically Directed by Dr. Aditya Kaundal (BAMS) &amp; Dr. Himanshu Bhatt (BAMS)</p>
             </td>
           </tr>

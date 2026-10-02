@@ -1302,10 +1302,10 @@
       document.getElementById('modalGuestEmail').value = b.email || '';
       document.getElementById('modalPlanName').value = b.selected_plan || 'The Awakening Journey';
 
-      // Default upcoming dates (e.g. 14 days ahead, 7 nights duration)
+      // Default upcoming dates (14 days ahead, automatically next 3 days selected)
       const now = new Date();
       const defaultStart = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000);
-      const defaultEnd = new Date(now.getTime() + 21 * 24 * 60 * 60 * 1000);
+      const defaultEnd = new Date(defaultStart.getTime() + 3 * 24 * 60 * 60 * 1000);
       document.getElementById('modalCheckIn').value = defaultStart.toISOString().split('T')[0];
       document.getElementById('modalCheckOut').value = defaultEnd.toISOString().split('T')[0];
       document.getElementById('modalNotes').value = '';
@@ -1315,6 +1315,21 @@
       setTimeout(() => {
         document.getElementById('modalCheckIn').focus();
       }, 50);
+    }
+
+    function handleCheckInChange() {
+      const checkInInput = document.getElementById('modalCheckIn');
+      const checkOutInput = document.getElementById('modalCheckOut');
+      if (!checkInInput || !checkInInput.value) return;
+      const parts = checkInInput.value.split('-');
+      if (parts.length === 3) {
+        const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+        d.setDate(d.getDate() + 3); // Automatically next 3 days selected
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        checkOutInput.value = `${y}-${m}-${day}`;
+      }
     }
 
     function closeConfirmDatesModal() {
@@ -1516,10 +1531,10 @@
           <div class="modal-grid-2">
             <div class="modal-field">
               <label class="modal-label" for="modalCheckIn">Check-In Date *</label>
-              <input type="date" id="modalCheckIn" class="modal-input" required>
+              <input type="date" id="modalCheckIn" class="modal-input" required onchange="handleCheckInChange()">
             </div>
             <div class="modal-field">
-              <label class="modal-label" for="modalCheckOut">Check-Out Date *</label>
+              <label class="modal-label" for="modalCheckOut">Check-Out Date (Auto 3 Nights) *</label>
               <input type="date" id="modalCheckOut" class="modal-input" required>
             </div>
           </div>
