@@ -1,0 +1,25 @@
+{
+  "name": "The Reset Co. Sanctuary Operations HQ",
+  "short_name": "Reset Sanctuary",
+  "description": "Founder operations, cohort calendar, and clinical guest management for The Reset Co.",
+  "start_url": "/dashboard/",
+  "scope": "/dashboard/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0F2347",
+  "theme_color": "#0F2347",
+  "icons": [
+    {
+      "src": "/images/logo-emblem.png",
+      "sizes": "120x120",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo-emblem-navy.png",
+      "sizes": "370x370",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
