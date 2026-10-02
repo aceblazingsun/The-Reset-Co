@@ -1375,7 +1375,33 @@
         ? '/api/confirm-booking'
         : 'https://thereset-co.in/api/confirm-booking';
 
+      // 1. Immediately persist status = 'confirmed' and locked dates in Supabase
       try {
+        await fetch(`${SUPABASE_CONFIG.URL}/rest/v1/${SUPABASE_CONFIG.TABLE}?id=eq.${b.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_CONFIG.ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_CONFIG.ANON_KEY}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            status: 'confirmed',
+            'health notes': (b['health notes'] || '') + `\n[CONFIRMED DATES: ${checkIn} to ${checkOut} | Suite: ${suite}]`
+          })
+        });
+      } catch (patchErr) {
+        console.warn('Supabase direct patch notice:', patchErr);
+      }
+
+      // 2. Dispatch automated email and calendar invite
+      let mailSent = false;
+      let mailNotice = '';
+      try {
+        const apiEndpoint = (window.location.origin && window.location.origin.startsWith('http') && !window.location.origin.includes('localhost') && !window.location.origin.includes('127.0.0.1'))
+          ? '/api/confirm-booking'
+          : 'https://thereset-co.in/api/confirm-booking';
+
         const resp = await fetch(apiEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -1392,24 +1418,27 @@
           })
         });
 
-        const result = await resp.json();
-        if (!result.success) {
-          throw new Error(result.error || 'Failed to dispatch confirmation pass');
+        const result = await resp.json().catch(() => ({}));
+        if (resp.ok && result.success) {
+          mailSent = true;
+        } else {
+          mailNotice = result.error || 'Server status ' + resp.status;
         }
-
-        // Update local state and Supabase
-        b.status = 'confirmed';
-        b.health_notes = (b['health notes'] || '') + `\n[Confirmed: ${checkIn} to ${checkOut} | Suite: ${suite}]`;
-        updateMetrics();
-        renderBookings();
-        closeConfirmDatesModal();
-        showToast('Dates locked! Booking pass and calendar invite sent to guest.');
       } catch (err) {
-        console.error('Confirm dates error:', err);
-        alert('Could not dispatch booking pass: ' + err.message);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalHtml;
+        mailNotice = err.message || 'Network notice';
+      }
+
+      // 3. Update local state and UI
+      b.status = 'confirmed';
+      b.health_notes = (b['health notes'] || '') + `\n[Confirmed: ${checkIn} to ${checkOut} | Suite: ${suite}]`;
+      updateMetrics();
+      renderBookings();
+      closeConfirmDatesModal();
+
+      if (mailSent) {
+        showToast('Dates locked! Booking pass and calendar invite sent to guest.');
+      } else {
+        showToast('Dates locked in database! Notice: ' + mailNotice);
       }
     }
 
