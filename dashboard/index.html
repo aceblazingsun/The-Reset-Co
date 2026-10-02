@@ -40,11 +40,17 @@
       --sans: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
+    html {
+      overflow-x: hidden;
+      width: 100%;
+      -webkit-text-size-adjust: 100%;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -webkit-tap-highlight-color: transparent;
+      -webkit-tap-highlight-color: rgba(201, 168, 76, 0.15);
     }
 
     body {
@@ -52,9 +58,11 @@
       background-color: #F7F4EC;
       color: var(--text-main);
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
-      padding-bottom: 70px;
+      overflow-x: hidden;
+      width: 100%;
     }
 
     /* ─── AUTH SCREEN ─── */
@@ -930,6 +938,28 @@
       display: none;
     }
 
+    /* ─── CALENDAR SCROLL CONTAINER & HINT ─── */
+    .cal-scroll-container {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .cal-mobile-hint {
+      display: none;
+    }
+
+    /* ─── TACTILE TOUCH FEEDBACK (ANTISLOP) ─── */
+    button:active,
+    .btn-action:active,
+    .platform-chip:active,
+    .pill-btn:active,
+    .mobile-bar-btn:active,
+    .cal-pill:active {
+      transform: scale(0.97);
+      transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     /* ─── MOBILE BOTTOM BAR ─── */
     .mobile-bar {
       position: fixed;
@@ -972,22 +1002,376 @@
       height: 18px;
     }
 
-    @media (max-width: 640px) {
-      .modal-grid-2 {
-        grid-template-columns: 1fr;
+    /* ─── DESKTOP DISPLAY RULES (> 768px) ─── */
+    @media (min-width: 769px) {
+      body {
+        padding-bottom: 2rem;
       }
-      .inquiries-grid {
-        grid-template-columns: 1fr;
+      .mobile-bar {
+        display: none !important;
+      }
+    }
+
+    /* ─── TABLET & MOBILE BASE (<= 768px) ─── */
+    @media (max-width: 768px) {
+      body {
+        padding-bottom: calc(75px + env(safe-area-inset-bottom, 0px));
+      }
+      .mobile-bar {
+        display: flex;
+        padding-bottom: max(0.45rem, env(safe-area-inset-bottom, 0px));
+      }
+      /* Prevent iOS Safari automatic viewport zoom-in on all form controls */
+      input, select, textarea, .modal-input, .modal-select, .modal-textarea, .search-input, .auth-input {
+        font-size: 16px !important;
+      }
+    }
+
+    /* ─── MOBILE PHONES (<= 640px) ─── */
+    @media (max-width: 640px) {
+      header {
+        padding-top: max(0.4rem, env(safe-area-inset-top, 0px));
+      }
+      .header-inner {
+        padding: 0.65rem 1rem;
+      }
+      .header-logo-mark {
+        width: 28px;
+        height: 28px;
+      }
+      .header-title {
+        font-size: 1.15rem;
+      }
+      .badge-hq {
+        font-size: 0.58rem;
+        padding: 1px 5px;
+        margin-left: 3px;
+      }
+      .btn-header-lock {
+        padding: 0.35rem 0.65rem;
+        font-size: 0.75rem;
+        min-height: 38px;
+      }
+
+      /* Platform Hub: Smooth Horizontal Swipeable Ribbon */
+      .platform-hub {
+        padding: 0.5rem 1rem;
+      }
+      .platform-hub-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+      }
+      .platform-hub-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+      }
+      .platform-links {
+        width: 100%;
+        display: flex;
+        gap: 0.45rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 2px;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+      }
+      .platform-links::-webkit-scrollbar {
+        display: none;
+      }
+      .platform-chip {
+        flex-shrink: 0;
+        white-space: nowrap;
+        font-size: 0.76rem;
+        padding: 0.4rem 0.7rem;
+        min-height: 40px;
+      }
+
+      /* Tab Navigation */
+      .tab-nav-inner {
+        padding: 0 0.75rem;
+        gap: 0.5rem;
+      }
+      .tab-btn {
+        flex: 1;
+        justify-content: center;
+        padding: 0.75rem 0.25rem;
+        font-size: 0.85rem;
+        gap: 0.35rem;
+        min-height: 46px;
+      }
+      .tab-count {
+        font-size: 0.7rem;
+        padding: 1px 6px;
+      }
+
+      /* Main container padding */
+      main {
+        margin: 1rem auto;
+        padding: 0 0.85rem;
+      }
+
+      /* Metrics Strip: Compact 2x2 Grid */
+      .metrics-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.6rem;
+        margin-bottom: 1.25rem;
+      }
+      .metric-card {
+        padding: 0.85rem 0.75rem;
+      }
+      .metric-num {
+        font-size: 1.65rem;
+        margin-bottom: 0.15rem;
+      }
+      .metric-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.05em;
+        line-height: 1.2;
+      }
+
+      /* Calendar View on Mobile */
+      .cal-mobile-hint {
+        display: block;
+        background: #F1ECE1;
+        color: var(--text-muted);
+        font-size: 0.68rem;
+        text-align: center;
+        padding: 0.35rem 0.5rem;
+        border-bottom: 1px solid var(--border);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .calendar-header {
+        padding: 0.85rem 1rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.65rem;
+        text-align: center;
+      }
+      .cal-title-wrap {
+        justify-content: center;
+      }
+      .cal-month-title {
+        font-size: 1.35rem;
+      }
+      .cal-nav-btn, .cal-today-btn {
+        flex: 1;
+        min-height: 42px;
+        font-size: 0.82rem;
+      }
+      .cal-grid-days-header,
+      .cal-grid {
+        min-width: 500px;
       }
       .cal-grid-days-header {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
+        padding: 0.5rem 0;
       }
       .cal-day {
-        min-height: 75px;
-        padding: 0.3rem;
+        min-height: 78px;
+        padding: 0.3rem 0.2rem;
+      }
+      .cal-day-num {
+        font-size: 0.78rem;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        margin-bottom: 0.2rem;
       }
       .cal-pill {
-        font-size: 0.65rem;
+        font-size: 0.64rem;
+        padding: 2px 4px;
+        margin-bottom: 2px;
+        border-radius: 2px;
+      }
+
+      /* Timeline Card */
+      .timeline-card {
+        padding: 1.15rem 1rem;
+        border-radius: 6px;
+      }
+      .timeline-title {
+        font-size: 1.15rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+      }
+      .timeline-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.6rem;
+        padding: 0.85rem 0;
+      }
+      .timeline-row > div:last-child {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        width: 100%;
+      }
+      .timeline-suite {
+        width: 100%;
+        margin-bottom: 0.2rem;
+      }
+      .timeline-row .btn-action {
+        flex: 1;
+        justify-content: center;
+        min-height: 42px;
+        font-size: 0.82rem;
+      }
+
+      /* Controls Bar (Search & Filter) */
+      .controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+      }
+      .search-input {
+        width: 100%;
+        min-height: 44px;
+      }
+      .filter-pills {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+        padding: 2px 0 4px;
+        scrollbar-width: none;
+        gap: 0.35rem;
+      }
+      .filter-pills::-webkit-scrollbar {
+        display: none;
+      }
+      .pill-btn {
+        flex-shrink: 0;
+        white-space: nowrap;
+        min-height: 38px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.78rem;
+      }
+
+      /* Inquiry Cards */
+      .inquiries-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .inquiry-card {
+        padding: 1.15rem 1rem;
+        border-radius: 6px;
+      }
+      .inquiry-top {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.65rem;
+      }
+      .inquiry-top select {
+        width: 100% !important;
+        min-height: 44px !important;
+      }
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .card-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+      }
+      .card-actions .btn-confirm-dates {
+        grid-column: 1 / -1;
+        min-height: 46px;
+        font-size: 0.88rem;
+        justify-content: center;
+      }
+      .card-actions .btn-wa,
+      .card-actions .btn-call {
+        min-height: 44px;
+        justify-content: center;
+        font-size: 0.82rem;
+      }
+      .card-actions .btn-delete {
+        grid-column: 1 / -1;
+        min-height: 38px;
+        justify-content: center;
+        font-size: 0.78rem;
+        opacity: 0.7;
+        margin-top: 0.2rem;
+      }
+
+      /* Modal Dialog (Native Mobile Bottom-Sheet) */
+      .modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
+      .modal-card {
+        border-radius: 16px 16px 0 0;
+        max-height: 90vh;
+        max-height: 90dvh;
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      @keyframes modalSlideUp {
+        from { opacity: 0; transform: translateY(100%); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .modal-header {
+        padding: 1rem 1.25rem;
+        flex-shrink: 0;
+      }
+      .modal-title {
+        font-size: 1.15rem;
+      }
+      .modal-body {
+        padding: 1.15rem 1rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        flex: 1;
+      }
+      .modal-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .modal-footer {
+        padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px)) 1rem;
+        flex-direction: column-reverse;
+        gap: 0.5rem;
+        flex-shrink: 0;
+      }
+      .btn-primary-gold, .btn-secondary {
+        width: 100%;
+        min-height: 48px;
+        justify-content: center;
+        font-size: 0.92rem;
+      }
+
+      /* Passkey Auth Screen */
+      #auth-screen {
+        padding: max(1.5rem, env(safe-area-inset-top, 0px)) 1.25rem max(1.5rem, env(safe-area-inset-bottom, 0px)) 1.25rem;
+      }
+      .auth-card {
+        padding: 2rem 1.25rem;
+        border-radius: 8px;
+      }
+      .auth-brand {
+        font-size: 1.6rem;
+      }
+      .auth-btn {
+        min-height: 48px;
+      }
+    }
+
+    /* ─── PREFERS REDUCED MOTION ─── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        transform: none !important;
       }
     }
   </style>
@@ -1105,12 +1489,15 @@
           </div>
         </div>
 
-        <div class="cal-grid-days-header">
-          <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-        </div>
+        <div class="cal-mobile-hint">Swipe horizontally to view full week &rarr;</div>
+        <div class="cal-scroll-container">
+          <div class="cal-grid-days-header">
+            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+          </div>
 
-        <div class="cal-grid" id="calendarGrid">
-          <!-- Calendar cells rendered via JavaScript -->
+          <div class="cal-grid" id="calendarGrid">
+            <!-- Calendar cells rendered via JavaScript -->
+          </div>
         </div>
       </div>
 
