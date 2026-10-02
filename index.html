@@ -222,6 +222,26 @@
     background: var(--royal-deep);
     color: var(--gold);
   }
+  .nav-properties-link {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    text-decoration: none;
+    padding: 0.55rem 1rem;
+    border-radius: 2px;
+    border: 1px solid rgba(201,168,76,0.3);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .nav-properties-link:hover {
+    color: #FDFAF3;
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.12);
+  }
 
   .nav-hamburger {
     display: inline-flex;
@@ -1088,7 +1108,7 @@
     }
   }
   @media (max-width: 600px) {
-    .nav-cta { display: none; }
+    .nav-cta, .nav-properties-link { display: none; }
     .hero-cta-row {
       flex-direction: column;
       width: 100%;
@@ -1227,6 +1247,7 @@
     <span>The Reset <span>Co.</span></span>
   </a>
   <div class="nav-right">
+    <a class="nav-properties-link" href="properties.html">Properties</a>
     <a class="nav-cta" href="#pricing">Reserve Sanctuary</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Toggle sanctuary navigation menu" aria-expanded="false">
       <div class="hamburger-bars">
@@ -1255,32 +1276,36 @@
       <span class="num">01</span>
       <span>The Sanctuary</span>
     </a>
-    <a class="drawer-link" href="#founders" onclick="closeNavDrawer()">
+    <a class="drawer-link" href="properties.html">
       <span class="num">02</span>
+      <span>Sanctuary Properties &amp; Suites</span>
+    </a>
+    <a class="drawer-link" href="#founders" onclick="closeNavDrawer()">
+      <span class="num">03</span>
       <span>Founding Doctors</span>
     </a>
     <a class="drawer-link" href="#services" onclick="closeNavDrawer()">
-      <span class="num">03</span>
+      <span class="num">04</span>
       <span>Clinical Disciplines</span>
     </a>
     <a class="drawer-link" href="#prakriti" onclick="closeNavDrawer()">
-      <span class="num">04</span>
+      <span class="num">05</span>
       <span>Prakriti Assessment</span>
     </a>
     <a class="drawer-link" href="#retreats" onclick="closeNavDrawer()">
-      <span class="num">05</span>
+      <span class="num">06</span>
       <span>Daily Retreat Rhythm</span>
     </a>
     <a class="drawer-link" href="#pricing" onclick="closeNavDrawer()">
-      <span class="num">06</span>
+      <span class="num">07</span>
       <span>Programmes &amp; Tariffs</span>
     </a>
     <a class="drawer-link" href="#welcome-kit" onclick="closeNavDrawer()">
-      <span class="num">07</span>
+      <span class="num">08</span>
       <span>Sanctuary Welcome Kit</span>
     </a>
     <a class="drawer-link" href="#contact" onclick="closeNavDrawer()">
-      <span class="num">08</span>
+      <span class="num">09</span>
       <span>Contact &amp; Reservations</span>
     </a>
   </div>
@@ -2034,6 +2059,7 @@
         <div class="ft-group">
           <h4>Exploration</h4>
           <a href="#about">About Sanctuary</a>
+          <a href="properties.html">Sanctuary Properties &amp; Suites</a>
           <a href="#founders">Founding Doctors</a>
           <a href="/dosha-prakriti-assessment">Prakriti Assessment</a>
           <a href="#welcome-kit">Welcome Kit</a>
