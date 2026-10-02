@@ -2779,10 +2779,29 @@
     if (planNameSpan) {
       planNameSpan.innerText = planName;
     }
+    let assignedRefCode = 'TRC-' + Math.floor(1000 + Math.random() * 9000);
     if (refCodeSpan) {
-      const randomRef = 'TRC-' + Math.floor(1000 + Math.random() * 9000);
-      refCodeSpan.innerText = 'Reservation Ref: ' + randomRef;
+      refCodeSpan.innerText = 'Reservation Ref: ' + assignedRefCode;
     }
+
+    // 2. Asynchronously fire automated email confirmation (Vercel Serverless API)
+    try {
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          phone: phone,
+          email: email,
+          plan: plan,
+          planName: planName,
+          dates: dates,
+          notes: notes,
+          refCode: assignedRefCode,
+          prakritiProfile: (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('trc_prakriti_dosha') : null) || null
+        })
+      }).catch(err => console.warn('Automated email dispatch note:', err));
+    } catch (_) {}
 
     // 3. Smooth transition to confirmation screen on page
     if (form && successCard) {
