@@ -222,26 +222,6 @@
     background: var(--royal-deep);
     color: var(--gold);
   }
-  .nav-properties-link {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold-light);
-    text-decoration: none;
-    padding: 0.55rem 1rem;
-    border-radius: 2px;
-    border: 1px solid rgba(201,168,76,0.3);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-  }
-  .nav-properties-link:hover {
-    color: #FDFAF3;
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.12);
-  }
 
   .nav-hamburger {
     display: inline-flex;
@@ -623,6 +603,91 @@
   .quote-attr { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(201,168,76,0.25); }
   .quote-name { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
   .quote-role { font-size: 0.75rem; color: rgba(253,250,243,0.5); margin-top: 3px; }
+
+  /* ─── EXPLORE OUR PROPERTIES SPOTLIGHT ─── */
+  .explore-properties-sec {
+    background: var(--royal-deep);
+    color: var(--ivory);
+    padding: 5rem 0;
+    position: relative;
+    border-top: 1px solid rgba(201, 168, 76, 0.2);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  }
+  .explore-prop-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    border-radius: 4px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  .explore-prop-visual {
+    position: relative;
+    border-radius: 3px;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--stone);
+  }
+  .explore-prop-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .explore-prop-wrap:hover .explore-prop-visual img {
+    transform: scale(1.03);
+  }
+  .explore-prop-tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(15, 35, 71, 0.88);
+    color: var(--gold-light);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    backdrop-filter: blur(4px);
+  }
+  .explore-prop-info .sec-label {
+    color: var(--gold);
+  }
+  .explore-prop-info .sec-title {
+    color: var(--ivory);
+    margin-bottom: 0.75rem;
+  }
+  .explore-prop-info .sec-body {
+    color: rgba(253, 250, 243, 0.75);
+    margin-bottom: 2rem;
+  }
+  .explore-prop-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .explore-prop-actions .btn-outline {
+    color: var(--ivory);
+    border-color: rgba(201, 168, 76, 0.4);
+  }
+  .explore-prop-actions .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+    background: rgba(201, 168, 76, 0.08);
+  }
+  @media (max-width: 850px) {
+    .explore-prop-wrap {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 1.5rem;
+    }
+  }
 
   /* ─── FOUNDERS ─── */
   .founders { background: var(--ivory); }
@@ -1108,7 +1173,7 @@
     }
   }
   @media (max-width: 600px) {
-    .nav-cta, .nav-properties-link { display: none; }
+    .nav-cta { display: none; }
     .hero-cta-row {
       flex-direction: column;
       width: 100%;
@@ -1247,7 +1312,6 @@
     <span>The Reset <span>Co.</span></span>
   </a>
   <div class="nav-right">
-    <a class="nav-properties-link" href="properties.html">Properties</a>
     <a class="nav-cta" href="#pricing">Reserve Sanctuary</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Toggle sanctuary navigation menu" aria-expanded="false">
       <div class="hamburger-bars">
@@ -1278,7 +1342,7 @@
     </a>
     <a class="drawer-link" href="properties.html">
       <span class="num">02</span>
-      <span>Sanctuary Properties &amp; Suites</span>
+      <span>Explore Our Properties</span>
     </a>
     <a class="drawer-link" href="#founders" onclick="closeNavDrawer()">
       <span class="num">03</span>
@@ -1374,6 +1438,28 @@
         <div class="quote-attr">
           <div class="quote-name">Dr. Himanshu Bhatt &amp; Dr. Aditya Kaundal</div>
           <div class="quote-role">BAMS Ayurvedic Physicians &amp; Founders</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPLORE OUR PROPERTIES SPOTLIGHT ─── -->
+<section class="explore-properties-sec" id="properties">
+  <div class="inner">
+    <div class="explore-prop-wrap fade-up">
+      <div class="explore-prop-visual">
+        <img src="images/hero_sanctuary.jpg" alt="The Reset Co Sanctuary Grounds Bir Billing" loading="lazy">
+        <div class="explore-prop-tag">Sanctuary Grounds</div>
+      </div>
+      <div class="explore-prop-info">
+        <p class="sec-label">The Sanctuaries</p>
+        <h2 class="sec-title">Explore our <em>properties</em></h2>
+        <div class="divider"></div>
+        <p class="sec-body">Secluded amidst the quiet pine ridges and mountain air of Bir Billing, Himachal Pradesh. Our sanctuary properties are selected for absolute sensory decompression, natural stillness, and classical Ayurvedic care.</p>
+        <div class="explore-prop-actions">
+          <a class="btn-primary" href="properties.html">Explore Our Properties &rarr;</a>
+          <a class="btn-outline" href="https://wa.me/917888540046" target="_blank" rel="noopener">WhatsApp Concierge</a>
         </div>
       </div>
     </div>
@@ -2059,7 +2145,7 @@
         <div class="ft-group">
           <h4>Exploration</h4>
           <a href="#about">About Sanctuary</a>
-          <a href="properties.html">Sanctuary Properties &amp; Suites</a>
+          <a href="properties.html">Explore Our Properties</a>
           <a href="#founders">Founding Doctors</a>
           <a href="/dosha-prakriti-assessment">Prakriti Assessment</a>
           <a href="#welcome-kit">Welcome Kit</a>

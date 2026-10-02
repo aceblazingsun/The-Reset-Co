@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>Sanctuary Properties &amp; Residencies | The Reset Co.</title>
+<title>Sanctuary Properties | The Reset Co.</title>
 
 <!-- SEO & Search Engine Indexing -->
-<meta name="description" content="Explore The Reset Co. Ayurvedic retreat properties and mountain suites across Bir Billing, Himachal Pradesh. Classical panchakarma sanctuaries, forest residencies, and quiet Himalayan healing.">
-<meta name="keywords" content="the reset co properties, ayurvedic retreat properties himachal pradesh, bir billing sanctuary, luxury wellness suites himachal, panchakarma estate india">
+<meta name="description" content="Explore The Reset Co. Ayurvedic retreat properties in Bir Billing, Himachal Pradesh. Classical panchakarma sanctuaries, restorative mountain settings, and doctor-led care.">
+<meta name="keywords" content="the reset co properties, ayurvedic retreat properties himachal pradesh, bir billing sanctuary, wellness retreat india">
 <link rel="canonical" href="https://www.thereset-co.in/properties">
 <meta name="robots" content="index, follow, max-image-preview:large">
 
 <!-- Open Graph / Social Media -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Reset Co.">
-<meta property="og:title" content="Sanctuary Properties &amp; Residencies | The Reset Co.">
-<meta property="og:description" content="Doctor-led Ayurvedic retreat properties and mountain suites in Bir Billing, Himachal Pradesh.">
+<meta property="og:title" content="Sanctuary Properties | The Reset Co.">
+<meta property="og:description" content="Doctor-led Ayurvedic retreat properties in Bir Billing, Himachal Pradesh.">
 <meta property="og:url" content="https://www.thereset-co.in/properties">
 <meta property="og:image" content="https://www.thereset-co.in/images/hero_sanctuary.jpg">
 
@@ -99,7 +99,7 @@
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 1.75rem;
+    gap: 1.5rem;
   }
 
   .nav-link {
@@ -139,7 +139,7 @@
   .prop-hero {
     background: var(--royal-deep);
     color: var(--ivory);
-    padding: 8rem 1.5rem 4.5rem;
+    padding: 7.5rem 1.5rem 3.5rem;
     text-align: center;
     position: relative;
     border-bottom: 1px solid rgba(201, 168, 76, 0.2);
@@ -160,56 +160,26 @@
 
   .prop-hero h1 {
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
     font-weight: 400;
-    color: var(--ivory);
+    letter-spacing: 0.03em;
     line-height: 1.2;
     margin-bottom: 1rem;
-    max-width: 840px;
-    margin-left: auto;
-    margin-right: auto;
+    color: var(--ivory);
   }
 
   .prop-hero p {
-    font-size: clamp(0.95rem, 1.8vw, 1.12rem);
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
     color: rgba(253, 250, 243, 0.75);
     max-width: 680px;
-    margin: 0 auto 2rem;
+    margin: 0 auto;
+    line-height: 1.7;
     font-weight: 300;
   }
 
-  .prop-stats-strip {
-    display: flex;
-    justify-content: center;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(201, 168, 76, 0.15);
-  }
-
-  .prop-stat-item {
-    text-align: center;
-  }
-
-  .prop-stat-val {
-    font-family: var(--serif);
-    font-size: 1.8rem;
-    color: var(--gold-light);
-    line-height: 1;
-  }
-
-  .prop-stat-lbl {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(253, 250, 243, 0.6);
-    margin-top: 4px;
-  }
-
-  /* ─── MAIN CONTENT ─── */
+  /* ─── MAIN CONTAINER ─── */
   .prop-container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 3.5rem 1.5rem 5rem;
   }
@@ -218,22 +188,22 @@
   .property-card {
     background: #FFFFFF;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 3.5rem;
-    box-shadow: 0 10px 30px rgba(15, 35, 71, 0.04);
-    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 8px 30px rgba(15, 35, 71, 0.06);
+    margin-bottom: 3rem;
   }
 
   .property-hero-grid {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    min-height: 380px;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 0;
   }
 
   .property-gallery-box {
     position: relative;
-    background: var(--royal-deep);
+    min-height: 380px;
+    background: var(--stone);
     overflow: hidden;
   }
 
@@ -242,43 +212,46 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    min-height: 300px;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .property-card:hover .property-main-img {
+    transform: scale(1.02);
   }
 
   .property-badge-floating {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background: rgba(15, 35, 71, 0.88);
+    top: 1.25rem;
+    left: 1.25rem;
+    background: rgba(15, 35, 71, 0.9);
     color: var(--gold-light);
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 3px;
+    padding: 6px 12px;
+    border-radius: 2px;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    font-weight: 500;
     backdrop-filter: blur(4px);
-    font-weight: 600;
   }
 
   .property-info-pane {
-    padding: 2.25rem 2rem;
+    padding: 2.5rem 2.25rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: #FFFFFF;
   }
 
   .property-loc {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 6px;
+    font-size: 0.76rem;
     color: var(--gold-dark);
-    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
   }
 
   .property-title {
@@ -289,42 +262,42 @@
     margin-bottom: 0.85rem;
   }
 
-  .property-address {
-    font-size: 0.84rem;
-    color: var(--text-muted);
-    line-height: 1.5;
+  .property-address-box {
     margin-bottom: 1.25rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .property-address-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .property-address-value {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-style: italic;
   }
 
   .property-desc {
-    font-size: 0.92rem;
+    font-size: 0.94rem;
     color: #4A5568;
     line-height: 1.7;
-    margin-bottom: 1.5rem;
-  }
-
-  .property-highlights-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .prop-chip {
-    background: var(--stone);
-    color: var(--royal-deep);
-    font-size: 0.76rem;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-weight: 500;
+    margin-bottom: 1.75rem;
   }
 
   .property-action-bar {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.85rem;
     flex-wrap: wrap;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
   }
 
   .btn-reserve-prop {
@@ -338,177 +311,134 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     text-decoration: none;
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    min-height: 44px;
-    transition: background 0.15s;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-reserve-prop:hover {
     background: var(--royal);
+    color: var(--gold-light);
   }
 
   .btn-wa-prop {
-    background: #128C7E;
-    color: #FFFFFF;
-    padding: 0.75rem 1.2rem;
+    background: transparent;
+    color: var(--royal-deep);
+    border: 1px solid rgba(15, 35, 71, 0.3);
+    padding: 0.75rem 1.25rem;
     border-radius: 4px;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 500;
     text-decoration: none;
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    min-height: 44px;
+    gap: 8px;
+    transition: all 0.2s;
   }
 
-  /* ─── SUITE TILES GRID INSIDE PROPERTY ─── */
-  .suites-section {
-    padding: 2rem;
-    background: #FCFAF6;
-    border-top: 1px solid var(--border);
+  .btn-wa-prop:hover {
+    border-color: var(--royal-deep);
+    background: rgba(15, 35, 71, 0.04);
   }
 
-  .suites-sec-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .suites-sec-title {
-    font-family: var(--serif);
-    font-size: 1.45rem;
-    color: var(--royal-deep);
-    font-weight: 500;
-  }
-
-  .suites-sec-sub {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-  }
-
-  .suites-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.25rem;
-  }
-
-  .suite-card {
+  /* ─── VISUAL GALLERY CONTAINER ─── */
+  .gallery-showcase-card {
     background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: 6px;
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 20px rgba(15, 35, 71, 0.04);
   }
 
-  .suite-name {
-    font-family: var(--serif);
-    font-size: 1.25rem;
-    color: var(--royal-deep);
-    font-weight: 600;
-    line-height: 1.25;
-    margin-bottom: 0.35rem;
-  }
-
-  .suite-specs {
-    font-size: 0.78rem;
-    color: var(--gold-dark);
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-  }
-
-  .suite-features-list {
-    list-style: none;
-    margin-bottom: 1.25rem;
-  }
-
-  .suite-features-list li {
-    font-size: 0.82rem;
-    color: #4A5568;
-    padding: 3px 0;
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-  }
-
-  .suite-features-list li::before {
-    content: "•";
-    color: var(--gold);
-    font-size: 1rem;
-    line-height: 1;
-  }
-
-  .suite-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 0.75rem;
-    border-top: 1px solid #F1ECE1;
-  }
-
-  .suite-capacity {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .suite-link {
-    font-size: 0.8rem;
-    color: var(--royal-deep);
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .suite-link:hover {
-    color: var(--gold);
-  }
-
-  /* ─── UPLOAD NOTICE BANNER (HELPER FOR FOUNDERS) ─── */
-  .upload-note-card {
-    background: rgba(201, 168, 76, 0.08);
-    border: 1px dashed rgba(201, 168, 76, 0.4);
-    border-radius: 6px;
-    padding: 1.25rem 1.5rem;
-    margin: 3rem auto 0;
-    max-width: 900px;
+  .gallery-header {
+    margin-bottom: 1.5rem;
     text-align: center;
   }
 
-  .upload-note-card h4 {
-    font-family: var(--serif);
-    font-size: 1.2rem;
-    color: var(--royal-deep);
+  .gallery-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
     margin-bottom: 0.35rem;
   }
 
-  .upload-note-card p {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.5;
+  .gallery-title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    color: var(--royal-deep);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .gallery-item {
+    background: var(--stone);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.03);
+  }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(15, 35, 71, 0.85) 0%, transparent 100%);
+    padding: 1.25rem 1rem 0.65rem;
+    color: var(--ivory);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
   }
 
   /* ─── FOOTER ─── */
   footer {
     background: var(--royal-deep);
     color: var(--ivory);
-    padding: 4rem 1.5rem 2.5rem;
+    padding: 3.5rem 1.5rem 2rem;
     border-top: 1px solid rgba(201, 168, 76, 0.2);
   }
 
   .footer-inner {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.5fr repeat(3, 1fr);
-    gap: 2.5rem;
-    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
   }
 
   .footer-brand a {
     font-family: var(--serif);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: var(--ivory);
     text-decoration: none;
     letter-spacing: 0.05em;
@@ -520,41 +450,34 @@
 
   .footer-tagline {
     font-size: 0.82rem;
-    color: rgba(253, 250, 243, 0.6);
-    margin-top: 0.5rem;
-    line-height: 1.6;
+    color: rgba(253, 250, 243, 0.65);
+    margin-top: 0.35rem;
   }
 
-  .footer-col h4 {
-    font-size: 0.78rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-    font-family: var(--sans);
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
   }
 
-  .footer-col a {
-    display: block;
-    color: rgba(253, 250, 243, 0.7);
+  .footer-links a {
+    color: rgba(253, 250, 243, 0.75);
     text-decoration: none;
     font-size: 0.85rem;
-    margin-bottom: 0.65rem;
     transition: color 0.2s;
   }
 
-  .footer-col a:hover {
+  .footer-links a:hover {
     color: var(--gold-light);
   }
 
   .footer-bottom {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(201, 168, 76, 0.15);
+    padding-top: 1.5rem;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
     font-size: 0.78rem;
@@ -562,13 +485,15 @@
   }
 
   /* ─── RESPONSIVE BREAKPOINTS (ANTISLOP) ─── */
-  @media (max-width: 900px) {
+  @media (max-width: 850px) {
     .property-hero-grid {
       grid-template-columns: 1fr;
     }
-    .footer-inner {
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+    .property-gallery-box {
+      min-height: 280px;
+    }
+    .property-info-pane {
+      padding: 1.75rem 1.5rem;
     }
   }
 
@@ -580,25 +505,13 @@
       display: none;
     }
     .prop-hero {
-      padding: 6.5rem 1rem 3rem;
-    }
-    .prop-stats-strip {
-      gap: 1.5rem;
+      padding: 6rem 1rem 2.5rem;
     }
     .prop-container {
       padding: 2rem 1rem 3.5rem;
     }
-    .property-info-pane {
-      padding: 1.5rem 1.25rem;
-    }
     .property-title {
       font-size: 1.6rem;
-    }
-    .suites-section {
-      padding: 1.25rem 1rem;
-    }
-    .suites-grid {
-      grid-template-columns: 1fr;
     }
     .property-action-bar {
       flex-direction: column;
@@ -607,9 +520,13 @@
       width: 100%;
       justify-content: center;
     }
+    .gallery-showcase-card {
+      padding: 1.25rem 1rem;
+    }
     .footer-inner {
-      grid-template-columns: 1fr;
-      gap: 2rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
     }
     .footer-bottom {
       flex-direction: column;
@@ -635,8 +552,8 @@
       <span class="nav-logo-text">The Reset <span>Co.</span></span>
     </a>
     <div class="nav-links">
+      <a class="nav-link" href="/">Home</a>
       <a class="nav-link" href="/#about">The Sanctuary</a>
-      <a class="nav-link active" href="/properties">Properties</a>
       <a class="nav-link" href="/#pricing">Programmes</a>
       <a class="nav-link" href="/#contact">Contact</a>
       <a class="nav-cta" href="/#pricing">Reserve Retreat</a>
@@ -645,196 +562,43 @@
 
   <!-- ─── HERO HEADER ─── -->
   <header class="prop-hero">
-    <div class="prop-hero-tag">Himalayan Retreat Sanctuaries</div>
-    <h1>Sanctuary Properties &amp; Mountain Residencies</h1>
+    <div class="prop-hero-tag">The Reset Co. Sanctuaries</div>
+    <h1>Sanctuary Properties</h1>
     <p>
-      Nestled amidst ancient deodar forests and glacial riverbanks in Himachal Pradesh. 
-      Engineered for deep nervous system decompression, classical panchakarma therapy, and undisturbed silence.
+      Doctor-led Ayurvedic retreat properties set within the Himalayan pine forests of Bir Billing, Himachal Pradesh.
     </p>
-
-    <div class="prop-stats-strip">
-      <div class="prop-stat-item">
-        <div class="prop-stat-val">1,525m+</div>
-        <div class="prop-stat-lbl">Himalayan Elevation</div>
-      </div>
-      <div class="prop-stat-item">
-        <div class="prop-stat-val">15</div>
-        <div class="prop-stat-lbl">Strict Cohort Cap</div>
-      </div>
-      <div class="prop-stat-item">
-        <div class="prop-stat-val">100%</div>
-        <div class="prop-stat-lbl">Doctor Supervised</div>
-      </div>
-      <div class="prop-stat-item">
-        <div class="prop-stat-val">Zero</div>
-        <div class="prop-stat-lbl">Acoustic Pollution</div>
-      </div>
-    </div>
   </header>
 
-  <!-- ─── PROPERTIES LIST ─── -->
+  <!-- ─── PROPERTIES SHOWCASE ─── -->
   <main class="prop-container">
 
-    <!-- PROPERTY 1: FLAGSHIP SANCTUARY ESTATE -->
-    <article class="property-card" id="bir-flagship">
+    <article class="property-card" id="sanctuary-estate">
       <div class="property-hero-grid">
         <div class="property-gallery-box">
-          <!-- Main Hero Picture (Placeholder using existing sanctuary asset, ready for upload swap) -->
-          <img src="images/hero_sanctuary.jpg" alt="The Reset Co. Flagship Sanctuary Bir Billing" class="property-main-img">
-          <span class="property-badge-floating">Primary Sanctuary Estate</span>
+          <img src="images/hero_sanctuary.jpg" alt="The Reset Co. Sanctuary Grounds Bir Billing" class="property-main-img">
+          <span class="property-badge-floating">Sanctuary Grounds</span>
         </div>
         <div class="property-info-pane">
           <div>
             <div class="property-loc">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-              Bir Billing Foothills, Kangra
+              Bir Billing, Himachal Pradesh
             </div>
-            <h2 class="property-title">The Reset Co. Flagship Sanctuary &amp; Forest Estate</h2>
-            <div class="property-address">
-              Upper Bir Pine Ridge Road, Tehsil Baijnath, District Kangra, Himachal Pradesh 176077, India<br>
-              <strong>Coordinates:</strong> 32.0526° N, 76.7202° E &bull; <strong>Altitude:</strong> 1,525m (5,000 ft)
+            <h2 class="property-title">The Reset Co. Sanctuary</h2>
+            
+            <div class="property-address-box">
+              <div class="property-address-label">Location &amp; Address</div>
+              <div class="property-address-value">Address details will be provided</div>
             </div>
+
             <p class="property-desc">
-              Our flagship sanctuary is situated directly bordering an ancient deodar ridge in the Kangra valley. 
-              Featuring an elevated open-air cedar yoga shala, classical panchakarma treatment pavilions with handcrafted 
-              wooden droni tables, an organic herbal medicinal garden, and uninterrupted vistas of the snow-clad Dhauladhar range.
+              Our sanctuary estate is set in the pine valleys of Bir Billing, designed for authentic clinical Ayurveda, unhurried rest, and silent nervous system renewal under the direct care of our founding BAMS doctors.
             </p>
-            <div class="property-highlights-row">
-              <span class="prop-chip">Panoramic Mountain Shala</span>
-              <span class="prop-chip">4 Dedicated Basti Chambers</span>
-              <span class="prop-chip">Organic Satvik Dining Hall</span>
-              <span class="prop-chip">Private Pine Forest Trail</span>
-            </div>
           </div>
 
           <div class="property-action-bar">
-            <a href="/#pricing" class="btn-reserve-prop">Reserve Cohort Suite &rarr;</a>
-            <a href="https://wa.me/917888540046?text=Hello%20Dr.%20Aditya%20and%20Dr.%20Himanshu,%20I%20would%20like%20to%20inquire%20about%20staying%20at%20The%20Reset%20Co.%20Flagship%20Sanctuary%20in%20Bir%20Billing." target="_blank" rel="noopener" class="btn-wa-prop">
-              WhatsApp Concierge
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- SUITE CONFIGURATIONS -->
-      <div class="suites-section">
-        <div class="suites-sec-header">
-          <h3 class="suites-sec-title">Available Sanctuary Suites &amp; Pavilions</h3>
-          <p class="suites-sec-sub">Each accommodation is crafted with natural local timber, stone, and Ayurvedic sleep ergonomics.</p>
-        </div>
-        <div class="suites-grid">
-          
-          <!-- Suite 1 -->
-          <div class="suite-card">
-            <div>
-              <h4 class="suite-name">Himalayan Cedar Sanctuary Suite</h4>
-              <div class="suite-specs">650 SQ FT &bull; Forest &amp; Ridge Panorama</div>
-              <ul class="suite-features-list">
-                <li>Private cedarwood soaking tub with herbal salts</li>
-                <li>Wrap-around private sun terrace overlooking pines</li>
-                <li>Dedicated in-room meditation alcove</li>
-                <li>Copper water dispensing urn and natural linens</li>
-              </ul>
-            </div>
-            <div class="suite-footer">
-              <span class="suite-capacity">Capacity: 1 to 2 Guests</span>
-              <a href="/#pricing" class="suite-link">Select Suite &rarr;</a>
-            </div>
-          </div>
-
-          <!-- Suite 2 -->
-          <div class="suite-card">
-            <div>
-              <h4 class="suite-name">Oak Forest Deluxe Pavilion</h4>
-              <div class="suite-specs">520 SQ FT &bull; Forest Canopy View</div>
-              <ul class="suite-features-list">
-                <li>Direct forest nature path access</li>
-                <li>Handcrafted Himalayan cane lounge seating</li>
-                <li>Customized herbal steam bath enclosure</li>
-                <li>Acoustic silence insulation for deep sleep</li>
-              </ul>
-            </div>
-            <div class="suite-footer">
-              <span class="suite-capacity">Capacity: 1 to 2 Guests</span>
-              <a href="/#pricing" class="suite-link">Select Suite &rarr;</a>
-            </div>
-          </div>
-
-          <!-- Suite 3 -->
-          <div class="suite-card">
-            <div>
-              <h4 class="suite-name">Mountain Panorama Suite</h4>
-              <div class="suite-specs">700 SQ FT &bull; Dhauladhar Peak View</div>
-              <ul class="suite-features-list">
-                <li>Floor-to-ceiling panoramic glass windows</li>
-                <li>Private outdoor sit-out facing the sunset ridge</li>
-                <li>Bespoke brass fixtures and Ayurvedic brass carafe</li>
-                <li>Doctor-curated circadian night lighting</li>
-              </ul>
-            </div>
-            <div class="suite-footer">
-              <span class="suite-capacity">Capacity: 1 to 2 Guests</span>
-              <a href="/#pricing" class="suite-link">Select Suite &rarr;</a>
-            </div>
-          </div>
-
-          <!-- Suite 4 -->
-          <div class="suite-card">
-            <div>
-              <h4 class="suite-name">Sanctuary Residency Deluxe Room</h4>
-              <div class="suite-specs">420 SQ FT &bull; Inner Garden Courtyard</div>
-              <ul class="suite-features-list">
-                <li>Hand-spun organic khadi cotton bedding</li>
-                <li>Quiet courtyard fountain facing room</li>
-                <li>Daily customized triphala evening tea service</li>
-                <li>Ergonomic meditation floor cushions</li>
-              </ul>
-            </div>
-            <div class="suite-footer">
-              <span class="suite-capacity">Capacity: 1 Guest (Solo Decompression)</span>
-              <a href="/#pricing" class="suite-link">Select Suite &rarr;</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </article>
-
-    <!-- PROPERTY 2: RIVERSIDE HEALING RETREAT -->
-    <article class="property-card" id="kangra-riverside">
-      <div class="property-hero-grid">
-        <div class="property-gallery-box">
-          <!-- Main Hero Picture (Placeholder using meditation asset, ready for upload swap) -->
-          <img src="images/meditation.jpg" alt="Dhauladhar Foothills Riverside Retreat Kangra" class="property-main-img">
-          <span class="property-badge-floating">Riverside &amp; Hydro-Healing</span>
-        </div>
-        <div class="property-info-pane">
-          <div>
-            <div class="property-loc">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-              Chogan Valley, Kangra District
-            </div>
-            <h2 class="property-title">Dhauladhar Foothills Riverside Retreat</h2>
-            <div class="property-address">
-              Riverside Valley Banks, Lower Chogan Road, District Kangra, Himachal Pradesh 176077, India<br>
-              <strong>Coordinates:</strong> 32.0381° N, 76.7118° E &bull; <strong>Altitude:</strong> 1,400m (4,600 ft)
-            </div>
-            <p class="property-desc">
-              Bordered by natural glacial river currents and quiet organic tea terraces, this property focuses on 
-              Jala Chikitsa (hydrotherapy), silence meditation, and cellular rejuvenation away from town settlements. 
-              The sound of flowing glacial water naturally lowers sympathetic nervous system tone and cortisol.
-            </p>
-            <div class="property-highlights-row">
-              <span class="prop-chip">Glacial Stream Deck</span>
-              <span class="prop-chip">Tea Terrace Garden Walks</span>
-              <span class="prop-chip">Silent Sound Healing Dome</span>
-              <span class="prop-chip">Kashaya Herbal Steam</span>
-            </div>
-          </div>
-
-          <div class="property-action-bar">
-            <a href="/#pricing" class="btn-reserve-prop">Reserve Riverside Suite &rarr;</a>
-            <a href="https://wa.me/917888540046?text=Hello%20Dr.%20Aditya%20and%20Dr.%20Himanshu,%20I%20would%20like%20to%20inquire%20about%20the%20Riverside%20Retreat%20in%20Kangra%20Valley." target="_blank" rel="noopener" class="btn-wa-prop">
+            <a href="/#pricing" class="btn-reserve-prop">Reserve Retreat &rarr;</a>
+            <a href="https://wa.me/917888540046" target="_blank" rel="noopener" class="btn-wa-prop">
               WhatsApp Concierge
             </a>
           </div>
@@ -842,56 +606,27 @@
       </div>
     </article>
 
-    <!-- PROPERTY 3: HIGH RIDGE HERMITAGE -->
-    <article class="property-card" id="billing-ridge">
-      <div class="property-hero-grid">
-        <div class="property-gallery-box">
-          <!-- Main Hero Picture (Placeholder using yoga asset, ready for upload swap) -->
-          <img src="images/yoga.jpg" alt="Cedar Ridge Meditation Hermitage Upper Billing" class="property-main-img">
-          <span class="property-badge-floating">High Altitude Hermitage</span>
+    <!-- VISUAL GALLERY PLACEHOLDER FOR UPCOMING IMAGES -->
+    <section class="gallery-showcase-card">
+      <div class="gallery-header">
+        <p class="gallery-label">Visual Gallery</p>
+        <h3 class="gallery-title">Sanctuary Photography</h3>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="images/hero_sanctuary.jpg" alt="Sanctuary Exterior Bir Billing" loading="lazy">
+          <div class="gallery-caption">Sanctuary Exterior &amp; Grounds</div>
         </div>
-        <div class="property-info-pane">
-          <div>
-            <div class="property-loc">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-              Billing Ridge Heights, Himachal Pradesh
-            </div>
-            <h2 class="property-title">Cedar Ridge Meditation Hermitage</h2>
-            <div class="property-address">
-              High Ridge Forest Path, Billing Heights, Himachal Pradesh 176077, India<br>
-              <strong>Coordinates:</strong> 32.0680° N, 76.7410° E &bull; <strong>Altitude:</strong> 2,400m (7,870 ft)
-            </div>
-            <p class="property-desc">
-              An exclusive high-altitude refuge designed for intensive sensory deprivation, breathwork (Pranayama), 
-              and silent introspection. Nestled above cloud cover with 360-degree Himalayan views, this hermitage offers 
-              the purest unadulterated prana and astronomical night skies.
-            </p>
-            <div class="property-highlights-row">
-              <span class="prop-chip">High-Altitude Prana</span>
-              <span class="prop-chip">Above-the-Clouds Sit-out</span>
-              <span class="prop-chip">Wood-Fired Warming Fireplace</span>
-              <span class="prop-chip">Intensive Silent Dhyana</span>
-            </div>
-          </div>
-
-          <div class="property-action-bar">
-            <a href="/#pricing" class="btn-reserve-prop">Inquire For Ridge Hermitage &rarr;</a>
-            <a href="https://wa.me/917888540046?text=Hello%20Dr.%20Aditya%20and%20Dr.%20Himanshu,%20I%20would%20like%20to%20inquire%20about%20the%20Cedar%20Ridge%20Hermitage." target="_blank" rel="noopener" class="btn-wa-prop">
-              WhatsApp Concierge
-            </a>
-          </div>
+        <div class="gallery-item">
+          <img src="images/meditation.jpg" alt="Dhyana Meditation Space" loading="lazy">
+          <div class="gallery-caption">Quiet Dhyana &amp; Rest Space</div>
+        </div>
+        <div class="gallery-item">
+          <img src="images/yoga.jpg" alt="Morning Yoga Shala" loading="lazy">
+          <div class="gallery-caption">Morning Yoga &amp; Shala Area</div>
         </div>
       </div>
-    </article>
-
-    <!-- PHOTO UPLOAD HELPER BOX -->
-    <div class="upload-note-card">
-      <h4>Image Gallery &amp; Visual Assets</h4>
-      <p>
-        To replace the visual placeholders with high-resolution photography of the sanctuary grounds, 
-        suites, and valley terraces, simply upload your photos to the <code>images/</code> folder and update the image filenames in this page.
-      </p>
-    </div>
+    </section>
 
   </main>
 
@@ -901,33 +636,20 @@
       <div class="footer-brand">
         <a href="/">The Reset <span>Co.</span></a>
         <div class="footer-tagline">
-          Classical Ayurvedic Restorative Sanctuaries &bull; Bir Billing, Himachal Pradesh<br>
-          Supervised by Dr. Aditya Kaundal &amp; Dr. Himanshu Bhatt (BAMS).
+          Classical Ayurvedic Restorative Sanctuaries &bull; Bir Billing, Himachal Pradesh
         </div>
       </div>
-      <div class="footer-col">
-        <h4>Sanctuary</h4>
-        <a href="/">Sanctuary Overview</a>
-        <a href="/properties">Properties &amp; Suites</a>
-        <a href="/#services">Clinical Disciplines</a>
-        <a href="/#pricing">Programmes &amp; Tariffs</a>
-      </div>
-      <div class="footer-col">
-        <h4>Locations</h4>
-        <a href="/properties#bir-flagship">Flagship Sanctuary (Bir)</a>
-        <a href="/properties#kangra-riverside">Riverside Retreat (Kangra)</a>
-        <a href="/properties#billing-ridge">Ridge Hermitage (Billing)</a>
-      </div>
-      <div class="footer-col">
-        <h4>Concierge</h4>
-        <a href="tel:+917888540046">+91 78885 40046</a>
-        <a href="mailto:concierge@thereset-co.in">concierge@thereset-co.in</a>
-        <a href="https://wa.me/917888540046" target="_blank" rel="noopener">WhatsApp Inquiries</a>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/#about">The Sanctuary</a>
+        <a href="/#founders">Founding Doctors</a>
+        <a href="/#pricing">Programmes</a>
+        <a href="https://wa.me/917888540046" target="_blank" rel="noopener">WhatsApp Concierge</a>
       </div>
     </div>
     <div class="footer-bottom">
       <div>&copy; 2026 The Reset Co. All rights reserved.</div>
-      <div>Designed with reverence for classical Ayurveda and Himalayan silence.</div>
+      <div>Classical Ayurvedic medicine in Himalayan silence.</div>
     </div>
   </footer>
 
