@@ -1451,10 +1451,13 @@
       closeConfirmDatesModal();
 
       if (mailSent) {
-        showToast('Dates locked! Booking pass and calendar invite sent to guest.');
+        showToast('Reservation confirmed! Booking pass and calendar invite sent to guest.');
       } else {
-        showToast('Dates locked in database! Notice: ' + mailNotice);
+        showToast('Reservation confirmed in database! (Notice: ' + mailNotice + ')');
       }
+
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHtml;
     }
 
     // ─── TOAST NOTIFICATION ───
@@ -1534,7 +1537,7 @@
               <input type="date" id="modalCheckIn" class="modal-input" required onchange="handleCheckInChange()">
             </div>
             <div class="modal-field">
-              <label class="modal-label" for="modalCheckOut">Check-Out Date (Auto 3 Nights) *</label>
+              <label class="modal-label" for="modalCheckOut">Check-Out Date *</label>
               <input type="date" id="modalCheckOut" class="modal-input" required>
             </div>
           </div>
