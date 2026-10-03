@@ -118,6 +118,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sanctuary-accord-modal.css">
 
 <style>
   :root {
@@ -2300,9 +2301,12 @@
 
         <!-- Cancellation Policy Box -->
         <div class="policy-box">
-          <div class="policy-title">Transparent Cancellation Policy</div>
+          <div class="policy-title">Transparent Cancellation &amp; Sanctuary Protocol</div>
           <div class="policy-text">
-            A 50% advance deposit confirms your retreat suite. Cancellations requested 30+ days before the cohort start date receive a full 100% refund. Inside 30 days, the deposit is strictly non-refundable due to limited 15-guest cohort capacity and room reservation holds.
+            A 50% advance deposit confirms your retreat suite. Cancellations requested 15+ days before retreat commencement receive a 100% refund less 5% processing fee. Cancellations within 14 days are non-refundable, but 100% of funds can be transferred to any future cohort within 1 month (30 days).
+          </div>
+          <div style="margin-top: 0.85rem;">
+            <button type="button" class="accord-link" style="background: none; border: none; padding: 0; cursor: pointer; font-family: var(--sans); font-size: 0.82rem; color: var(--royal-deep); font-weight: 600; text-decoration: underline; text-underline-offset: 3px;" onclick="openSanctuaryAccord()">Review 7 Sanctuary Commitments &amp; Key Terms &rarr;</button>
           </div>
         </div>
       </div>
@@ -2409,6 +2413,7 @@
         </div>
         <div class="ft-group">
           <h4>Sanctuary &amp; Legal</h4>
+          <a href="javascript:void(0)" onclick="openSanctuaryAccord()" style="color: var(--gold-light);">Sanctuary Accord (Key Terms)</a>
           <a href="guidelines.html">Sanctuary Guidelines &amp; Rules</a>
           <a href="terms.html">Terms &amp; Conditions</a>
           <a href="privacy.html">Privacy Policy</a>
@@ -3047,6 +3052,18 @@
       return;
     }
 
+    const hasAcceptedAccord = sessionStorage.getItem('trc_accord_accepted') === 'true';
+    if (!hasAcceptedAccord && typeof window.openSanctuaryAccord === 'function') {
+      window.openSanctuaryAccord(() => {
+        executeBookingSubmission();
+      });
+      return;
+    }
+
+    await executeBookingSubmission();
+  }
+
+  async function executeBookingSubmission() {
     const form = document.getElementById('bookingForm');
     const successCard = document.getElementById('bookingSuccess');
     const guestNameSpan = document.getElementById('successGuestName');
@@ -3240,5 +3257,6 @@
   }
 
 </script>
+<script src="sanctuary-accord-modal.js"></script>
 </body>
 </html>

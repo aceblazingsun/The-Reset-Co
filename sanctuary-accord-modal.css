@@ -1,0 +1,330 @@
+/* ─── THE RESET CO. SANCTUARY ACCORD & KEY TERMS MODAL ─── */
+
+:root {
+  --accord-gold: #C9A84C;
+  --accord-gold-light: #E8C97A;
+  --accord-gold-dark: #8C651E;
+  --accord-royal-deep: #0F2347;
+  --accord-ivory: #FDFAF3;
+  --accord-parchment: #FAF7F0;
+  --accord-stone: #F0ECE1;
+  --accord-border: #E8DFCC;
+  --accord-text: #1A1A1A;
+  --accord-text-muted: #5C6779;
+}
+
+/* Backdrop Overlay */
+.accord-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 35, 71, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s;
+}
+
+.accord-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dialog Container */
+.accord-modal {
+  position: relative;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  background-color: var(--accord-parchment);
+  border: 1px solid rgba(201, 168, 76, 0.45);
+  border-radius: 6px;
+  box-shadow: 0 25px 60px rgba(15, 35, 71, 0.35);
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.accord-overlay.active .accord-modal {
+  transform: scale(1);
+}
+
+/* Header */
+.accord-header {
+  background-color: var(--accord-royal-deep);
+  color: var(--accord-ivory);
+  padding: 1.35rem 1.5rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.accord-header-info {
+  flex: 1;
+}
+
+.accord-shloka-badge {
+  font-family: 'Noto Serif Devanagari', 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--accord-gold-light);
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  display: inline-block;
+}
+
+.accord-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.4rem, 3.2vw, 1.85rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--accord-ivory);
+  margin-bottom: 0.35rem;
+}
+
+.accord-subtitle {
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: 0.84rem;
+  color: rgba(253, 250, 243, 0.82);
+  line-height: 1.5;
+}
+
+.accord-close-btn {
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  color: var(--accord-ivory);
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  line-height: 1;
+  transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.accord-close-btn:hover,
+.accord-close-btn:focus-visible {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: var(--accord-gold);
+  outline: none;
+}
+
+/* Scrollable Content */
+.accord-body {
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  background-color: var(--accord-parchment);
+}
+
+.accord-body::-webkit-scrollbar {
+  width: 6px;
+}
+.accord-body::-webkit-scrollbar-track {
+  background: var(--accord-parchment);
+}
+.accord-body::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.4);
+  border-radius: 3px;
+}
+.accord-body::-webkit-scrollbar-thumb:hover {
+  background: var(--accord-gold);
+}
+
+/* Points List */
+.accord-item {
+  background: #FFFFFF;
+  border: 1px solid var(--accord-border);
+  border-left: 3px solid var(--accord-gold);
+  border-radius: 4px;
+  padding: 0.85rem 1.1rem;
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.accord-item:hover {
+  border-color: rgba(201, 168, 76, 0.6);
+  box-shadow: 0 4px 12px rgba(15, 35, 71, 0.04);
+}
+
+.accord-item-num {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accord-gold-dark);
+  background: rgba(201, 168, 76, 0.14);
+  padding: 3px 6px;
+  border-radius: 3px;
+  min-width: 26px;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.accord-item-content {
+  flex: 1;
+}
+
+.accord-item-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accord-royal-deep);
+  margin-bottom: 0.2rem;
+  line-height: 1.3;
+}
+
+.accord-item-desc {
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: #4A5568;
+  line-height: 1.6;
+}
+
+/* Footer & Controls */
+.accord-footer {
+  background-color: var(--accord-stone);
+  border-top: 1px solid var(--accord-border);
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.accord-check-label {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--accord-royal-deep);
+  cursor: pointer;
+  min-height: 44px;
+  user-select: none;
+}
+
+.accord-checkbox {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  accent-color: var(--accord-royal-deep);
+  cursor: pointer;
+}
+
+.accord-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.accord-proceed-btn {
+  background: var(--accord-royal-deep);
+  color: var(--accord-ivory);
+  border: 1px solid var(--accord-gold);
+  padding: 0.75rem 1.6rem;
+  border-radius: 3px;
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  min-height: 44px;
+  transition: background 0.2s, opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.accord-proceed-btn:hover {
+  background: #173364;
+}
+
+.accord-proceed-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.accord-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Jost', system-ui, sans-serif;
+  font-size: 0.8rem;
+  color: var(--accord-text-muted);
+}
+
+.accord-link {
+  color: var(--accord-royal-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.accord-link:hover {
+  color: var(--accord-gold-dark);
+}
+
+/* Reduced Motion Respect */
+@media (prefers-reduced-motion: reduce) {
+  .accord-overlay,
+  .accord-modal {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .accord-overlay {
+    padding: 0.5rem;
+  }
+  .accord-modal {
+    max-height: 94vh;
+  }
+  .accord-header {
+    padding: 1.1rem 1.15rem;
+  }
+  .accord-body {
+    padding: 1rem 1.15rem;
+  }
+  .accord-footer {
+    padding: 1rem 1.15rem;
+  }
+  .accord-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .accord-proceed-btn {
+    width: 100%;
+  }
+  .accord-links {
+    justify-content: center;
+  }
+}
