@@ -8,7 +8,7 @@
 <!-- Fonts: Cormorant Garamond, Cinzel, & Jost -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -24,6 +24,7 @@
     --serif: 'Cormorant Garamond', Georgia, serif;
     --display: 'Cinzel', serif;
     --sans: 'Jost', sans-serif;
+    --devanagari: 'Noto Serif Devanagari', 'Cormorant Garamond', serif;
   }
 
   @page {
@@ -202,20 +203,12 @@
   }
 
   .shloka-sanskrit {
-    font-family: var(--serif);
-    font-size: 1.25rem;
+    font-family: var(--devanagari);
+    font-size: 1.3rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     color: var(--royal-mid);
-    line-height: 1.2;
-  }
-
-  .shloka-trans {
-    font-family: var(--serif);
-    font-size: 0.82rem;
-    font-style: italic;
-    letter-spacing: 0.04em;
-    color: var(--gold-dark);
+    line-height: 1.25;
   }
 
   .header-divider {
@@ -501,8 +494,7 @@
         </div>
 
         <div class="shloka-banner">
-          <div class="shloka-sanskrit">&#2360;&#2381;&#2357;&#2360;&#2381;&#2341;&#2360;&#2381;&#2351; &#2360;&#2381;&#2357;&#2366;&#2360;&#2381;&#2341;&#2381;&#2351;&#2352;&#2325;&#2381;&#2359;&#2339;&#2350;&#2381;</div>
-          <div class="shloka-trans">Swasthasya Swasthya Rakshanam &bull; Preserving and elevating the vitality of the healthy</div>
+          <div class="shloka-sanskrit">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
         </div>
 
         <div class="header-divider">
