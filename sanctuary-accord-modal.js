@@ -38,8 +38,8 @@
     },
     {
       num: '06',
-      title: 'Intimate Cohort Decorum (12 Guests Max)',
-      desc: 'Cohorts are strictly limited to 12 guests to maintain peaceful energy. Respectful attire (Sanctuary Vastra provided), gentle voices, and nature reverence are observed. Loud music or commercial filming are strictly barred.'
+      title: 'Acoustic Peace & Cohort Decorum (12 Guests)',
+      desc: 'Cohorts are limited to 12 guests to maintain serenity. Personal loud music is not allowed; our faculty uses acoustic speakers solely for sacred Om chanting and soothing sounds. Commercial filming is permitted with prior coordination.'
     },
     {
       num: '07',
