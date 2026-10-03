@@ -48,7 +48,10 @@
 
   body {
     font-family: var(--sans);
-    background-color: var(--ivory);
+    background-color: #FAF7F0;
+    background-image: radial-gradient(rgba(201, 168, 76, 0.06) 1px, transparent 1px), radial-gradient(rgba(15, 35, 71, 0.02) 1px, #FAF7F0 1px);
+    background-size: 26px 26px;
+    background-position: 0 0, 13px 13px;
     color: var(--text);
     line-height: 1.6;
     overflow-x: hidden;
@@ -187,11 +190,20 @@
   /* ─── PROPERTY CARD ─── */
   .property-card {
     background: #FFFFFF;
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    border: 1px solid rgba(201, 168, 76, 0.32);
+    border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 8px 30px rgba(15, 35, 71, 0.06);
     margin-bottom: 3rem;
+    position: relative;
+  }
+  .property-card::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(201, 168, 76, 0.16);
+    pointer-events: none;
+    border-radius: 2px;
   }
 
   .property-hero-grid {
@@ -346,15 +358,25 @@
   /* ─── VISUAL GALLERY CONTAINER ─── */
   .gallery-showcase-card {
     background: #FFFFFF;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 2rem;
+    border: 1px solid rgba(201, 168, 76, 0.32);
+    border-radius: 4px;
+    padding: 2.75rem 2.25rem;
     margin-top: 2rem;
-    box-shadow: 0 4px 20px rgba(15, 35, 71, 0.04);
+    box-shadow: 0 6px 26px rgba(15, 35, 71, 0.04);
+    position: relative;
+  }
+
+  .gallery-showcase-card::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(201, 168, 76, 0.16);
+    pointer-events: none;
+    border-radius: 2px;
   }
 
   .gallery-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     text-align: center;
   }
 
@@ -369,26 +391,47 @@
 
   .gallery-title {
     font-family: var(--serif);
-    font-size: 1.6rem;
+    font-size: 1.85rem;
     color: var(--royal-deep);
   }
 
   .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
   }
 
   .gallery-item {
     background: var(--stone);
-    border: 1px solid var(--border);
-    border-radius: 4px;
+    border: 1px solid rgba(201, 168, 76, 0.28);
+    border-radius: 3px;
     overflow: hidden;
     position: relative;
     aspect-ratio: 4 / 3;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 16px rgba(15, 35, 71, 0.04);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .gallery-item::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+    transition: border-color 0.3s;
+    border-radius: 2px;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(15, 35, 71, 0.1);
+  }
+
+  .gallery-item:hover::after {
+    border-color: rgba(201, 168, 76, 0.6);
   }
 
   .gallery-item img {
@@ -408,10 +451,10 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(15, 35, 71, 0.85) 0%, transparent 100%);
-    padding: 1.25rem 1rem 0.65rem;
+    background: linear-gradient(to top, rgba(15, 35, 71, 0.88) 0%, transparent 100%);
+    padding: 1.5rem 1rem 0.75rem;
     color: var(--ivory);
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     font-weight: 500;
     letter-spacing: 0.05em;
   }
@@ -606,24 +649,42 @@
       </div>
     </article>
 
-    <!-- VISUAL GALLERY PLACEHOLDER FOR UPCOMING IMAGES -->
+    <!-- VISUAL GALLERY FOR PROPERTY PHOTOS -->
     <section class="gallery-showcase-card">
       <div class="gallery-header">
-        <p class="gallery-label">Visual Gallery</p>
-        <h3 class="gallery-title">Sanctuary Photography</h3>
+        <p class="gallery-label">Sanctuary Imagery</p>
+        <h3 class="gallery-title">Estate &amp; Sanctuary Gallery</h3>
       </div>
       <div class="gallery-grid">
+        <!-- Photo Slot 1: Sanctuary Grounds -->
         <div class="gallery-item">
           <img src="images/hero_sanctuary.jpg" alt="Sanctuary Exterior Bir Billing" loading="lazy">
-          <div class="gallery-caption">Sanctuary Exterior &amp; Grounds</div>
+          <div class="gallery-caption">Sanctuary Grounds &amp; Pine Valley</div>
         </div>
+        <!-- Photo Slot 2: Meditation Space -->
         <div class="gallery-item">
           <img src="images/meditation.jpg" alt="Dhyana Meditation Space" loading="lazy">
-          <div class="gallery-caption">Quiet Dhyana &amp; Rest Space</div>
+          <div class="gallery-caption">Quiet Dhyana &amp; Meditation Nook</div>
         </div>
+        <!-- Photo Slot 3: Yoga Shala -->
         <div class="gallery-item">
           <img src="images/yoga.jpg" alt="Morning Yoga Shala" loading="lazy">
-          <div class="gallery-caption">Morning Yoga &amp; Shala Area</div>
+          <div class="gallery-caption">Open-Air Morning Yoga Shala</div>
+        </div>
+        <!-- Photo Slot 4: Panchakarma Suite -->
+        <div class="gallery-item">
+          <img src="images/ayurveda.jpg" alt="Classical Panchakarma Suite" loading="lazy">
+          <div class="gallery-caption">Classical Panchakarma Suite</div>
+        </div>
+        <!-- Photo Slot 5: Sattvic Dining Deck -->
+        <div class="gallery-item">
+          <img src="images/dinacharya_ritual.jpg" alt="Sattvic Dining & Herbal Teas Terrace" loading="lazy">
+          <div class="gallery-caption">Sattvic Dining &amp; Tea Terrace</div>
+        </div>
+        <!-- Photo Slot 6: Living Sanctum -->
+        <div class="gallery-item">
+          <img src="images/welcome_kit.jpg" alt="Living Suites & Welcome Sanctum" loading="lazy">
+          <div class="gallery-caption">Restorative Living Sanctum</div>
         </div>
       </div>
     </section>
