@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanctuary Culmination Certificate | The Reset Co.</title>
+
+<!-- Fonts: Cormorant Garamond, Cinzel, & Jost -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-dark: #8C651E;
+    --royal-deep: #0F2347;
+    --royal-mid: #1A3A6B;
+    --parchment: #FAF7F0;
+    --parchment-border: #E8DFCC;
+    --text-dark: #1A1A1A;
+    --text-muted: #5C6779;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --display: 'Cinzel', serif;
+    --sans: 'Jost', sans-serif;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: #EFECE6;
+    font-family: var(--sans);
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ─── PRINT CONTROL BAR (HIDDEN WHEN PRINTING) ─── */
+  .control-bar {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 35, 71, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--gold);
+    border-radius: 30px;
+    padding: 8px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+
+  .control-btn {
+    background: var(--gold);
+    color: var(--royal-deep);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .control-btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .control-hint {
+    color: #FAF7F0;
+    font-size: 0.8rem;
+    font-weight: 300;
+  }
+
+  /* ─── A4 LANDSCAPE CERTIFICATE CANVAS ─── */
+  .certificate-canvas {
+    width: 297mm;
+    height: 210mm;
+    background-color: var(--parchment);
+    background-image: 
+      radial-gradient(rgba(201, 168, 76, 0.05) 1px, transparent 1px),
+      radial-gradient(rgba(15, 35, 71, 0.02) 1px, var(--parchment) 1px);
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+    position: relative;
+    padding: 14mm 16mm;
+    box-shadow: 0 16px 40px rgba(15, 35, 71, 0.15);
+    overflow: hidden;
+  }
+
+  /* ─── LUXURY BORDERS & FRAMING ─── */
+  .outer-frame {
+    position: absolute;
+    inset: 8mm;
+    border: 2px solid var(--gold);
+    pointer-events: none;
+  }
+
+  .inner-frame {
+    position: absolute;
+    inset: 10.5mm;
+    border: 1px solid rgba(201, 168, 76, 0.45);
+    pointer-events: none;
+  }
+
+  /* Corner Ornaments */
+  .corner-ornament {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    pointer-events: none;
+  }
+  .top-left { top: 9.5mm; left: 9.5mm; border-top: 3px solid var(--gold-dark); border-left: 3px solid var(--gold-dark); }
+  .top-right { top: 9.5mm; right: 9.5mm; border-top: 3px solid var(--gold-dark); border-right: 3px solid var(--gold-dark); }
+  .bottom-left { bottom: 9.5mm; left: 9.5mm; border-bottom: 3px solid var(--gold-dark); border-left: 3px solid var(--gold-dark); }
+  .bottom-right { bottom: 9.5mm; right: 9.5mm; border-bottom: 3px solid var(--gold-dark); border-right: 3px solid var(--gold-dark); }
+
+  /* Watermark Emblem */
+  .watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120mm;
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Content Wrapper */
+  .cert-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  /* ─── HEADER ─── */
+  .cert-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .logo-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 2px;
+  }
+
+  .cert-logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+  }
+
+  .cert-brand {
+    font-family: var(--display);
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--royal-deep);
+  }
+
+  .cert-brand span {
+    color: var(--gold-dark);
+  }
+
+  /* Sacred Shloka Banner */
+  .shloka-banner {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3px;
+  }
+
+  .shloka-sanskrit {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--royal-mid);
+    line-height: 1.2;
+  }
+
+  .shloka-trans {
+    font-family: var(--serif);
+    font-size: 0.82rem;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    color: var(--gold-dark);
+  }
+
+  .header-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 160mm;
+    margin: 4px auto 0;
+  }
+
+  .header-divider::before, .header-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201, 168, 76, 0.6), transparent);
+  }
+
+  .header-divider span {
+    color: var(--gold);
+    font-size: 0.75rem;
+  }
+
+  /* ─── TITLE & CONFERRAL ─── */
+  .cert-title-group {
+    margin-top: 2px;
+  }
+
+  .cert-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .cert-title {
+    font-family: var(--display);
+    font-size: 1.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--royal-deep);
+    text-transform: uppercase;
+    line-height: 1.15;
+  }
+
+  .cert-preamble {
+    font-family: var(--serif);
+    font-size: 0.98rem;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 3px;
+  }
+
+  /* Recipient Name */
+  .recipient-name-box {
+    margin: 3px 0 2px;
+  }
+
+  .recipient-name {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--royal-deep);
+    letter-spacing: 0.04em;
+    display: inline-block;
+    padding: 0 24px 2px;
+    border-bottom: 1px solid var(--gold);
+    line-height: 1.2;
+    min-width: 140mm;
+  }
+
+  /* Citation Text */
+  .cert-citation {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #333C4A;
+    max-width: 220mm;
+    margin: 0 auto;
+  }
+
+  .cert-citation strong {
+    color: var(--royal-deep);
+    font-weight: 600;
+  }
+
+  /* Programme Badge */
+  .programme-badge-box {
+    margin-top: 4px;
+  }
+
+  .programme-pill {
+    display: inline-block;
+    background: rgba(201, 168, 76, 0.12);
+    border: 1px solid var(--gold);
+    padding: 4px 18px;
+    border-radius: 20px;
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--royal-deep);
+  }
+
+  .cohort-meta {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    margin-top: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── FOOTER SIGNATURES & SEAL ─── */
+  .cert-footer {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: flex-end;
+    gap: 20px;
+    padding: 0 10mm;
+    margin-top: 6px;
+  }
+
+  .sig-block {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sig-space {
+    width: 65mm;
+    height: 16mm;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(15, 35, 71, 0.35);
+  }
+
+  .sig-handwritten {
+    font-family: 'Cormorant Garamond', cursive, serif;
+    font-style: italic;
+    font-size: 1.45rem;
+    color: var(--royal-mid);
+    opacity: 0.85;
+  }
+
+  .sig-name {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--royal-deep);
+    letter-spacing: 0.04em;
+  }
+
+  .sig-title {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
+    margin-top: 1px;
+  }
+
+  .sig-cred {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+  }
+
+  /* Center Gold Embossed Seal */
+  .seal-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sanctuary-seal {
+    width: 26mm;
+    height: 26mm;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FDF7E7 0%, #E8C97A 60%, #C9A84C 100%);
+    border: 2px dashed #8C651E;
+    box-shadow: 
+      0 0 0 3px #FAF7F0,
+      0 0 0 4.5px var(--gold),
+      0 6px 16px rgba(140, 101, 30, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3px;
+    position: relative;
+  }
+
+  .seal-star {
+    color: #8C651E;
+    font-size: 9px;
+  }
+
+  .seal-text {
+    font-family: var(--display);
+    font-size: 6.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #4A330A;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin: 1px 0;
+  }
+
+  .seal-loc {
+    font-size: 5.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: #5C410F;
+    text-transform: uppercase;
+  }
+
+  /* Serial & Verification Bar */
+  .cert-serial-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 4px;
+    border-top: 1px solid rgba(201, 168, 76, 0.25);
+    font-size: 0.64rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ─── PRINT MEDIA OPTIMIZATIONS ─── */
+  @media print {
+    body {
+      background: none;
+      padding: 0;
+    }
+    .control-bar {
+      display: none !important;
+    }
+    .certificate-canvas {
+      box-shadow: none;
+      width: 297mm;
+      height: 210mm;
+      page-break-after: avoid;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- PRINT CONTROLLER (HIDDEN ON PRINT/PDF EXPORT) -->
+  <div class="control-bar">
+    <button class="control-btn" onclick="window.print()">Print / Export PDF</button>
+    <span class="control-hint">Recommended: Paper size A4 Landscape, Margins: None</span>
+  </div>
+
+  <!-- A4 LANDSCAPE CERTIFICATE CONTAINER -->
+  <main class="certificate-canvas" id="certificate">
+
+    <!-- FRAMES & CORNERS -->
+    <div class="outer-frame"></div>
+    <div class="inner-frame"></div>
+    <div class="corner-ornament top-left"></div>
+    <div class="corner-ornament top-right"></div>
+    <div class="corner-ornament bottom-left"></div>
+    <div class="corner-ornament bottom-right"></div>
+
+    <!-- BACKGROUND WATERMARK -->
+    <img src="images/logo-emblem.png" alt="" class="watermark">
+
+    <!-- MAIN CONTENT -->
+    <div class="cert-content">
+
+      <!-- HEADER & SACRED SHLOKA -->
+      <header class="cert-header">
+        <div class="logo-box">
+          <img src="images/logo-emblem.png" alt="The Reset Co." class="cert-logo">
+          <div class="cert-brand">The Reset <span>Co.</span></div>
+        </div>
+
+        <div class="shloka-banner">
+          <div class="shloka-sanskrit">&#2360;&#2381;&#2357;&#2360;&#2381;&#2341;&#2360;&#2381;&#2351; &#2360;&#2381;&#2357;&#2366;&#2360;&#2381;&#2341;&#2381;&#2351;&#2352;&#2325;&#2381;&#2359;&#2339;&#2350;&#2381;</div>
+          <div class="shloka-trans">Swasthasya Swasthya Rakshanam &bull; Preserving and elevating the vitality of the healthy</div>
+        </div>
+
+        <div class="header-divider">
+          <span>&#10022;</span>
+        </div>
+      </header>
+
+      <!-- CERTIFICATE TITLE -->
+      <section class="cert-title-group">
+        <div class="cert-kicker">Sanctuary Culmination &bull; Classical Ayurveda</div>
+        <h1 class="cert-title">Certificate of Restorative Culmination</h1>
+        <p class="cert-preamble">This sacred scroll is formally conferred upon</p>
+      </section>
+
+      <!-- RECIPIENT NAME (EDITABLE / DYNAMIC) -->
+      <section class="recipient-name-box">
+        <div class="recipient-name" contenteditable="true" spellcheck="false">
+          [Guest Full Name]
+        </div>
+      </section>
+
+      <!-- CITATION -->
+      <section class="cert-citation">
+        who has mindfully completed the closed residential Ayurvedic cohort retreat at our Himalayan sanctuary in 
+        <strong>Bir Billing, Himachal Pradesh</strong>. Having dedicated body, breath, and mind to classical 
+        <strong>Dinacharya</strong> daily rhythms, physician-supervised <strong>Shatkarma</strong> purifications, 
+        individualized <strong>Bahya Basti</strong> therapies, and meditative nervous system down-regulation.
+      </section>
+
+      <!-- PROGRAMME BADGE & DATES -->
+      <section class="programme-badge-box">
+        <div class="programme-pill" contenteditable="true" spellcheck="false">The Awakening Journey &bull; 4-Day Closed Cohort</div>
+        <div class="cohort-meta">
+          Cohort Dates: <span contenteditable="true">October 15 - October 19, 2026</span> &bull; Bir Billing, Himachal Pradesh
+        </div>
+      </section>
+
+      <!-- SIGNATURES & OFFICIAL SEAL -->
+      <footer class="cert-footer">
+        
+        <!-- FOUNDER 1 -->
+        <div class="sig-block">
+          <div class="sig-space">
+            <span class="sig-handwritten">Dr. Himanshu Bhatt</span>
+          </div>
+          <div class="sig-name">Dr. Himanshu Bhatt</div>
+          <div class="sig-title">Founding Vaidya &bull; Clinical Director</div>
+          <div class="sig-cred">B.A.M.S. &bull; Classical Ayurveda</div>
+        </div>
+
+        <!-- SANCTUARY GOLD SEAL -->
+        <div class="seal-block">
+          <div class="sanctuary-seal">
+            <div class="seal-star">&#10022;</div>
+            <div class="seal-text">The Reset Co.</div>
+            <div class="seal-loc">Sanctuary Seal</div>
+            <div class="seal-loc">Bir Billing</div>
+            <div class="seal-star">&#10022;</div>
+          </div>
+        </div>
+
+        <!-- FOUNDER 2 -->
+        <div class="sig-block">
+          <div class="sig-space">
+            <span class="sig-handwritten">Dr. Aditya Kaundal</span>
+          </div>
+          <div class="sig-name">Dr. Aditya Kaundal</div>
+          <div class="sig-title">Founding Vaidya &bull; Medical Director</div>
+          <div class="sig-cred">B.A.M.S. &bull; Classical Ayurveda</div>
+        </div>
+
+      </footer>
+
+      <!-- SERIAL & VERIFICATION -->
+      <div class="cert-serial-bar">
+        <div>Registry ID: <span contenteditable="true">TRC-BIR-2026-0104</span></div>
+        <div>Himalayan Sanctuaries &bull; Himachal Pradesh, India</div>
+        <div>Conferred in Himalayan Stillness</div>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>
