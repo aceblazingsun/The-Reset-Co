@@ -1550,8 +1550,8 @@ body.is-welcome-locked {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(15, 35, 71, 0.45) 0%, rgba(15, 35, 71, 0.88) 100%);
-  opacity: 0.55;
+  background: linear-gradient(180deg, rgba(15, 35, 71, 0.5) 0%, rgba(15, 35, 71, 0.65) 50%, rgba(15, 35, 71, 0.88) 100%);
+  opacity: 0.7;
 }
 
 .scroll-expand__title-wrap {
@@ -1592,14 +1592,14 @@ body.is-welcome-locked {
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.15;
-  color: var(--ivory, #FDFAF3);
+  color: var(--ivory, #FDFAF3) !important;
   text-shadow: 0 4px 30px rgba(15, 35, 71, 0.7);
 }
 
 .scroll-expand__title span {
   font-style: italic;
   font-weight: 400;
-  color: var(--gold-light, #E8C97A);
+  color: var(--gold-light, #E8C97A) !important;
 }
 
 .scroll-expand__hint {
@@ -1642,6 +1642,84 @@ body.is-welcome-locked {
   opacity: 1;
   transform: translate3d(0, 0, 0);
   pointer-events: auto;
+}
+
+/* EXPLICIT COLOR ENFORCEMENT: Ancient practices and hero elements MUST be ivory & gold */
+.scroll-expand__hero-landing h1,
+.scroll-expand__hero-landing.hero h1 {
+  font-family: var(--serif, 'Cormorant Garamond', Georgia, serif) !important;
+  font-size: clamp(2.8rem, 5.5vw, 4.6rem) !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  color: #FDFAF3 !important;
+  margin-bottom: 1.25rem !important;
+  letter-spacing: -0.01em !important;
+  text-shadow: 0 4px 30px rgba(15, 35, 71, 0.85) !important;
+}
+
+.scroll-expand__hero-landing h1 em,
+.scroll-expand__hero-landing.hero h1 em {
+  font-style: italic !important;
+  color: var(--gold-light, #E8C97A) !important;
+  text-shadow: 0 4px 30px rgba(15, 35, 71, 0.85) !important;
+}
+
+.scroll-expand__hero-landing .hero-shloka {
+  font-family: var(--devanagari, 'Noto Serif Devanagari', serif) !important;
+  font-size: 1.35rem !important;
+  color: var(--gold-light, #E8C97A) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  margin-bottom: 0.85rem !important;
+  text-shadow: 0 2px 16px rgba(15, 35, 71, 0.75) !important;
+}
+
+.scroll-expand__hero-landing .hero-label {
+  font-size: 0.76rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--gold-light, #E8C97A) !important;
+  font-weight: 600 !important;
+  text-shadow: 0 2px 12px rgba(15, 35, 71, 0.75) !important;
+}
+
+.scroll-expand__hero-landing .hero-dot {
+  width: 5px !important;
+  height: 5px !important;
+  background: var(--gold, #C9A84C) !important;
+  border-radius: 50% !important;
+}
+
+.scroll-expand__hero-landing .hero-badge span {
+  border: 1px solid rgba(201, 168, 76, 0.45) !important;
+  padding: 0.4rem 1.1rem !important;
+  border-radius: 30px !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  color: var(--gold-light, #E8C97A) !important;
+  background: rgba(15, 35, 71, 0.65) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+.scroll-expand__hero-landing .hero-tagline {
+  font-size: clamp(1rem, 2vw, 1.25rem) !important;
+  color: #FDFAF3 !important;
+  max-width: 620px !important;
+  margin: 0 auto 1.25rem auto !important;
+  line-height: 1.65 !important;
+  font-weight: 300 !important;
+  text-shadow: 0 2px 18px rgba(15, 35, 71, 0.85) !important;
+}
+
+.scroll-expand__hero-landing .hero-pillars {
+  font-size: 0.82rem !important;
+  letter-spacing: 0.14em !important;
+  color: var(--gold-light, #E8C97A) !important;
+  margin-bottom: 2rem !important;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  text-shadow: 0 2px 14px rgba(15, 35, 71, 0.75) !important;
 }
 
 @media (max-width: 600px) {
@@ -1793,12 +1871,12 @@ body.is-welcome-locked {
 <div id="scrollExpandContainer" aria-label="Welcome and Hero Section">
   <div class="scroll-expand__stage" id="scrollExpandStage">
     <div class="scroll-expand__frame" id="scrollExpandFrame">
-      <img class="scroll-expand__media" id="scrollExpandMedia" src="images/hero.jpg" alt="Himalayan Mountain Peaks - The Reset Co." />
+      <img class="scroll-expand__media" id="scrollExpandMedia" src="images/himalayan_hero.jpg?v=20261005" alt="Himalayan Mountain Peaks - The Reset Co." />
       <div class="scroll-expand__scrim"></div>
       
-      <div class="scroll-expand__hero-landing" id="scrollExpandHeroLanding">
+      <div class="scroll-expand__hero-landing hero" id="scrollExpandHeroLanding">
         <div class="hero-ornament"></div>
-        <div class="hero-shloka" style="font-family: var(--devanagari); font-size: 1.35rem; color: var(--gold-light); font-weight: 500; letter-spacing: 0.04em; margin-bottom: 0.85rem;">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
+        <div class="hero-shloka">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
         <div class="hero-location">
           <div class="hero-dot"></div>
           <span class="hero-label">Himalayan Retreat Sanctuaries &bull; Himachal Pradesh</span>
@@ -1807,8 +1885,8 @@ body.is-welcome-locked {
         <div class="hero-badge">
           <span>Vaidya-Led Classical Ayurveda</span>
         </div>
-        <h1>Ancient practices.<br><em>Renewed you.</em></h1>
-        <p class="hero-tagline">Vaidya-led classical Ayurvedic restorative retreats in the quiet pines of the Himalayas.</p>
+        <h1 style="color: #FDFAF3 !important; font-family: var(--serif); font-size: clamp(2.8rem, 5.5vw, 4.6rem); font-weight: 400; line-height: 1.15; margin-bottom: 1.25rem; letter-spacing: -0.01em; text-shadow: 0 4px 30px rgba(15, 35, 71, 0.85);">Ancient practices.<br><em style="font-style: italic; color: #E8C97A !important; text-shadow: 0 4px 30px rgba(15, 35, 71, 0.85);">Renewed you.</em></h1>
+        <p class="hero-tagline" style="color: #FDFAF3 !important;">Vaidya-led classical Ayurvedic restorative retreats in the quiet pines of the Himalayas.</p>
         <p class="hero-pillars">Condition-Adaptive Yoga &bull; Classical Bahya Basti &bull; Netra Tarpana &bull; Shatkarma</p>
         <div class="hero-cta-row">
           <a href="#pricing" class="btn-primary" id="heroExploreBtn">Explore Programmes</a>
@@ -1820,7 +1898,7 @@ body.is-welcome-locked {
     <div class="scroll-expand__title-wrap" id="scrollExpandTitleWrap" title="Click or scroll to enter">
       <img src="images/logo-emblem.png" alt="The Reset Co. Emblem" class="scroll-expand__emblem" />
       <div class="scroll-expand__pretitle">A Sanctuary for Restoration</div>
-      <h1 class="scroll-expand__title">Welcome to<br><span>The Reset Co.</span></h1>
+      <h1 class="scroll-expand__title" style="color: #FDFAF3 !important;">Welcome to<br><span style="color: #E8C97A !important;">The Reset Co.</span></h1>
     </div>
 
     <div class="scroll-expand__hint" id="scrollExpandHint">
