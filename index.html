@@ -1487,6 +1487,177 @@
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
+<style>
+
+/* ─── SCROLL EXPAND HERO COMPONENT (@react-bits/ScrollExpand-JS-CSS) ─── */
+html.is-welcome-locked,
+body.is-welcome-locked {
+  overflow: hidden !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  touch-action: none !important;
+}
+
+#scrollExpandContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  background: var(--royal-deep, #0F2347);
+  overflow: hidden;
+}
+
+.scroll-expand__stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-expand__frame {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(21% 29% 21% 29% round 24px);
+  will-change: clip-path, transform;
+  box-shadow: 0 35px 100px rgba(15, 35, 71, 0.7);
+  background: var(--royal-deep, #0F2347);
+  overflow: hidden;
+  transition: box-shadow 0.6s ease;
+}
+
+.scroll-expand__frame.is-full {
+  box-shadow: none;
+}
+
+.scroll-expand__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+  transform-origin: center;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: brightness(0.85);
+  transform: scale(1.35);
+}
+
+.scroll-expand__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(15, 35, 71, 0.45) 0%, rgba(15, 35, 71, 0.88) 100%);
+  opacity: 0.55;
+}
+
+.scroll-expand__title-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 6%;
+  z-index: 10;
+  cursor: pointer;
+  will-change: opacity, transform;
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-expand__emblem {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 1.25rem;
+  filter: drop-shadow(0 4px 20px rgba(201, 168, 76, 0.5));
+}
+
+.scroll-expand__pretitle {
+  font-family: var(--display, 'Cinzel', serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-light, #E8C97A);
+  margin-bottom: 0.75rem;
+}
+
+.scroll-expand__title {
+  margin: 0;
+  font-family: var(--serif, 'Cormorant Garamond', serif);
+  font-size: clamp(2.2rem, 5vw, 4.25rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--ivory, #FDFAF3);
+  text-shadow: 0 4px 30px rgba(15, 35, 71, 0.7);
+}
+
+.scroll-expand__title span {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold-light, #E8C97A);
+}
+
+.scroll-expand__hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2.25rem;
+  text-align: center;
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-light, #E8C97A);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  z-index: 10;
+  cursor: pointer;
+  transition: opacity 0.4s ease;
+}
+
+.scroll-expand__hero-landing {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 6% 2rem 6%;
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  will-change: opacity, transform;
+  z-index: 8;
+  pointer-events: none;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-expand__hero-landing.is-landed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  .hero-cta-row {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .hero-cta-row a {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+</style>
 </head>
 <body>
 
@@ -1618,25 +1789,49 @@
 </aside>
 
 <!-- ─── HERO ─── -->
-<section class="hero" id="home" aria-label="Hero">
-  <div class="hero-ornament"></div>
-  <div class="hero-shloka" style="font-family: var(--devanagari); font-size: 1.35rem; color: var(--gold-light); font-weight: 500; letter-spacing: 0.04em; margin-bottom: 0.85rem;">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
-  <div class="hero-location">
-    <div class="hero-dot"></div>
-    <span class="hero-label">Himalayan Retreat Sanctuaries &bull; Himachal Pradesh</span>
-    <div class="hero-dot"></div>
+
+<div id="scrollExpandContainer" aria-label="Welcome and Hero Section">
+  <div class="scroll-expand__stage" id="scrollExpandStage">
+    <div class="scroll-expand__frame" id="scrollExpandFrame">
+      <img class="scroll-expand__media" id="scrollExpandMedia" src="images/hero.jpg" alt="Himalayan Mountain Peaks - The Reset Co." />
+      <div class="scroll-expand__scrim"></div>
+      
+      <div class="scroll-expand__hero-landing" id="scrollExpandHeroLanding">
+        <div class="hero-ornament"></div>
+        <div class="hero-shloka" style="font-family: var(--devanagari); font-size: 1.35rem; color: var(--gold-light); font-weight: 500; letter-spacing: 0.04em; margin-bottom: 0.85rem;">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
+        <div class="hero-location">
+          <div class="hero-dot"></div>
+          <span class="hero-label">Himalayan Retreat Sanctuaries &bull; Himachal Pradesh</span>
+          <div class="hero-dot"></div>
+        </div>
+        <div class="hero-badge">
+          <span>Vaidya-Led Classical Ayurveda</span>
+        </div>
+        <h1>Ancient practices.<br><em>Renewed you.</em></h1>
+        <p class="hero-tagline">Vaidya-led classical Ayurvedic restorative retreats in the quiet pines of the Himalayas.</p>
+        <p class="hero-pillars">Condition-Adaptive Yoga &bull; Classical Bahya Basti &bull; Netra Tarpana &bull; Shatkarma</p>
+        <div class="hero-cta-row">
+          <a href="#pricing" class="btn-primary" id="heroExploreBtn">Explore Programmes</a>
+          <a href="properties.html" class="btn-outline" id="heroPropertiesBtn">Explore Properties</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-expand__title-wrap" id="scrollExpandTitleWrap" title="Click or scroll to enter">
+      <img src="images/logo-emblem.png" alt="The Reset Co. Emblem" class="scroll-expand__emblem" />
+      <div class="scroll-expand__pretitle">A Sanctuary for Restoration</div>
+      <h1 class="scroll-expand__title">Welcome to<br><span>The Reset Co.</span></h1>
+    </div>
+
+    <div class="scroll-expand__hint" id="scrollExpandHint">
+      <span>Scroll to enter</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
   </div>
-  <div class="hero-badge">
-    <span>Vaidya-Led Classical Ayurveda</span>
-  </div>
-  <h1>Ancient practices.<br><em>Renewed you.</em></h1>
-  <p class="hero-tagline">Vaidya-led classical Ayurvedic restorative retreats in the quiet pines of the Himalayas.</p>
-  <p class="hero-pillars">Condition-Adaptive Yoga &bull; Classical Bahya Basti &bull; Netra Tarpana &bull; Shatkarma</p>
-  <div class="hero-cta-row">
-    <a href="#pricing" class="btn-primary" id="heroExploreBtn">Explore Programmes</a>
-    <a href="properties.html" class="btn-outline" id="heroPropertiesBtn">Explore Properties</a>
-  </div>
-</section>
+</div>
+
 
 <!-- ─── EXCLUSIVITY STRIP ─── -->
 <div class="strip fade-up">
@@ -3258,5 +3453,136 @@
 
 </script>
 <script src="sanctuary-accord-modal.js"></script>
+
+<script>
+(function() {
+  const frame = document.getElementById('scrollExpandFrame');
+  const media = document.getElementById('scrollExpandMedia');
+  const titleWrap = document.getElementById('scrollExpandTitleWrap');
+  const hint = document.getElementById('scrollExpandHint');
+  const heroLanding = document.getElementById('scrollExpandHeroLanding');
+
+  if (!frame || !media || !titleWrap || !heroLanding) return;
+
+  const isMobile = window.innerWidth <= 768;
+  const startW = isMobile ? 80 : 42;
+  const startH = isMobile ? 64 : 58;
+  const startR = isMobile ? 18 : 24;
+
+  let isLanded = false;
+  let animating = false;
+
+  function lockScroll() {
+    document.documentElement.classList.add('is-welcome-locked');
+    document.body.classList.add('is-welcome-locked');
+    window.scrollTo(0, 0);
+  }
+
+  function unlockScroll() {
+    document.documentElement.classList.remove('is-welcome-locked');
+    document.body.classList.remove('is-welcome-locked');
+  }
+
+  lockScroll();
+
+  function landOnHero() {
+    if (isLanded || animating) return;
+    animating = true;
+    isLanded = true;
+
+    frame.style.transition = 'clip-path 0.85s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.85s ease';
+    media.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+    
+    frame.style.clipPath = 'inset(0% 0% 0% 0% round 0px)';
+    frame.classList.add('is-full');
+    media.style.transform = 'scale(1)';
+
+    titleWrap.style.opacity = '0';
+    titleWrap.style.transform = 'translate3d(0, -32px, 0) scale(1.05)';
+    titleWrap.style.pointerEvents = 'none';
+    if (hint) {
+      hint.style.opacity = '0';
+      hint.style.pointerEvents = 'none';
+    }
+
+    setTimeout(function() {
+      heroLanding.classList.add('is-landed');
+    }, 250);
+
+    setTimeout(function() {
+      unlockScroll();
+      animating = false;
+    }, 850);
+  }
+
+  function collapseToWelcome() {
+    if (!isLanded || animating) return;
+    animating = true;
+    isLanded = false;
+
+    lockScroll();
+    heroLanding.classList.remove('is-landed');
+
+    const ix = (100 - startW) / 2;
+    const iy = (100 - startH) / 2;
+
+    setTimeout(function() {
+      frame.style.transition = 'clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.75s ease';
+      media.style.transition = 'transform 0.75s cubic-bezier(0.16, 1, 0.3, 1)';
+
+      frame.style.clipPath = 'inset(' + iy + '% ' + ix + '% ' + iy + '% ' + ix + '% round ' + startR + 'px)';
+      frame.classList.remove('is-full');
+      media.style.transform = 'scale(1.35)';
+
+      titleWrap.style.opacity = '1';
+      titleWrap.style.transform = 'translate3d(0, 0, 0) scale(1)';
+      titleWrap.style.pointerEvents = 'auto';
+      if (hint) {
+        hint.style.opacity = '1';
+        hint.style.pointerEvents = 'auto';
+      }
+      animating = false;
+    }, 200);
+  }
+
+  window.addEventListener('wheel', function(e) {
+    if (!isLanded) {
+      e.preventDefault();
+      if (e.deltaY > 0) {
+        landOnHero();
+      }
+    } else if (isLanded && window.scrollY === 0 && e.deltaY < -20) {
+      collapseToWelcome();
+    }
+  }, { passive: false });
+
+  let touchStartY = 0;
+  window.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', function(e) {
+    if (!isLanded) {
+      e.preventDefault();
+      const delta = touchStartY - e.touches[0].clientY;
+      if (delta > 15) {
+        landOnHero();
+      }
+    }
+  }, { passive: false });
+
+  titleWrap.addEventListener('click', landOnHero);
+  if (hint) hint.addEventListener('click', landOnHero);
+
+  window.addEventListener('keydown', function(e) {
+    if (!isLanded && (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter')) {
+      e.preventDefault();
+      landOnHero();
+    }
+  });
+
+})();
+</script>
+
 </body>
 </html>
