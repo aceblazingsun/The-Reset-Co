@@ -5,7 +5,7 @@
 - **Tagline**: "Stillness is not a luxury. It is a prescription."
 - **Founders & Clinical Directors**: Dr. Aditya Kaundal (BAMS) and Dr. Himanshu Bhatt (BAMS).
 - **Core Offering**: Authentic, physician-supervised 4-day Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh (1,525m altitude).
-- **Operational Model**: Asset-light property partnership with closed cohorts of 8 to 15 guests in private suites and a 6-bed community dormitory. Strictly 4-day all-inclusive programs (no per-night rates).
+- **Operational Model**: Asset-light property partnership with closed cohorts of 8 to 12 guests in private suites and a 6-bed community dormitory. Strictly 4-day all-inclusive programs (no per-night rates).
 - **Key Inclusions**: Localized Basti procedures (Kati, Greeva, Nabhi), Netra Tarpana, Ashchyotana, Day 3 Shatkarma, mindful pottery, stargazing, nature treks, and live Sufi acoustic sessions.
 - **Primary Contact**:
   - Direct Doctor Helpline: +91 78885 40046 (`tel:+917888540046`)

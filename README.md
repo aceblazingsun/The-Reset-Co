@@ -38,7 +38,7 @@ the-reset-co/
 
 3. **Asset-Light Operational Model**
    - Zero fixed real estate lease. High-occupancy partnership with shortlisted mountain property in Bir Billing.
-   - Closed cohorts of 8 to 15 guests in private suites and a 6-bed community dormitory.
+   - Closed cohorts of 8 to 12 guests in private suites and a 6-bed community dormitory.
 
 ---
 
