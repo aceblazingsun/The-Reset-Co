@@ -1,0 +1,7 @@
+# Ignore test, scratch, and archived prototype files in production deployment
+_archive/
+scratch/
+*.backup.html
+*.backup.js
+.env*
+!.env.example

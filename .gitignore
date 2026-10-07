@@ -8,3 +8,10 @@ node_modules/
 _archive/
 *.backup.html
 *.backup.js
+
+# Environment variables & secrets
+.env
+.env.*
+.env.local
+.env.production
+!.env.example

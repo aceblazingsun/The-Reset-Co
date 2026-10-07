@@ -1,10 +1,24 @@
 // Vercel Serverless Function: Automated Email Dispatch for The Reset Co.
 // Endpoint: POST /api/send-email
 
+import { applyCors, escapeHtml, sanitizeString, isValidEmail, isValidPhone, checkRateLimit } from './security.js';
+
 export default async function handler(req, res) {
-  // Only allow POST
+  // Apply restricted CORS policy
+  if (applyCors(req, res, 'POST, OPTIONS')) return;
+
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed. Use POST.' });
+  }
+
+  // 1. IP-based rate limiting (10 requests per minute to prevent quota exhaustion)
+  const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'ip';
+  const limiter = checkRateLimit(`email:${clientIp}`, 10, 60000);
+  if (!limiter.allowed) {
+    return res.status(429).json({
+      success: false,
+      error: `Too many requests. Please try again in ${limiter.retryAfterSec} seconds.`
+    });
   }
 
   try {
@@ -12,7 +26,6 @@ export default async function handler(req, res) {
       name,
       phone,
       email,
-      plan,
       planName,
       dates,
       notes,
@@ -20,6 +33,7 @@ export default async function handler(req, res) {
       prakritiProfile
     } = req.body || {};
 
+    // 2. Strict Input Validation
     if (!name || !email || !phone) {
       return res.status(400).json({
         success: false,
@@ -27,13 +41,34 @@ export default async function handler(req, res) {
       });
     }
 
-    const assignedRef = refCode || 'TRC-2026-BIR-' + Math.floor(1000 + Math.random() * 9000);
-    const chosenPlan = planName || 'The Awakening Journey (Rs 26,000)';
-    const requestedDates = dates ? dates.trim() : 'Flexible / To be finalized on clinical call';
-    const guestNotes = notes ? notes.trim() : 'None provided';
-    const doshaData = prakritiProfile ? prakritiProfile.trim() : 'Not completed';
+    if (!isValidEmail(email)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid email address format provided.'
+      });
+    }
 
-    // 1. Luxury Branded HTML Email Template for the Guest
+    if (!isValidPhone(phone)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid phone or WhatsApp number format provided.'
+      });
+    }
+
+    // 3. Sanitization and Bounds
+    const safeName = sanitizeString(name, 100);
+    const safeEmail = sanitizeString(email, 120);
+    const safePhone = sanitizeString(phone, 30);
+    const safeRef = sanitizeString(refCode || 'TRC-2026-BIR-' + Math.floor(1000 + Math.random() * 9000), 50);
+    const safePlan = sanitizeString(planName || 'The Awakening Journey (Rs 26,000)', 120);
+    const safeDates = sanitizeString(dates || 'Flexible / To be finalized on clinical call', 100);
+    const safeNotes = sanitizeString(notes || 'None provided', 2000);
+    const safeDosha = sanitizeString(prakritiProfile || 'Not completed', 150);
+
+    // Clean phone digits for safe WhatsApp link (numeric only)
+    const cleanDigits = safePhone.replace(/[^0-9]/g, '');
+
+    // 4. Luxury Branded HTML Email Template for the Guest (with full HTML escaping)
     const guestHtml = `
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +99,7 @@ export default async function handler(req, res) {
               <span style="display:inline-block; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#8C2D19; font-weight:600; margin-bottom:8px;">Reservation Enquiry Received</span>
               <h2 style="margin:0 0 10px 0; color:#0F2347; font-size:22px; font-weight:500;">Stillness is not a luxury. It is a prescription.</h2>
               <div style="display:inline-block; background-color:#F7F2E7; border:1px solid #E8DFCC; padding:6px 14px; border-radius:3px; font-size:12px; font-weight:600; color:#0F2347; letter-spacing:0.08em; margin-top:8px;">
-                Reference ID: ${assignedRef}
+                Reference ID: ${escapeHtml(safeRef)}
               </div>
             </td>
           </tr>
@@ -72,9 +107,9 @@ export default async function handler(req, res) {
           <!-- Body Content -->
           <tr>
             <td style="padding:10px 35px 25px 35px; font-size:15px; line-height:1.7; color:#4A5568;">
-              <p style="margin-top:0;">Dear <strong>${name}</strong>,</p>
+              <p style="margin-top:0;">Dear <strong>${escapeHtml(safeName)}</strong>,</p>
               <p>
-                Thank you for reaching out to The Reset Co. Your enquiry and clinical intake considerations for our retreat at The Reset Co. have been safely recorded.
+                Thank you for reaching out to The Reset Co. Your enquiry and clinical intake considerations for our retreat have been safely recorded.
               </p>
               
               <!-- Reservation Summary Box -->
@@ -82,26 +117,26 @@ export default async function handler(req, res) {
                 <tr>
                   <td style="padding:16px 20px; border-bottom:1px solid #E8DFCC;">
                     <strong style="color:#0F2347;">Selected Programme:</strong><br>
-                    <span style="color:#2D3748;">${chosenPlan}</span>
+                    <span style="color:#2D3748;">${escapeHtml(safePlan)}</span>
                   </td>
                 </tr>
                 <tr>
                   <td style="padding:16px 20px; border-bottom:1px solid #E8DFCC;">
                     <strong style="color:#0F2347;">Preferred Dates:</strong><br>
-                    <span style="color:#2D3748;">${requestedDates}</span>
+                    <span style="color:#2D3748;">${escapeHtml(safeDates)}</span>
                   </td>
                 </tr>
                 <tr>
                   <td style="padding:16px 20px; border-bottom:1px solid #E8DFCC;">
                     <strong style="color:#0F2347;">WhatsApp / Phone:</strong><br>
-                    <span style="color:#2D3748;">${phone}</span>
+                    <span style="color:#2D3748;">${escapeHtml(safePhone)}</span>
                   </td>
                 </tr>
-                ${guestNotes !== 'None provided' ? `
+                ${safeNotes !== 'None provided' ? `
                 <tr>
                   <td style="padding:16px 20px;">
                     <strong style="color:#0F2347;">Health Goals / Medical Notes:</strong><br>
-                    <span style="color:#2D3748;">${guestNotes}</span>
+                    <span style="color:#2D3748;">${escapeHtml(safeNotes)}</span>
                   </td>
                 </tr>` : ''}
               </table>
@@ -147,7 +182,6 @@ export default async function handler(req, res) {
               <p style="margin:0;">Clinically Directed by Dr. Aditya Kaundal (BAMS) &amp; Dr. Himanshu Bhatt (BAMS)</p>
             </td>
           </tr>
-
         </table>
       </td>
     </tr>
@@ -156,7 +190,7 @@ export default async function handler(req, res) {
 </html>
     `;
 
-    // 2. Doctor Alert Email Template (Sent to hello@thereset-co.in)
+    // 5. Doctor Alert Email Template
     const doctorAlertHtml = `
 <!DOCTYPE html>
 <html>
@@ -167,14 +201,14 @@ export default async function handler(req, res) {
     <p>A new guest has submitted an intake reservation request on <strong>thereset-co.in</strong>.</p>
     
     <table style="width:100%; border-collapse:collapse; margin:20px 0;">
-      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold; width:160px;">Reference ID:</td><td>${assignedRef}</td></tr>
-      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Guest Name:</td><td>${name}</td></tr>
-      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Phone / WhatsApp:</td><td><a href="tel:${phone}">${phone}</a> &nbsp;|&nbsp; <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}">Open WhatsApp</a></td></tr>
-      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Email:</td><td><a href="mailto:${email}">${email}</a></td></tr>
-      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Programme:</td><td>${chosenPlan}</td></tr>
-      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Preferred Dates:</td><td>${requestedDates}</td></tr>
-      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Prakriti Profile:</td><td>${doshaData}</td></tr>
-      <tr><td style="padding:8px 0; font-weight:bold; vertical-align:top;">Medical Notes:</td><td>${guestNotes}</td></tr>
+      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold; width:160px;">Reference ID:</td><td>${escapeHtml(safeRef)}</td></tr>
+      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Guest Name:</td><td>${escapeHtml(safeName)}</td></tr>
+      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Phone / WhatsApp:</td><td>${escapeHtml(safePhone)} &nbsp;|&nbsp; <a href="https://wa.me/${encodeURIComponent(cleanDigits)}">Open WhatsApp</a></td></tr>
+      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Email:</td><td>${escapeHtml(safeEmail)}</td></tr>
+      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Programme:</td><td>${escapeHtml(safePlan)}</td></tr>
+      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Preferred Dates:</td><td>${escapeHtml(safeDates)}</td></tr>
+      <tr style="border-bottom:1px solid #EDF2F7;"><td style="padding:8px 0; font-weight:bold;">Prakriti Profile:</td><td>${escapeHtml(safeDosha)}</td></tr>
+      <tr><td style="padding:8px 0; font-weight:bold; vertical-align:top;">Medical Notes:</td><td>${escapeHtml(safeNotes)}</td></tr>
     </table>
 
     <div style="background:#EDF2F7; padding:15px; border-radius:4px; font-size:13px; color:#4A5568;">
@@ -185,8 +219,8 @@ export default async function handler(req, res) {
 </html>
     `;
 
-    // 3. Dispatch via Configured Email Provider
-    const resendApiKey = process.env.RESEND_API_KEY || Buffer.from('cmVfUThqeEtrSHVfNDJLNTZFdkJyd0JZTDh5QkwxWUVucnhF', 'base64').toString('utf-8');
+    // 6. Dispatch via Environment-Configured Provider ONLY (No hardcoded credentials)
+    const resendApiKey = process.env.RESEND_API_KEY;
     const zeptoMailToken = process.env.ZEPTOMAIL_TOKEN;
     const rawDoctorEmails = process.env.DOCTOR_EMAIL || 'hello@thereset-co.in';
     const doctorList = rawDoctorEmails.split(',').map(e => e.trim()).filter(Boolean);
@@ -196,7 +230,7 @@ export default async function handler(req, res) {
     let doctorEmailSent = false;
     let providerUsed = 'none';
 
-    // Provider A: Resend API (Active & Connected)
+    // Provider A: Resend API
     if (resendApiKey) {
       providerUsed = 'resend';
 
@@ -211,7 +245,6 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify(bodyObj)
         });
-        // If custom domain is not yet verified in Resend, auto-fallback to onboarding@resend.dev
         if (!r.ok && fromAddr.includes('thereset-co.in')) {
           bodyObj.from = 'The Reset Co <onboarding@resend.dev>';
           r = await fetch('https://api.resend.com/emails', {
@@ -226,91 +259,94 @@ export default async function handler(req, res) {
         return r;
       }
 
-      // Send to Guest
       try {
         const guestRes = await dispatchResend(
           preferredSender,
-          [email],
-          `Sanctuary Reservation Enquiry Received [${assignedRef}]`,
+          [safeEmail],
+          `Sanctuary Reservation Enquiry Received [${safeRef}]`,
           guestHtml,
           'hello@thereset-co.in'
         );
         if (guestRes.ok) guestEmailSent = true;
       } catch (e) {
-        console.warn('Guest email dispatch error:', e);
+        console.error('Guest email dispatch error:', e);
       }
 
-      // Send to Doctors / Both Partners
       try {
         const docRes = await dispatchResend(
           preferredSender,
           doctorList,
-          `[New Lead] ${name} - ${chosenPlan} (${requestedDates})`,
+          `[New Lead] ${safeName} - ${safePlan} (${safeDates})`,
           doctorAlertHtml,
-          email
+          safeEmail
         );
         if (docRes.ok) doctorEmailSent = true;
       } catch (e) {
-        console.warn('Doctor email dispatch error:', e);
+        console.error('Doctor email dispatch error:', e);
       }
     }
     // Provider B: Zoho ZeptoMail REST API
     else if (zeptoMailToken) {
       providerUsed = 'zeptomail';
 
-      // Send to Guest via ZeptoMail
-      const zeptoRes = await fetch('https://api.zeptomail.in/v1.1/email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Zoho-enczapikey ${zeptoMailToken}`
-        },
-        body: JSON.stringify({
-          bounce_address: `bounces@${process.env.EMAIL_DOMAIN || 'em.thereset-co.in'}`,
-          from: { address: 'hello@thereset-co.in', name: 'The Reset Co' },
-          to: [{ email_address: { address: email, name: name } }],
-          subject: `Sanctuary Reservation Enquiry Received [${assignedRef}]`,
-          htmlbody: guestHtml
-        })
-      });
-      if (zeptoRes.ok) guestEmailSent = true;
+      try {
+        const zeptoRes = await fetch('https://api.zeptomail.in/v1.1/email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Zoho-enczapikey ${zeptoMailToken}`
+          },
+          body: JSON.stringify({
+            bounce_address: `bounces@${process.env.EMAIL_DOMAIN || 'em.thereset-co.in'}`,
+            from: { address: 'hello@thereset-co.in', name: 'The Reset Co' },
+            to: [{ email_address: { address: safeEmail, name: safeName } }],
+            subject: `Sanctuary Reservation Enquiry Received [${safeRef}]`,
+            htmlbody: guestHtml
+          })
+        });
+        if (zeptoRes.ok) guestEmailSent = true;
+      } catch (e) {
+        console.error('Guest zeptomail error:', e);
+      }
 
-      // Send to Doctors / Both Partners via ZeptoMail
-      const docZeptoRes = await fetch('https://api.zeptomail.in/v1.1/email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Zoho-enczapikey ${zeptoMailToken}`
-        },
-        body: JSON.stringify({
-          bounce_address: `bounces@${process.env.EMAIL_DOMAIN || 'em.thereset-co.in'}`,
-          from: { address: 'hello@thereset-co.in', name: 'The Reset Co' },
-          to: doctorList.map(addr => ({ email_address: { address: addr } })),
-          subject: `[New Lead] ${name} - ${chosenPlan} (${requestedDates})`,
-          htmlbody: doctorAlertHtml
-        })
-      });
-      if (docZeptoRes.ok) doctorEmailSent = true;
+      try {
+        const docZeptoRes = await fetch('https://api.zeptomail.in/v1.1/email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Zoho-enczapikey ${zeptoMailToken}`
+          },
+          body: JSON.stringify({
+            bounce_address: `bounces@${process.env.EMAIL_DOMAIN || 'em.thereset-co.in'}`,
+            from: { address: 'hello@thereset-co.in', name: 'The Reset Co' },
+            to: doctorList.map(addr => ({ email_address: { address: addr } })),
+            subject: `[New Lead] ${safeName} - ${safePlan} (${safeDates})`,
+            htmlbody: doctorAlertHtml
+          })
+        });
+        if (docZeptoRes.ok) doctorEmailSent = true;
+      } catch (e) {
+        console.error('Doctor zeptomail error:', e);
+      }
     }
 
     return res.status(200).json({
       success: true,
-      refCode: assignedRef,
+      refCode: safeRef,
       provider: providerUsed,
       emailsSent: {
         guest: guestEmailSent,
         doctors: doctorEmailSent
       },
-      message: guestEmailSent
-        ? 'Automated confirmation dispatched to guest and clinical team.'
-        : 'Reservation received. Email provider credentials pending in environment variables.'
+      message: 'Reservation received and recorded.'
     });
 
   } catch (error) {
     console.error('Email automation error:', error);
+    // Mask internal error details from the public response
     return res.status(500).json({
       success: false,
-      error: 'Failed to process email automation: ' + error.message
+      error: 'An internal error occurred while processing reservation confirmation. Please contact support directly.'
     });
   }
 }

@@ -32,44 +32,49 @@ Supabase gives you a relational PostgreSQL database with built-in Row-Level Secu
 ### 1. SQL Schema (Run in Supabase SQL Editor)
 
 ```sql
--- Create table for retreat inquiries
-CREATE TABLE retreat_inquiries (
+-- Create table for retreat bookings (if not already created)
+CREATE TABLE IF NOT EXISTS retreat_bookings (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     full_name TEXT NOT NULL,
-    whatsapp_number TEXT NOT NULL,
+    phone TEXT,
     email TEXT NOT NULL,
-    selected_tier TEXT NOT NULL CHECK (selected_tier IN ('serenity', 'awakening', 'transformation', 'dorm')),
-    tier_display_name TEXT NOT NULL,
+    selected_plan TEXT,
     preferred_dates TEXT,
-    health_notes TEXT,
+    "health notes" TEXT,
     prakriti_profile TEXT,
-    submitted_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL,
-    status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'consultation_scheduled', 'deposit_paid', 'confirmed', 'archived')),
-    doctor_notes TEXT,
-    source TEXT DEFAULT 'website'
+    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL,
+    status TEXT DEFAULT 'new' CHECK (status IN ('new', 'consultation', 'confirmed', 'cancelled', 'archived')),
+    doctor_notes TEXT
 );
 
--- Enable Row Level Security (RLS)
-ALTER TABLE retreat_inquiries ENABLE ROW LEVEL SECURITY;
+-- ─── HARDENED ROW LEVEL SECURITY (RLS) ───
+-- 1. Enable RLS immediately
+ALTER TABLE retreat_bookings ENABLE ROW LEVEL SECURITY;
 
--- Policy 1: Allow public visitors (anon) to submit inquiries
-CREATE POLICY "Allow anonymous submissions" 
-ON retreat_inquiries 
+-- 2. Drop any legacy open policies
+DROP POLICY IF EXISTS "Public Full Access" ON retreat_bookings;
+DROP POLICY IF EXISTS "Allow anonymous submissions" ON retreat_bookings;
+DROP POLICY IF EXISTS "Allow public read" ON retreat_bookings;
+
+-- 3. Policy 1: Allow public visitors (anon) ONLY to insert new booking inquiries
+CREATE POLICY "Allow public insert only" 
+ON retreat_bookings 
 FOR INSERT 
 TO anon 
 WITH CHECK (true);
 
--- Policy 2: Allow authenticated doctors full access (SELECT, UPDATE, DELETE)
-CREATE POLICY "Allow authenticated doctors access" 
-ON retreat_inquiries 
+-- 4. Policy 2: Allow authenticated service_role / doctors full access (SELECT, UPDATE, DELETE)
+-- Public visitors have ZERO read/update/delete permissions (default-deny)
+CREATE POLICY "Allow service role full access" 
+ON retreat_bookings 
 FOR ALL 
-TO authenticated 
+TO service_role 
 USING (true) 
 WITH CHECK (true);
 
--- Index for fast doctor dashboard queries
-CREATE INDEX idx_inquiries_submitted_at ON retreat_inquiries (submitted_at DESC);
-CREATE INDEX idx_inquiries_status ON retreat_inquiries (status);
+-- Indexes for performance
+CREATE INDEX IF NOT EXISTS idx_bookings_created_at ON retreat_bookings (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_bookings_status ON retreat_bookings (status);
 ```
 
 ### 2. Website Configuration

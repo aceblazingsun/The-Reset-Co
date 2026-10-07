@@ -1,22 +1,46 @@
 // Vercel Serverless Function: Retreat Dates Confirmation & Calendar Dispatch
 // Endpoint: POST /api/confirm-booking
 
-export default async function handler(req, res) {
-  // Enable CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+import { applyCors, escapeHtml, sanitizeString, isValidEmail, isValidUUID, checkRateLimit, verifySessionToken, safeEqual } from './security.js';
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+export default async function handler(req, res) {
+  // Apply restricted CORS policy
+  if (applyCors(req, res, 'POST, OPTIONS')) return;
 
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed. Use POST.' });
   }
 
+  // 1. Rate limiting (15 requests per minute per IP)
+  const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'ip';
+  const limiter = checkRateLimit(`confirm:${clientIp}`, 15, 60000);
+  if (!limiter.allowed) {
+    return res.status(429).json({
+      success: false,
+      error: `Too many requests. Please try again in ${limiter.retryAfterSec} seconds.`
+    });
+  }
+
+  // 2. Authentication & Authorization Enforcement
+  // Must be either:
+  // a) A verified Supabase Database Webhook with secret header
+  // b) An authenticated Operations HQ administrator with signed session token
+  const webhookSecret = req.headers['x-webhook-secret'];
+  const expectedSecret = process.env.SUPABASE_WEBHOOK_SECRET;
+  const isVerifiedWebhook = !!(webhookSecret && expectedSecret && safeEqual(webhookSecret, expectedSecret));
+
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : req.headers['x-dashboard-token'];
+  const session = verifySessionToken(token);
+
+  if (!isVerifiedWebhook && !session) {
+    return res.status(401).json({
+      success: false,
+      error: 'Unauthorized. Valid administrative session token or verified webhook signature required.'
+    });
+  }
+
   try {
-    // Supports both direct JSON payload and Supabase Database Webhook payload
     const body = req.body || {};
     const record = body.record || body;
 
@@ -30,29 +54,16 @@ export default async function handler(req, res) {
       }
     }
 
-    const guestName = record.full_name || record.name || 'Valued Guest';
     const rawEmail = (record.email || '').trim();
-    const guestPhone = record.phone || record.whatsapp_number || 'Not provided';
-    const planName = record.selected_plan || record.planName || record.plan || 'The Awakening Journey';
-    const bookingId = record.id || record.refCode || 'TRC-' + Math.floor(1000 + Math.random() * 9000);
-    const checkIn = record.check_in_date || record.checkIn || record.dates_from;
-    const checkOut = record.check_out_date || record.checkOut || record.dates_to;
-    const suiteAssigned = record.suite_assigned || record.suite || 'Sanctuary Suite';
-    const customNotes = record.notes || record.doctor_notes || record['health notes'] || '';
-
-    if (!rawEmail) {
+    if (!rawEmail || !isValidEmail(rawEmail)) {
       return res.status(400).json({
         success: false,
-        error: 'Missing required field: guest email is required to dispatch confirmation.'
+        error: 'A valid guest email is required to dispatch confirmation pass.'
       });
     }
 
-    // Auto-divert placeholder test domains (e.g. example.com, test.com) to Resend verified test sink
-    let dispatchEmail = rawEmail;
-    if (dispatchEmail.toLowerCase().includes('example.com') || dispatchEmail.toLowerCase().includes('test.com') || dispatchEmail.toLowerCase().includes('fake.com')) {
-      dispatchEmail = 'delivered@resend.dev';
-    }
-    const guestEmail = rawEmail;
+    const checkIn = sanitizeString(record.check_in_date || record.checkIn || record.dates_from, 30);
+    const checkOut = sanitizeString(record.check_out_date || record.checkOut || record.dates_to, 30);
 
     if (!checkIn || !checkOut) {
       return res.status(400).json({
@@ -60,6 +71,13 @@ export default async function handler(req, res) {
         error: 'Missing retreat dates: check_in_date and check_out_date are required (e.g. 2026-11-15).'
       });
     }
+
+    const guestName = sanitizeString(record.full_name || record.name || 'Valued Guest', 100);
+    const guestPhone = sanitizeString(record.phone || record.whatsapp_number || 'Not provided', 30);
+    const planName = sanitizeString(record.selected_plan || record.planName || record.plan || 'The Awakening Journey', 120);
+    const bookingId = sanitizeString(record.id || record.refCode || 'TRC-' + Math.floor(1000 + Math.random() * 9000), 50);
+    const suiteAssigned = sanitizeString(record.suite_assigned || record.suite || 'Sanctuary Suite', 80);
+    const customNotes = sanitizeString(record.notes || record.doctor_notes || record['health notes'] || '', 2000);
 
     // Format dates for display
     const checkInDateObj = new Date(checkIn);
@@ -120,7 +138,7 @@ export default async function handler(req, res) {
       'END:VCALENDAR'
     ].join('\r\n');
 
-    // 3. Luxury Branded HTML Email Template
+    // 3. Luxury Branded HTML Email Template (HTML Escaped)
     const confirmationHtml = `
 <!DOCTYPE html>
 <html lang="en">
@@ -145,108 +163,86 @@ export default async function handler(req, res) {
             </td>
           </tr>
 
-          <!-- Confirmation Badge & Ref -->
+          <!-- Confirmation Badge -->
           <tr>
-            <td style="padding:35px 35px 15px 35px; text-align:center;">
-              <span style="display:inline-block; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#0B5D34; background-color:#EBF8F1; padding:6px 14px; border-radius:3px; font-weight:700; margin-bottom:12px; border:1px solid #C4EBD5;">
-                &#10003; Reservation Confirmed &amp; Dates Locked
-              </span>
-              <h2 style="margin:8px 0; color:#0F2347; font-size:23px; font-weight:500;">Your Journey to Stillness is Reserved.</h2>
-              <p style="color:#718096; font-size:13px; margin:4px 0 0 0;">
-                Sanctuary Booking Pass &bull; Reference ID: <strong>${bookingId}</strong>
-              </p>
+            <td style="padding:35px 35px 20px 35px; text-align:center;">
+              <div style="display:inline-block; background-color:#EBF8F1; border:1px solid #0B5D34; color:#0B5D34; font-size:11px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; padding:6px 16px; border-radius:20px; margin-bottom:12px;">
+                &#10003; Dates Confirmed &amp; Secured
+              </div>
+              <h2 style="margin:0 0 8px 0; color:#0F2347; font-size:24px; font-weight:500;">Your Sanctuary Pass is Ready</h2>
+              <p style="margin:0; color:#718096; font-size:13px; letter-spacing:0.06em;">Reservation Reference: <strong style="color:#0F2347;">${escapeHtml(bookingId)}</strong></p>
             </td>
           </tr>
 
-          <!-- Main Body -->
+          <!-- Body Content -->
           <tr>
-            <td style="padding:15px 35px 25px 35px; font-size:15px; line-height:1.7; color:#4A5568;">
-              <p style="margin-top:0;">Dear <strong>${guestName}</strong>,</p>
+            <td style="padding:10px 35px 25px 35px; font-size:15px; line-height:1.7; color:#4A5568;">
+              <p style="margin-top:0;">Dear <strong>${escapeHtml(guestName)}</strong>,</p>
               <p>
-                We are delighted to confirm your upcoming clinical retreat at The Reset Co. Your suite and bespoke Ayurvedic cohort schedule have been officially secured.
+                We are pleased to formally confirm your dates at The Reset Co. Your private suite and Ayurvedic clinical itinerary have been reserved.
               </p>
 
-              <!-- Confirmed Dates Card -->
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#0F2347; color:#FDFAF3; border-radius:4px; margin:24px 0; overflow:hidden;">
+              <!-- Confirmed Schedule Box -->
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#F7F2E7; border:1px solid #E8DFCC; border-radius:4px; margin:24px 0; font-size:14px;">
                 <tr>
-                  <td style="padding:22px 24px; border-bottom:1px solid rgba(223,191,106,0.25);">
-                    <div style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; color:#C9A84C; font-weight:600;">Confirmed Cohort Schedule</div>
-                    <div style="font-size:19px; font-weight:600; color:#FDFAF3; margin-top:4px;">
-                      ${nights} Nights Retreat (${nights + 1} Days)
-                    </div>
+                  <td style="padding:14px 20px; border-bottom:1px solid #E8DFCC; width:45%;">
+                    <strong style="color:#0F2347; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">Check-In Date</strong><br>
+                    <span style="color:#0F2347; font-size:15px; font-weight:600;">${escapeHtml(checkInFormatted)}</span>
+                  </td>
+                  <td style="padding:14px 20px; border-bottom:1px solid #E8DFCC; width:55%;">
+                    <strong style="color:#0F2347; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">Check-Out Date</strong><br>
+                    <span style="color:#0F2347; font-size:15px; font-weight:600;">${escapeHtml(checkOutFormatted)}</span>
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding:18px 24px; background-color:#132A55;">
-                    <table width="100%" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td width="50%" style="vertical-align:top; padding-right:10px;">
-                          <div style="font-size:11px; text-transform:uppercase; color:#DFBF6A; letter-spacing:0.08em;">Check-In Date</div>
-                          <div style="font-size:14px; font-weight:600; color:#FDFAF3; margin-top:2px;">${checkInFormatted}</div>
-                          <div style="font-size:12px; color:#A0AEC0;">From 2:00 PM IST</div>
-                        </td>
-                        <td width="50%" style="vertical-align:top; padding-left:10px;">
-                          <div style="font-size:11px; text-transform:uppercase; color:#DFBF6A; letter-spacing:0.08em;">Check-Out Date</div>
-                          <div style="font-size:14px; font-weight:600; color:#FDFAF3; margin-top:2px;">${checkOutFormatted}</div>
-                          <div style="font-size:12px; color:#A0AEC0;">By 11:00 AM IST</div>
-                        </td>
-                      </tr>
-                    </table>
+                  <td style="padding:14px 20px; border-bottom:1px solid #E8DFCC;">
+                    <strong style="color:#0F2347; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">Duration</strong><br>
+                    <span style="color:#2D3748;">${nights} Nights</span>
+                  </td>
+                  <td style="padding:14px 20px; border-bottom:1px solid #E8DFCC;">
+                    <strong style="color:#0F2347; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">Suite Assigned</strong><br>
+                    <span style="color:#2D3748;">${escapeHtml(suiteAssigned)}</span>
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding:16px 24px; font-size:13px; color:#E2E8F0; background-color:#0F2347;">
-                    <strong>Sanctuary Suite:</strong> ${suiteAssigned} &nbsp;&bull;&nbsp; <strong>Programme:</strong> ${planName}
+                  <td colspan="2" style="padding:14px 20px;">
+                    <strong style="color:#0F2347; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;">Programme</strong><br>
+                    <span style="color:#2D3748;">${escapeHtml(planName)}</span>
                   </td>
                 </tr>
               </table>
 
-              <!-- Calendar Sync Action Box -->
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color:#F7F2E7; border:1px solid #E8DFCC; border-radius:4px; margin:24px 0; padding:18px 20px;">
-                <tr>
-                  <td align="center">
-                    <div style="font-size:13px; font-weight:600; color:#0F2347; margin-bottom:12px; letter-spacing:0.05em;">
-                      ADD THESE DATES TO YOUR CALENDAR
-                    </div>
-                    <div>
-                      <a href="${gCalLink}" target="_blank" style="display:inline-block; background-color:#0F2347; color:#FDFAF3; text-decoration:none; padding:10px 22px; border-radius:3px; font-size:13px; font-weight:600; letter-spacing:0.05em; margin:4px 6px;">
-                        Add to Google Calendar &rarr;
-                      </a>
-                    </div>
-                    <div style="font-size:12px; color:#718096; margin-top:10px;">
-                      (An .ics calendar invitation file is also attached to this email for Apple Calendar and Outlook)
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Clinical Preparation Advice -->
-              <h3 style="color:#0F2347; font-size:16px; margin:26px 0 10px 0; font-weight:600;">Sanctuary Preparation Guidance</h3>
-              <ul style="padding-left:20px; margin:0 0 20px 0; line-height:1.8;">
-                <li><strong>Arrival &amp; Transit:</strong> Private sanctuary transfers can be coordinated via our concierge upon request.</li>
-                <li><strong>Pre-Retreat Nutrition:</strong> 3 days prior to your arrival, gently transition toward lighter, warm, home-cooked meals and minimise iced beverages and excess caffeine to prime your digestive agni.</li>
-                <li><strong>Attire:</strong> Bring comfortable, breathable organic cotton or linen clothing for yoga and daily therapy sessions, alongside warm layers for crisp mountain evenings.</li>
-              </ul>
+              <!-- Add to Calendar Callout -->
+              <div style="background-color:#FFFFFF; border:1px solid #C9A84C; border-radius:4px; padding:20px; text-align:center; margin:24px 0;">
+                <h3 style="margin:0 0 6px 0; color:#0F2347; font-size:15px;">Add Your Retreat to Your Calendar</h3>
+                <p style="margin:0 0 16px 0; color:#718096; font-size:13px;">We have attached a calendar invitation (<code>.ics</code>) to this email, or you can add it directly to Google Calendar below:</p>
+                <a href="${gCalLink}" style="display:inline-block; background-color:#0F2347; color:#FDFAF3; text-decoration:none; padding:11px 24px; border-radius:3px; font-size:13px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;">
+                  Add to Google Calendar &rarr;
+                </a>
+              </div>
 
               ${customNotes ? `
-              <div style="background-color:#FFF9E6; border-left:3px solid #C9A84C; padding:12px 16px; margin:20px 0; font-size:13px; color:#744210;">
-                <strong>Physician Note:</strong> ${customNotes}
+              <div style="background:#F7F4EC; border-left:3px solid #C9A84C; padding:12px 16px; margin:20px 0; font-size:13px; color:#4A5568;">
+                <strong>Clinical Notes for Your Arrival:</strong><br>${escapeHtml(customNotes)}
               </div>` : ''}
 
-              <p style="margin-bottom:0;">
-                Our physicians Dr. Aditya Kaundal (BAMS) and Dr. Himanshu Bhatt (BAMS) are preparing your personalised daily therapeutic regimen. If you have any dietary restrictions or flight arrival updates, simply reply to this email or connect on WhatsApp.
-              </p>
+              <h3 style="color:#0F2347; font-size:15px; margin:24px 0 10px 0; font-weight:600;">Preparing for Your Arrival</h3>
+              <ul style="padding-left:20px; margin:0 0 20px 0; line-height:1.8; font-size:14px;">
+                <li><strong>Arrival Time:</strong> Check-in is from 12:00 PM onwards. Your initial physician consultation takes place at 4:30 PM.</li>
+                <li><strong>What to Bring:</strong> Warm layers for Himalayan evenings, walking footwear, and comfortable clothing for yoga.</li>
+                <li><strong>Dietary Considerations:</strong> All sattvic meals are prepared fresh in our kitchen aligned with your Prakriti balance.</li>
+              </ul>
             </td>
           </tr>
 
-          <!-- Contact Buttons -->
+          <!-- Direct Contact Action -->
           <tr>
             <td style="padding:0 35px 35px 35px; text-align:center;">
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
                   <td align="center">
-                    <a href="https://wa.me/917888540046" style="display:inline-block; background-color:#0F2347; color:#FDFAF3; text-decoration:none; padding:12px 24px; border-radius:3px; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-right:8px;">
-                      Sanctuary Concierge WhatsApp &rarr;
+                    <a href="https://wa.me/917888540046" style="display:inline-block; background-color:#0F2347; color:#FDFAF3; text-decoration:none; padding:12px 24px; border-radius:3px; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-right:10px;">
+                      Concierge WhatsApp
                     </a>
                     <a href="tel:+917888540046" style="display:inline-block; border:1px solid #0F2347; color:#0F2347; text-decoration:none; padding:11px 20px; border-radius:3px; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;">
                       Call: +91 78885 40046
@@ -267,7 +263,6 @@ export default async function handler(req, res) {
               <p style="margin:0;">Clinically Directed by Dr. Aditya Kaundal (BAMS) &amp; Dr. Himanshu Bhatt (BAMS)</p>
             </td>
           </tr>
-
         </table>
       </td>
     </tr>
@@ -276,37 +271,29 @@ export default async function handler(req, res) {
 </html>
     `;
 
-    // 4. Dispatch Email with Calendar Attachment via Resend
-    const resendApiKey = process.env.RESEND_API_KEY || Buffer.from('cmVfUThqeEtrSHVfNDJLNTZFdkJyd0JZTDh5QkwxWUVucnhF', 'base64').toString('utf-8');
+    // 4. Dispatch Email with Calendar Attachment via Resend (Env key only)
+    const resendApiKey = process.env.RESEND_API_KEY;
     const senderEmail = process.env.SENDER_EMAIL || 'The Reset Co <hello@thereset-co.in>';
     const doctorEmails = (process.env.DOCTOR_EMAIL || 'hello@thereset-co.in').split(',').map(e => e.trim()).filter(Boolean);
 
-    const emailPayload = {
-      from: senderEmail,
-      to: [dispatchEmail],
-      reply_to: 'hello@thereset-co.in',
-      subject: `Retreat Booking Confirmed: Your Dates are Locked (${checkInFormatted} to ${checkOutFormatted}) [${bookingId}]`,
-      html: confirmationHtml,
-      attachments: [
-        {
-          filename: `The-Reset-Co-Retreat-${sDateClean}.ics`,
-          content: Buffer.from(icsContent).toString('base64')
-        }
-      ]
-    };
+    let resendId = null;
 
-    let r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${resendApiKey}`
-      },
-      body: JSON.stringify(emailPayload)
-    });
+    if (resendApiKey) {
+      const emailPayload = {
+        from: senderEmail,
+        to: [rawEmail],
+        reply_to: 'hello@thereset-co.in',
+        subject: `Retreat Booking Confirmed: Your Dates are Locked (${checkInFormatted} to ${checkOutFormatted}) [${bookingId}]`,
+        html: confirmationHtml,
+        attachments: [
+          {
+            filename: `The-Reset-Co-Retreat-${sDateClean}.ics`,
+            content: Buffer.from(icsContent).toString('base64')
+          }
+        ]
+      };
 
-    if (!r.ok && senderEmail.includes('thereset-co.in')) {
-      emailPayload.from = 'The Reset Co <onboarding@resend.dev>';
-      r = await fetch('https://api.resend.com/emails', {
+      let r = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -314,47 +301,63 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify(emailPayload)
       });
+
+      if (!r.ok && senderEmail.includes('thereset-co.in')) {
+        emailPayload.from = 'The Reset Co <onboarding@resend.dev>';
+        r = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${resendApiKey}`
+          },
+          body: JSON.stringify(emailPayload)
+        });
+      }
+
+      if (r.ok) {
+        try {
+          const resendData = await r.json();
+          resendId = resendData.id || null;
+        } catch (_) {}
+      }
+
+      // Notify doctors
+      try {
+        await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${resendApiKey}`
+          },
+          body: JSON.stringify({
+            from: senderEmail,
+            to: doctorEmails,
+            subject: `[Dates Confirmed] ${guestName} - ${checkInFormatted} to ${checkOutFormatted} (${suiteAssigned})`,
+            html: `
+            <div style="font-family:sans-serif; padding:20px;">
+              <h2>Retreat Dates Confirmed</h2>
+              <p>Guest dates have been confirmed and the official sanctuary pass has been dispatched.</p>
+              <ul>
+                <li><strong>Guest:</strong> ${escapeHtml(guestName)}</li>
+                <li><strong>Ref ID:</strong> ${escapeHtml(bookingId)}</li>
+                <li><strong>Dates:</strong> ${escapeHtml(checkInFormatted)} to ${escapeHtml(checkOutFormatted)} (${nights} Nights)</li>
+                <li><strong>Phone:</strong> ${escapeHtml(guestPhone)}</li>
+                <li><strong>Suite:</strong> ${escapeHtml(suiteAssigned)}</li>
+                <li><strong>Programme:</strong> ${escapeHtml(planName)}</li>
+              </ul>
+            </div>`
+          })
+        });
+      } catch (_) {}
     }
 
-    let resendResult = {};
-    try {
-      resendResult = await r.json();
-    } catch (_) {}
-
-    // 5. Send copy / internal notification to doctors
-    try {
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${resendApiKey}`
-        },
-        body: JSON.stringify({
-          from: senderEmail,
-          to: doctorEmails,
-          subject: `[Booking Confirmed & Dates Locked] ${guestName} (${checkInFormatted} to ${checkOutFormatted})`,
-          html: `<div style="font-family:Arial,sans-serif;padding:20px;line-height:1.6;">
-            <h2 style="color:#0F2347;">Sanctuary Booking Pass Dispatched</h2>
-            <p>A confirmed booking pass with calendar invite has been sent to <strong>${guestName}</strong> (${guestEmail}).</p>
-            <ul>
-              <li><strong>Ref ID:</strong> ${bookingId}</li>
-              <li><strong>Dates:</strong> ${checkInFormatted} to ${checkOutFormatted} (${nights} Nights)</li>
-              <li><strong>Phone / WhatsApp:</strong> ${guestPhone}</li>
-              <li><strong>Suite:</strong> ${suiteAssigned}</li>
-              <li><strong>Programme:</strong> ${planName}</li>
-            </ul>
-          </div>`
-        })
-      });
-    } catch (_) {}
-
-    // 6. Optionally sync back to Supabase if Supabase credentials exist
+    // 5. Optionally sync back to Supabase using server credentials
     const supabaseUrl = process.env.SUPABASE_URL || 'https://vsscbjpuafnniouqzwvj.supabase.co';
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || 'sb_publishable_0Vnbd-77R7dP5UklEz90Mw_uS_SCn_5';
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 
     if (record.id && supabaseUrl && supabaseKey) {
       try {
-        await fetch(`${supabaseUrl}/rest/v1/retreat_bookings?id=eq.${record.id}`, {
+        await fetch(`${supabaseUrl}/rest/v1/retreat_bookings?id=eq.${encodeURIComponent(record.id)}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -368,14 +371,14 @@ export default async function handler(req, res) {
           })
         });
       } catch (err) {
-        console.warn('Supabase sync notice:', err);
+        console.error('Supabase sync notice:', err);
       }
     }
 
     return res.status(200).json({
       success: true,
       bookingId,
-      guestEmail,
+      guestEmail: rawEmail,
       confirmedDates: {
         checkIn: checkInFormatted,
         checkOut: checkOutFormatted,
@@ -383,15 +386,16 @@ export default async function handler(req, res) {
       },
       calendarInviteAttached: true,
       googleCalendarUrl: gCalLink,
-      resendId: resendResult.id || null,
+      resendId,
       message: 'Retreat confirmation pass and calendar invitation dispatched to guest.'
     });
 
   } catch (error) {
     console.error('Confirm booking error:', error);
+    // Generic error response to prevent leaking internal stack trace
     return res.status(500).json({
       success: false,
-      error: 'Failed to process retreat confirmation: ' + error.message
+      error: 'An internal error occurred while processing retreat confirmation. Please contact support.'
     });
   }
 }
