@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview: Guest Reflections & Review Modal | The Reset Co.</title>
+<link rel="icon" type="image/png" sizes="120x120" href="images/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F7F0DC;
+    --gold-dark: #8C651E;
+    --royal: #1A3A6B;
+    --royal-deep: #0F2347;
+    --royal-mid: #2D5499;
+    --ivory: #FDFAF3;
+    --parchment: #FAF7F0;
+    --stone: #F0EBE0;
+    --text: #1A1A1A;
+    --text-muted: #5C6779;
+    --border: #E8DFCC;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --display: 'Cinzel', serif;
+    --sans: 'Jost', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--parchment);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-bottom: 5rem;
+  }
+
+  /* Header banner for preview */
+  .preview-bar {
+    background: var(--royal-deep);
+    color: var(--gold-light);
+    padding: 0.75rem 1.5rem;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+  }
+  .preview-bar span { font-family: var(--display); letter-spacing: 0.1em; }
+  .preview-actions { display: flex; gap: 0.75rem; align-items: center; }
+  .btn-preview-trigger {
+    background: var(--gold);
+    color: var(--royal-deep);
+    border: none;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    padding: 0.4rem 0.9rem;
+    border-radius: 3px;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  /* Testimonials Section as seen on index.html */
+  .testimonials {
+    background: var(--stone);
+    padding: 5rem 1.5rem;
+  }
+  .inner {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  .sec-label {
+    font-family: var(--display);
+    font-size: 0.76rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.5rem;
+  }
+  .sec-title {
+    font-family: var(--serif);
+    font-size: 2.35rem;
+    color: var(--royal-deep);
+    font-weight: 400;
+    line-height: 1.25;
+  }
+  .sec-title em { font-style: italic; color: var(--gold); }
+  .divider {
+    width: 48px;
+    height: 1.5px;
+    background: var(--gold);
+    margin: 1.25rem auto;
+  }
+  .sec-body {
+    font-size: 0.96rem;
+    color: var(--text-muted);
+    max-width: 580px;
+    line-height: 1.7;
+    margin: 0 auto;
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    margin-top: 3rem;
+  }
+  .testi-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    padding: 2.25rem 1.75rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 14px rgba(15,35,71,0.03);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .testi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(15,35,71,0.06);
+  }
+  .testi-stars {
+    color: var(--gold);
+    font-size: 1.05rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+  }
+  .testi-q {
+    font-family: var(--serif);
+    font-size: 1.08rem;
+    line-height: 1.68;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+  .testi-by {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--royal-deep);
+  }
+  .testi-from {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+
+  /* Review CTA Block */
+  .review-cta-wrap {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.85rem;
+  }
+  .btn-review-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: transparent;
+    border: 1px solid rgba(201, 168, 76, 0.55);
+    color: var(--royal-deep);
+    padding: 0.75rem 1.85rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    min-height: 46px;
+  }
+  .btn-review-ghost:hover {
+    background: var(--royal-deep);
+    color: var(--ivory);
+    border-color: var(--royal-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(15, 35, 71, 0.12);
+  }
+  .btn-review-ghost .glyph {
+    color: var(--gold);
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+  }
+  .btn-review-ghost:hover .glyph {
+    transform: rotate(45deg);
+  }
+  .review-cta-note {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     MODAL STYLES (Refined Sanctuary Design)
+  ────────────────────────────────────────────────────────────── */
+  .review-modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 35, 71, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .review-modal-backdrop.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .review-modal-dialog {
+    background: var(--ivory);
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    box-shadow: 0 24px 60px rgba(15, 35, 71, 0.28);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px) scale(0.98);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .review-modal-backdrop.is-active .review-modal-dialog {
+    transform: translateY(0) scale(1);
+  }
+
+  /* Modal Header */
+  .review-modal-header {
+    padding: 1.75rem 2rem 1.25rem;
+    background: #FAF7F0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    text-align: center;
+  }
+  .review-modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    background: var(--ivory);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--royal-deep);
+    font-size: 1.15rem;
+    transition: all 0.2s;
+  }
+  .review-modal-close:hover {
+    border-color: var(--gold);
+    color: var(--gold-dark);
+    transform: scale(1.05);
+  }
+  .modal-eyebrow {
+    font-family: var(--display);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .modal-heading {
+    font-family: var(--serif);
+    font-size: 1.85rem;
+    color: var(--royal-deep);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .modal-heading em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .modal-subtitle {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Modal Body */
+  .review-modal-body {
+    padding: 1.75rem 2rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+  }
+
+  /* Star Rating Widget */
+  .rating-field {
+    text-align: center;
+    padding-bottom: 0.5rem;
+  }
+  .rating-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--royal-deep);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .stars-row {
+    display: inline-flex;
+    gap: 0.45rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .star-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.85rem;
+    color: #D6CEBE;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.18s, transform 0.18s;
+    user-select: none;
+  }
+  .star-btn.is-active,
+  .star-btn:hover {
+    color: var(--gold);
+    transform: scale(1.12);
+  }
+  .star-caption {
+    font-size: 0.78rem;
+    color: var(--gold-dark);
+    margin-top: 0.3rem;
+    min-height: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  /* Transformation Shift Tags */
+  .shift-tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.35rem;
+  }
+  .shift-tag {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .shift-tag:hover {
+    border-color: var(--gold);
+    color: var(--royal-deep);
+  }
+  .shift-tag.is-selected {
+    background: var(--gold-pale);
+    border-color: var(--gold);
+    color: var(--royal-deep);
+    font-weight: 600;
+  }
+
+  /* Form Controls */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .form-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--royal-deep);
+  }
+  .form-label span {
+    font-weight: 400;
+    color: var(--text-muted);
+    text-transform: none;
+  }
+  .form-input, .form-select, .form-textarea {
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    padding: 0.7rem 0.95rem;
+    background: #FAF7F0;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text);
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: var(--ivory);
+    box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.15);
+  }
+  .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .form-textarea {
+    resize: vertical;
+    min-height: 105px;
+    line-height: 1.6;
+  }
+
+  /* Ethics / Moderation Note */
+  .form-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-top: 0.25rem;
+  }
+  .form-consent input {
+    margin-top: 0.15rem;
+    accent-color: var(--royal-deep);
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Modal Footer */
+  .review-modal-footer {
+    padding: 1.25rem 2rem 1.75rem;
+    background: #FAF7F0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .btn-submit-review {
+    background: var(--royal-deep);
+    color: var(--ivory);
+    border: 1px solid var(--royal-deep);
+    padding: 0.85rem 1.85rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.25s;
+    min-height: 46px;
+    width: 100%;
+  }
+  .btn-submit-review:hover {
+    background: var(--royal);
+    border-color: var(--royal);
+    box-shadow: 0 4px 14px rgba(15,35,71,0.2);
+  }
+
+  /* Success State */
+  .review-success-panel {
+    display: none;
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+  .review-success-panel .emblem {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.5rem;
+    display: block;
+  }
+  .success-title {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--royal-deep);
+    margin-bottom: 0.75rem;
+  }
+  .success-body {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 440px;
+    margin: 0 auto 2rem;
+  }
+
+  /* Responsive Mobile Tweaks */
+  @media (max-width: 768px) {
+    .testi-grid { grid-template-columns: 1fr; }
+    .form-row-2 { grid-template-columns: 1fr; }
+    .review-modal-header { padding: 1.5rem 1.25rem 1rem; }
+    .review-modal-body { padding: 1.25rem; }
+    .review-modal-footer { padding: 1rem 1.25rem 1.5rem; }
+    .sec-title { font-size: 1.85rem; }
+    .preview-bar { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Preview Control Bar -->
+  <header class="preview-bar">
+    <span>The Reset Co. • UI/UX Preview</span>
+    <div class="preview-actions">
+      <span style="font-size: 0.78rem; opacity: 0.85;">Test the Interactive Modal:</span>
+      <button class="btn-preview-trigger" onclick="openReviewModal()">+ Open Review Modal</button>
+    </div>
+  </header>
+
+  <!-- Guest Reflections (Simulated Section from index.html) -->
+  <section class="testimonials" id="feedback">
+    <div class="inner">
+      <div style="text-align:center;">
+        <p class="sec-label">Guest Voices</p>
+        <h2 class="sec-title">Reflections from <em>our guests</em></h2>
+        <div class="divider"></div>
+        <p class="sec-body">Words from those who stepped away from professional overwhelm into the therapeutic rhythm of the Himalayas.</p>
+      </div>
+
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div>
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-q">&ldquo;The silence of the sanctuary combined with Dr. Himanshu and Dr. Aditya's clinical oversight gave me the deepest restful sleep I have had in five years. The localized Basti and eye treatments made my screen fatigue dissolve.&rdquo;</p>
+          </div>
+          <div>
+            <div class="testi-by">Pooja Sharma</div>
+            <div class="testi-from">Bangalore &bull; Tech Lead</div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div>
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-q">&ldquo;Having licensed BAMS doctors administer every procedure makes an immense difference. It is completely different from a generic resort massage. The Sattvic food and pottery workshop were unforgettable.&rdquo;</p>
+          </div>
+          <div>
+            <div class="testi-by">Rahul Mehta</div>
+            <div class="testi-from">New Delhi &bull; Management Consultant</div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div>
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-q">&ldquo;The 4-day structure was exactly what I needed to reset my circadian clock. Clean air, warm herbal oils, honest doctor care, and zero commercial fluff. Truly life-altering.&rdquo;</p>
+          </div>
+          <div>
+            <div class="testi-by">Ananya Roy</div>
+            <div class="testi-from">Mumbai &bull; Creative Director</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THE NEW "ADD A REVIEW" SECTION TRIGGER -->
+      <div class="review-cta-wrap">
+        <button class="btn-review-ghost" onclick="openReviewModal()" aria-haspopup="dialog">
+          <span class="glyph">&#10022;</span>
+          <span>Share Your Sanctuary Reflection</span>
+        </button>
+        <p class="review-cta-note">Attended a cohort? Your observations guide fellow professionals seeking restorative care.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────────────
+       THE INTERACTIVE GUEST REFLECTION MODAL DIALOG
+  ────────────────────────────────────────────────────────────── -->
+  <div class="review-modal-backdrop" id="reviewModalBackdrop" onclick="handleBackdropClick(event)" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="review-modal-dialog" id="reviewModalDialog" data-lenis-prevent>
+      
+      <!-- Modal Header -->
+      <div class="review-modal-header">
+        <button class="review-modal-close" onclick="closeReviewModal()" aria-label="Close reflection modal">&times;</button>
+        <p class="modal-eyebrow">Guest Reflections &bull; Vaidya Care</p>
+        <h3 class="modal-heading" id="modalTitle">Share Your <em>Sanctuary Reflection</em></h3>
+        <p class="modal-subtitle">Your reflections help future cohort members understand the physiological shift of authentic Ayurvedic care.</p>
+      </div>
+
+      <!-- Form Content -->
+      <form id="reviewForm" onsubmit="submitReviewForm(event)">
+        <div class="review-modal-body">
+          
+          <!-- Rating Stars -->
+          <div class="rating-field">
+            <span class="rating-label">Overall Sanctuary Experience</span>
+            <div class="stars-row" id="starsRow" role="radiogroup" aria-label="Sanctuary rating">
+              <button type="button" class="star-btn is-active" data-val="1" onclick="setRating(1)" aria-label="1 star">&#9733;</button>
+              <button type="button" class="star-btn is-active" data-val="2" onclick="setRating(2)" aria-label="2 stars">&#9733;</button>
+              <button type="button" class="star-btn is-active" data-val="3" onclick="setRating(3)" aria-label="3 stars">&#9733;</button>
+              <button type="button" class="star-btn is-active" data-val="4" onclick="setRating(4)" aria-label="4 stars">&#9733;</button>
+              <button type="button" class="star-btn is-active" data-val="5" onclick="setRating(5)" aria-label="5 stars">&#9733;</button>
+            </div>
+            <div class="star-caption" id="starCaption">5 / 5 &bull; Deeply Restorative &amp; Grounding</div>
+            <input type="hidden" name="rating" id="ratingInput" value="5">
+          </div>
+
+          <!-- Primary Transformation Tags -->
+          <div class="form-group">
+            <label class="form-label">Primary Shift Observed <span>(Select up to two)</span></label>
+            <div class="shift-tags-row">
+              <button type="button" class="shift-tag is-selected" onclick="toggleShift(this, 'Restful Sleep')">Deep Restful Sleep</button>
+              <button type="button" class="shift-tag is-selected" onclick="toggleShift(this, 'Spine & Tension')">Spinal &amp; Back Tension</button>
+              <button type="button" class="shift-tag" onclick="toggleShift(this, 'Digital Eye Fatigue')">Screen Fatigue (Netra Tarpana)</button>
+              <button type="button" class="shift-tag" onclick="toggleShift(this, 'Digestive Lightness')">Digestive Lightness (Sattvic Meals)</button>
+              <button type="button" class="shift-tag" onclick="toggleShift(this, 'Mental Calm')">Mental Calm (Noble Silence)</button>
+            </div>
+            <input type="hidden" name="shifts" id="shiftsInput" value="Deep Restful Sleep, Spinal & Back Tension">
+          </div>
+
+          <!-- Reflection Textarea -->
+          <div class="form-group">
+            <label class="form-label" for="reviewComment">Your Reflection <span>*</span></label>
+            <textarea class="form-textarea" id="reviewComment" name="comment" required placeholder="Describe how the physician consultations, herbal therapies, Sattvic meals, or quiet Himalayan environment influenced your body and mind..."></textarea>
+          </div>
+
+          <!-- Author Info Row -->
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label" for="reviewName">Your Name <span>*</span></label>
+              <input type="text" class="form-input" id="reviewName" name="name" required placeholder="e.g. Pooja Sharma">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reviewRole">City &amp; Professional Role <span>*</span></label>
+              <input type="text" class="form-input" id="reviewRole" name="role" required placeholder="e.g. Bangalore &bull; Tech Lead">
+            </div>
+          </div>
+
+          <!-- Cohort Pathway -->
+          <div class="form-group">
+            <label class="form-label" for="reviewPathway">Cohort Pathway Attended</label>
+            <select class="form-select" id="reviewPathway" name="pathway">
+              <option value="The Awakening Pathway (4N/5D)">The Awakening Pathway (4 Nights / 5 Days)</option>
+              <option value="The Deep Rejuvenation (4N/5D)">The Deep Rejuvenation (4 Nights / 5 Days)</option>
+              <option value="The Complete Reset (4N/5D)">The Complete Reset (4 Nights / 5 Days)</option>
+              <option value="Custom Private Cohort">Custom Private Executive Cohort</option>
+            </select>
+          </div>
+
+          <!-- Ethics Verification -->
+          <label class="form-consent">
+            <input type="checkbox" required checked>
+            <span>I verify that I attended a cohort at The Reset Co. and consent to sharing my clinical/wellness reflection under ethical medical privacy guidelines.</span>
+          </label>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="review-modal-footer">
+          <button type="submit" class="btn-submit-review">Submit Reflection for Cohort Verification</button>
+        </div>
+      </form>
+
+      <!-- Success Thank You State -->
+      <div class="review-success-panel" id="reviewSuccessPanel">
+        <img src="images/logo-emblem.png" alt="The Reset Co." class="emblem">
+        <p class="modal-eyebrow">Dhanyavad</p>
+        <h3 class="success-title">Your Reflection is Received</h3>
+        <p class="success-body">Thank you for sharing your experience. Dr. Himanshu Bhatt &amp; Dr. Aditya Kaundal review each guest submission personally before publication to maintain cohort authenticity.</p>
+        <button type="button" class="btn-review-ghost" onclick="closeReviewModal()">Return to Overview</button>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  let currentRating = 5;
+  const ratingCaptions = {
+    1: '1 / 5 • Needs Clinical Refinement',
+    2: '2 / 5 • Fair Experience',
+    3: '3 / 5 • Restorative & Grounding',
+    4: '4 / 5 • Profoundly Rejuvenating',
+    5: '5 / 5 • Deeply Restorative & Grounding'
+  };
+
+  function openReviewModal() {
+    const backdrop = document.getElementById('reviewModalBackdrop');
+    backdrop.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('reviewForm').style.display = 'block';
+    document.getElementById('reviewSuccessPanel').style.display = 'none';
+  }
+
+  function closeReviewModal() {
+    const backdrop = document.getElementById('reviewModalBackdrop');
+    backdrop.classList.remove('is-active');
+    document.body.style.overflow = '';
+  }
+
+  function handleBackdropClick(e) {
+    if (e.target === document.getElementById('reviewModalBackdrop')) {
+      closeReviewModal();
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('reviewModalBackdrop').classList.contains('is-active')) {
+      closeReviewModal();
+    }
+  });
+
+  function setRating(val) {
+    currentRating = val;
+    document.getElementById('ratingInput').value = val;
+    const buttons = document.querySelectorAll('#starsRow .star-btn');
+    buttons.forEach((btn, idx) => {
+      if (idx < val) {
+        btn.classList.add('is-active');
+      } else {
+        btn.classList.remove('is-active');
+      }
+    });
+    document.getElementById('starCaption').textContent = ratingCaptions[val] || '';
+  }
+
+  function toggleShift(btn, val) {
+    btn.classList.toggle('is-selected');
+    const selected = Array.from(document.querySelectorAll('.shift-tag.is-selected')).map(el => el.textContent.trim());
+    document.getElementById('shiftsInput').value = selected.join(', ');
+  }
+
+  function submitReviewForm(e) {
+    e.preventDefault();
+    document.getElementById('reviewForm').style.display = 'none';
+    document.getElementById('reviewSuccessPanel').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
