@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview: Prakriti Strategic Placement & Micro-Snapshot | The Reset Co.</title>
+<link rel="icon" type="image/png" sizes="120x120" href="images/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F7F0DC;
+    --gold-dark: #8C651E;
+    --royal: #1A3A6B;
+    --royal-deep: #0F2347;
+    --royal-surface: #142B54;
+    --ivory: #FDFAF3;
+    --parchment: #FAF7F0;
+    --stone: #F0EBE0;
+    --text: #1A1A1A;
+    --text-muted: #5C6779;
+    --border: #E8DFCC;
+    --vata: #7B68EE;
+    --pitta: #D96B43;
+    --kapha: #3E9B68;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --display: 'Cinzel', serif;
+    --sans: 'Jost', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--parchment);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Strategy Narrative Bar */
+  .strategy-banner {
+    background: var(--royal-deep);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.35);
+    color: var(--ivory);
+    padding: 1.25rem 1.5rem;
+  }
+  .strategy-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .strategy-tag {
+    font-family: var(--display);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+  }
+  .strategy-h {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    margin-top: 0.2rem;
+  }
+  .strategy-h em { font-style: italic; color: var(--gold); }
+  .strategy-flow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    color: rgba(253, 250, 243, 0.85);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.45rem 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(201, 168, 76, 0.2);
+  }
+  .strategy-step.active {
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+
+  /* Prakriti Section Container (Homepage Preview) */
+  .prakriti-sec {
+    background: var(--ivory);
+    padding: 4.5rem 1.5rem;
+    position: relative;
+  }
+  .inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .sec-label {
+    font-family: var(--display);
+    font-size: 0.76rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  .sec-title {
+    font-family: var(--serif);
+    font-size: 2.35rem;
+    color: var(--royal-deep);
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+  }
+  .sec-title em { font-style: italic; color: var(--gold); }
+  .divider {
+    width: 48px;
+    height: 1.5px;
+    background: var(--gold);
+    margin: 1.25rem auto;
+  }
+  .sec-lead {
+    font-size: 0.96rem;
+    color: var(--text-muted);
+    max-width: 620px;
+    line-height: 1.7;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+  }
+
+  /* Interactive Diagnostic Card Container */
+  .diagnostic-card {
+    background: #FAF7F0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2.75rem 2.5rem;
+    box-shadow: 0 16px 40px rgba(15, 35, 71, 0.05);
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .diag-steps-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+  .diag-step-count {
+    font-family: var(--display);
+    font-size: 0.74rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
+  }
+  .diag-progress-dots {
+    display: flex;
+    gap: 0.45rem;
+  }
+  .p-dot {
+    width: 26px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    transition: background 0.3s ease;
+  }
+  .p-dot.is-filled {
+    background: var(--gold);
+  }
+
+  /* Question Stage */
+  .q-stage {
+    display: none;
+    animation: fadeSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .q-stage.active {
+    display: block;
+  }
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-title {
+    font-family: var(--serif);
+    font-size: 1.65rem;
+    color: var(--royal-deep);
+    line-height: 1.35;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  .q-options-grid {
+    display: grid;
+    gap: 0.85rem;
+  }
+  .q-option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.15rem;
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.15rem 1.4rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    min-height: 44px;
+    width: 100%;
+    color: var(--text);
+  }
+  .q-option-btn:hover {
+    border-color: var(--gold);
+    background: #FFF;
+    transform: translateX(4px);
+  }
+  .q-opt-marker {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: transparent;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s;
+  }
+  .q-option-btn:hover .q-opt-marker {
+    border-color: var(--gold);
+  }
+  .q-option-btn.selected .q-opt-marker {
+    background: var(--royal-deep);
+    border-color: var(--royal-deep);
+    color: var(--ivory);
+  }
+  .q-opt-content {
+    flex: 1;
+  }
+  .q-opt-label {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--royal-deep);
+    margin-bottom: 0.2rem;
+  }
+  .q-opt-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Result Screen */
+  .result-panel {
+    display: none;
+    text-align: center;
+    animation: fadeSlide 0.35s ease;
+  }
+  .result-panel.active {
+    display: block;
+  }
+  .result-emblem {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 1.25rem;
+    display: block;
+  }
+  .result-eyebrow {
+    font-family: var(--display);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+  }
+  .result-heading {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    color: var(--royal-deep);
+    margin: 0.35rem 0 0.85rem;
+  }
+  .result-heading span {
+    font-style: italic;
+  }
+  .result-dosha-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .badge-vata { background: rgba(123, 104, 238, 0.12); color: var(--vata); border: 1px solid rgba(123, 104, 238, 0.3); }
+  .badge-pitta { background: rgba(217, 107, 67, 0.12); color: var(--pitta); border: 1px solid rgba(217, 107, 67, 0.3); }
+  .badge-kapha { background: rgba(62, 155, 104, 0.12); color: var(--kapha); border: 1px solid rgba(62, 155, 104, 0.3); }
+
+  .result-clinical-box {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem 1.75rem;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+  .result-clinical-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--royal-deep);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .result-clinical-text {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.68;
+  }
+
+  .result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .btn-primary-reserve {
+    background: var(--royal-deep);
+    color: var(--ivory);
+    border: 1px solid var(--royal-deep);
+    padding: 0.85rem 2rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn-primary-reserve:hover {
+    background: var(--royal);
+    border-color: var(--royal);
+    box-shadow: 0 4px 16px rgba(15, 35, 71, 0.18);
+  }
+  .btn-secondary-full {
+    background: transparent;
+    color: var(--royal-deep);
+    border: 1px solid var(--border);
+    padding: 0.85rem 1.75rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn-secondary-full:hover {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+  }
+
+  /* Post-Enquiry Bridge Showcase (Educational visual) */
+  .intake-showcase {
+    background: var(--stone);
+    border-top: 1px solid var(--border);
+    padding: 4.5rem 1.5rem;
+  }
+  .intake-card {
+    background: var(--ivory);
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    border-radius: 4px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem 3rem;
+  }
+  .intake-eyebrow {
+    font-family: var(--display);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .intake-title {
+    font-family: var(--serif);
+    font-size: 1.85rem;
+    color: var(--royal-deep);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  .intake-title em { font-style: italic; color: var(--gold); }
+  .intake-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+  }
+  .pillars-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+  .p-pillar {
+    background: #FAF7F0;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1.15rem;
+  }
+  .p-pillar-num {
+    font-family: var(--display);
+    font-size: 0.7rem;
+    color: var(--gold-dark);
+    letter-spacing: 0.1em;
+  }
+  .p-pillar-h {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--royal-deep);
+    margin: 0.2rem 0 0.35rem;
+  }
+  .p-pillar-p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  @media (max-width: 768px) {
+    .strategy-inner { flex-direction: column; align-items: flex-start; }
+    .diagnostic-card { padding: 1.75rem 1.25rem; }
+    .intake-card { padding: 1.75rem 1.25rem; }
+    .pillars-row { grid-template-columns: 1fr; }
+    .sec-title { font-size: 1.85rem; }
+    .result-actions { flex-direction: column; }
+    .btn-primary-reserve, .btn-secondary-full { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Strategic Narrative Bar -->
+  <aside class="strategy-banner">
+    <div class="strategy-inner">
+      <div>
+        <p class="strategy-tag">Prakriti Placement Architecture</p>
+        <h2 class="strategy-h">Solving the <em>30-Question Friction</em></h2>
+      </div>
+      <div class="strategy-flow">
+        <span class="strategy-step active">1. Pre-Enquiry Snapshot (45s on Homepage)</span>
+        <span>&rarr;</span>
+        <span class="strategy-step">2. Enquire</span>
+        <span>&rarr;</span>
+        <span class="strategy-step">3. 30-Question Clinical Intake (Pre-Arrival)</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─────────────────────────────────────────────────────────────
+       THE HOMEPAGE MICRO-DIAGNOSTIC (PRE-ENQUIRY)
+  ────────────────────────────────────────────────────────────── -->
+  <section class="prakriti-sec">
+    <div class="inner">
+      <p class="sec-label">Constitutional Diagnostic</p>
+      <h2 class="sec-title">Discover your <em>Prakriti Snapshot</em></h2>
+      <div class="divider"></div>
+      <p class="sec-lead">
+        In classical Ayurveda, fatigue manifests differently for every constitution. Three somatic questions reveal your current doshic imbalance and guide the herbal oils our physicians prepare for your stay.
+      </p>
+
+      <!-- The In-Place Interactive Diagnostic Card -->
+      <div class="diagnostic-card">
+        
+        <div class="diag-steps-bar" id="stepsBar">
+          <span class="diag-step-count" id="stepIndicator">Question 01 of 03 &bull; Sleep &amp; Nervous Rhythm</span>
+          <div class="diag-progress-dots">
+            <span class="p-dot is-filled" id="dot1"></span>
+            <span class="p-dot" id="dot2"></span>
+            <span class="p-dot" id="dot3"></span>
+          </div>
+        </div>
+
+        <!-- Question 1: Sleep Rhythm -->
+        <div class="q-stage active" id="stage1">
+          <h3 class="q-title">When under continuous professional demands, how does your sleep pattern behave?</h3>
+          <div class="q-options-grid">
+            <button class="q-option-btn" onclick="selectAnswer(1, 'vata')">
+              <span class="q-opt-marker">&#10003;</span>
+              <div class="q-opt-content">
+                <div class="q-opt-label">Light, Broken Sleep with Racing Thoughts</div>
+                <div class="q-opt-desc">Frequent waking around 2:00 AM–4:00 AM, rapid dreaming, persistent morning restlessness.</div>
+              </div>
+            </button>
+            <button class="q-option-btn" onclick="selectAnswer(1, 'pitta')">
+              <span class="q-opt-marker">&#10003;</span>
+              <div class="q-opt-content">
+                <div class="q-opt-label">Moderate Sleep, Easily Disturbed by Heat or Intensity</div>
+                <div class="q-opt-desc">Wake up ready to work immediately; night sweating or vivid, task-oriented dreams.</div>
+              </div>
+            </button>
+            <button class="q-option-btn" onclick="selectAnswer(1, 'kapha')">
+              <span class="q-opt-marker">&#10003;</span>
+              <div class="q-opt-content">
+                <div class="q-opt-label">Heavy, Protracted Sleep with Morning Fog</div>
+                <div class="q-opt-desc">Difficulty rising before 8:00 AM; feel sluggish and dull even after 8+ hours in bed.</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 2: Digestive Agni -->
+        <div class="q-stage" id="stage2">
+          <h3 class="q-title">How does your digestive fire (Agni) respond to daily screen time and stress?</h3>
+          <div class="q-options-grid">
+            <button class="q-option-btn" onclick="selectAnswer(2, 'vata')">
+              <span class="q-opt-marker">&#10003;</span>
+              <div class="q-opt-content">
+                <div class="q-opt-label">Irregular &amp; Prone to Bloating (Vishamagni)</div>
+                <div class="q-opt-desc">Variable appetite, gas or dry stool when stressed, often forgetting meals during intense work.</div>
+              </div>
+            </button>
+            <button class="q-option-btn" onclick="selectAnswer(2, 'pitta')">
+              <span class="q-opt-marker">&#10003;</span>
+              <div class="q-opt-content">
+                <div class="q-opt-label">Intense &amp; Impatient (Tikshnagni)</div>
+                <div class="q-opt-desc">Sharp hunger that causes irritability if meals are delayed, acid sensitivity, loose digestion.</div>
+              </div>
+            </button>
+            <button class="q-option-btn" onclick="selectAnswer(2, 'kapha')">
+              <span class="q-opt-marker">&#10003;</span>
+              <div class="q-opt-content">
+                <div class="q-opt-label">Slow &amp; Heavy (Mandagni)</div>
+                <div class="q-opt-desc">Can easily skip breakfast; heavy post-meal fatigue, slow metabolism and fluid retention.</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question 3: Somatic Stress Reaction -->
+        <div class="q-stage" id="stage3">
+          <h3 class="q-title">Where does stress physically lodge in your body during long work weeks?</h3>
+          <div class="q-options-grid">
+            <button class="q-option-btn" onclick="selectAnswer(3, 'vata')">
+              <span class="q-opt-marker">&#10003;</span>
+              <div class="q-opt-content">
+                <div class="q-opt-label">Lower Spine, Neck Stiffness &amp; Tremulous Nerves</div>
+                <div class="q-opt-desc">Cold extremities, dry eyes, joint clicking, and feelings of diffuse anxiety.</div>
+              </div>
+            </button>
+            <button class="q-option-btn" onclick="selectAnswer(3, 'pitta')">
+              <span class="q-opt-marker">&#10003;</span>
+              <div class="q-opt-content">
+                <div class="q-opt-label">Periorbital Eye Strain, Skin Heat &amp; Irritability</div>
+                <div class="q-opt-desc">Red burning eyes from monitors, muscular tension in jaw/temples, short temper.</div>
+              </div>
+            </button>
+            <button class="q-option-btn" onclick="selectAnswer(3, 'kapha')">
+              <span class="q-opt-marker">&#10003;</span>
+              <div class="q-opt-content">
+                <div class="q-opt-label">Chest Heaviness, Sinus Sluggishness &amp; Somatic Lethargy</div>
+                <div class="q-opt-desc">Water retention, lymphatic stagnation, mental resistance to physical movement.</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div class="result-panel" id="resultPanel">
+          <img src="images/logo-emblem.png" alt="The Reset Co." class="result-emblem">
+          <p class="result-eyebrow">Your Constitutional Imbalance Snapshot</p>
+          <h3 class="result-heading" id="resultName">Predominant <span>Vata Stress Imbalance</span></h3>
+          
+          <div class="result-dosha-badge badge-vata" id="resultBadge">&#9670; Air &bull; Space (Vata Vikriti)</div>
+
+          <div class="result-clinical-box">
+            <div class="result-clinical-title">&#10022; Physician Care Strategy for Your Stay:</div>
+            <p class="result-clinical-text" id="resultStrategy">
+              Your somatic responses indicate acute Vata aggravation from cognitive overwhelm and screen demands. At our sanctuary, Dr. Himanshu Bhatt and Dr. Aditya Kaundal will prescribe warm, medicated Sesame and Ashwagandha Kati Basti therapies, warm herbal broths, and rhythmic morning Pranayama to calm autonomic nerve hypersensitivity.
+            </p>
+          </div>
+
+          <div class="result-actions">
+            <a href="#booking" class="btn-primary-reserve">Discuss Care with Founding Doctors &rarr;</a>
+            <a href="dosha-prakriti-assessment.html" class="btn-secondary-full">Take Full 30-Question Clinical Intake &rarr;</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────────────
+       THE STRATEGIC EXPLANATION: POST-ENQUIRY CLINICAL INTAKE
+  ────────────────────────────────────────────────────────────── -->
+  <section class="intake-showcase">
+    <div class="inner">
+      <div class="intake-card">
+        <p class="intake-eyebrow">The 30-Question Strategy</p>
+        <h3 class="intake-title">Where the <em>Full 30 Questions Belong</em></h3>
+        <p class="intake-desc">
+          Instead of exhausting a curious visitor before they enquire, the full 30-question diagnostic is re-positioned as the <strong>Post-Enquiry Physician Protocol</strong>. Once a guest reserves their 4-day cohort, the doctors send this private assessment to prepare their custom therapeutic oils.
+        </p>
+        <div class="pillars-row">
+          <div class="p-pillar">
+            <div class="p-pillar-num">Pillar 01</div>
+            <div class="p-pillar-h">Somatic Anatomy</div>
+            <p class="p-pillar-p">Bone frame, joint mobility, skin texture, and eye lubrication.</p>
+          </div>
+          <div class="p-pillar">
+            <div class="p-pillar-num">Pillar 02</div>
+            <div class="p-pillar-h">Physiological Agni</div>
+            <p class="p-pillar-p">Metabolic rate, digestion patterns, circadian sleep depth.</p>
+          </div>
+          <div class="p-pillar">
+            <div class="p-pillar-num">Pillar 03</div>
+            <div class="p-pillar-h">Neuro-Mental Rhythms</div>
+            <p class="p-pillar-p">Autonomic resilience, stress adaptation, and emotional stillness.</p>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <a href="dosha-prakriti-assessment.html" class="btn-secondary-full" style="display:inline-flex;">View Current 30-Question Portal &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  const answers = { vata: 0, pitta: 0, kapha: 0 };
+  const stepTitles = {
+    1: 'Question 01 of 03 • Sleep & Nervous Rhythm',
+    2: 'Question 02 of 03 • Digestive Fire (Agni)',
+    3: 'Question 03 of 03 • Somatic Stress Pattern'
+  };
+
+  const doshaResults = {
+    vata: {
+      name: 'Predominant Vata Imbalance',
+      badgeClass: 'badge-vata',
+      badgeText: '◆ Air • Space (Vata Vikriti)',
+      strategy: 'Your somatic responses indicate acute Vata aggravation from cognitive overwhelm and digital demands. At our sanctuary, Dr. Himanshu Bhatt and Dr. Aditya Kaundal will prescribe warm, medicated Sesame and Ashwagandha Kati Basti therapies, warm nourishing broths, and grounding rhythmic Pranayama to calm autonomic nervous hyperactivity.'
+    },
+    pitta: {
+      name: 'Predominant Pitta Imbalance',
+      badgeClass: 'badge-pitta',
+      badgeText: '◆ Fire • Water (Pitta Vikriti)',
+      strategy: 'Your responses reflect high Pitta intensity—ocular screen fatigue, mental heat, and digestive impatience. Our Vaidyas will prioritize cooling Netra Tarpana herbal ghee eye therapies, bitter herbal decoctions, and shaded forest ridge walks to soothe inflammation and restore parasympathetic ease.'
+    },
+    kapha: {
+      name: 'Predominant Kapha Imbalance',
+      badgeClass: 'badge-kapha',
+      badgeText: '◆ Earth • Water (Kapha Vikriti)',
+      strategy: 'Your indicators reveal sluggish lymphatic stagnation and circadian inertia. The founding doctors will focus your retreat on invigorating Shatkarma cleansing kriyas (Jal Neti), active morning Hatha sequences, and warming, light Sattvic grain broths to stimulate vital metabolism.'
+    }
+  };
+
+  function selectAnswer(questionNum, dosha) {
+    answers[dosha]++;
+
+    if (questionNum < 3) {
+      const nextNum = questionNum + 1;
+      document.getElementById('stage' + questionNum).classList.remove('active');
+      document.getElementById('stage' + nextNum).classList.add('active');
+      document.getElementById('stepIndicator').textContent = stepTitles[nextNum];
+      document.getElementById('dot' + nextNum).classList.add('is-filled');
+    } else {
+      showResult();
+    }
+  }
+
+  function showResult() {
+    document.getElementById('stage3').classList.remove('active');
+    document.getElementById('stepsBar').style.display = 'none';
+
+    let dominant = 'vata';
+    let maxCount = -1;
+    for (const [k, v] of Object.entries(answers)) {
+      if (v > maxCount) {
+        maxCount = v;
+        dominant = k;
+      }
+    }
+
+    const res = doshaResults[dominant];
+    document.getElementById('resultName').innerHTML = 'Predominant <span>' + res.name.replace('Predominant ', '') + '</span>';
+    const badge = document.getElementById('resultBadge');
+    badge.className = 'result-dosha-badge ' + res.badgeClass;
+    badge.innerHTML = res.badgeText;
+    document.getElementById('resultStrategy').textContent = res.strategy;
+
+    document.getElementById('resultPanel').classList.add('active');
+  }
+</script>
+
+</body>
+</html>
