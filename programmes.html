@@ -22,12 +22,18 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008">
 
-<!-- Fonts: Cormorant Garamond, Jost & Noto Serif Devanagari -->
+<!-- Fonts: Cormorant Garamond, Jost & Noto Serif Devanagari (Subsetted & Defer-loaded) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&text=%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%B8%E0%A5%8D%E0%A4%AF%20%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A5%8D%E0%A4%AF%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%A3%E0%A4%AE%E0%A5%8D&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&text=%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%B8%E0%A5%8D%E0%A4%AF%20%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A5%8D%E0%A4%AF%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%A3%E0%A4%AE%E0%A5%8D&display=swap">
+</noscript>
 <link rel="icon" type="image/png" href="images/logo-emblem.png">
-<link rel="stylesheet" href="sanctuary-accord-modal.css">
+<link rel="preload" as="style" href="sanctuary-accord-modal.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="sanctuary-accord-modal.css">
+</noscript>
 
 <style>
   :root {
@@ -1199,7 +1205,7 @@
       <div class="footer-col">
         <h5>Sanctuary Ethics</h5>
         <ul>
-          <li><a href="javascript:void(0)" onclick="openSanctuaryAccord()" style="color: var(--gold-light);">Sanctuary Accord (Key Terms)</a></li>
+          <li><a href="#sanctuary-accord" onclick="openSanctuaryAccord(); return false;" style="color: var(--gold-light);">Sanctuary Accord (Key Terms)</a></li>
           <li><a href="terms.html">Terms of Service</a></li>
           <li><a href="guidelines.html">Sanctuary Guidelines</a></li>
           <li><a href="#clinical-notes">Clinical Star Notes (*)</a></li>
