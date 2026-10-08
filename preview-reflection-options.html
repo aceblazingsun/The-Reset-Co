@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Comparison: In-Place Guestbook vs. Direct Vaidya Note | The Reset Co.</title>
+<link rel="icon" type="image/png" sizes="120x120" href="images/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F7F0DC;
+    --gold-dark: #8C651E;
+    --royal: #1A3A6B;
+    --royal-deep: #0F2347;
+    --royal-mid: #2D5499;
+    --ivory: #FDFAF3;
+    --parchment: #FAF7F0;
+    --stone: #F0EBE0;
+    --text: #1A1A1A;
+    --text-muted: #5C6779;
+    --border: #E8DFCC;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --display: 'Cinzel', serif;
+    --sans: 'Jost', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--parchment);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-bottom: 6rem;
+  }
+
+  /* Comparison Selector Bar */
+  .switch-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--royal-deep);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(15, 35, 71, 0.15);
+  }
+  .switch-title {
+    color: var(--ivory);
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+  }
+  .switch-title span { color: var(--gold-light); font-style: italic; }
+  .tab-group {
+    display: flex;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 4px;
+    padding: 3px;
+    gap: 4px;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    color: rgba(253, 250, 243, 0.75);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    padding: 0.45rem 1.1rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .tab-btn:hover { color: var(--ivory); }
+  .tab-btn.active {
+    background: var(--gold);
+    color: var(--royal-deep);
+    font-weight: 600;
+  }
+
+  /* Section Framing */
+  .testimonials {
+    background: var(--stone);
+    padding: 4.5rem 1.5rem;
+    position: relative;
+  }
+  .inner {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  .sec-label {
+    font-family: var(--display);
+    font-size: 0.76rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.5rem;
+  }
+  .sec-title {
+    font-family: var(--serif);
+    font-size: 2.35rem;
+    color: var(--royal-deep);
+    font-weight: 400;
+    line-height: 1.25;
+  }
+  .sec-title em { font-style: italic; color: var(--gold); }
+  .divider {
+    width: 48px;
+    height: 1.5px;
+    background: var(--gold);
+    margin: 1.25rem auto;
+  }
+  .sec-body {
+    font-size: 0.96rem;
+    color: var(--text-muted);
+    max-width: 580px;
+    line-height: 1.7;
+    margin: 0 auto;
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    margin-top: 3rem;
+  }
+  .testi-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    padding: 2.25rem 1.75rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 14px rgba(15,35,71,0.03);
+  }
+  .testi-stars {
+    color: var(--gold);
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.85rem;
+  }
+  .testi-q {
+    font-family: var(--serif);
+    font-size: 1.08rem;
+    line-height: 1.68;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+  .testi-by {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--royal-deep);
+  }
+  .testi-from {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     OPTION 1: THE IN-PLACE SANCTUARY GUESTBOOK DRAWER
+  ────────────────────────────────────────────────────────────── */
+  .option-section {
+    display: none;
+    margin-top: 3.5rem;
+  }
+  .option-section.active {
+    display: block;
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .guestbook-trigger-box {
+    text-align: center;
+    border-top: 1px solid var(--border);
+    padding-top: 2.5rem;
+  }
+  .btn-guestbook-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: transparent;
+    border: 1px solid rgba(201, 168, 76, 0.55);
+    color: var(--royal-deep);
+    padding: 0.8rem 1.85rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .btn-guestbook-toggle:hover {
+    background: var(--royal-deep);
+    color: var(--ivory);
+    border-color: var(--royal-deep);
+  }
+  .guestbook-toggle-icon {
+    font-size: 0.9rem;
+    transition: transform 0.25s ease;
+  }
+  .btn-guestbook-toggle.is-open .guestbook-toggle-icon {
+    transform: rotate(180deg);
+  }
+  .guestbook-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+  }
+
+  /* The In-Place Expanded Journal Sheet */
+  .guestbook-drawer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    opacity: 0;
+  }
+  .guestbook-drawer.is-open {
+    max-height: 850px;
+    opacity: 1;
+    margin-top: 2.25rem;
+  }
+
+  .journal-card {
+    background: var(--ivory);
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    border-radius: 4px;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2.75rem 3rem;
+    box-shadow: 0 12px 36px rgba(15, 35, 71, 0.06);
+    position: relative;
+  }
+  .journal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .journal-eyebrow {
+    font-family: var(--display);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .journal-title {
+    font-family: var(--serif);
+    font-size: 1.85rem;
+    color: var(--royal-deep);
+    font-weight: 400;
+  }
+  .journal-title em { font-style: italic; color: var(--gold); }
+  .journal-sub {
+    font-size: 0.86rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+  }
+
+  .journal-textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 1rem 1.25rem;
+    background: #FAF7F0;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--text);
+    resize: vertical;
+    transition: all 0.2s;
+  }
+  .journal-textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: #FFF;
+    box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.12);
+  }
+  .journal-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  .journal-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #FAF7F0;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    color: var(--text);
+  }
+  .journal-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: #FFF;
+  }
+  .journal-actions {
+    margin-top: 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .btn-inscribe {
+    background: var(--royal-deep);
+    color: var(--ivory);
+    border: none;
+    padding: 0.85rem 2rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-inscribe:hover {
+    background: var(--royal);
+    box-shadow: 0 4px 14px rgba(15, 35, 71, 0.15);
+  }
+  .journal-note {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     OPTION 2: DIRECT PRIVATE VAIDYA NOTE (NO FORM AT ALL)
+  ────────────────────────────────────────────────────────────── */
+  .vaidya-letter-box {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--ivory);
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    border-radius: 4px;
+    padding: 3rem 3.5rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(15, 35, 71, 0.04);
+    position: relative;
+  }
+  .vaidya-letter-box::before {
+    content: "॥";
+    position: absolute;
+    top: 1.25rem;
+    left: 1.5rem;
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: rgba(201, 168, 76, 0.4);
+  }
+  .vaidya-letter-box::after {
+    content: "॥";
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: rgba(201, 168, 76, 0.4);
+  }
+  .vaidya-label {
+    font-family: var(--display);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.65rem;
+  }
+  .vaidya-heading {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--royal-deep);
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  .vaidya-heading em { font-style: italic; color: var(--gold); }
+  .vaidya-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 580px;
+    margin: 0 auto 2.25rem;
+  }
+  .vaidya-button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .btn-vaidya-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #0F2347;
+    color: var(--ivory);
+    border: 1px solid #0F2347;
+    padding: 0.85rem 1.85rem;
+    border-radius: 3px;
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .btn-vaidya-wa:hover {
+    background: var(--gold);
+    color: var(--royal-deep);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(15, 35, 71, 0.15);
+  }
+  .btn-vaidya-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: transparent;
+    color: var(--royal-deep);
+    border: 1px solid var(--border);
+    padding: 0.85rem 1.85rem;
+    border-radius: 3px;
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .btn-vaidya-email:hover {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+  }
+
+  @media (max-width: 768px) {
+    .testi-grid { grid-template-columns: 1fr; }
+    .journal-card { padding: 1.75rem 1.25rem; }
+    .journal-row { grid-template-columns: 1fr; }
+    .journal-actions { flex-direction: column; gap: 1rem; align-items: stretch; }
+    .vaidya-letter-box { padding: 2.25rem 1.25rem; }
+    .vaidya-button-group { flex-direction: column; }
+    .btn-vaidya-wa, .btn-vaidya-email { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Switcher Toolbar -->
+  <aside class="switch-bar">
+    <div class="switch-title">
+      Preview: <span>Two Anti-Slop Alternatives</span>
+    </div>
+    <div class="tab-group" role="tablist">
+      <button class="tab-btn active" id="tabOpt1" onclick="switchOption(1)">Option 1: In-Place Guestbook Drawer</button>
+      <button class="tab-btn" id="tabOpt2" onclick="switchOption(2)">Option 2: Direct Vaidya Note (Zero Form)</button>
+    </div>
+  </aside>
+
+  <!-- Guest Reflections (Index Page Testimonials) -->
+  <section class="testimonials" id="feedback">
+    <div class="inner">
+      <div style="text-align:center;">
+        <p class="sec-label">Guest Voices</p>
+        <h2 class="sec-title">Reflections from <em>our guests</em></h2>
+        <div class="divider"></div>
+        <p class="sec-body">Words from those who stepped away from professional overwhelm into the therapeutic rhythm of the Himalayas.</p>
+      </div>
+
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div>
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-q">&ldquo;The silence of the sanctuary combined with Dr. Himanshu and Dr. Aditya's clinical oversight gave me the deepest restful sleep I have had in five years. The localized Basti and eye treatments made my screen fatigue dissolve.&rdquo;</p>
+          </div>
+          <div>
+            <div class="testi-by">Pooja Sharma</div>
+            <div class="testi-from">Bangalore &bull; Tech Lead</div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div>
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-q">&ldquo;Having licensed BAMS doctors administer every procedure makes an immense difference. It is completely different from a generic resort massage. The Sattvic food and pottery workshop were unforgettable.&rdquo;</p>
+          </div>
+          <div>
+            <div class="testi-by">Rahul Mehta</div>
+            <div class="testi-from">New Delhi &bull; Management Consultant</div>
+          </div>
+        </div>
+
+        <div class="testi-card">
+          <div>
+            <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testi-q">&ldquo;The 4-day structure was exactly what I needed to reset my circadian clock. Clean air, warm herbal oils, honest doctor care, and zero commercial fluff. Truly life-altering.&rdquo;</p>
+          </div>
+          <div>
+            <div class="testi-by">Ananya Roy</div>
+            <div class="testi-from">Mumbai &bull; Creative Director</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           OPTION 1 PREVIEW: IN-PLACE EXPANDING GUESTBOOK
+      ────────────────────────────────────────────────────────────── -->
+      <div class="option-section active" id="viewOption1">
+        <div class="guestbook-trigger-box">
+          <button class="btn-guestbook-toggle" id="guestbookBtn" onclick="toggleGuestbook()">
+            <span>Inscribe a Note in the Sanctuary Journal</span>
+            <span class="guestbook-toggle-icon">&#9662;</span>
+          </button>
+          <p class="guestbook-hint">Attended a retreat? Leave your quiet reflection directly on this page.</p>
+
+          <!-- The Inline Expandable Journal Form (No Pop-ups, No extra pages) -->
+          <div class="guestbook-drawer" id="guestbookDrawer">
+            <div class="journal-card">
+              <div class="journal-header">
+                <p class="journal-eyebrow">The Sanctuary Journal</p>
+                <h3 class="journal-title">A Note from <em>Your Stay</em></h3>
+                <p class="journal-sub">Your words remain in our retreat record and guide future cohort members.</p>
+              </div>
+
+              <form onsubmit="handleInscribe(event)">
+                <textarea class="journal-textarea" required placeholder="Dear Vaidyas and future guests,&#10;&#10;During my 4 days in Bir Billing, what shifted most for me was..."></textarea>
+                
+                <div class="journal-row">
+                  <input type="text" class="journal-input" required placeholder="Your Name (e.g. Pooja Sharma)">
+                  <input type="text" class="journal-input" required placeholder="Your Cohort (e.g. October 2026 • Awakening Pathway)">
+                </div>
+
+                <div class="journal-actions">
+                  <span class="journal-note">Reviewed directly by Dr. Himanshu &amp; Dr. Aditya before inscription.</span>
+                  <button type="submit" class="btn-inscribe">Inscribe Reflection</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────────────────────────
+           OPTION 2 PREVIEW: DIRECT VAIDYA NOTE (ZERO FORMS)
+      ────────────────────────────────────────────────────────────── -->
+      <div class="option-section" id="viewOption2">
+        <div style="border-top:1px solid var(--border); padding-top:2.75rem;">
+          <div class="vaidya-letter-box">
+            <p class="vaidya-label">Cohort Alumni Dialogue</p>
+            <h3 class="vaidya-heading">Send a Private Note to the <em>Founding Vaidyas</em></h3>
+            <p class="vaidya-desc">
+              Every retreat is intimate, with strictly 12 guests. We do not solicit public rating stars. If you have completed a 4-day cohort, your observations and post-retreat health updates are received directly by Dr. Himanshu Bhatt and Dr. Aditya Kaundal.
+            </p>
+            <div class="vaidya-button-group">
+              <a href="https://wa.me/917888540046?text=Hello%20Dr.%20Himanshu%20and%20Dr.%20Aditya%2C%20I%20would%20like%20to%20share%20my%20reflection%20from%20my%20recent%20retreat%20cohort..." target="_blank" class="btn-vaidya-wa">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.062-2.127-.514-1.748-.703-2.924-2.457-3.013-2.575-.087-.118-.707-.941-.707-1.794 0-.853.447-1.272.607-1.445.16-.174.348-.217.464-.217.117 0 .233.001.334.006.107.005.25-.041.391.298.144.348.492 1.202.535 1.289.043.087.072.188.014.304-.058.116-.087.188-.174.289l-.261.304c-.087.087-.179.182-.077.357.101.174.451.744.968 1.205.666.594 1.229.778 1.403.865.174.087.275.072.377-.044.101-.116.435-.507.551-.681.116-.174.232-.145.391-.087s1.015.478 1.189.565c.174.087.29.13.334.203.043.072.043.42-.101.825z"/></svg>
+                <span>Message the Doctors on WhatsApp</span>
+              </a>
+              <a href="mailto:hello@thereset-co.in?subject=Sanctuary%20Cohort%20Reflection&body=Dear%20Dr.%20Himanshu%20and%20Dr.%20Aditya%2C%0A%0AMy%20reflection%20from%20the%20retreat%3A%0A" class="btn-vaidya-email">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>Send Letter via Email</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<script>
+  function switchOption(num) {
+    document.getElementById('viewOption1').classList.toggle('active', num === 1);
+    document.getElementById('viewOption2').classList.toggle('active', num === 2);
+    document.getElementById('tabOpt1').classList.toggle('active', num === 1);
+    document.getElementById('tabOpt2').classList.toggle('active', num === 2);
+  }
+
+  function toggleGuestbook() {
+    const drawer = document.getElementById('guestbookDrawer');
+    const btn = document.getElementById('guestbookBtn');
+    drawer.classList.toggle('is-open');
+    btn.classList.toggle('is-open');
+  }
+
+  function handleInscribe(e) {
+    e.preventDefault();
+    alert('Thank you. Your note has been inscribed and passed to Dr. Himanshu and Dr. Aditya.');
+    toggleGuestbook();
+  }
+</script>
+
+</body>
+</html>
