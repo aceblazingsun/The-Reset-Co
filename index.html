@@ -160,6 +160,14 @@
   html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
   body { font-family: var(--sans); background: var(--ivory); color: var(--text); overflow-x: hidden; line-height: 1.6; }
 
+  /* ─── LENIS RECOMMENDED SMOOTH SCROLL STYLES ─── */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+  .lenis [data-lenis-prevent],
+  .lenis [data-lenis-prevent-wheel],
+  .lenis [data-lenis-prevent-touch] { overscroll-behavior: contain; }
+  .lenis.lenis-smooth iframe { pointer-events: none; }
+
   /* Accessible focus indicators */
   :focus-visible {
     outline: 2px solid var(--gold) !important;
@@ -1793,7 +1801,7 @@ body.is-welcome-locked {
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
     </button>
   </div>
-  <div class="drawer-body" id="drawerBody">
+  <div class="drawer-body" id="drawerBody" data-lenis-prevent>
     <div class="drawer-godly-bead" id="drawerGodlyBead" aria-hidden="true"></div>
     <a class="drawer-link" href="#about" onclick="closeNavDrawer()">
       <span class="num">01</span>
@@ -2724,27 +2732,82 @@ body.is-welcome-locked {
   </div>
 </footer>
 
+<script src="js/lenis.min.js"></script>
 <script>
-  // ─── SCROLL HANDLING (THROTTLED WITH RAF) ──────────────────────────────────
-  const bar = document.getElementById('scroll-progress');
-  const navEl = document.getElementById('mainNav');
-  let isScrolling = false;
+  // ─── LENIS SMOOTH SCROLL INTEGRATION ────────────────────────────────────────
+  let lenis = null;
+  if (typeof Lenis !== 'undefined') {
+    lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      syncTouch: false,
+      respectReducedMotion: true,
+      anchors: false
+    });
+    window.lenis = lenis;
 
-  window.addEventListener('scroll', () => {
-    if (!isScrolling) {
-      window.requestAnimationFrame(() => {
-        const total = document.documentElement.scrollHeight - window.innerHeight;
-        if (total > 0 && bar) {
-          bar.style.width = (window.scrollY / total * 100) + '%';
-        }
-        if (navEl) {
-          navEl.classList.toggle('scrolled', window.scrollY > 40);
-        }
-        isScrolling = false;
-      });
-      isScrolling = true;
+    function lenisRaf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(lenisRaf);
     }
-  }, { passive: true });
+    requestAnimationFrame(lenisRaf);
+
+    if (document.documentElement.classList.contains('is-welcome-locked')) {
+      lenis.stop();
+    }
+
+    lenis.on('scroll', ({ scroll, limit, progress }) => {
+      const bar = document.getElementById('scroll-progress');
+      if (bar) bar.style.width = (progress * 100) + '%';
+      const navEl = document.getElementById('mainNav');
+      if (navEl) navEl.classList.toggle('scrolled', scroll > 40);
+    });
+  }
+
+  // Fallback native scroll listener if Lenis is unavailable
+  if (!lenis) {
+    const bar = document.getElementById('scroll-progress');
+    const navEl = document.getElementById('mainNav');
+    let isScrolling = false;
+    window.addEventListener('scroll', () => {
+      if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+          const total = document.documentElement.scrollHeight - window.innerHeight;
+          if (total > 0 && bar) {
+            bar.style.width = (window.scrollY / total * 100) + '%';
+          }
+          if (navEl) {
+            navEl.classList.toggle('scrolled', window.scrollY > 40);
+          }
+          isScrolling = false;
+        });
+        isScrolling = true;
+      }
+    }, { passive: true });
+  }
+
+  // ─── SMOOTH ANCHOR GLIDE VIA LENIS ──────────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#' && !targetId.startsWith('#sanctuary-accord')) {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          if (window.lenis && !document.documentElement.classList.contains('is-welcome-locked')) {
+            window.lenis.scrollTo(targetEl, {
+              offset: -75,
+              duration: 1.2,
+              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
+          } else {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+    });
+  });
 
   // ─── ACCESSIBLE MOBILE MENU TOGGLE ──────────────────────────────────────────
   // ─── ACCESSIBLE FULL-WEBSITE BURGER MENU DRAWER ─────────────────────────────
@@ -2759,6 +2822,7 @@ body.is-welcome-locked {
       menuOverlay.classList.add('open');
       hamburger.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
+      if (window.lenis) window.lenis.stop();
       initDrawerBead();
       setTimeout(initDrawerBead, 80);
     }
@@ -2771,6 +2835,9 @@ body.is-welcome-locked {
       menuOverlay.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
+      if (window.lenis && !document.documentElement.classList.contains('is-welcome-locked')) {
+        window.lenis.start();
+      }
       if (drawerBead) drawerBead.style.opacity = '0';
     }
   }
@@ -3583,6 +3650,7 @@ body.is-welcome-locked {
   }
 
   lockScroll();
+  if (window.lenis) window.lenis.stop();
 
   function landOnHero() {
     if (isLanded || animating) return;
@@ -3610,6 +3678,7 @@ body.is-welcome-locked {
 
     setTimeout(function() {
       unlockScroll();
+      if (window.lenis) window.lenis.start();
       animating = false;
     }, 850);
   }
@@ -3619,6 +3688,7 @@ body.is-welcome-locked {
     animating = true;
     isLanded = false;
 
+    if (window.lenis) window.lenis.stop();
     lockScroll();
     heroLanding.classList.remove('is-landed');
 
@@ -3642,6 +3712,10 @@ body.is-welcome-locked {
       }
       animating = false;
     }, 200);
+  }
+
+  if (window.location.hash && window.location.hash !== '#' && !window.location.hash.startsWith('#sanctuary-accord')) {
+    landOnHero();
   }
 
   window.addEventListener('wheel', function(e) {

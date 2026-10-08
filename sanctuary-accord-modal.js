@@ -79,7 +79,7 @@
           <button type="button" class="accord-close-btn" id="accordCloseBtn" aria-label="Close Sanctuary Accord">&times;</button>
         </header>
 
-        <div class="accord-body" id="accordBody">
+        <div class="accord-body" id="accordBody" data-lenis-prevent>
           ${pointsHTML}
         </div>
 
@@ -182,6 +182,7 @@
     modalOverlay.classList.add('active');
     modalOverlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    if (window.lenis) window.lenis.stop();
 
     // Focus proceed button or close button
     const proceedBtn = modalOverlay.querySelector('#accordProceedBtn');
@@ -195,6 +196,9 @@
     modalOverlay.classList.remove('active');
     modalOverlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (window.lenis && !document.documentElement.classList.contains('is-welcome-locked')) {
+      window.lenis.start();
+    }
 
     if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
       lastFocusedElement.focus();
