@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Reset Co. | Classical Ayurvedic Retreats</title>
 
+<!-- Preload LCP Hero Media immediately in the critical head stream -->
+<link rel="preload" as="image" href="images/himalayan_hero_mobile.webp" media="(max-width: 768px)" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="images/himalayan_hero.webp" media="(min-width: 769px)" type="image/webp" fetchpriority="high">
+
 <!-- SEO & Search Engine Indexing -->
 <meta name="description" content="Vaidya-led classical Ayurvedic restorative retreats in Himachal Pradesh. Classical Panchakarma, yoga and quiet Himalayan healing.">
 <meta name="keywords" content="theresetco, the reset co, theresetco in, the reset co in, the reset company, ayurvedic retreat himachal pradesh, wellness retreats himachal, vaidya led retreat india, panchakarma himachal, shatkarma, basti ayurveda, himachal ayurveda retreat">
@@ -131,9 +135,6 @@
 <noscript>
   <link rel="stylesheet" href="sanctuary-accord-modal.css">
 </noscript>
-
-<!-- Preload LCP Hero Media with High Priority -->
-<link rel="preload" as="image" href="images/himalayan_hero.webp" type="image/webp" fetchpriority="high">
 
 
 <style>
@@ -1887,7 +1888,7 @@ body.is-welcome-locked {
 <div id="scrollExpandContainer" aria-label="Welcome and Hero Section">
   <div class="scroll-expand__stage" id="scrollExpandStage">
     <div class="scroll-expand__frame" id="scrollExpandFrame">
-      <img class="scroll-expand__media" id="scrollExpandMedia" src="images/himalayan_hero.webp" fetchpriority="high" decoding="async" width="1024" height="768" alt="Himalayan Mountain Peaks - The Reset Co." />
+      <img class="scroll-expand__media" id="scrollExpandMedia" src="images/himalayan_hero.webp" srcset="images/himalayan_hero_mobile.webp 720w, images/himalayan_hero.webp 1024w" sizes="(max-width: 768px) 100vw, 100vw" fetchpriority="high" decoding="async" width="1024" height="768" alt="Himalayan Mountain Peaks - The Reset Co." />
       <div class="scroll-expand__scrim"></div>
       
       <div class="scroll-expand__hero-landing hero" id="scrollExpandHeroLanding">
@@ -3009,10 +3010,11 @@ body.is-welcome-locked {
         prevCard.style.transform = 'translate3d(-140%, 15px, 0) rotate(-18deg)';
         prevCard.style.opacity = '0';
         prevCard.style.zIndex = '15';
-        prevCard.offsetHeight;
       }
       deckCurrentIndex--;
-      updateDeckPositions(true);
+      requestAnimationFrame(() => {
+        updateDeckPositions(true);
+      });
     }
   }
 
