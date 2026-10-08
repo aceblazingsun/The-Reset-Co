@@ -8,8 +8,13 @@
   "theme_color": "#0F2347",
   "icons": [
     {
-      "src": "/images/hero.png",
-      "sizes": "512x512",
+      "src": "/images/logo-emblem.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo-emblem-navy.png",
+      "sizes": "370x370",
       "type": "image/png",
       "purpose": "any maskable"
     }
