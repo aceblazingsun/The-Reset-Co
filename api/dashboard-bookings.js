@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   }
 
   const supabaseUrl = process.env.SUPABASE_URL || 'https://vsscbjpuafnniouqzwvj.supabase.co';
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || 'sb_publishable_0Vnbd-77R7dP5UklEz90Mw_uS_SCn_5';
 
   if (!supabaseUrl || !supabaseKey) {
     return res.status(503).json({

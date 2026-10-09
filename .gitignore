@@ -6,6 +6,7 @@ node_modules/
 
 # Archived & Scratch Files
 _archive/
+scratch/
 *.backup.html
 *.backup.js
 
