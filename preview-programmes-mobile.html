@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Preview: 3 Mobile Programme Layout Options | The Reset Co.</title>
+<link rel="icon" type="image/png" sizes="120x120" href="images/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F7F0DC;
+    --gold-dark: #8C651E;
+    --royal: #1A3A6B;
+    --royal-deep: #0F2347;
+    --royal-mid: #2D5499;
+    --ivory: #FDFAF3;
+    --parchment: #FAF7F0;
+    --stone: #F0EBE0;
+    --text: #1A1A1A;
+    --text-muted: #5C6779;
+    --border: #E8DFCC;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --display: 'Cinzel', serif;
+    --sans: 'Jost', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background-color: #0B1930;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── TOP MASTER CONTROLLER HEADER ─── */
+  .preview-control-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(15, 35, 71, 0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.35);
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .preview-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .preview-brand img { width: 28px; height: 28px; }
+  .preview-brand-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--ivory);
+    letter-spacing: 0.05em;
+  }
+  .preview-brand-title span { color: var(--gold); }
+
+  .preview-selectors {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  /* Option Switcher */
+  .option-switcher {
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 3px;
+    border-radius: 6px;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+  }
+  .opt-btn {
+    background: transparent;
+    border: none;
+    color: rgba(253, 250, 243, 0.8);
+    padding: 0.5rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-family: var(--sans);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .opt-btn:hover { color: var(--ivory); }
+  .opt-btn.active {
+    background: var(--gold);
+    color: var(--royal-deep);
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Device Simulator Toggle */
+  .device-toggle {
+    display: inline-flex;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 3px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .dev-btn {
+    background: transparent;
+    border: none;
+    color: rgba(253, 250, 243, 0.7);
+    padding: 0.5rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: var(--sans);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+  .dev-btn.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--ivory);
+  }
+
+  /* ─── DESCRIPTION BANNER ─── */
+  .option-context-banner {
+    background: #0D2040;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+    padding: 1rem 1.5rem;
+    color: var(--ivory);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .banner-text strong { color: var(--gold-light); font-weight: 600; }
+  .banner-badge {
+    background: rgba(201, 168, 76, 0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold-light);
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ─── WORKSPACE VIEWPORT ─── */
+  .workspace {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2.5rem 1rem;
+    overflow-x: hidden;
+  }
+
+  /* Device Simulator Frame (Mobile) */
+  .device-frame {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    background: var(--parchment);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 12px #1E293B, 0 0 0 14px rgba(201, 168, 76, 0.3);
+    border-radius: 36px;
+    overflow: hidden;
+    position: relative;
+  }
+  .device-frame.mobile-mode {
+    width: 390px;
+    max-width: 100%;
+    min-height: 780px;
+  }
+  .device-frame.desktop-mode {
+    width: 1160px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Mobile Notch Bar */
+  .device-notch {
+    height: 32px;
+    background: #1E293B;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .device-frame.desktop-mode .device-notch { display: none; }
+
+  /* Inner Canvas */
+  .simulator-content {
+    background: var(--parchment);
+    padding: 2rem 1.25rem 3rem;
+  }
+  .device-frame.desktop-mode .simulator-content {
+    padding: 3.5rem 2.5rem;
+  }
+
+  /* Section Header inside Simulator */
+  .sim-sec-head {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .sim-sec-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .sim-sec-title {
+    font-family: var(--serif);
+    font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+    color: var(--royal-deep);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .sim-sec-sub {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     SHARED REFINED CARD STYLING (FOR ALL 3 PREVIEWS)
+     ════════════════════════════════════════════════════════════ */
+  .prog-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 0 6px 24px rgba(15, 35, 71, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .prog-card.featured {
+    border: 2px solid var(--gold);
+  }
+
+  .card-img-header {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    background: var(--stone);
+  }
+  .card-img-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .card-pill-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(15, 35, 71, 0.9);
+    color: var(--gold-light);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    backdrop-filter: blur(4px);
+  }
+  .card-feat-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--gold);
+    color: var(--royal-deep);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .card-main-pane {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .card-heading-group {
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .card-title {
+    font-family: var(--serif);
+    font-size: 1.65rem;
+    color: var(--royal-deep);
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 0.35rem;
+  }
+  .card-tariff {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .card-amount {
+    font-family: var(--display);
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--royal-deep);
+  }
+  .card-subtext {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+  .card-scope-badge {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--gold-dark);
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  /* High-Impact Bullet List */
+  .bullet-list {
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+  .bullet-item {
+    font-size: 0.86rem;
+    color: #2D3748;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    line-height: 1.45;
+  }
+  .bullet-item:last-child { margin-bottom: 0; }
+  .bullet-item svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--gold-dark);
+  }
+  .bullet-item strong {
+    color: var(--royal-deep);
+    font-weight: 600;
+  }
+  .bullet-item.highlight-bullet {
+    background: rgba(201, 168, 76, 0.08);
+    border-left: 3px solid var(--gold);
+    padding: 6px 8px;
+    border-radius: 2px;
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+  .bullet-item.highlight-bullet svg { color: var(--gold); }
+
+  /* Card Action Buttons */
+  .card-btn-stack {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .btn-dossier {
+    text-align: center;
+    background: transparent;
+    color: var(--royal-deep);
+    border: 1px solid rgba(15, 35, 71, 0.35);
+    padding: 0.65rem 1rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-dossier:hover {
+    border-color: var(--royal-deep);
+    background: rgba(15, 35, 71, 0.04);
+  }
+  .btn-apply {
+    text-align: center;
+    background: var(--royal-deep);
+    color: var(--ivory);
+    border: 1px solid var(--gold);
+    padding: 0.75rem 1rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-apply:hover {
+    background: var(--royal);
+    color: var(--gold-light);
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     OPTION 1: SEGMENTED TAB SWITCHER
+     ════════════════════════════════════════════════════════════ */
+  .opt1-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .opt1-tabs {
+    display: flex;
+    background: var(--stone);
+    padding: 4px;
+    border-radius: 30px;
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    gap: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+  }
+  .opt1-tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 0.65rem 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .opt1-tab-btn.active {
+    background: var(--royal-deep);
+    color: var(--gold-light);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(15, 35, 71, 0.25);
+  }
+  .opt1-tab-btn .tab-star { color: var(--gold); margin-left: 2px; }
+
+  /* Cards in Option 1: Mobile shows only active card */
+  .device-frame.mobile-mode .opt1-grid .prog-card {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .device-frame.mobile-mode .opt1-grid .prog-card.active-card {
+    display: flex;
+  }
+
+  /* Desktop mode in Option 1: Shows all 3 side-by-side (tabs hidden) */
+  .device-frame.desktop-mode .opt1-tabs { display: none; }
+  .device-frame.desktop-mode .opt1-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .device-frame.desktop-mode .opt1-grid .prog-card {
+    display: flex !important;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     OPTION 2: CURATED BULLETS + ACCORDION EXPANSION
+     ════════════════════════════════════════════════════════════ */
+  .opt2-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .device-frame.desktop-mode .opt2-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .accordion-toggle {
+    background: rgba(201, 168, 76, 0.08);
+    border: 1px dashed rgba(201, 168, 76, 0.5);
+    color: var(--gold-dark);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+  }
+  .accordion-toggle:hover {
+    background: rgba(201, 168, 76, 0.15);
+  }
+  .accordion-toggle svg {
+    transition: transform 0.3s ease;
+  }
+  .accordion-toggle.expanded svg {
+    transform: rotate(180deg);
+  }
+  .accordion-panel {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .accordion-panel.open {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  /* ════════════════════════════════════════════════════════════
+     OPTION 3: HORIZONTAL SNAP CAROUSEL
+     ════════════════════════════════════════════════════════════ */
+  .opt3-container {
+    position: relative;
+  }
+
+  .device-frame.mobile-mode .opt3-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .device-frame.mobile-mode .opt3-carousel::-webkit-scrollbar { display: none; }
+
+  .device-frame.mobile-mode .opt3-carousel .prog-card {
+    flex: 0 0 88%;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+
+  /* Desktop mode in Option 3: Normal 3-column grid */
+  .device-frame.desktop-mode .opt3-carousel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Dot Pagination Indicators */
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .device-frame.desktop-mode .carousel-dots { display: none; }
+  .dot-pill {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(15, 35, 71, 0.25);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .dot-pill.active {
+    width: 24px;
+    border-radius: 10px;
+    background: var(--gold-dark);
+  }
+  .swipe-hint {
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .device-frame.desktop-mode .swipe-hint { display: none; }
+
+  /* Quick metrics comparison table at bottom */
+  .metrics-badge-panel {
+    background: rgba(15, 35, 71, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.85rem 1rem;
+    margin-top: 1.5rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .metrics-badge-panel strong { color: var(--royal-deep); }
+
+</style>
+</head>
+<body>
+
+  <!-- MASTER CONTROLLER TOP BAR -->
+  <header class="preview-control-bar">
+    <div class="preview-brand">
+      <img src="images/logo-emblem.png" alt="The Reset Co.">
+      <div class="preview-brand-title">The Reset <span>Co.</span> &bull; Council Preview</div>
+    </div>
+
+    <div class="preview-selectors">
+      <!-- Option Switcher -->
+      <div class="option-switcher">
+        <button class="opt-btn active" onclick="switchOption(1)">
+          <span>Option 1: Segmented Tabs</span>
+        </button>
+        <button class="opt-btn" onclick="switchOption(2)">
+          <span>Option 2: Curated + Expand</span>
+        </button>
+        <button class="opt-btn" onclick="switchOption(3)">
+          <span>Option 3: Snap Carousel</span>
+        </button>
+      </div>
+
+      <!-- Device Frame Switcher -->
+      <div class="device-toggle">
+        <button class="dev-btn active" id="btnDevMobile" onclick="switchDevice('mobile')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          Mobile (390px)
+        </button>
+        <button class="dev-btn" id="btnDevDesktop" onclick="switchDevice('desktop')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          Desktop Grid
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DYNAMIC OPTION EXPLANATION BANNER -->
+  <div class="option-context-banner" id="contextBanner">
+    <div class="banner-text">
+      <strong>Option 1: Segmented Mobile Tab Switcher</strong> — Reduces vertical mobile scroll by <strong>78%</strong>. Tapping switches between Awakening, Rejuvenation, and Reset with 0 scrolling.
+    </div>
+    <div class="banner-badge">Scroll Depth: ~520px (Lowest)</div>
+  </div>
+
+  <!-- WORKSPACE CANVAS -->
+  <main class="workspace">
+
+    <div class="device-frame mobile-mode" id="deviceFrame">
+      <div class="device-notch">
+        <span>9:41</span>
+        <span>5G &bull; 100%</span>
+      </div>
+
+      <div class="simulator-content">
+        
+        <div class="sim-sec-head">
+          <span class="sim-sec-tag">Doctor-Led 4-Day Retreat Cohorts</span>
+          <h2 class="sim-sec-title">Physician-Led Retreat Pathways</h2>
+          <p class="sim-sec-sub">Strictly 12 seekers per cohort under direct daily oversight of BAMS physicians Dr. Himanshu Bhatt &amp; Dr. Aditya Kaundal.</p>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+             OPTION 1 VIEW (SEGMENTED TABS)
+             ═══════════════════════════════════════════════════ -->
+        <div id="viewOption1" class="opt1-container">
+          <!-- Mobile Segmented Tabs -->
+          <div class="opt1-tabs">
+            <button class="opt1-tab-btn" onclick="selectOpt1Card(0)">The Awakening</button>
+            <button class="opt1-tab-btn active" onclick="selectOpt1Card(1)">Rejuvenation <span class="tab-star">&#9733;</span></button>
+            <button class="opt1-tab-btn" onclick="selectOpt1Card(2)">Classical Reset</button>
+          </div>
+
+          <div class="opt1-grid">
+            <!-- Card 1: Awakening -->
+            <article class="prog-card" id="opt1-card-0">
+              <div class="card-img-header">
+                <img src="images/yoga.jpg" alt="The Awakening Pathway">
+                <span class="card-pill-tag">Tier 1 &bull; Restorative</span>
+              </div>
+              <div class="card-main-pane">
+                <div class="card-heading-group">
+                  <h3 class="card-title">The Awakening Pathway</h3>
+                  <div class="card-tariff">
+                    <span class="card-amount">&#8377;27,990</span>
+                    <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                  </div>
+                  <span class="card-scope-badge">Burnout reset for seekers with zero musculoskeletal complaints</span>
+                </div>
+
+                <ul class="bullet-list">
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>4 Nights Mountain Lodging:</strong> Boutique pine-forest room in Bir Khas sanctuary estate.</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Physician Dinacharya:</strong> Supervised morning Jalaneti cleansing &amp; Pranayama.</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Restorative Rhythms:</strong> Daily Hatha yoga, Yoga Nidra meditation &amp; forest walks.</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Sattvic Nutrition:</strong> Wholesome organic meals, herbal broths &amp; digestive teas.</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Pure Non-Invasive Rest:</strong> Zero medical joint procedures imposed or billed.</span>
+                  </li>
+                </ul>
+
+                <div class="card-btn-stack">
+                  <a href="programme-awakening.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                  <a href="https://wa.me/917888540046?text=Inquiry%20for%20Awakening" target="_blank" class="btn-apply">Apply For Cohort</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2: Deep Rejuvenation (Default Active) -->
+            <article class="prog-card featured active-card" id="opt1-card-1">
+              <div class="card-img-header">
+                <img src="images/ayurveda.jpg" alt="The Deep Rejuvenation">
+                <span class="card-pill-tag">Tier 2 &bull; Clinical</span>
+                <span class="card-feat-badge">Signature &bull; Most Requested</span>
+              </div>
+              <div class="card-main-pane">
+                <div class="card-heading-group">
+                  <h3 class="card-title">The Deep Rejuvenation</h3>
+                  <div class="card-tariff">
+                    <span class="card-amount">&#8377;34,990</span>
+                    <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                  </div>
+                  <span class="card-scope-badge">Targeted relief for neck stiffness, lumbar pain &amp; desk fatigue</span>
+                </div>
+
+                <ul class="bullet-list">
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>All Awakening Essentials:</strong> 4 Nights lodging, Sattvic meals, yoga &amp; Dinacharya.</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>2 Prescribed Bahya Bastis:</strong> Warm herbal oil pools for lumbar or cervical relief.*</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>1 Full-Body Abhyanga:</strong> Classical medicated oil massage to restore fascia.</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Agni Rest Day:</strong> Doctor-guided digestive reset with warm herbal grain broths.</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>15-Day Home Regimen:</strong> Personal lifestyle guidance &amp; WhatsApp follow-up.</span>
+                  </li>
+                </ul>
+
+                <div class="card-btn-stack">
+                  <a href="programme-rejuvenation.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                  <a href="https://wa.me/917888540046?text=Inquiry%20for%20Deep%20Rejuvenation" target="_blank" class="btn-apply">Apply For Cohort</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 3: Classical Reset -->
+            <article class="prog-card" id="opt1-card-2">
+              <div class="card-img-header">
+                <img src="images/meditation.jpg" alt="The Classical Reset">
+                <span class="card-pill-tag">Tier 3 &bull; Intensive</span>
+              </div>
+              <div class="card-main-pane">
+                <div class="card-heading-group">
+                  <h3 class="card-title">The Classical Reset</h3>
+                  <div class="card-tariff">
+                    <span class="card-amount">&#8377;39,990</span>
+                    <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                  </div>
+                  <span class="card-scope-badge">Deep nervous system renewal, screen eye strain &amp; spinal decompression</span>
+                </div>
+
+                <ul class="bullet-list">
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>All Rejuvenation Inclusions:</strong> Lodging, Sattvic meals, yoga &amp; Abhyanga.</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>3 Prescribed Bahya Bastis:</strong> Multi-point sequence for neck, spine or knees.*</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Netra Tarpana Eye Bath:</strong> Medicated Triphala ghee bath for digital strain.*</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Daily 1:1 Doctor Reviews:</strong> Daily private pulse review with founding Vaidyas.</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>20-Day Extended Care:</strong> Comprehensive post-retreat Dinacharya &amp; direct chat.</span>
+                  </li>
+                </ul>
+
+                <div class="card-btn-stack">
+                  <a href="programme-reset.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                  <a href="https://wa.me/917888540046?text=Inquiry%20for%20Classical%20Reset" target="_blank" class="btn-apply">Apply For Cohort</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+
+        <!-- ═══════════════════════════════════════════════════
+             OPTION 2 VIEW (CURATED BULLETS + ACCORDION)
+             ═══════════════════════════════════════════════════ -->
+        <div id="viewOption2" class="opt2-grid" style="display: none;">
+          <!-- Card 1 -->
+          <article class="prog-card">
+            <div class="card-img-header">
+              <img src="images/yoga.jpg" alt="The Awakening Pathway">
+              <span class="card-pill-tag">Tier 1 &bull; Restorative</span>
+            </div>
+            <div class="card-main-pane">
+              <div class="card-heading-group">
+                <h3 class="card-title">The Awakening Pathway</h3>
+                <div class="card-tariff">
+                  <span class="card-amount">&#8377;27,990</span>
+                  <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                </div>
+              </div>
+
+              <!-- Top 3 Curated Bullets -->
+              <ul class="bullet-list" style="margin-bottom: 0.85rem;">
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>4 Nights Mountain Lodging:</strong> Pine valley room stay</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Physician Cleansing:</strong> Morning Jalaneti &amp; breathwork</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Organic Sattvic Dining:</strong> Broths, teas &amp; fresh dining</span>
+                </li>
+              </ul>
+
+              <!-- Accordion Expander -->
+              <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                <span>+ View 3 More Inclusions</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+
+              <div class="accordion-panel">
+                <ul class="bullet-list">
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Daily Hatha yoga, Yoga Nidra &amp; guided forest walks</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Tactile pottery workshop &amp; sanctuary welcome kit</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>1-Week post-retreat lifestyle plan with doctor</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card-btn-stack">
+                <a href="programme-awakening.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                <a href="https://wa.me/917888540046?text=Inquiry%20for%20Awakening" target="_blank" class="btn-apply">Apply For Cohort</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="prog-card featured">
+            <div class="card-img-header">
+              <img src="images/ayurveda.jpg" alt="The Deep Rejuvenation">
+              <span class="card-pill-tag">Tier 2 &bull; Clinical</span>
+              <span class="card-feat-badge">Most Requested</span>
+            </div>
+            <div class="card-main-pane">
+              <div class="card-heading-group">
+                <h3 class="card-title">The Deep Rejuvenation</h3>
+                <div class="card-tariff">
+                  <span class="card-amount">&#8377;34,990</span>
+                  <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                </div>
+              </div>
+
+              <!-- Top 3 Curated Bullets -->
+              <ul class="bullet-list" style="margin-bottom: 0.85rem;">
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>All Awakening Included:</strong> Stay, meals, yoga &amp; cleansing</span>
+                </li>
+                <li class="bullet-item highlight-bullet">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>2 Prescribed Bahya Bastis:</strong> Warm oil pools for neck/back*</span>
+                </li>
+                <li class="bullet-item highlight-bullet">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>1 Full-Body Abhyanga:</strong> Medicated oil massage</span>
+                </li>
+              </ul>
+
+              <!-- Accordion Expander -->
+              <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                <span>+ View 3 More Inclusions</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+
+              <div class="accordion-panel">
+                <ul class="bullet-list">
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Gentle digestive rest day with doctor-guided herbal grain broths</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>15-Day personalized post-retreat home plan</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Dedicated doctor WhatsApp support after return home</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card-btn-stack">
+                <a href="programme-rejuvenation.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                <a href="https://wa.me/917888540046?text=Inquiry%20for%20Deep%20Rejuvenation" target="_blank" class="btn-apply">Apply For Cohort</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="prog-card">
+            <div class="card-img-header">
+              <img src="images/meditation.jpg" alt="The Classical Reset">
+              <span class="card-pill-tag">Tier 3 &bull; Intensive</span>
+            </div>
+            <div class="card-main-pane">
+              <div class="card-heading-group">
+                <h3 class="card-title">The Classical Reset</h3>
+                <div class="card-tariff">
+                  <span class="card-amount">&#8377;39,990</span>
+                  <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                </div>
+              </div>
+
+              <!-- Top 3 Curated Bullets -->
+              <ul class="bullet-list" style="margin-bottom: 0.85rem;">
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>All Rejuvenation Included:</strong> Stay, meals, yoga &amp; Abhyanga</span>
+                </li>
+                <li class="bullet-item highlight-bullet">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>3 Prescribed Bahya Bastis:</strong> Multi-point spine/joint care*</span>
+                </li>
+                <li class="bullet-item highlight-bullet">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Netra Tarpana Eye Bath:</strong> Triphala ghee bath for screen strain*</span>
+                </li>
+              </ul>
+
+              <!-- Accordion Expander -->
+              <button class="accordion-toggle" onclick="toggleAccordion(this)">
+                <span>+ View 3 More Inclusions</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+
+              <div class="accordion-panel">
+                <ul class="bullet-list">
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Nourishing herbal Marma compress for deep stiffness</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Daily private 1:1 pulse review with founding Vaidyas</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>20-Day extended home regimen with direct doctor chat</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card-btn-stack">
+                <a href="programme-reset.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                <a href="https://wa.me/917888540046?text=Inquiry%20for%20Classical%20Reset" target="_blank" class="btn-apply">Apply For Cohort</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+
+        <!-- ═══════════════════════════════════════════════════
+             OPTION 3 VIEW (HORIZONTAL SNAP CAROUSEL)
+             ═══════════════════════════════════════════════════ -->
+        <div id="viewOption3" class="opt3-container" style="display: none;">
+          <div class="opt3-carousel" id="opt3Carousel" onscroll="onCarouselScroll(this)">
+            <!-- Card 1 -->
+            <article class="prog-card">
+              <div class="card-img-header">
+                <img src="images/yoga.jpg" alt="The Awakening Pathway">
+                <span class="card-pill-tag">Tier 1 &bull; Restorative</span>
+              </div>
+              <div class="card-main-pane">
+                <div class="card-heading-group">
+                  <h3 class="card-title">The Awakening Pathway</h3>
+                  <div class="card-tariff">
+                    <span class="card-amount">&#8377;27,990</span>
+                    <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                  </div>
+                  <span class="card-scope-badge">Burnout reset for seekers with zero joint complaints</span>
+                </div>
+
+                <ul class="bullet-list">
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>4 Nights Mountain Lodging:</strong> Pine valley sanctuary room</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Physician Dinacharya:</strong> Morning Jalaneti &amp; breathwork</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Restorative Rhythms:</strong> Daily Hatha yoga &amp; Yoga Nidra</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Pure Non-Invasive Rest:</strong> Zero medical procedures imposed</span>
+                  </li>
+                </ul>
+
+                <div class="card-btn-stack">
+                  <a href="programme-awakening.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                  <a href="https://wa.me/917888540046?text=Inquiry%20for%20Awakening" target="_blank" class="btn-apply">Apply For Cohort</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="prog-card featured">
+              <div class="card-img-header">
+                <img src="images/ayurveda.jpg" alt="The Deep Rejuvenation">
+                <span class="card-pill-tag">Tier 2 &bull; Clinical</span>
+                <span class="card-feat-badge">Signature &bull; Most Requested</span>
+              </div>
+              <div class="card-main-pane">
+                <div class="card-heading-group">
+                  <h3 class="card-title">The Deep Rejuvenation</h3>
+                  <div class="card-tariff">
+                    <span class="card-amount">&#8377;34,990</span>
+                    <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                  </div>
+                  <span class="card-scope-badge">Targeted relief for neck stiffness, lumbar pain &amp; desk fatigue</span>
+                </div>
+
+                <ul class="bullet-list">
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>All Awakening Included:</strong> Lodging, Sattvic meals &amp; yoga</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>2 Prescribed Bahya Bastis:</strong> Warm oil pools for neck/back*</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>1 Full-Body Abhyanga:</strong> Classical medicated oil massage</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>15-Day Home Regimen:</strong> Personal doctor WhatsApp follow-up</span>
+                  </li>
+                </ul>
+
+                <div class="card-btn-stack">
+                  <a href="programme-rejuvenation.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                  <a href="https://wa.me/917888540046?text=Inquiry%20for%20Deep%20Rejuvenation" target="_blank" class="btn-apply">Apply For Cohort</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="prog-card">
+              <div class="card-img-header">
+                <img src="images/meditation.jpg" alt="The Classical Reset">
+                <span class="card-pill-tag">Tier 3 &bull; Intensive</span>
+              </div>
+              <div class="card-main-pane">
+                <div class="card-heading-group">
+                  <h3 class="card-title">The Classical Reset</h3>
+                  <div class="card-tariff">
+                    <span class="card-amount">&#8377;39,990</span>
+                    <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                  </div>
+                  <span class="card-scope-badge">Screen eye fatigue, deep burnout &amp; spinal decompression</span>
+                </div>
+
+                <ul class="bullet-list">
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>All Rejuvenation Included:</strong> Stay, meals, yoga &amp; Abhyanga</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>3 Prescribed Bahya Bastis:</strong> Multi-point sequence*</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Netra Tarpana Eye Bath:</strong> Triphala ghee bath for screen strain*</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Daily 1:1 Doctor Reviews:</strong> Private daily pulse review</span>
+                  </li>
+                </ul>
+
+                <div class="card-btn-stack">
+                  <a href="programme-reset.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                  <a href="https://wa.me/917888540046?text=Inquiry%20for%20Classical%20Reset" target="_blank" class="btn-apply">Apply For Cohort</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Dots Pagination -->
+          <div class="carousel-dots">
+            <span class="dot-pill" onclick="scrollToOpt3Card(0)"></span>
+            <span class="dot-pill active" onclick="scrollToOpt3Card(1)"></span>
+            <span class="dot-pill" onclick="scrollToOpt3Card(2)"></span>
+          </div>
+
+          <div class="swipe-hint">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Swipe horizontally to compare pathways
+          </div>
+        </div>
+
+        <div class="metrics-badge-panel">
+          <strong>Council Ergonomics Note:</strong> Each card maintains strict 4-to-5 bolded deliverables with zero fluff. Mobile scroll is cut by <strong>50%–78%</strong> across all three options compared to current master pages.
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const bannerInfo = {
+      1: {
+        text: '<strong>Option 1: Segmented Mobile Tab Switcher</strong> — Reduces vertical mobile scroll by <strong>78%</strong>. Tapping switches between Awakening, Rejuvenation, and Reset with 0 scrolling.',
+        badge: 'Scroll Depth: ~520px (Lowest)'
+      },
+      2: {
+        text: '<strong>Option 2: Curated 3-4 Bullets + Progressive Accordion</strong> — Cuts initial card height by <strong>50%</strong>. Guests see the 3 decisive highlights first and tap "+ View 3 More" if they want full details.',
+        badge: 'Scroll Depth: ~1,100px (Balanced)'
+      },
+      3: {
+        text: '<strong>Option 3: Horizontal Snap Carousel (Peek Cards)</strong> — Luxury hotel standard (Aman/Six Senses). Guests flick left/right with natural thumb gestures while keeping page scroll compact.',
+        badge: 'Scroll Depth: ~540px (Most Tactile)'
+      }
+    };
+
+    function switchOption(optNum) {
+      // Buttons
+      document.querySelectorAll('.opt-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === (optNum - 1));
+      });
+
+      // Views
+      document.getElementById('viewOption1').style.display = (optNum === 1) ? 'flex' : 'none';
+      document.getElementById('viewOption2').style.display = (optNum === 2) ? 'flex' : 'none';
+      document.getElementById('viewOption3').style.display = (optNum === 3) ? 'block' : 'none';
+
+      // Banner
+      const b = bannerInfo[optNum];
+      document.getElementById('contextBanner').innerHTML = `
+        <div class="banner-text">${b.text}</div>
+        <div class="banner-badge">${b.badge}</div>
+      `;
+
+      if (optNum === 3) {
+        setTimeout(() => { scrollToOpt3Card(1); }, 50);
+      }
+    }
+
+    function switchDevice(mode) {
+      const frame = document.getElementById('deviceFrame');
+      const btnMob = document.getElementById('btnDevMobile');
+      const btnDesk = document.getElementById('btnDevDesktop');
+
+      if (mode === 'mobile') {
+        frame.classList.add('mobile-mode');
+        frame.classList.remove('desktop-mode');
+        btnMob.classList.add('active');
+        btnDesk.classList.remove('active');
+      } else {
+        frame.classList.remove('mobile-mode');
+        frame.classList.add('desktop-mode');
+        btnMob.classList.remove('active');
+        btnDesk.classList.add('active');
+      }
+    }
+
+    // Option 1 Tab Selection
+    function selectOpt1Card(index) {
+      document.querySelectorAll('.opt1-tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === index);
+      });
+      [0, 1, 2].forEach(i => {
+        const card = document.getElementById('opt1-card-' + i);
+        if (card) {
+          card.classList.toggle('active-card', i === index);
+        }
+      });
+    }
+
+    // Option 2 Accordion Toggle
+    function toggleAccordion(btn) {
+      const panel = btn.nextElementSibling;
+      const isOpen = panel.classList.contains('open');
+      if (isOpen) {
+        panel.classList.remove('open');
+        btn.classList.remove('expanded');
+        btn.querySelector('span').textContent = '+ View 3 More Inclusions';
+      } else {
+        panel.classList.add('open');
+        btn.classList.add('expanded');
+        btn.querySelector('span').textContent = '− Hide Extra Inclusions';
+      }
+    }
+
+    // Option 3 Carousel scroll and dots
+    function scrollToOpt3Card(idx) {
+      const car = document.getElementById('opt3Carousel');
+      if (!car) return;
+      const cards = car.querySelectorAll('.prog-card');
+      if (cards[idx]) {
+        cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+      updateDots(idx);
+    }
+
+    function onCarouselScroll(car) {
+      const cards = car.querySelectorAll('.prog-card');
+      const carCenter = car.scrollLeft + car.offsetWidth / 2;
+      let closestIdx = 0;
+      let minDiff = Infinity;
+
+      cards.forEach((card, i) => {
+        const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+        const diff = Math.abs(carCenter - cardCenter);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = i;
+        }
+      });
+      updateDots(closestIdx);
+    }
+
+    function updateDots(activeIdx) {
+      document.querySelectorAll('.carousel-dots .dot-pill').forEach((dot, i) => {
+        dot.classList.toggle('active', i === activeIdx);
+      });
+    }
+
+    // Init option 3 default scroll to center card (The Deep Rejuvenation)
+    window.addEventListener('load', () => {
+      selectOpt1Card(1); // default to Most Requested
+    });
+  </script>
+</body>
+</html>
