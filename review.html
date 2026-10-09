@@ -283,9 +283,338 @@
     text-align: center;
   }
 
+  /* ─── LEAVE A REVIEW CTA & MODAL ─── */
+  .review-cta-wrap {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.85rem;
+  }
+  .btn-review-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: transparent;
+    border: 1px solid rgba(201, 168, 76, 0.55);
+    color: var(--royal-deep);
+    padding: 0.85rem 2rem;
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    min-height: 48px;
+    box-shadow: 0 2px 10px rgba(15, 35, 71, 0.05);
+  }
+  .btn-review-ghost:hover {
+    background: var(--royal-deep);
+    color: var(--ivory);
+    border-color: var(--royal-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(15, 35, 71, 0.15);
+  }
+  .btn-review-ghost .glyph {
+    color: var(--gold);
+    font-size: 0.95rem;
+    transition: transform 0.25s ease;
+  }
+  .btn-review-ghost:hover .glyph {
+    transform: rotate(45deg);
+  }
+  .review-cta-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.03em;
+  }
+
+  /* Modal Backdrop & Dialog */
+  .review-modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 35, 71, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .review-modal-backdrop.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .review-modal-dialog {
+    background: var(--ivory);
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    border-radius: 6px;
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    box-shadow: 0 24px 60px rgba(15, 35, 71, 0.35);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(20px) scale(0.98);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .review-modal-backdrop.is-active .review-modal-dialog {
+    transform: translateY(0) scale(1);
+  }
+
+  .review-modal-header {
+    padding: 1.75rem 2rem 1.25rem;
+    background: #FAF7F0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    text-align: center;
+  }
+  .review-modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    background: var(--ivory);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--royal-deep);
+    font-size: 1.2rem;
+    transition: all 0.2s;
+  }
+  .review-modal-close:hover {
+    border-color: var(--gold);
+    color: var(--gold-dark);
+    transform: scale(1.05);
+  }
+  .modal-eyebrow {
+    font-family: var(--display);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .modal-heading {
+    font-family: var(--serif);
+    font-size: 1.85rem;
+    color: var(--royal-deep);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .modal-heading em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .modal-subtitle {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .review-modal-body {
+    padding: 1.75rem 2rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .rating-field {
+    text-align: center;
+    padding-bottom: 0.25rem;
+  }
+  .rating-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--royal-deep);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+  .stars-row {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .star-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.85rem;
+    color: #D6CEBE;
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.18s, transform 0.18s;
+  }
+  .star-btn.is-active, .star-btn:hover {
+    color: var(--gold);
+    transform: scale(1.15);
+  }
+  .star-caption {
+    font-size: 0.78rem;
+    color: var(--gold-dark);
+    margin-top: 0.25rem;
+    font-weight: 500;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .form-label {
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--royal-deep);
+  }
+  .form-input, .form-select, .form-textarea {
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    padding: 0.7rem 0.95rem;
+    background: #FAF7F0;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: var(--ivory);
+    box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.15);
+  }
+  .form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .form-textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.6;
+  }
+
+  .form-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .form-consent input {
+    margin-top: 0.15rem;
+    accent-color: var(--royal-deep);
+  }
+
+  .review-modal-footer {
+    padding: 1.25rem 2rem 1.75rem;
+    background: #FAF7F0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .btn-submit-review {
+    background: var(--royal-deep);
+    color: var(--ivory);
+    border: 1px solid var(--royal-deep);
+    padding: 0.85rem 1.85rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s;
+    width: 100%;
+  }
+  .btn-submit-review:hover {
+    background: var(--royal);
+    box-shadow: 0 4px 14px rgba(15,35,71,0.25);
+  }
+
+  .btn-wa-review {
+    background: transparent;
+    color: var(--royal-deep);
+    border: 1px solid var(--border);
+    padding: 0.7rem 1.5rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+  }
+  .btn-wa-review:hover {
+    border-color: #25D366;
+    color: #128C7E;
+    background: #F0FFF4;
+  }
+
+  .review-success-panel {
+    display: none;
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+  .review-success-panel .emblem {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.25rem;
+    display: block;
+  }
+  .success-title {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--royal-deep);
+    margin-bottom: 0.75rem;
+  }
+  .success-body {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 440px;
+    margin: 0 auto 2rem;
+  }
+
   @media (max-width: 900px) {
     .markers-grid, .reflections-grid { grid-template-columns: 1fr; }
     nav .nav-links { display: none; }
+    .form-row-2 { grid-template-columns: 1fr; }
+    .review-modal-header { padding: 1.5rem 1.25rem 1rem; }
+    .review-modal-body { padding: 1.25rem; }
+    .review-modal-footer { padding: 1rem 1.25rem 1.5rem; }
   }
 </style>
 </head>
@@ -313,8 +642,7 @@
     <div class="shloka-banner-box">
       <span class="shloka-text">स्वस्थस्य स्वास्थ्यरक्षणम्</span>
     </div>
-    <div class="hero-tag">Clinical Outcomes &bull; Day 4 Evidence</div>
-    <h1 class="hero-title">Biological Outcomes &amp; Reflections</h1>
+    <h1 class="hero-title">Reflections</h1>
     <p class="hero-sub">True rejuvenation is not a momentary feeling. It is measurable biological decompression: restored circadian rhythms, rejuvenated digestive fire, and spinal release.</p>
   </header>
 
@@ -451,14 +779,186 @@
           </div>
         </article>
       </div>
+      <!-- LEAVE A REVIEW / SHARE REFLECTION CTA -->
+      <div class="review-cta-wrap" id="leave-review">
+        <button type="button" class="btn-review-ghost" onclick="openReviewModal()">
+          <span class="glyph">&#10022;</span>
+          <span>Leave a Review &bull; Inscribe Sanctuary Note</span>
+          <span class="glyph">&#10022;</span>
+        </button>
+        <p class="review-cta-note">Attended a retreat? Share your personal reflection with Dr. Himanshu &amp; Dr. Aditya.</p>
+      </div>
+
     </section>
 
   </main>
+
+  <!-- ─── LEAVE A REVIEW MODAL DIALOG ─── -->
+  <div class="review-modal-backdrop" id="reviewModalBackdrop" onclick="handleBackdropClick(event)">
+    <div class="review-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      
+      <!-- Modal Header -->
+      <div class="review-modal-header">
+        <button type="button" class="review-modal-close" onclick="closeReviewModal()" aria-label="Close modal">&times;</button>
+        <p class="modal-eyebrow">The Sanctuary Journal</p>
+        <h3 class="modal-heading" id="modalTitle">Leave a <em>Reflection</em></h3>
+        <p class="modal-subtitle">Your words remain in our retreat archives and guide future seekers towards authentic healing.</p>
+      </div>
+
+      <!-- Review Form -->
+      <form id="reviewForm" onsubmit="submitReviewForm(event)">
+        <div class="review-modal-body">
+          
+          <!-- Rating -->
+          <div class="rating-field">
+            <label class="rating-label">Overall Retreat Experience</label>
+            <div class="stars-row" id="starsRow">
+              <button type="button" class="star-btn is-active" onclick="setRating(1)" aria-label="1 star">&#9733;</button>
+              <button type="button" class="star-btn is-active" onclick="setRating(2)" aria-label="2 stars">&#9733;</button>
+              <button type="button" class="star-btn is-active" onclick="setRating(3)" aria-label="3 stars">&#9733;</button>
+              <button type="button" class="star-btn is-active" onclick="setRating(4)" aria-label="4 stars">&#9733;</button>
+              <button type="button" class="star-btn is-active" onclick="setRating(5)" aria-label="5 stars">&#9733;</button>
+            </div>
+            <div class="star-caption" id="starCaption">5 / 5 &bull; Deeply Restorative &amp; Grounding</div>
+            <input type="hidden" id="ratingInput" name="rating" value="5">
+          </div>
+
+          <!-- Name & Role -->
+          <div class="form-row-2">
+            <div class="form-group">
+              <label class="form-label" for="reviewName">Your Name</label>
+              <input type="text" class="form-input" id="reviewName" name="name" required placeholder="e.g. Pooja Sharma">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reviewRole">Location &amp; Role</label>
+              <input type="text" class="form-input" id="reviewRole" name="role" required placeholder="e.g. Bangalore &bull; Tech Lead">
+            </div>
+          </div>
+
+          <!-- Pathway Attended -->
+          <div class="form-group">
+            <label class="form-label" for="reviewPathway">Retreat Pathway Attended</label>
+            <select class="form-select" id="reviewPathway" name="pathway">
+              <option value="The Awakening Journey (4 Days)">The Awakening Journey (4 Days)</option>
+              <option value="The Deep Rejuvenation (4 Days)" selected>The Deep Rejuvenation (4 Days)</option>
+              <option value="The Classical Reset (4 Days)">The Classical Reset (4 Days)</option>
+              <option value="Custom Private Cohort">Custom Private Group</option>
+            </select>
+          </div>
+
+          <!-- Reflection Text -->
+          <div class="form-group">
+            <label class="form-label" for="reviewText">Your Experience &amp; Physiological Shift</label>
+            <textarea class="form-textarea" id="reviewText" name="reflection" required placeholder="During my 4 days at the sanctuary in Bir Billing, what shifted most for my mind, sleep, or body was..."></textarea>
+          </div>
+
+          <!-- Ethical Consent -->
+          <label class="form-consent">
+            <input type="checkbox" required checked>
+            <span>I confirm that I attended a retreat at The Reset Co. and consent to sharing my clinical/wellness reflection under ethical medical privacy guidelines.</span>
+          </label>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="review-modal-footer">
+          <button type="submit" class="btn-submit-review">Submit Reflection</button>
+          <a href="#" id="waReviewLink" target="_blank" rel="noopener" class="btn-wa-review" onclick="openWhatsAppReview(event)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.062-2.127-.514-1.748-.703-2.924-2.457-3.013-2.575-.087-.118-.707-.941-.707-1.794 0-.853.447-1.272.607-1.445.16-.174.348-.217.464-.217.117 0 .233.001.334.006.107.005.25-.041.391.298.144.348.492 1.202.535 1.289.043.087.072.188.014.304-.058.116-.087.188-.174.289l-.261.304c-.087.087-.179.182-.077.357.101.174.451.744.968 1.205.666.594 1.229.778 1.403.865.174.087.275.072.377-.044.101-.116.435-.507.551-.681.116-.174.232-.145.391-.087s1.015.478 1.189.565c.174.087.29.13.334.203.043.072.043.42-.101.825z"/></svg>
+            <span>Or Send Directly to Vaidyas on WhatsApp</span>
+          </a>
+        </div>
+      </form>
+
+      <!-- Success Panel -->
+      <div class="review-success-panel" id="reviewSuccessPanel">
+        <img src="images/logo-emblem.png" alt="The Reset Co." class="emblem">
+        <p class="modal-eyebrow">Dhanyavad</p>
+        <h3 class="success-title">Your Reflection is Received</h3>
+        <p class="success-body">Thank you for sharing your experience. Founding Vaidyas Dr. Himanshu Bhatt &amp; Dr. Aditya Kaundal review each guest submission personally before publication in the retreat archives.</p>
+        <button type="button" class="btn-submit-review" onclick="closeReviewModal()" style="max-width:240px; margin:0 auto;">Return to Reflections</button>
+      </div>
+
+    </div>
+  </div>
 
   <footer>
     <p style="margin-bottom: 0.5rem;">The Reset Co. &bull; Classical Ayurvedic Sanctuaries in Himachal Pradesh, India</p>
     <p style="color: var(--gold-light); font-size: 0.8rem;">स्वस्थस्य स्वास्थ्यरक्षणम्</p>
   </footer>
+
+  <script>
+    let currentRating = 5;
+    const ratingCaptions = {
+      1: '1 / 5 \u2022 Needs Clinical Refinement',
+      2: '2 / 5 \u2022 Fair Experience',
+      3: '3 / 5 \u2022 Restorative & Grounding',
+      4: '4 / 5 \u2022 Profoundly Rejuvenating',
+      5: '5 / 5 \u2022 Deeply Restorative & Grounding'
+    };
+
+    function openReviewModal() {
+      const backdrop = document.getElementById('reviewModalBackdrop');
+      backdrop.classList.add('is-active');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('reviewForm').style.display = 'block';
+      document.getElementById('reviewSuccessPanel').style.display = 'none';
+    }
+
+    function closeReviewModal() {
+      const backdrop = document.getElementById('reviewModalBackdrop');
+      backdrop.classList.remove('is-active');
+      document.body.style.overflow = '';
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target === document.getElementById('reviewModalBackdrop')) {
+        closeReviewModal();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.getElementById('reviewModalBackdrop').classList.contains('is-active')) {
+        closeReviewModal();
+      }
+    });
+
+    function setRating(val) {
+      currentRating = val;
+      document.getElementById('ratingInput').value = val;
+      const buttons = document.querySelectorAll('#starsRow .star-btn');
+      buttons.forEach((btn, idx) => {
+        if (idx < val) {
+          btn.classList.add('is-active');
+        } else {
+          btn.classList.remove('is-active');
+        }
+      });
+      document.getElementById('starCaption').textContent = ratingCaptions[val] || '';
+    }
+
+    function submitReviewForm(e) {
+      e.preventDefault();
+      document.getElementById('reviewForm').style.display = 'none';
+      document.getElementById('reviewSuccessPanel').style.display = 'block';
+    }
+
+    function openWhatsAppReview(e) {
+      e.preventDefault();
+      const name = document.getElementById('reviewName').value.trim() || 'A Sanctuary Resident';
+      const pathway = document.getElementById('reviewPathway').value;
+      const text = document.getElementById('reviewText').value.trim() || 'Sharing my retreat reflection with the Vaidyas.';
+      const msg = `Namaste Dr. Himanshu & Dr. Aditya,\n\nI attended ${pathway}.\n\nMy reflection:\n"${text}"\n\n— ${name}`;
+      const url = `https://wa.me/917888540046?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+      closeReviewModal();
+    }
+
+    // Auto-open modal if URL hash is #leave-review
+    if (window.location.hash === '#leave-review') {
+      setTimeout(openReviewModal, 300);
+    }
+  </script>
 
 </body>
 </html>
