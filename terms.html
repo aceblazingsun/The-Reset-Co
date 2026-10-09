@@ -15,14 +15,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="images/logo-emblem.png">
+<link rel="stylesheet" href="sanctuary-accord-modal.css">
 
 <style>
   :root {
     --gold: #C9A84C;
     --gold-light: #E8C97A;
+    --gold-pale: #F7F0DC;
+    --gold-dark: #8C651E;
+    --royal: #1A3A6B;
     --royal-deep: #0F2347;
+    --royal-mid: #2D5499;
     --ivory: #FDFAF3;
     --parchment: #FAF7F0;
+    --stone: #F0EBE0;
     --text: #1A1A1A;
     --text-muted: #5C6779;
     --border: #E8DFCC;
@@ -33,12 +39,20 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; -webkit-text-size-adjust: 100%; }
+
   body {
     font-family: var(--sans);
     background-color: var(--parchment);
+    background-image: 
+      radial-gradient(rgba(201, 168, 76, 0.06) 1px, transparent 1px), 
+      radial-gradient(rgba(15, 35, 71, 0.02) 1px, var(--parchment) 1px);
+    background-size: 26px 26px;
+    background-position: 0 0, 13px 13px;
     color: var(--text);
     line-height: 1.7;
     overflow-x: hidden;
+    width: 100%;
   }
 
   nav {
@@ -55,82 +69,285 @@
   }
 
   .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; color: var(--ivory); }
-  .nav-logo-mark { width: 32px; height: 32px; }
+  .nav-logo-mark { width: 32px; height: 32px; border-radius: 50%; }
   .nav-logo-text { font-family: var(--serif); font-size: 1.4rem; letter-spacing: 0.08em; }
   .nav-logo-text span { color: var(--gold); }
 
+  .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+  .nav-link { color: rgba(253, 250, 243, 0.82); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+  .nav-link:hover, .nav-link.active { color: var(--gold-light); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--royal-deep);
+    padding: 0.6rem 1.3rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
   .page-hero {
-    background: var(--royal-deep);
+    background: linear-gradient(180deg, #09152C 0%, #0F2347 100%);
     color: var(--ivory);
-    padding: 8.5rem 1.5rem 3.5rem;
+    padding: 9rem 1.5rem 4rem;
     text-align: center;
     border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+    position: relative;
   }
 
   .shloka-banner-box {
     display: block;
     width: fit-content;
-    margin: 0 auto 1.25rem auto;
-    padding: 0.8rem 2rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(201, 168, 76, 0.4);
+    margin: 0 auto 1.5rem auto;
+    padding: 0.8rem 2.2rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(201, 168, 76, 0.45);
     border-radius: 4px;
+    backdrop-filter: blur(4px);
   }
 
   .shloka-text {
     font-family: var(--devanagari);
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 3.2vw, 1.85rem);
     color: var(--gold-light);
     font-weight: 600;
     letter-spacing: normal;
     display: block;
   }
 
-  .hero-title { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 0.5rem; }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-subtitle {
+    font-family: var(--sans);
+    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+    color: rgba(253, 250, 243, 0.85);
+    max-width: 680px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
 
   .container {
-    max-width: 860px;
+    max-width: 920px;
     margin: 0 auto;
     padding: 3.5rem 1.5rem;
   }
 
+  /* Interactive Banner */
+  .accord-banner-card {
+    background: linear-gradient(135deg, rgba(15, 35, 71, 0.95), rgba(26, 58, 107, 0.95));
+    border: 1px solid var(--gold);
+    border-radius: 6px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    box-shadow: 0 10px 30px rgba(15, 35, 71, 0.12);
+  }
+
+  .accord-banner-text h3 {
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    color: var(--ivory);
+    margin-bottom: 0.35rem;
+  }
+  .accord-banner-text p {
+    font-size: 0.9rem;
+    color: rgba(253, 250, 243, 0.85);
+  }
+
+  .accord-banner-btn {
+    background: var(--gold);
+    color: var(--royal-deep);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 3px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .accord-banner-btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  /* Legal Sections */
   .legal-section {
     background: #FFFFFF;
     border: 1px solid var(--border);
-    padding: 2.5rem;
-    border-radius: 4px;
+    border-left: 4px solid var(--gold);
+    padding: 2.25rem 2.5rem;
+    border-radius: 6px;
     margin-bottom: 2rem;
-    box-shadow: 0 4px 16px rgba(15, 35, 71, 0.03);
+    box-shadow: 0 6px 20px rgba(15, 35, 71, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .legal-section:hover {
+    box-shadow: 0 8px 24px rgba(15, 35, 71, 0.07);
   }
 
-  .legal-section h2 {
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+    padding-bottom: 0.75rem;
+  }
+
+  .section-num {
+    font-family: var(--display);
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    background: rgba(201, 168, 76, 0.15);
+    padding: 4px 8px;
+    border-radius: 3px;
+  }
+
+  .section-title {
     font-family: var(--serif);
-    font-size: 1.5rem;
+    font-size: 1.55rem;
     color: var(--royal-deep);
-    margin-bottom: 1rem;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
-    padding-bottom: 0.5rem;
+    font-weight: 600;
   }
 
-  .legal-section p, .legal-section li {
-    font-size: 0.92rem;
+  .legal-section p {
+    font-size: 0.95rem;
     color: #333C4A;
     margin-bottom: 1rem;
-    line-height: 1.75;
+    line-height: 1.8;
   }
 
   .legal-section ul {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.25rem;
   }
 
+  .legal-section li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.93rem;
+    color: #333C4A;
+    line-height: 1.7;
+  }
+
+  .legal-section li::before {
+    content: "•";
+    position: absolute;
+    left: 0.25rem;
+    color: var(--gold);
+    font-size: 1.2rem;
+    line-height: 1;
+    top: 0.15rem;
+  }
+
+  .highlight-box {
+    background: var(--parchment);
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    border-radius: 4px;
+    padding: 1.1rem 1.4rem;
+    margin: 1.25rem 0;
+    font-size: 0.9rem;
+    color: var(--royal-deep);
+  }
+  .highlight-box strong {
+    color: var(--gold-dark);
+  }
+
+  /* Full 4-Column Footer */
   footer {
     background: #09152C;
-    color: rgba(253, 250, 243, 0.7);
-    padding: 3rem 1.5rem 2rem;
-    border-top: 1px solid rgba(201, 168, 76, 0.2);
+    color: var(--ivory);
+    padding: 4.5rem 2rem 2.5rem;
+    border-top: 1px solid rgba(201, 168, 76, 0.25);
+  }
+
+  .footer-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 3rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .footer-col h4 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: var(--ivory);
+    margin-bottom: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  .footer-col h5 {
+    font-family: var(--display);
     font-size: 0.85rem;
-    text-align: center;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.2rem;
+  }
+  .footer-col p {
+    font-size: 0.88rem;
+    color: rgba(253, 250, 243, 0.72);
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
+  }
+  .footer-col ul {
+    list-style: none;
+  }
+  .footer-col li {
+    margin-bottom: 0.65rem;
+  }
+  .footer-col a {
+    color: rgba(253, 250, 243, 0.8);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover {
+    color: var(--gold-light);
+  }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.82rem;
+    color: rgba(253, 250, 243, 0.6);
+  }
+
+  @media (max-width: 860px) {
+    nav { padding: 0.85rem 1.25rem; }
+    .nav-links { display: none; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .accord-banner-card { flex-direction: column; align-items: flex-start; }
+    .legal-section { padding: 1.75rem 1.5rem; }
   }
 </style>
 </head>
@@ -142,9 +359,14 @@
       <img src="images/logo-emblem.png" alt="The Reset Co." class="nav-logo-mark">
       <span class="nav-logo-text">The Reset <span>Co.</span></span>
     </a>
-    <div>
-      <a href="index.html" style="color: rgba(253,250,243,0.8); text-decoration: none; font-size: 0.88rem; margin-right: 1.25rem;">Home</a>
-      <a href="programmes.html" style="color: rgba(253,250,243,0.8); text-decoration: none; font-size: 0.88rem;">Programmes</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="programmes.html" class="nav-link">Programmes</a>
+      <a href="properties.html" class="nav-link">Sanctuary</a>
+      <a href="dosha-prakriti-assessment.html" class="nav-link">Assessment</a>
+      <a href="guidelines.html" class="nav-link">Guidelines</a>
+      <a href="review.html" class="nav-link">Reflections</a>
+      <a href="https://wa.me/917888540046" class="nav-cta" target="_blank" rel="noopener">Inquire on WhatsApp</a>
     </div>
   </nav>
 
@@ -154,57 +376,135 @@
       <span class="shloka-text">स्वस्थस्य स्वास्थ्यरक्षणम्</span>
     </div>
     <h1 class="hero-title">Terms of Service &amp; Sanctuary Protocol</h1>
-    <p style="color: rgba(253,250,243,0.8); font-size: 0.95rem;">Last Updated: October 2026 &bull; Himachal Pradesh, India</p>
+    <p class="hero-subtitle">Clear medical disclosures, retreat reservation ethics, and mutual commitments for our doctor-led cohorts.</p>
   </header>
 
   <main class="container">
 
+    <!-- Interactive Sanctuary Accord Trigger -->
+    <div class="accord-banner-card">
+      <div class="accord-banner-text">
+        <h3>The Sanctuary Accord (7 Core Commitments)</h3>
+        <p>Review the essential commitments regarding noble silence, zero intoxicants, sensory fasting, and clinical discretion before booking.</p>
+      </div>
+      <button type="button" class="accord-banner-btn" onclick="openSanctuaryAccord();">Open Sanctuary Accord &rarr;</button>
+    </div>
+
+    <!-- Section 1 -->
     <section class="legal-section">
-      <h2>1. Sanctuary Scope &amp; Medical Disclaimer</h2>
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Sanctuary Scope &amp; Medical Disclaimer</h2>
+      </div>
       <p>The Reset Co. operates doctor-led classical Ayurvedic residential retreat cohorts in Himachal Pradesh under the professional clinical leadership of licensed BAMS physicians Dr. Himanshu Bhatt and Dr. Aditya Kaundal.</p>
       <p>Our retreats provide restorative health optimization, classical Dinacharya, physician-supervised Shatkarma, and localized Bahya Basti. <strong>The sanctuary is not a hospital or acute medical facility.</strong> We do not treat active surgical emergencies, critical psychiatric crises, unstable cardiac conditions, or communicable acute infections. Guests requiring emergency medical intervention must seek hospital care.</p>
+      <div class="highlight-box">
+        <strong>Ayurvedic Clinical Philosophy:</strong> We practice in accordance with the classical Sanskrit principle <em>स्वस्थस्य स्वास्थ्यरक्षणम् आतुरस्य विकारप्रशमनं च</em> &mdash; preserving the health of the healthy and alleviating disorders through restorative balance.
+      </div>
     </section>
 
+    <!-- Section 2 -->
     <section class="legal-section">
-      <h2>2. Health Disclosures &amp; Voluntary Participation</h2>
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Health Disclosures &amp; Voluntary Participation</h2>
+      </div>
       <p>Every prospective guest undergoes a confidential pre-retreat intake consultation. Guests agree to fully disclose their complete medical history, including current prescription medications, allergies, spinal surgeries, and cardiovascular conditions.</p>
       <p>Participation in yoga asanas, breathwork, Shatkarma cleansing kriyas, and herbal therapies is voluntary. Our attending physicians retain full clinical discretion to modify, pause, or substitute any procedure (such as substituting Bahya Basti with restorative Abhyanga) if deemed in the guest's best biological interest.</p>
     </section>
 
+    <!-- Section 3 -->
     <section class="legal-section">
-      <h2>3. Reservations, Rescheduling &amp; Refund Policy</h2>
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Reservations, Rescheduling &amp; Refund Policy</h2>
+      </div>
       <p>Due to the intimate 12-guest capacity of each cohort and fixed boutique sanctuary property commitments:</p>
       <ul>
-        <li>A 50% deposit secures your cohort placement, with the remaining balance due 7 days prior to check-in.</li>
-        <li>Cancellations requested 15 days or more prior to retreat commencement receive a 100% refund less a 5% administrative payment processing fee.</li>
-        <li>Cancellations requested within 14 days of retreat commencement are non-refundable. However, 100% of the funds paid may be transferred toward any future Reset Co. cohort within 1 month (30 days).</li>
+        <li><strong>Deposit:</strong> A 50% advance deposit secures your cohort placement, with the remaining balance due 7 days prior to check-in.</li>
+        <li><strong>15+ Days Prior:</strong> Cancellations requested 15 days or more prior to retreat commencement receive a 100% refund less a 5% administrative payment processing fee.</li>
+        <li><strong>Within 14 Days:</strong> Cancellations requested within 14 days of retreat commencement are non-refundable. However, 100% of the funds paid may be transferred toward any future Reset Co. cohort within 1 month (30 days).</li>
       </ul>
+      <div class="highlight-box">
+        <strong>Minimum Confirmation Threshold:</strong> Retreat cohorts require a minimum of 8 confirmed guests to proceed and are strictly capped at 12 guests to maintain physician oversight.
+      </div>
     </section>
 
+    <!-- Section 4 -->
     <section class="legal-section">
-      <h2>4. Sanctuary Code of Conduct, Acoustic Environment &amp; Zero Intoxicants</h2>
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Sanctuary Code of Conduct &amp; Zero Intoxicants</h2>
+      </div>
       <p>To preserve communal tranquility and protect digestive Agni, all guests must abide by the Sanctuary Conduct Pillars (Digital Sundown, Noble Silence mornings, and Sattvic dining). Commercial smoking, alcohol consumption, illicit narcotics, or disruptive verbal behavior are strictly prohibited. The Reset Co. reserves the right to discharge any individual who violates these rules without refund.</p>
+      <div class="highlight-box">
+        <strong>Sensory Fasting:</strong> Smartphones and laptops remain in private room sanctums during morning practices, communal dining, and evening hours. Therapy suites, gardens, and dining halls are screen-free zones.
+      </div>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="legal-section">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <h2 class="section-title">Acoustic Environment &amp; Filming Policy</h2>
+      </div>
       <p><strong>Acoustic Environment:</strong> Personal loud music and guest-operated portable speakers are strictly prohibited across all rooms, yoga spaces, and gardens. To support deep nervous system restoration, the retreat faculty is authorized to use dedicated acoustic speakers for sacred Om chanting, Vedic recitations, and soothing meditative sounds during scheduled yoga sessions and quiet dining hours.</p>
       <p><strong>Filming &amp; Photography:</strong> Commercial filming and professional photography are not barred on sanctuary grounds, provided prior operational clearance is coordinated with sanctuary leadership and private guest clinical consultations remain strictly confidential and unrecorded.</p>
     </section>
 
+    <!-- Section 6 -->
     <section class="legal-section">
-      <h2>5. Governing Law &amp; Jurisdiction</h2>
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <h2 class="section-title">Governing Law &amp; Exclusive Jurisdiction</h2>
+      </div>
       <p>These terms and all retreat agreements are governed by the laws of India. Any legal disputes arising out of sanctuary stays shall fall under the exclusive jurisdiction of the competent courts of Himachal Pradesh, India.</p>
     </section>
 
   </main>
 
+  <!-- FOOTER -->
   <footer>
-    <div style="margin-bottom: 0.85rem; display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-      <a href="index.html" style="color: rgba(253,250,243,0.7); text-decoration: none;">Home</a>
-      <a href="programmes.html" style="color: rgba(253,250,243,0.7); text-decoration: none;">Programmes</a>
-      <a href="guidelines.html" style="color: rgba(253,250,243,0.7); text-decoration: none;">Sanctuary Guidelines</a>
-      <a href="privacy.html" style="color: rgba(253,250,243,0.7); text-decoration: none;">Privacy Policy</a>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>The Reset Co.</h4>
+        <p>Doctor-led classical Ayurvedic retreat sanctuaries in Himachal Pradesh. Founded and personally directed by Dr. Himanshu Bhatt and Dr. Aditya Kaundal (B.A.M.S.).</p>
+        <p style="color: var(--gold-light); font-size: 0.8rem;">Classical Sanskrit Motto: स्वस्थस्य स्वास्थ्यरक्षणम्</p>
+      </div>
+      <div class="footer-col">
+        <h5>Exploration</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programmes.html">Programmes &amp; Pricing</a></li>
+          <li><a href="properties.html">Sanctuary Grounds</a></li>
+          <li><a href="dosha-prakriti-assessment.html">Dosha Assessment</a></li>
+          <li><a href="review.html">Clinical Outcomes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Sanctuary Ethics</h5>
+        <ul>
+          <li><a href="#sanctuary-accord" onclick="openSanctuaryAccord(); return false;" style="color: var(--gold-light);">Sanctuary Accord (Key Terms)</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="guidelines.html">Sanctuary Guidelines</a></li>
+          <li><a href="index.html#faq">Retreat FAQ</a></li>
+          <li><a href="index.html#contact">Sanctuary Base</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Concierge &amp; Reservations</h5>
+        <p style="margin-bottom: 0.5rem; color: var(--ivory);">Direct WhatsApp Inquiries:</p>
+        <p style="margin-bottom: 1rem;"><a href="https://wa.me/917888540046" style="color: var(--gold-light);">+91 78885 40046</a></p>
+        <p style="color: var(--ivory);">Email:</p>
+        <p><a href="mailto:hello@thereset-co.in" style="color: var(--gold-light);">hello@thereset-co.in</a></p>
+      </div>
     </div>
-    <p style="margin-bottom: 0.5rem;">The Reset Co. &bull; Classical Ayurvedic Sanctuaries in Himachal Pradesh, India</p>
-    <p style="color: var(--gold-light); font-size: 0.8rem;">स्वस्थस्य स्वास्थ्यरक्षणम्</p>
+    <div class="footer-bottom">
+      <div>&copy; 2026 The Reset Co. All rights reserved. Registered Ayurvedic Clinical Sanctuary.</div>
+      <div>Classical Ayurveda &bull; Himachal Pradesh, India</div>
+    </div>
   </footer>
 
+  <script src="sanctuary-accord-modal.js"></script>
 </body>
 </html>

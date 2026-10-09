@@ -131,11 +131,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&text=%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%B8%E0%A5%8D%E0%A4%AF%20%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A5%8D%E0%A4%AF%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%A3%E0%A4%AE%E0%A5%8D&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&text=%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A4%B8%E0%A5%8D%E0%A4%AF%20%E0%A4%B8%E0%A5%8D%E0%A4%B5%E0%A4%BE%E0%A4%B8%E0%A5%8D%E0%A4%A5%E0%A5%8D%E0%A4%AF%E0%A4%B0%E0%A4%95%E0%A5%8D%E0%A4%B7%E0%A4%A3%E0%A4%AE%E0%A5%8D&display=swap">
-</noscript>
-<link rel="preload" as="style" href="sanctuary-accord-modal.css" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-  <link rel="stylesheet" href="sanctuary-accord-modal.css">
-</noscript>
+<link rel="stylesheet" href="sanctuary-accord-modal.css">
 
 
 <style>
@@ -2081,6 +2077,121 @@
     .deck-nav-btn:active {
       transform: none !important;
     }
+  /* ─── RETREAT FAQ ACCORDION ─── */
+  .faq-section {
+    padding: 6.5rem 1.5rem;
+    background-color: var(--parchment, #FAF7F0);
+    background-image: 
+      radial-gradient(rgba(201, 168, 76, 0.06) 1px, transparent 1px), 
+      radial-gradient(rgba(15, 35, 71, 0.02) 1px, var(--parchment, #FAF7F0) 1px);
+    background-size: 26px 26px;
+    background-position: 0 0, 13px 13px;
+    border-top: 1px solid var(--border, #E8DFCC);
+    border-bottom: 1px solid var(--border, #E8DFCC);
+    scroll-margin-top: 70px;
+    position: relative;
+  }
+
+  .faq-accordion-item {
+    background: #FFFFFF;
+    border: 1px solid var(--border, #E8DFCC);
+    border-left: 3px solid var(--gold, #C9A84C);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(15, 35, 71, 0.03);
+    transition: box-shadow 0.25s, border-color 0.25s;
+  }
+
+  .faq-accordion-item:hover {
+    border-color: rgba(201, 168, 76, 0.6);
+    box-shadow: 0 6px 20px rgba(15, 35, 71, 0.06);
+  }
+
+  .faq-question-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.35rem 1.75rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--serif, 'Cormorant Garamond', Georgia, serif);
+    font-size: 1.28rem;
+    font-weight: 600;
+    color: var(--royal-deep, #0F2347);
+    line-height: 1.35;
+    transition: color 0.2s;
+  }
+
+  .faq-question-btn:hover {
+    color: var(--gold-dark, #8C651E);
+  }
+
+  .faq-question-btn:active {
+    transform: scale(0.985);
+  }
+
+  .faq-q-text {
+    flex: 1;
+  }
+
+  .faq-q-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    background: rgba(201, 168, 76, 0.1);
+    color: var(--royal-deep, #0F2347);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans, 'Jost', sans-serif);
+    font-size: 1.3rem;
+    font-weight: 400;
+    line-height: 1;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s, color 0.2s;
+  }
+
+  .faq-accordion-item.active .faq-q-icon {
+    transform: rotate(45deg);
+    background: var(--royal-deep, #0F2347);
+    color: var(--gold-light, #E8C97A);
+    border-color: var(--royal-deep, #0F2347);
+  }
+
+  .faq-answer-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .faq-accordion-item.active .faq-answer-panel {
+    max-height: 650px;
+  }
+
+  .faq-answer-content {
+    padding: 0 1.75rem 1.4rem;
+    font-family: var(--sans, 'Jost', system-ui, sans-serif);
+    font-size: 0.95rem;
+    color: #4A5568;
+    line-height: 1.75;
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
+    padding-top: 1rem;
+  }
+
+  .faq-answer-content strong {
+    color: var(--royal-deep, #0F2347);
+  }
+
+  @media (max-width: 768px) {
+    .faq-section { padding: 4.5rem 1.15rem; }
+    .faq-question-btn { padding: 1.1rem 1.25rem; font-size: 1.15rem; }
+    .faq-answer-content { padding: 0 1.25rem 1.25rem; }
   }
 
 </style>
@@ -3168,7 +3279,7 @@ body.is-welcome-locked {
 
             <div class="card-btn-stack">
               <a href="programme-awakening.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
-              <a href="https://wa.me/917888540046?text=Inquiry%20for%20The%20Awakening%20Journey" target="_blank" rel="noopener" class="btn-apply">Apply For Cohort</a>
+              <a href="#contact" onclick="preselectPlan('awakening');" class="btn-apply">Apply For Cohort &rarr;</a>
             </div>
           </div>
         </article>
@@ -3243,7 +3354,7 @@ body.is-welcome-locked {
 
             <div class="card-btn-stack">
               <a href="programme-rejuvenation.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
-              <a href="https://wa.me/917888540046?text=Inquiry%20for%20The%20Deep%20Rejuvenation" target="_blank" rel="noopener" class="btn-apply">Apply For Cohort</a>
+              <a href="#contact" onclick="preselectPlan('rejuvenation');" class="btn-apply">Apply For Cohort &rarr;</a>
             </div>
           </div>
         </article>
@@ -3318,7 +3429,7 @@ body.is-welcome-locked {
 
             <div class="card-btn-stack">
               <a href="programme-reset.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
-              <a href="https://wa.me/917888540046?text=Inquiry%20for%20The%20Classical%20Reset" target="_blank" rel="noopener" class="btn-apply">Apply For Cohort</a>
+              <a href="#contact" onclick="preselectPlan('reset');" class="btn-apply">Apply For Cohort &rarr;</a>
             </div>
           </div>
         </article>
@@ -3402,6 +3513,101 @@ body.is-welcome-locked {
           <a href="dosha-prakriti-assessment.html" class="portal-btn">Take Dosha Assessment &rarr;</a>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RETREAT FAQ & CLINICAL INQUIRIES ─── -->
+<section class="faq-section" id="faq">
+  <div class="inner">
+    <div class="fade-up" style="text-align: center; margin-bottom: 3.5rem;">
+      <p class="sec-label" style="color: var(--gold); display: block; margin-bottom: 0.5rem;">Clinical Guidance &amp; Residency Clarifications</p>
+      <span class="faq-shloka-badge" style="font-family: var(--devanagari); color: var(--gold-dark); font-size: 1.15rem; font-weight: 600; display: block; margin-bottom: 0.5rem;">स्वस्थस्य स्वास्थ्यरक्षणम्</span>
+      <h2 class="sec-title" style="color: var(--royal-deep);">Frequently Asked <em>Questions</em></h2>
+      <div class="divider" style="margin: 1rem auto 1.5rem auto;"></div>
+      <p class="sec-body" style="max-width: 680px; margin: 0 auto; color: #4A5568;">
+        Clear answers on our doctor-led Himachal residency, 8-to-12 guest cohort capacity, classical Ayurvedic therapies, and intake requirements.
+      </p>
+    </div>
+
+    <div class="faq-accordion-container" style="max-width: 860px; margin: 0 auto;">
+      <!-- FAQ Item 1 -->
+      <div class="faq-accordion-item">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How many guests are in each cohort, and what is the confirmation threshold?</span>
+          <span class="faq-q-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer-panel">
+          <div class="faq-answer-content">
+            <p>Each cohort requires a <strong>minimum of 8 guests</strong> to confirm the residency, and is <strong>strictly capped at 12 guests maximum</strong>. This deliberate boutique limit ensures our founding BAMS physicians (Dr. Himanshu Bhatt and Dr. Aditya Kaundal) can conduct thorough daily pulse evaluations (Nadi Pariksha) and maintain unhurried, personalized oversight for every participant.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Item 2 -->
+      <div class="faq-accordion-item">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What clinical conditions and wellness goals are best suited for this retreat?</span>
+          <span class="faq-q-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer-panel">
+          <div class="faq-answer-content">
+            <p>Our retreats excel for corporate burnout, chronic digital fatigue, metabolic and digestive sluggishness (Mandagni), joint stiffness, musculoskeletal back/neck ache, sleep disruption, and nervous exhaustion. Please note that we are a <strong>restorative classical Ayurvedic sanctuary, not an acute surgical or emergency hospital</strong>. Guests with active acute medical crises or surgical needs must seek hospital treatment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Item 3 -->
+      <div class="faq-accordion-item">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What therapies are included (Bahya Basti, Abhyanga, Shatkarma)?</span>
+          <span class="faq-q-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer-panel">
+          <div class="faq-answer-content">
+            <p>Depending on your chosen pathway (The Awakening Pathway, The Deep Rejuvenation, or The Classical Reset), therapies include localized <strong>Bahya Basti</strong> (warm herbal oil reservoirs on the cervical or lumbar spine), full-body synchronized <strong>Abhyanga</strong>, soothing herbal ghee eye baths (<strong>Netra Tarpana</strong>), gentle morning cleansing kriyas (<strong>Jalaneti</strong>), condition-adaptive restorative yoga, and personalized herbal decoctions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Item 4 -->
+      <div class="faq-accordion-item">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What is the reservation deposit, cancellation, and 30-day transfer policy?</span>
+          <span class="faq-q-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer-panel">
+          <div class="faq-answer-content">
+            <p>A <strong>50% advance deposit</strong> reserves your private suite. Cancellations requested <strong>15 days or more prior</strong> to check-in receive a 100% refund (less a 5% administrative payment processing fee). Cancellations requested within 14 days of arrival are non-refundable; however, <strong>100% of all funds paid may be transferred toward any future Reset Co. cohort within 1 month (30 days)</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Item 5 -->
+      <div class="faq-accordion-item">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What are the sanctuary rules regarding Noble Silence and Digital Detox?</span>
+          <span class="faq-q-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer-panel">
+          <div class="faq-answer-content">
+            <p>To nurture mental tranquility, all guests observe <strong>Arya Mauna (noble silence)</strong> from waking until after morning yoga and breakfast. In accordance with our <strong>Digital Sundown protocol</strong>, phones and laptops remain inside your private room during morning sessions, therapies, and communal dining. Therapy suites, gardens, and dining halls are screen-free environments.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Item 6 -->
+      <div class="faq-accordion-item">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How do I reach the sanctuary in Bir, Himachal Pradesh?</span>
+          <span class="faq-q-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-answer-panel">
+          <div class="faq-answer-content">
+            <p>The retreat is hosted at <strong>Vaikunth Mud House, Zostel Road, Bir Khas, Kangra (HP 176077)</strong>. The closest airport is <strong>Kangra/Dharamshala Airport (DHM)</strong>, approximately 1.5 hours scenic drive from the property. Daily luxury overnight Volvo buses operate directly between New Delhi (ISBT Kashmere Gate / Majnu Ka Tilla) or Chandigarh and Bir Tibetan Colony. Our concierge assists with chauffeured transfer coordination.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -3565,6 +3771,7 @@ body.is-welcome-locked {
         </div>
         <div class="ft-group">
           <h3 class="ft-heading">Sanctuary &amp; Legal</h3>
+          <a href="#faq">Retreat FAQ</a>
           <a href="#sanctuary-accord" onclick="openSanctuaryAccord(); return false;" style="color: var(--gold-light);">Sanctuary Accord (Key Terms)</a>
           <a href="guidelines.html">Sanctuary Guidelines &amp; Rules</a>
           <a href="terms.html">Terms &amp; Conditions</a>
@@ -4320,11 +4527,38 @@ body.is-welcome-locked {
     });
   }
 
+  // ─── RETREAT FAQ ACCORDION TOGGLE ───────────────────────────────────────────
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-accordion-item');
+    if (!item) return;
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+    const container = item.closest('.faq-accordion-container');
+    if (container) {
+      container.querySelectorAll('.faq-accordion-item').forEach(other => {
+        if (other !== item) {
+          other.classList.remove('active');
+          const otherBtn = other.querySelector('.faq-question-btn');
+          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+    item.classList.toggle('active', !isExpanded);
+    btn.setAttribute('aria-expanded', String(!isExpanded));
+  }
+
   // ─── PRESELECT PLAN & PRAKRITI HANDOVER ─────────────────────────────────────
   function preselectPlan(planVal) {
     const sel = document.getElementById('bPlan');
     if (sel && planVal) {
       sel.value = planVal;
+    }
+    const contactSec = document.getElementById('contact');
+    if (contactSec) {
+      if (window.lenis) {
+        window.lenis.scrollTo(contactSec, { offset: -40, duration: 1.2 });
+      } else {
+        contactSec.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   }
 
@@ -4709,6 +4943,20 @@ body.is-welcome-locked {
       unlockScroll();
       if (window.lenis) window.lenis.start();
       animating = false;
+      if (window.location.hash && window.location.hash !== '#' && !window.location.hash.startsWith('#sanctuary-accord')) {
+        try {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            setTimeout(function() {
+              if (window.lenis) {
+                window.lenis.scrollTo(target, { offset: -60, duration: 1.2 });
+              } else {
+                target.scrollIntoView({ behavior: 'smooth' });
+              }
+            }, 60);
+          }
+        } catch(e) {}
+      }
     }, 850);
   }
 
@@ -4745,6 +4993,18 @@ body.is-welcome-locked {
 
   if (window.location.hash && window.location.hash !== '#' && !window.location.hash.startsWith('#sanctuary-accord')) {
     landOnHero();
+    setTimeout(function() {
+      try {
+        const target = document.querySelector(window.location.hash);
+        if (target) {
+          if (window.lenis) {
+            window.lenis.scrollTo(target, { offset: -60, duration: 1.0 });
+          } else {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      } catch (e) {}
+    }, 950);
   }
 
   window.addEventListener('wheel', function(e) {
