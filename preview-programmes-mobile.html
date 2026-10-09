@@ -696,6 +696,69 @@
   }
   .metrics-badge-panel strong { color: var(--royal-deep); }
 
+  /* ════════════════════════════════════════════════════════════
+     OPTION 4: SEGMENTED TABS + CURATED EXPAND (HYBRID ⭐)
+     ════════════════════════════════════════════════════════════ */
+  .opt4-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .opt4-tabs {
+    display: flex;
+    background: var(--stone);
+    padding: 4px;
+    border-radius: 30px;
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    gap: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+  }
+  .opt4-tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 0.65rem 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .opt4-tab-btn.active {
+    background: var(--royal-deep);
+    color: var(--gold-light);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(15, 35, 71, 0.25);
+  }
+  .opt4-tab-btn .tab-star { color: var(--gold); margin-left: 2px; }
+
+  /* Mobile mode: Only active card shown */
+  .device-frame.mobile-mode .opt4-grid .prog-card {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .device-frame.mobile-mode .opt4-grid .prog-card.active-card {
+    display: flex;
+  }
+
+  /* Desktop mode: Shows all 3 side-by-side (tabs hidden) */
+  .device-frame.desktop-mode .opt4-tabs { display: none; }
+  .device-frame.desktop-mode .opt4-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .device-frame.desktop-mode .opt4-grid .prog-card {
+    display: flex !important;
+  }
+
 </style>
 </head>
 <body>
@@ -710,13 +773,16 @@
     <div class="preview-selectors">
       <!-- Option Switcher -->
       <div class="option-switcher">
-        <button class="opt-btn active" onclick="switchOption(1)">
-          <span>Option 1: Segmented Tabs</span>
+        <button class="opt-btn active" data-opt="4" onclick="switchOption(4)">
+          <span>Option 4: Tabs + Curated Expand ⭐</span>
         </button>
-        <button class="opt-btn" onclick="switchOption(2)">
-          <span>Option 2: Curated + Expand</span>
+        <button class="opt-btn" data-opt="1" onclick="switchOption(1)">
+          <span>Option 1: Segmented Tabs (Full)</span>
         </button>
-        <button class="opt-btn" onclick="switchOption(3)">
+        <button class="opt-btn" data-opt="2" data-opt="2" onclick="switchOption(2)">
+          <span>Option 2: Vertical Accordion</span>
+        </button>
+        <button class="opt-btn" data-opt="3" onclick="switchOption(3)">
           <span>Option 3: Snap Carousel</span>
         </button>
       </div>
@@ -738,9 +804,9 @@
   <!-- DYNAMIC OPTION EXPLANATION BANNER -->
   <div class="option-context-banner" id="contextBanner">
     <div class="banner-text">
-      <strong>Option 1: Segmented Mobile Tab Switcher</strong> — Reduces vertical mobile scroll by <strong>78%</strong>. Tapping switches between Awakening, Rejuvenation, and Reset with 0 scrolling.
+      <strong>Option 4: Segmented Tabs + Curated Expand (Hybrid ⭐)</strong> — Ultra-compact mobile experience. Instant tab switching (0 vertical scroll) + initial 3 decisive highlights, with 1-tap accordion to reveal all full inclusions.
     </div>
-    <div class="banner-badge">Scroll Depth: ~520px (Lowest)</div>
+    <div class="banner-badge">Scroll Depth: ~390px (Lowest &amp; Cleanest)</div>
   </div>
 
   <!-- WORKSPACE CANVAS -->
@@ -761,9 +827,241 @@
         </div>
 
         <!-- ═══════════════════════════════════════════════════
-             OPTION 1 VIEW (SEGMENTED TABS)
+             OPTION 4 VIEW: SEGMENTED TABS + CURATED EXPAND (HYBRID ⭐)
              ═══════════════════════════════════════════════════ -->
-        <div id="viewOption1" class="opt1-container">
+        <div id="viewOption4" class="opt4-container">
+          <!-- Mobile Segmented Tabs -->
+          <div class="opt4-tabs">
+            <button class="opt4-tab-btn" onclick="selectOpt4Card(0)">Awakening Journey</button>
+            <button class="opt4-tab-btn active" onclick="selectOpt4Card(1)">Rejuvenation <span class="tab-star">&#9733;</span></button>
+            <button class="opt4-tab-btn" onclick="selectOpt4Card(2)">Classical Reset</button>
+          </div>
+
+          <div class="opt4-grid">
+            <!-- Card 1: Awakening Journey -->
+            <article class="prog-card" id="opt4-card-0">
+              <div class="card-img-header">
+                <img src="images/yoga.jpg" alt="The Awakening Journey">
+                <span class="card-pill-tag">Tier 1 &bull; Restorative</span>
+              </div>
+              <div class="card-main-pane">
+                <div class="card-heading-group">
+                  <h3 class="card-title">The Awakening Journey</h3>
+                  <div class="card-tariff">
+                    <span class="card-amount">&#8377;27,990</span>
+                    <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                  </div>
+                  <span class="card-scope-badge">Burnout reset for seekers with zero joint complaints</span>
+                </div>
+
+                <!-- Top 3 Curated Highlights -->
+                <ul class="bullet-list" style="margin-bottom: 0.85rem;">
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Day 1 Vaidya Review:</strong> Pulse assessment &amp; personalized trajectory on arrival</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Morning Decoctions &amp; Shatkarma:</strong> Warm herbal kadha &amp; gentle nasal cleansing</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Yoga &amp; Organic Satvik Meals:</strong> Daily morning yoga, fresh breakfast, lunch &amp; dinner</span>
+                  </li>
+                </ul>
+
+                <!-- Accordion Toggle Button -->
+                <button class="accordion-toggle" data-closed-text="+ View 4 More Inclusions" onclick="toggleAccordion(this)">
+                  <span>+ View 4 More Inclusions</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+
+                <!-- Accordion Expanded Inclusions -->
+                <div class="accordion-panel">
+                  <ul class="bullet-list">
+                    <li class="bullet-item highlight-bullet">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>1 Prescribed Bahya Basti:</strong> Warm herbal oil pool for neck and back pain relief*</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Tactile Pottery Workshop:</strong> Grounding clay session shaping local Himalayan ceramics</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Bonfire &amp; Post-Dinner Music:</strong> Fireside gathering &amp; soothing acoustic melodies after dinner</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Review Session:</strong> Closing review &amp; personalized home lifestyle plan</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="card-btn-stack">
+                  <a href="programme-awakening.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                  <a href="https://wa.me/917888540046?text=Inquiry%20for%20The%20Awakening%20Journey" target="_blank" class="btn-apply">Apply For Cohort</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2: Deep Rejuvenation (Default Active) -->
+            <article class="prog-card featured active-card" id="opt4-card-1">
+              <div class="card-img-header">
+                <img src="images/ayurveda.jpg" alt="The Deep Rejuvenation">
+                <span class="card-pill-tag">Tier 2 &bull; Clinical</span>
+                <span class="card-feat-badge">Signature &bull; Most Requested</span>
+              </div>
+              <div class="card-main-pane">
+                <div class="card-heading-group">
+                  <h3 class="card-title">The Deep Rejuvenation</h3>
+                  <div class="card-tariff">
+                    <span class="card-amount">&#8377;34,990</span>
+                    <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                  </div>
+                  <span class="card-scope-badge">Targeted relief for neck and back pain, stiffness &amp; desk fatigue</span>
+                </div>
+
+                <!-- Top 3 Curated Highlights -->
+                <ul class="bullet-list" style="margin-bottom: 0.85rem;">
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>2 Prescribed Bahya Bastis:</strong> Sequential warm herbal oil pools for neck and back pain relief.*</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Trails with Daisy 🐾 &amp; Stargazing:</strong> Guided pine forest walks with Daisy &amp; clear night skies</span>
+                  </li>
+                  <li class="bullet-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>1 Full-Body Abhyanga:</strong> Classical medicated oil massage to restore tissue &amp; fascia</span>
+                  </li>
+                </ul>
+
+                <!-- Accordion Toggle Button -->
+                <button class="accordion-toggle" data-closed-text="+ View 6 More Inclusions" onclick="toggleAccordion(this)">
+                  <span>+ View 6 More Inclusions</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+
+                <!-- Accordion Expanded Inclusions -->
+                <div class="accordion-panel">
+                  <ul class="bullet-list">
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Day 1 Vaidya Review Session:</strong> Personal clinical review &amp; pulse evaluation on arrival</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Tactile Pottery Workshop:</strong> Grounding clay session shaping local Himalayan ceramics</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Morning Decoctions, Yoga &amp; Shatkarma:</strong> Herbal kadhas, daily yoga &amp; guided morning cleansing</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Organic Satvik Dining:</strong> Wholesome breakfast, lunch &amp; dinner prepared fresh daily</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Bonfire &amp; Post-Dinner Music:</strong> Fireside gathering &amp; soothing acoustic melodies after dinner</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>15-Day Home Regimen:</strong> Personalized post-retreat plan &amp; Vaidya WhatsApp follow-up</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="card-btn-stack">
+                  <a href="programme-rejuvenation.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                  <a href="https://wa.me/917888540046?text=Inquiry%20for%20The%20Deep%20Rejuvenation" target="_blank" class="btn-apply">Apply For Cohort</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 3: Classical Reset -->
+            <article class="prog-card" id="opt4-card-2">
+              <div class="card-img-header">
+                <img src="images/meditation.jpg" alt="The Classical Reset">
+                <span class="card-pill-tag">Tier 3 &bull; Intensive</span>
+              </div>
+              <div class="card-main-pane">
+                <div class="card-heading-group">
+                  <h3 class="card-title">The Classical Reset</h3>
+                  <div class="card-tariff">
+                    <span class="card-amount">&#8377;39,990</span>
+                    <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+                  </div>
+                  <span class="card-scope-badge">Comprehensive bio-reset &bull; Deep burnout, screen strain &amp; spinal care</span>
+                </div>
+
+                <!-- Top 3 Curated Highlights -->
+                <ul class="bullet-list" style="margin-bottom: 0.85rem;">
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>3 Prescribed Bahya Bastis:</strong> Comprehensive 3-procedure sequence for neck, back, spine &amp; joints*</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Netra Tarpana Eye Bath:</strong> Medicated Triphala ghee bath for digital screen eye strain*</span>
+                  </li>
+                  <li class="bullet-item highlight-bullet">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span><strong>Trails with Daisy 🐾 &amp; Stargazing:</strong> Forest walks with Daisy &amp; night sky contemplation</span>
+                  </li>
+                </ul>
+
+                <!-- Accordion Toggle Button -->
+                <button class="accordion-toggle" data-closed-text="+ View 6 More Inclusions" onclick="toggleAccordion(this)">
+                  <span>+ View 6 More Inclusions</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+
+                <!-- Accordion Expanded Inclusions -->
+                <div class="accordion-panel">
+                  <ul class="bullet-list">
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Tactile Pottery Workshop:</strong> Grounding clay session shaping local Himalayan ceramics</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Daily 1:1 Vaidya Reviews:</strong> Daily pulse reviews &amp; direct consultations with founding Vaidyas</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Morning Decoctions, Yoga &amp; Shatkarma:</strong> Herbal kadhas, daily yoga &amp; gentle kriya cleansing</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Organic Satvik Dining:</strong> Wholesome breakfast, lunch &amp; dinner prepared fresh daily</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>Bonfire &amp; Post-Dinner Music:</strong> Fireside gathering &amp; soothing acoustic melodies after dinner</span>
+                    </li>
+                    <li class="bullet-item">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      <span><strong>20-Day Extended Care:</strong> Comprehensive home Dinacharya &amp; direct Vaidya support</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="card-btn-stack">
+                  <a href="programme-reset.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+                  <a href="https://wa.me/917888540046?text=Inquiry%20for%20The%20Classical%20Reset" target="_blank" class="btn-apply">Apply For Cohort</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+             OPTION 1 VIEW (SEGMENTED TABS - FULL BULLETS)
+             ═══════════════════════════════════════════════════ -->
+        <div id="viewOption1" class="opt1-container" style="display: none;">
           <!-- Mobile Segmented Tabs -->
           <div class="opt1-tabs">
             <button class="opt1-tab-btn" onclick="selectOpt1Card(0)">Awakening Journey</button>
@@ -1368,12 +1666,16 @@
 
   <script>
     const bannerInfo = {
+      4: {
+        text: '<strong>Option 4: Segmented Tabs + Curated Expand (Hybrid ⭐)</strong> — Ultra-compact mobile experience. Instant tab switching (0 vertical scroll) + initial 3 decisive highlights, with 1-tap accordion to reveal all full inclusions.',
+        badge: 'Scroll Depth: ~390px (Lowest &amp; Cleanest)'
+      },
       1: {
-        text: '<strong>Option 1: Segmented Mobile Tab Switcher</strong> — Reduces vertical mobile scroll by <strong>78%</strong>. Tapping switches between Awakening, Rejuvenation, and Reset with 0 scrolling.',
-        badge: 'Scroll Depth: ~520px (Lowest)'
+        text: '<strong>Option 1: Segmented Mobile Tab Switcher (Full Bullets)</strong> — Reduces vertical mobile scroll by <strong>78%</strong>. Tapping switches between Awakening, Rejuvenation, and Reset, displaying all bullets immediately.',
+        badge: 'Scroll Depth: ~520px (Compact)'
       },
       2: {
-        text: '<strong>Option 2: Curated 3-4 Bullets + Progressive Accordion</strong> — Cuts initial card height by <strong>50%</strong>. Guests see the 3 decisive highlights first and tap "+ View 3 More" if they want full details.',
+        text: '<strong>Option 2: Vertical Stacked Cards with Accordion</strong> — Cuts initial card height by <strong>50%</strong>. Guests see the 3 decisive highlights first and tap "+ View More" if they want full details.',
         badge: 'Scroll Depth: ~1,100px (Balanced)'
       },
       3: {
@@ -1384,11 +1686,12 @@
 
     function switchOption(optNum) {
       // Buttons
-      document.querySelectorAll('.opt-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', i === (optNum - 1));
+      document.querySelectorAll('.opt-btn').forEach((btn) => {
+        btn.classList.toggle('active', parseInt(btn.getAttribute('data-opt')) === optNum);
       });
 
       // Views
+      document.getElementById('viewOption4').style.display = (optNum === 4) ? 'flex' : 'none';
       document.getElementById('viewOption1').style.display = (optNum === 1) ? 'flex' : 'none';
       document.getElementById('viewOption2').style.display = (optNum === 2) ? 'flex' : 'none';
       document.getElementById('viewOption3').style.display = (optNum === 3) ? 'block' : 'none';
@@ -1423,6 +1726,19 @@
       }
     }
 
+    // Option 4 Tab Selection (Hybrid)
+    function selectOpt4Card(index) {
+      document.querySelectorAll('.opt4-tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === index);
+      });
+      [0, 1, 2].forEach(i => {
+        const card = document.getElementById('opt4-card-' + i);
+        if (card) {
+          card.classList.toggle('active-card', i === index);
+        }
+      });
+    }
+
     // Option 1 Tab Selection
     function selectOpt1Card(index) {
       document.querySelectorAll('.opt1-tab-btn').forEach((b, i) => {
@@ -1436,18 +1752,19 @@
       });
     }
 
-    // Option 2 Accordion Toggle
+    // Accordion Toggle (Option 2 & Option 4)
     function toggleAccordion(btn) {
       const panel = btn.nextElementSibling;
       const isOpen = panel.classList.contains('open');
+      const closedText = btn.getAttribute('data-closed-text') || '+ View More Inclusions';
       if (isOpen) {
         panel.classList.remove('open');
         btn.classList.remove('expanded');
-        btn.querySelector('span').textContent = '+ View 3 More Inclusions';
+        btn.querySelector('span').textContent = closedText;
       } else {
         panel.classList.add('open');
         btn.classList.add('expanded');
-        btn.querySelector('span').textContent = '− Hide Extra Inclusions';
+        btn.querySelector('span').textContent = '− Hide Inclusions';
       }
     }
 
