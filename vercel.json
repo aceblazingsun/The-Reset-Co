@@ -108,6 +108,10 @@
         {
           "key": "Expires",
           "value": "0"
+        },
+        {
+          "key": "Link",
+          "value": "<https://www.thereset-co.in/images/himalayan_hero.webp>; rel=preload; as=image; type=image/webp; media=(min-width: 769px), <https://www.thereset-co.in/images/himalayan_hero_mobile.webp>; rel=preload; as=image; type=image/webp; media=(max-width: 768px)"
         }
       ]
     },
