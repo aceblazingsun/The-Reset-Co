@@ -267,241 +267,415 @@
   }
 
   /* ─── PROGRAMME GRID ─── */
-  .programmes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+  /* ════════════════════════════════════════════════════════════
+     PROGRAMMES HYBRID VIEW (OPTION 4): SEGMENTED TABS + ACCORDION
+     ════════════════════════════════════════════════════════════ */
+  .opt4-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     margin-bottom: 4rem;
   }
+  .opt4-tabs {
+    display: none; /* hidden on desktop */
+  }
+  .opt4-tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 0.65rem 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .opt4-tab-btn.active {
+    background: var(--royal-deep);
+    color: var(--gold-light);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(15, 35, 71, 0.25);
+  }
+  .opt4-tab-btn .tab-star { color: var(--gold); margin-left: 2px; }
 
-  .programme-card {
+  .opt4-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+    align-items: stretch;
+  }
+
+  .prog-card {
     background: var(--ivory);
     border: 1px solid var(--border);
     border-radius: 4px;
-    display: flex;
-    flex-direction: column;
     position: relative;
     box-shadow: 0 6px 24px rgba(15, 35, 71, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
   }
-
-  .programme-card:hover {
+  .prog-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 32px rgba(15, 35, 71, 0.1);
   }
 
-  .programme-card.featured {
+  /* ─── NAVY BLUE FEATURED MIDDLE CARD (THE DEEP REJUVENATION) ─── */
+  .prog-card.featured {
+    background: var(--royal);
     border: 2px solid var(--gold);
+    box-shadow: 0 16px 40px rgba(15, 35, 71, 0.28);
   }
-
-  .badge-featured {
-    position: absolute;
-    top: -13px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--gold-dark);
+  .prog-card.featured .card-title {
     color: var(--ivory);
-    padding: 4px 14px;
-    border-radius: 20px;
-    font-size: 0.7rem;
+    font-size: 1.52rem;
+    line-height: 1.25;
+  }
+  .prog-card.featured .card-amount {
+    color: var(--gold-light);
+    font-size: 1.6rem;
+  }
+  .prog-card.featured .card-subtext {
+    color: rgba(253, 250, 243, 0.65);
+    font-size: 0.74rem;
+  }
+  .prog-card.featured .card-scope-badge {
+    color: var(--gold-light);
+    font-size: 0.76rem;
+    line-height: 1.45;
+    opacity: 0.95;
+  }
+  .prog-card.featured .card-heading-group {
+    border-bottom-color: rgba(201, 168, 76, 0.22);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  .prog-card.featured .card-main-pane {
+    padding: 1.6rem 1.4rem;
+  }
+  .prog-card.featured .bullet-item {
+    color: rgba(253, 250, 243, 0.9);
+    margin-bottom: 0.55rem;
+    line-height: 1.45;
+    font-size: 0.83rem;
+  }
+  .prog-card.featured .bullet-item strong {
+    color: var(--ivory);
     font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
   }
-
-  .card-top {
-    padding: 2.5rem 1.75rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    text-align: center;
+  .prog-card.featured .bullet-item svg {
+    color: var(--gold-light);
+    margin-top: 2px;
+    flex-shrink: 0;
   }
-
-  .card-tier-label {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--gold-dark);
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-
-  .card-title {
-    font-family: var(--serif);
-    font-size: 1.85rem;
-    font-weight: 500;
-    color: var(--royal-deep);
-    line-height: 1.2;
+  .prog-card.featured .bullet-item.highlight-bullet {
+    background: rgba(201, 168, 76, 0.1);
+    border-left: 2px solid var(--gold);
+    color: var(--ivory);
+    padding: 0.4rem 0.65rem;
+    border-radius: 4px;
     margin-bottom: 0.6rem;
   }
-
-  .card-tagline {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-    min-height: 42px;
+  .prog-card.featured .bullet-item.highlight-bullet svg {
+    color: var(--gold-light);
   }
-
-  .card-shloka {
-    font-family: 'Cinzel', serif;
-    font-size: 0.88rem;
-    color: var(--gold-dark);
-    letter-spacing: 0.12em;
-    margin-bottom: 0.35rem;
-    font-weight: 600;
-  }
-
-  .card-pricing-block {
-    margin-top: 1.25rem;
-    padding-top: 1.25rem;
-    border-top: 1px dashed var(--border);
-  }
-
-  .pricing-single {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .pricing-single-label {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .pricing-single-row {
-    display: flex;
-    align-items: baseline;
-    gap: 0.4rem;
-  }
-
-  .pricing-single-amt {
-    font-family: var(--display);
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--royal-deep);
-  }
-
-  .pricing-single-sub {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .card-body {
-    padding: 1.75rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .inclusions-title {
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--royal-deep);
-    margin-bottom: 1rem;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
-    padding-bottom: 0.4rem;
-  }
-
-  .inclusion-list {
-    list-style: none;
-    margin-bottom: 1.5rem;
-  }
-
-  .inclusion-item {
-    font-size: 0.88rem;
-    color: #2D3748;
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-    line-height: 1.5;
-  }
-
-  .inclusion-item svg {
-    flex-shrink: 0;
-    margin-top: 3px;
-    color: var(--gold-dark);
-  }
-
-  .asterisk-note {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    font-style: italic;
-    background: var(--stone);
-    padding: 0.75rem 1rem;
-    border-radius: 4px;
+  .prog-card.featured .card-btn-stack {
+    border-top-color: rgba(201, 168, 76, 0.22);
     margin-top: auto;
-    line-height: 1.5;
-  }
-
-  .card-footer {
-    padding: 1.5rem 1.75rem;
-    border-top: 1px solid var(--border);
-    background: rgba(250, 247, 240, 0.5);
-  }
-
-  .book-plan-btn {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background: var(--royal-deep);
-    color: var(--ivory);
-    padding: 0.75rem 1.25rem;
-    border-radius: 3px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.1s;
-    min-height: 44px;
-    line-height: 26px;
-  }
-
-  .book-plan-btn:hover {
-    background: var(--royal-mid);
-  }
-
-  .programme-card.featured .book-plan-btn {
-    background: var(--gold-dark);
-  }
-
-  .programme-card.featured .book-plan-btn:hover {
-    background: var(--gold);
-    color: var(--royal-deep);
-  }
-
-  .plan-action-stack {
-    display: flex;
-    flex-direction: column;
+    padding-top: 1.15rem;
     gap: 0.65rem;
   }
-
-  .plan-detail-btn {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background: transparent;
+  .prog-card.featured .btn-dossier {
+    color: var(--ivory);
+    border-color: rgba(232, 201, 122, 0.45);
+    padding: 0.68rem 1rem;
+  }
+  .prog-card.featured .btn-dossier:hover {
+    border-color: var(--gold);
+    background: rgba(201, 168, 76, 0.15);
+    color: var(--gold-light);
+  }
+  .prog-card.featured .btn-apply {
+    background: var(--gold);
     color: var(--royal-deep);
-    border: 1px solid rgba(15, 35, 71, 0.4);
-    padding: 0.65rem 1rem;
-    border-radius: 3px;
-    font-size: 0.8rem;
+    border-color: var(--gold-light);
+    font-weight: 700;
+    padding: 0.72rem 1rem;
+  }
+  .prog-card.featured .btn-apply:hover {
+    background: var(--gold-light);
+    color: var(--royal-deep);
+  }
+  .prog-card.featured .accordion-toggle {
+    background: rgba(201, 168, 76, 0.08);
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    color: var(--gold-light);
+    margin: 0.35rem 0 1.15rem 0;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .prog-card.featured .accordion-toggle:hover {
+    background: rgba(201, 168, 76, 0.18);
+    border-color: var(--gold);
+    color: var(--ivory);
+  }
+  .prog-card.featured .accordion-panel {
+    border-top-color: rgba(201, 168, 76, 0.2);
+  }
+
+  .card-img-header {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    background: var(--stone);
+  }
+  .card-img-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .card-pill-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(15, 35, 71, 0.88);
+    color: var(--gold-light);
+    font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.2s;
-    min-height: 44px;
-    line-height: 26px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    backdrop-filter: blur(6px);
+    z-index: 2;
+  }
+  .card-feat-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #DFBE6F 0%, #C9A84C 100%);
+    color: var(--royal-deep);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 2;
   }
 
-  .plan-detail-btn:hover {
-    border-color: var(--gold-dark);
+  .card-main-pane {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .card-heading-group {
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 1.1rem;
+    margin-bottom: 1.1rem;
+  }
+  .card-title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    color: var(--royal-deep);
+    font-weight: 500;
+    line-height: 1.22;
+    margin-bottom: 0.35rem;
+  }
+  .card-tariff {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+  }
+  .card-amount {
+    font-family: var(--display);
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--royal-deep);
+  }
+  .card-subtext {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+  }
+  .card-scope-badge {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.74rem;
     color: var(--gold-dark);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  /* High-Impact Bullet List */
+  .bullet-list {
+    list-style: none;
+    margin-bottom: 1rem;
+    padding: 0;
+  }
+  .bullet-item {
+    font-size: 0.85rem;
+    color: #2D3748;
+    margin-bottom: 0.65rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    line-height: 1.45;
+  }
+  .bullet-item:last-child { margin-bottom: 0; }
+  .bullet-item svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--gold-dark);
+  }
+  .bullet-item strong {
+    color: var(--royal-deep);
+    font-weight: 600;
+  }
+  .bullet-item.highlight-bullet {
     background: rgba(201, 168, 76, 0.08);
+    border-left: 3px solid var(--gold);
+    padding: 6px 8px;
+    border-radius: 3px;
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+  .bullet-item.highlight-bullet svg { color: var(--gold-dark); }
+
+  /* Accordion Expansion */
+  .accordion-toggle {
+    background: rgba(201, 168, 76, 0.08);
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    color: var(--gold-dark);
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 0.5rem 0.85rem;
+    border-radius: 20px;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+  }
+  .accordion-toggle:hover {
+    background: rgba(201, 168, 76, 0.16);
+    color: var(--royal-deep);
+  }
+  .accordion-toggle svg {
+    transition: transform 0.3s ease;
+  }
+  .accordion-toggle.expanded svg {
+    transform: rotate(180deg);
+  }
+  .accordion-panel {
+    display: none;
+    border-top: 1px dashed var(--border);
+    padding-top: 0.85rem;
+    margin-top: 0.25rem;
+  }
+  .accordion-panel.open {
+    display: block;
+    animation: progFadeIn 0.3s ease;
+  }
+
+  /* Card Action Buttons */
+  .card-btn-stack {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding-top: 1.15rem;
+    border-top: 1px solid var(--border);
+  }
+  .btn-dossier {
+    text-align: center;
+    background: transparent;
+    color: var(--royal-deep);
+    border: 1px solid rgba(15, 35, 71, 0.35);
+    padding: 0.68rem 1rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-dossier:hover {
+    border-color: var(--royal-deep);
+    background: rgba(15, 35, 71, 0.04);
+  }
+  .btn-apply {
+    text-align: center;
+    background: var(--royal-deep);
+    color: var(--ivory);
+    border: 1px solid var(--gold);
+    padding: 0.72rem 1rem;
+    border-radius: 3px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-apply:hover {
+    background: var(--royal);
+    color: var(--gold-light);
+  }
+
+  @keyframes progFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── MOBILE VIEW: SEGMENTED TABS (<= 900px) ─── */
+  @media (max-width: 900px) {
+    .opt4-tabs {
+      display: flex;
+      background: var(--stone);
+      padding: 4px;
+      border-radius: 30px;
+      border: 1px solid rgba(201, 168, 76, 0.35);
+      gap: 4px;
+      position: sticky;
+      top: 70px;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(15, 35, 71, 0.08);
+    }
+    .opt4-grid {
+      display: block;
+    }
+    .opt4-grid .prog-card {
+      display: none;
+      animation: progFadeIn 0.3s ease;
+    }
+    .opt4-grid .prog-card.active-card {
+      display: flex;
+    }
   }
 
   /* ─── SECTION HEADINGS ─── */
@@ -809,12 +983,6 @@
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 992px) {
-    .programmes-grid {
-      grid-template-columns: 1fr;
-      max-width: 580px;
-      margin-left: auto;
-      margin-right: auto;
-    }
     .protocol-steps-grid, .schedule-timeline {
       grid-template-columns: 1fr 1fr;
     }
@@ -887,7 +1055,7 @@
         Ethical Care: Tailored to Your Actual Need
       </div>
       <p class="philosophy-desc">
-        Ayurveda treats the individual, not an abstract package. If you arrive without neck and back pain or musculoskeletal complaints, we do not subject you to unnecessary medical procedures simply to fulfill a checklist. For healthy seekers seeking deep nervous system renewal, our foundational tier provides complete Dinacharya, supervised Shatkarma, and restorative therapy without invasive clinical treatments.
+        Ayurveda treats the individual, not an abstract package. If you arrive without neck and back pain or musculoskeletal complaints, we do not subject you to unnecessary medical procedures simply to fulfill a checklist. For healthy seekers seeking deep nervous system renewal, our foundational pathway provides complete Dinacharya, supervised Shatkarma, and restorative therapy without invasive clinical treatments.
       </p>
     </section>
 
@@ -899,190 +1067,232 @@
     </div>
 
     <!-- PROGRAMMES PRICING & INCLUSIONS GRID -->
-    <div class="programmes-grid">
+    <div class="opt4-container">
+      <!-- Mobile Segmented Tabs -->
+      <div class="opt4-tabs">
+        <button class="opt4-tab-btn" onclick="selectProgCard(0)">Awakening Journey</button>
+        <button class="opt4-tab-btn active" onclick="selectProgCard(1)">Rejuvenation <span class="tab-star">&#9733;</span></button>
+        <button class="opt4-tab-btn" onclick="selectProgCard(2)">Classical Reset</button>
+      </div>
 
-      <!-- TIER 1: THE AWAKENING PATHWAY -->
-      <article class="programme-card">
-        <div class="card-top">
-          <h3 class="card-title">The Awakening Pathway</h3>
-          <p class="card-tagline">Restorative nervous system reset for healthy individuals seeking burnout reversal without medical procedures.</p>
-          
-          <div class="card-pricing-block">
-            <div class="pricing-single">
-              <span class="pricing-single-label">All-Inclusive Sanctuary Tariff</span>
-              <div class="pricing-single-row">
-                <span class="pricing-single-amt">&#8377;27,990</span>
-                <span class="pricing-single-sub">/ person (room, meals &amp; doctor care)</span>
+      <div class="opt4-grid">
+        <!-- Card 1: Awakening Journey -->
+        <article class="prog-card" id="prog-card-0">
+          <div class="card-img-header">
+            <img src="images/yoga.jpg" alt="The Awakening Journey" loading="lazy">
+            <span class="card-pill-tag">Restorative</span>
+          </div>
+          <div class="card-main-pane">
+            <div class="card-heading-group">
+              <h3 class="card-title">The Awakening Journey</h3>
+              <div class="card-tariff">
+                <span class="card-amount">&#8377;27,990</span>
+                <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
               </div>
+              <span class="card-scope-badge">Burnout reset for seekers with zero joint complaints</span>
+            </div>
+
+            <!-- Top 3 Curated Highlights -->
+            <ul class="bullet-list" style="margin-bottom: 0.85rem;">
+              <li class="bullet-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Day 1 Vaidya Review:</strong> Pulse assessment &amp; personalized trajectory on arrival</span>
+              </li>
+              <li class="bullet-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Morning Decoctions &amp; Shatkarma:</strong> Warm herbal kadha &amp; gentle nasal cleansing</span>
+              </li>
+              <li class="bullet-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Yoga &amp; Organic Satvik Meals:</strong> Daily morning yoga, fresh breakfast, lunch &amp; dinner</span>
+              </li>
+            </ul>
+
+            <!-- Accordion Toggle Button -->
+            <button class="accordion-toggle" data-closed-text="+ View 4 More Inclusions" onclick="toggleProgAccordion(this)">
+              <span>+ View 4 More Inclusions</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+
+            <!-- Accordion Expanded Inclusions -->
+            <div class="accordion-panel">
+              <ul class="bullet-list">
+                <li class="bullet-item highlight-bullet">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>1 Prescribed Bahya Basti:</strong> Warm herbal oil pool for neck and back pain relief*</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Tactile Pottery Workshop:</strong> Grounding clay session shaping local Himalayan ceramics</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Bonfire &amp; Post-Dinner Music:</strong> Fireside gathering &amp; soothing acoustic melodies after dinner</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Review Session:</strong> Closing review &amp; personalized home lifestyle plan</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-btn-stack">
+              <a href="programme-awakening.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+              <a href="https://wa.me/917888540046?text=Namaste.%20I%20am%20interested%20in%20The%20Awakening%20Pathway%20programme." target="_blank" rel="noopener" class="btn-apply">Apply For Cohort</a>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="card-body">
-          <div class="inclusions-title">Sanctuary Inclusions</div>
-          <ul class="inclusion-list">
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>4 Nights boutique sanctuary room stay in scenic Himachal pine valley</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>All wholesome organic Sattvic meals, herbal broths, and digestive teas</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Doctor-supervised gentle morning cleansing (Jalaneti nasal rinse and breathwork)</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Daily morning and evening restorative yoga, Pranayama breathwork, and guided meditation</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Grounding tactile pottery workshop and guided forest ridge nature walk</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Complete Welcome Kit with cotton sanctuary wear and copper wellness tools</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>1-Week personalized post-retreat lifestyle plan and doctor follow-up</span>
-            </li>
-          </ul>
-
-          <div class="asterisk-note">
-            * Pure restorative retreat: Specially designed for individuals seeking peace and deep stress relief who do not require medical joint or spine procedures.
+        <!-- Card 2: Deep Rejuvenation (Default Active) -->
+        <article class="prog-card featured active-card" id="prog-card-1">
+          <div class="card-img-header">
+            <img src="images/ayurveda.jpg" alt="The Deep Rejuvenation" loading="lazy">
+            <span class="card-feat-badge">Signature &bull; Most Requested</span>
           </div>
-        </div>
-
-        <div class="card-footer">
-          <div class="plan-action-stack">
-            <a href="programme-awakening.html" class="plan-detail-btn">View Detailed Pathway &amp; Risks &rarr;</a>
-            <a href="https://wa.me/917888540046?text=Namaste.%20I%20am%20interested%20in%20The%20Awakening%20Pathway%20programme." class="book-plan-btn" target="_blank" rel="noopener">Apply For Cohort</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- TIER 2: THE DEEP REJUVENATION -->
-      <article class="programme-card featured">
-        <span class="badge-featured">Most Requested</span>
-        <div class="card-top">
-          <h3 class="card-title">The Deep Rejuvenation</h3>
-          <p class="card-tagline">Targeted relief for neck and back pain, stiffness, desk fatigue, and digestive sluggishness.</p>
-          
-          <div class="card-pricing-block">
-            <div class="pricing-single">
-              <span class="pricing-single-label">All-Inclusive Sanctuary Tariff</span>
-              <div class="pricing-single-row">
-                <span class="pricing-single-amt">&#8377;34,990</span>
-                <span class="pricing-single-sub">/ person (room, meals &amp; doctor care)</span>
+          <div class="card-main-pane">
+            <div class="card-heading-group">
+              <h3 class="card-title">The Deep Rejuvenation</h3>
+              <div class="card-tariff">
+                <span class="card-amount">&#8377;34,990</span>
+                <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
               </div>
+              <span class="card-scope-badge">Targeted relief for neck and back pain, stiffness &amp; desk fatigue</span>
+            </div>
+
+            <!-- Top 3 Curated Highlights -->
+            <ul class="bullet-list" style="margin-bottom: 0.85rem;">
+              <li class="bullet-item highlight-bullet">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>2 Prescribed Bahya Bastis:</strong> Sequential warm herbal oil pools for neck and back pain relief.*</span>
+              </li>
+              <li class="bullet-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Trails with Daisy 🐾 &amp; Stargazing:</strong> Guided pine forest walks with Daisy &amp; clear night skies</span>
+              </li>
+              <li class="bullet-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1 Full-Body Abhyanga:</strong> Classical medicated oil massage to restore tissue &amp; fascia</span>
+              </li>
+            </ul>
+
+            <!-- Accordion Toggle Button -->
+            <button class="accordion-toggle" data-closed-text="+ View 6 More Inclusions" onclick="toggleProgAccordion(this)">
+              <span>+ View 6 More Inclusions</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+
+            <!-- Accordion Expanded Inclusions -->
+            <div class="accordion-panel">
+              <ul class="bullet-list">
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Day 1 Vaidya Review Session:</strong> Personal clinical review &amp; pulse evaluation on arrival</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Tactile Pottery Workshop:</strong> Grounding clay session shaping local Himalayan ceramics</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Morning Decoctions, Yoga &amp; Shatkarma:</strong> Herbal kadhas, daily yoga &amp; guided morning cleansing</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Organic Satvik Dining:</strong> Wholesome breakfast, lunch &amp; dinner prepared fresh daily</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Bonfire &amp; Post-Dinner Music:</strong> Fireside gathering &amp; soothing acoustic melodies after dinner</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>15-Day Home Regimen:</strong> Personalized post-retreat plan &amp; Vaidya WhatsApp follow-up</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-btn-stack">
+              <a href="programme-rejuvenation.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+              <a href="https://wa.me/917888540046?text=Namaste.%20I%20am%20interested%20in%20The%20Deep%20Rejuvenation%20programme." target="_blank" rel="noopener" class="btn-apply">Apply For Cohort</a>
             </div>
           </div>
-        </div>
+        </article>
 
-        <div class="card-body">
-          <div class="inclusions-title">Sanctuary Inclusions</div>
-          <ul class="inclusion-list">
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Everything included in The Awakening Pathway</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span><strong>2 Doctor-Prescribed Warm Herbal Oil Treatments</strong> for neck and back pain relief (Bahya Basti)*</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span><strong>1 Full-Body Relaxing Warm Herbal Oil Massage</strong> (Abhyanga)</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Medicated herbal oils personalized to your body type and stiffness areas</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Gentle digestive rest day with doctor-guided warm herbal grain broths</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>15-Day personalized post-retreat lifestyle plan and doctor follow-up</span>
-            </li>
-          </ul>
-
-          <div class="asterisk-note">
-            * Bahya Basti procedures involve gentle warm herbal oil pools kept externally over the lower back or neck to ease deep tension. Safely guided after doctor consultation.
+        <!-- Card 3: Classical Reset -->
+        <article class="prog-card" id="prog-card-2">
+          <div class="card-img-header">
+            <img src="images/meditation.jpg" alt="The Classical Reset" loading="lazy">
+            <span class="card-pill-tag">Intensive Reset</span>
           </div>
-        </div>
-
-        <div class="card-footer">
-          <div class="plan-action-stack">
-            <a href="programme-rejuvenation.html" class="plan-detail-btn">View Detailed Pathway &amp; Risks &rarr;</a>
-            <a href="https://wa.me/917888540046?text=Namaste.%20I%20am%20interested%20in%20The%20Deep%20Rejuvenation%20programme." class="book-plan-btn" target="_blank" rel="noopener">Apply For Cohort</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- TIER 3: THE CLASSICAL RESET -->
-      <article class="programme-card">
-        <div class="card-top">
-          <h3 class="card-title">The Classical Reset</h3>
-          <p class="card-tagline">Comprehensive healing immersion with 3 targeted warm oil therapies, herbal eye bath, and daily private doctor consultations.</p>
-          
-          <div class="card-pricing-block">
-            <div class="pricing-single">
-              <span class="pricing-single-label">All-Inclusive Sanctuary Tariff</span>
-              <div class="pricing-single-row">
-                <span class="pricing-single-amt">&#8377;39,990</span>
-                <span class="pricing-single-sub">/ person (room, meals &amp; doctor care)</span>
+          <div class="card-main-pane">
+            <div class="card-heading-group">
+              <h3 class="card-title">The Classical Reset</h3>
+              <div class="card-tariff">
+                <span class="card-amount">&#8377;39,990</span>
+                <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
               </div>
+              <span class="card-scope-badge">Comprehensive bio-reset &bull; Deep burnout, screen strain &amp; spinal care</span>
+            </div>
+
+            <!-- Top 3 Curated Highlights -->
+            <ul class="bullet-list" style="margin-bottom: 0.85rem;">
+              <li class="bullet-item highlight-bullet">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>3 Prescribed Bahya Bastis:</strong> Comprehensive 3-procedure sequence for neck, back, spine &amp; joints*</span>
+              </li>
+              <li class="bullet-item highlight-bullet">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Netra Tarpana Eye Bath:</strong> Medicated Triphala ghee bath for digital screen eye strain*</span>
+              </li>
+              <li class="bullet-item highlight-bullet">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Trails with Daisy 🐾 &amp; Stargazing:</strong> Forest walks with Daisy &amp; night sky contemplation</span>
+              </li>
+            </ul>
+
+            <!-- Accordion Toggle Button -->
+            <button class="accordion-toggle" data-closed-text="+ View 6 More Inclusions" onclick="toggleProgAccordion(this)">
+              <span>+ View 6 More Inclusions</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+
+            <!-- Accordion Expanded Inclusions -->
+            <div class="accordion-panel">
+              <ul class="bullet-list">
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Tactile Pottery Workshop:</strong> Grounding clay session shaping local Himalayan ceramics</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Daily 1:1 Vaidya Reviews:</strong> Daily pulse reviews &amp; direct consultations with founding Vaidyas</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Morning Decoctions, Yoga &amp; Shatkarma:</strong> Herbal kadhas, daily yoga &amp; gentle kriya cleansing</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Organic Satvik Dining:</strong> Wholesome breakfast, lunch &amp; dinner prepared fresh daily</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Bonfire &amp; Post-Dinner Music:</strong> Fireside gathering &amp; soothing acoustic melodies after dinner</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>20-Day Extended Care:</strong> Comprehensive home Dinacharya &amp; direct Vaidya support</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-btn-stack">
+              <a href="programme-reset.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
+              <a href="https://wa.me/917888540046?text=Namaste.%20I%20am%20interested%20in%20The%20Classical%20Reset%20programme." target="_blank" rel="noopener" class="btn-apply">Apply For Cohort</a>
             </div>
           </div>
-        </div>
-
-        <div class="card-body">
-          <div class="inclusions-title">Sanctuary Inclusions</div>
-          <ul class="inclusion-list">
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Everything included in The Deep Rejuvenation</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span><strong>3 Doctor-Prescribed Warm Herbal Oil Treatments</strong> for targeted spinal and joint comfort (Bahya Basti)*</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span><strong>Netra Tarpana</strong>: Gentle herbal ghee eye bath to soothe digital screen eye strain*</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span><strong>Nourishing Herbal Marma Compress</strong> to ease deep musculoskeletal stiffness</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Daily private one-on-one consultation and pulse review with founding Ayurvedic doctors</span>
-            </li>
-            <li class="inclusion-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>20-Day personalized post-retreat lifestyle plan with dedicated doctor WhatsApp support</span>
-            </li>
-          </ul>
-
-          <div class="asterisk-note">
-            * Intensive therapies: Netra Tarpana and Bahya Basti are carefully evaluated by our doctors for suitability to ensure comfort and healing.
-          </div>
-        </div>
-
-        <div class="card-footer">
-          <div class="plan-action-stack">
-            <a href="programme-reset.html" class="plan-detail-btn">View Detailed Pathway &amp; Risks &rarr;</a>
-            <a href="https://wa.me/917888540046?text=Namaste.%20I%20am%20interested%20in%20The%20Classical%20Reset%20programme." class="book-plan-btn" target="_blank" rel="noopener">Apply For Cohort</a>
-          </div>
-        </div>
-      </article>
-
+        </article>
+      </div>
     </div>
 
     <!-- SHATKARMA & SAMSARJANA KRAMA PROTOCOL DETAIL -->
@@ -1272,6 +1482,34 @@
           }
         });
       });
+    }
+
+    // ─── PROGRAMMES HYBRID VIEW (OPTION 4): TABS & ACCORDION ───────────────
+    function selectProgCard(index) {
+      document.querySelectorAll('.opt4-tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === index);
+      });
+      [0, 1, 2].forEach(i => {
+        const card = document.getElementById('prog-card-' + i);
+        if (card) {
+          card.classList.toggle('active-card', i === index);
+        }
+      });
+    }
+
+    function toggleProgAccordion(btn) {
+      const panel = btn.nextElementSibling;
+      const isOpen = panel.classList.contains('open');
+      const closedText = btn.getAttribute('data-closed-text') || '+ View More Inclusions';
+      if (isOpen) {
+        panel.classList.remove('open');
+        btn.classList.remove('expanded');
+        btn.querySelector('span').textContent = closedText;
+      } else {
+        panel.classList.add('open');
+        btn.classList.add('expanded');
+        btn.querySelector('span').textContent = '− Hide Inclusions';
+      }
     }
   </script>
 </body>
