@@ -22,11 +22,17 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008">
 
-<!-- Fonts: Cormorant Garamond & Jost -->
+<!-- Fonts: Cormorant Garamond & Jost (Non-blocking async) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
+</noscript>
 <link rel="icon" type="image/png" href="images/logo-emblem.png">
+
+<!-- Preload Largest Contentful Paint (LCP) Image -->
+<link rel="preload" as="image" href="images/vaikunth_entrance.webp" type="image/webp" fetchpriority="high">
 
 <style>
   :root {
@@ -220,6 +226,12 @@
     min-height: 380px;
     background: var(--stone);
     overflow: hidden;
+  }
+
+  .property-gallery-box picture {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .property-main-img {
@@ -437,6 +449,12 @@
     border-color: rgba(201, 168, 76, 0.6);
   }
 
+  .gallery-item picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   .gallery-item img {
     width: 100%;
     height: 100%;
@@ -594,7 +612,7 @@
   <!-- ─── TOP NAVIGATION ─── -->
   <nav>
     <a class="nav-logo" href="index.html">
-      <img src="images/logo-emblem.png" alt="The Reset Co." class="nav-logo-mark">
+      <img src="images/logo-emblem.png" alt="The Reset Co." class="nav-logo-mark" width="32" height="32">
       <span class="nav-logo-text">The Reset <span>Co.</span></span>
     </a>
     <div class="nav-links">
@@ -621,7 +639,10 @@
     <article class="property-card" id="sanctuary-estate">
       <div class="property-hero-grid">
         <div class="property-gallery-box">
-          <img src="images/vaikunth_entrance.jpg" alt="Vaikunth Mud House Sanctuary Entrance, Bir Khas" class="property-main-img">
+          <picture>
+            <source srcset="images/vaikunth_entrance.webp" type="image/webp">
+            <img src="images/vaikunth_entrance.jpg" alt="Vaikunth Mud House Sanctuary Entrance, Bir Khas" class="property-main-img" width="600" height="450" fetchpriority="high" decoding="async">
+          </picture>
           <span class="property-badge-floating">Sanctuary Entrance</span>
         </div>
         <div class="property-info-pane">
@@ -661,62 +682,98 @@
       <div class="gallery-grid">
         <!-- Photo Slot 1: Rose Garden & Main Terrace Pavilion -->
         <div class="gallery-item">
-          <img src="images/vaikunth_rose_terrace.jpg" alt="Vaikunth Mud House Rose Garden and Symmetrical Earthen Pavilion" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_rose_terrace.webp" type="image/webp">
+            <img src="images/vaikunth_rose_terrace.jpg" alt="Vaikunth Mud House Rose Garden and Symmetrical Earthen Pavilion" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Rose Garden &amp; Earthen Terrace Pavilion</div>
         </div>
         <!-- Photo Slot 2: Mud House Facade & Stone Walkway -->
         <div class="gallery-item">
-          <img src="images/vaikunth_facade.jpg" alt="Vaikunth Mud House Earthen Architecture & Courtyard" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_facade.webp" type="image/webp">
+            <img src="images/vaikunth_facade.jpg" alt="Vaikunth Mud House Earthen Architecture & Courtyard" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Traditional Earthen Mud House &amp; Stone Pathway</div>
         </div>
         <!-- Photo Slot 3: Dhyana & Therapy Space -->
         <div class="gallery-item">
-          <img src="images/vaikunth_therapy_room.jpg" alt="Vaikunth Mud House Therapy & Dhyana Space with Earthen Hearth" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_therapy_room.webp" type="image/webp">
+            <img src="images/vaikunth_therapy_room.jpg" alt="Vaikunth Mud House Therapy & Dhyana Space with Earthen Hearth" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Earthen Dhyana &amp; Sound Healing Chamber</div>
         </div>
         <!-- Photo Slot 4: Sacred Tree Meditation Platform -->
         <div class="gallery-item">
-          <img src="images/vaikunth_yoga_lawn.jpg" alt="Vaikunth Sanctuary Sacred Tree Meditation Platform and Lush Lawn" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_yoga_lawn.webp" type="image/webp">
+            <img src="images/vaikunth_yoga_lawn.jpg" alt="Vaikunth Sanctuary Sacred Tree Meditation Platform and Lush Lawn" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Sacred Tree Dhyana Platform &amp; Prana Lawn</div>
         </div>
         <!-- Photo Slot 5: Restorative Living Suite -->
         <div class="gallery-item">
-          <img src="images/vaikunth_living_suite.jpg" alt="Vaikunth Mud House Restorative Bedroom Suite with Pine Wood Ceiling and Earthen Walls" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_living_suite.webp" type="image/webp">
+            <img src="images/vaikunth_living_suite.jpg" alt="Vaikunth Mud House Restorative Bedroom Suite with Pine Wood Ceiling and Earthen Walls" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Restorative Living Suite &amp; Pine Ceiling</div>
         </div>
         <!-- Photo Slot 6: Sattvic Dining Pavilion -->
         <div class="gallery-item">
-          <img src="images/vaikunth_dining_hall_illuminated.jpg" alt="Vaikunth Mud House Sattvic Dining Pavilion with Glowing Paper Lanterns at Night" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_dining_hall_illuminated.webp" type="image/webp">
+            <img src="images/vaikunth_dining_hall_illuminated.jpg" alt="Vaikunth Mud House Sattvic Dining Pavilion with Glowing Paper Lanterns at Night" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Sattvic Dining Pavilion &amp; Glowing Lanterns</div>
         </div>
         <!-- Photo Slot 7: Earthen Veranda & Handcrafted Brickwork -->
         <div class="gallery-item">
-          <img src="images/vaikunth_earthen_corridor.jpg" alt="Vaikunth Traditional Earthen Brickwork and Garden Pathway" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_earthen_corridor.webp" type="image/webp">
+            <img src="images/vaikunth_earthen_corridor.jpg" alt="Vaikunth Traditional Earthen Brickwork and Garden Pathway" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Handcrafted Earthen Brickwork &amp; Veranda Walkway</div>
         </div>
         <!-- Photo Slot 8: Garden Suite & Mandala Sanctum -->
         <div class="gallery-item">
-          <img src="images/vaikunth_mandala_suite.jpg" alt="Vaikunth Garden Suite with Sacred Hand-Drawn Mandala Frieze" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_mandala_suite.webp" type="image/webp">
+            <img src="images/vaikunth_mandala_suite.jpg" alt="Vaikunth Garden Suite with Sacred Hand-Drawn Mandala Frieze" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Garden Suite &amp; Sacred Mandala Sanctum</div>
         </div>
         <!-- Photo Slot 9: Upper Terrace & Snow Peak Panorama -->
         <div class="gallery-item">
-          <img src="images/vaikunth_terrace_mountain_view.jpg" alt="Vaikunth Mud House Upper Terrace Balcony with Brass Lantern overlooking Snow Peaks" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_terrace_mountain_view.webp" type="image/webp">
+            <img src="images/vaikunth_terrace_mountain_view.jpg" alt="Vaikunth Mud House Upper Terrace Balcony with Brass Lantern overlooking Snow Peaks" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Upper Terrace Balcony &amp; Snow Peak Solitude</div>
         </div>
         <!-- Photo Slot 10: Orchard Stairway & Estate Vista -->
         <div class="gallery-item">
-          <img src="images/vaikunth_terrace_garden_stairs.jpg" alt="Vaikunth Upper Terrace Stairway looking down into Blooming Orchard and Meditation Grounds" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_terrace_garden_stairs.webp" type="image/webp">
+            <img src="images/vaikunth_terrace_garden_stairs.jpg" alt="Vaikunth Upper Terrace Stairway looking down into Blooming Orchard and Meditation Grounds" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Terrace Stairway &amp; Orchard Vista</div>
         </div>
         <!-- Photo Slot 11: Twilight Entrance & Mud House Glow -->
         <div class="gallery-item">
-          <img src="images/vaikunth_night_gate_illuminated.jpg" alt="Vaikunth Mud House Illuminated Wooden Gate and Glowing Evening Mud House" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_night_gate_illuminated.webp" type="image/webp">
+            <img src="images/vaikunth_night_gate_illuminated.jpg" alt="Vaikunth Mud House Illuminated Wooden Gate and Glowing Evening Mud House" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Illuminated Gateway &amp; Evening Mud House</div>
         </div>
         <!-- Photo Slot 12: Evening Veranda Glow & Courtyard -->
         <div class="gallery-item">
-          <img src="images/vaikunth_evening_terrace_glow.jpg" alt="Vaikunth Mud House Evening Veranda Glow and Stone Staircase" loading="lazy">
+          <picture>
+            <source srcset="images/vaikunth_evening_terrace_glow.webp" type="image/webp">
+            <img src="images/vaikunth_evening_terrace_glow.jpg" alt="Vaikunth Mud House Evening Veranda Glow and Stone Staircase" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
           <div class="gallery-caption">Evening Veranda Glow &amp; Slate Courtyard</div>
         </div>
       </div>
