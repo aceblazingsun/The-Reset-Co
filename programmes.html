@@ -1011,27 +1011,44 @@
       gap: 1rem;
       text-align: center;
     }
-  /* ─── RETREAT FAQ ACCORDION ─── */
+  }
+
+  /* ─── RETREAT FAQ & CLINICAL CLARITY (LUXURY EDITORIAL DESIGN) ─── */
   .faq-section {
-    padding: 5.5rem 0 3.5rem;
+    padding: 6.5rem 0 5rem;
     position: relative;
     scroll-margin-top: 80px;
+    background: transparent;
+  }
+
+  .faq-accordion-container {
+    max-width: 880px;
+    margin: 0 auto;
   }
 
   .faq-accordion-item {
     background: #FFFFFF;
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--gold);
-    border-radius: 6px;
-    margin-bottom: 1rem;
+    border: 1px solid rgba(201, 168, 76, 0.22);
+    border-left: 3.5px solid rgba(201, 168, 76, 0.4);
+    border-radius: 10px;
+    margin-bottom: 1.15rem;
     overflow: hidden;
-    box-shadow: 0 4px 16px rgba(15, 35, 71, 0.03);
-    transition: box-shadow 0.25s, border-color 0.25s;
+    box-shadow: 0 4px 18px rgba(15, 35, 71, 0.03);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .faq-accordion-item:hover {
-    border-color: rgba(201, 168, 76, 0.6);
-    box-shadow: 0 6px 20px rgba(15, 35, 71, 0.06);
+    border-color: rgba(201, 168, 76, 0.55);
+    border-left-color: var(--gold);
+    box-shadow: 0 8px 26px rgba(15, 35, 71, 0.06);
+    transform: translateY(-1.5px);
+  }
+
+  .faq-accordion-item.active {
+    border-color: var(--gold);
+    border-left: 4px solid var(--gold);
+    box-shadow: 0 10px 32px rgba(15, 35, 71, 0.08);
+    background: #FFFFFF;
   }
 
   .faq-question-btn {
@@ -1040,41 +1057,72 @@
     align-items: center;
     justify-content: space-between;
     gap: 1.25rem;
-    padding: 1.35rem 1.75rem;
+    padding: 1.45rem 1.85rem;
     background: transparent;
     border: none;
     cursor: pointer;
     text-align: left;
     font-family: var(--serif);
-    font-size: 1.28rem;
+    font-size: clamp(1.18rem, 2vw, 1.35rem);
     font-weight: 600;
     color: var(--royal-deep);
     line-height: 1.35;
-    transition: color 0.2s;
+    transition: color 0.2s ease;
   }
 
   .faq-question-btn:hover {
     color: var(--gold-dark);
   }
 
+  .faq-question-btn:active {
+    transform: scale(0.99);
+  }
+
+  .faq-q-left {
+    display: flex;
+    align-items: baseline;
+    gap: 0.95rem;
+    flex: 1;
+  }
+
+  .faq-q-num {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--gold-dark);
+    background: rgba(201, 168, 76, 0.12);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+  }
+
+  .faq-accordion-item.active .faq-q-num {
+    background: var(--royal-deep);
+    color: var(--gold-light);
+    border-color: var(--royal-deep);
+  }
+
   .faq-q-text { flex: 1; }
 
   .faq-q-icon {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
     border-radius: 50%;
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    background: rgba(201, 168, 76, 0.1);
+    border: 1.5px solid rgba(201, 168, 76, 0.4);
+    background: rgba(201, 168, 76, 0.08);
     color: var(--royal-deep);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-family: var(--sans);
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: 400;
     line-height: 1;
-    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s, color 0.2s;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
   }
 
   .faq-accordion-item.active .faq-q-icon {
@@ -1087,30 +1135,89 @@
   .faq-answer-panel {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: max-height 0.38s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .faq-accordion-item.active .faq-answer-panel {
-    max-height: 650px;
+    max-height: 700px;
   }
 
   .faq-answer-content {
-    padding: 0 1.75rem 1.4rem;
+    padding: 0 1.85rem 1.6rem;
+    padding-left: calc(1.85rem + 2.4rem);
     font-family: var(--sans);
-    font-size: 0.95rem;
+    font-size: 0.96rem;
     color: #4A5568;
-    line-height: 1.75;
-    border-top: 1px solid rgba(201, 168, 76, 0.15);
-    padding-top: 1rem;
+    line-height: 1.8;
+    border-top: 1px solid rgba(201, 168, 76, 0.16);
+    padding-top: 1.15rem;
+  }
+
+  .faq-answer-content p {
+    margin: 0;
   }
 
   .faq-answer-content strong {
     color: var(--royal-deep);
+    font-weight: 600;
+  }
+
+  /* Concierge Callout Box at bottom of FAQ */
+  .faq-concierge-card {
+    margin-top: 2.75rem;
+    background: #FFFFFF;
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    border-radius: 12px;
+    padding: 2rem 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    box-shadow: 0 8px 30px rgba(15, 35, 71, 0.04);
+  }
+
+  .faq-concierge-left {
+    flex: 1 1 380px;
+  }
+
+  .faq-concierge-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.35rem;
+  }
+
+  .faq-concierge-title {
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    color: var(--royal-deep);
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+  }
+
+  .faq-concierge-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .faq-concierge-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   @media (max-width: 768px) {
-    .faq-question-btn { padding: 1.1rem 1.25rem; font-size: 1.15rem; }
-    .faq-answer-content { padding: 0 1.25rem 1.25rem; }
+    .faq-question-btn { padding: 1.15rem 1.25rem; }
+    .faq-q-left { gap: 0.65rem; }
+    .faq-q-num { font-size: 0.75rem; padding: 0.15rem 0.4rem; }
+    .faq-answer-content { padding: 0 1.25rem 1.35rem; padding-left: 1.25rem; font-size: 0.92rem; }
+    .faq-concierge-card { padding: 1.5rem 1.25rem; }
   }
 </style>
 </head>
@@ -1498,11 +1605,14 @@
         </p>
       </div>
 
-      <div class="faq-accordion-container" style="max-width: 860px; margin: 0 auto;">
+      <div class="faq-accordion-container">
         <!-- FAQ Item 1 -->
         <div class="faq-accordion-item">
           <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
-            <span class="faq-q-text">How many guests are in each cohort, and what is the confirmation threshold?</span>
+            <div class="faq-q-left">
+              <span class="faq-q-num">01</span>
+              <span class="faq-q-text">How many guests are in each cohort, and what is the confirmation threshold?</span>
+            </div>
             <span class="faq-q-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer-panel">
@@ -1515,7 +1625,10 @@
         <!-- FAQ Item 2 -->
         <div class="faq-accordion-item">
           <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
-            <span class="faq-q-text">What clinical conditions and wellness goals are best suited for this retreat?</span>
+            <div class="faq-q-left">
+              <span class="faq-q-num">02</span>
+              <span class="faq-q-text">What clinical conditions and wellness goals are best suited for this retreat?</span>
+            </div>
             <span class="faq-q-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer-panel">
@@ -1528,7 +1641,10 @@
         <!-- FAQ Item 3 -->
         <div class="faq-accordion-item">
           <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
-            <span class="faq-q-text">What therapies are included (Bahya Basti, Abhyanga, Shatkarma)?</span>
+            <div class="faq-q-left">
+              <span class="faq-q-num">03</span>
+              <span class="faq-q-text">What therapies are included (Bahya Basti, Abhyanga, Shatkarma)?</span>
+            </div>
             <span class="faq-q-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer-panel">
@@ -1541,7 +1657,10 @@
         <!-- FAQ Item 4 -->
         <div class="faq-accordion-item">
           <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
-            <span class="faq-q-text">What is the reservation deposit, cancellation, and 30-day transfer policy?</span>
+            <div class="faq-q-left">
+              <span class="faq-q-num">04</span>
+              <span class="faq-q-text">What is the reservation deposit, cancellation, and 30-day transfer policy?</span>
+            </div>
             <span class="faq-q-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer-panel">
@@ -1554,7 +1673,10 @@
         <!-- FAQ Item 5 -->
         <div class="faq-accordion-item">
           <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
-            <span class="faq-q-text">What are the sanctuary rules regarding Noble Silence and Digital Detox?</span>
+            <div class="faq-q-left">
+              <span class="faq-q-num">05</span>
+              <span class="faq-q-text">What are the sanctuary rules regarding Noble Silence and Digital Detox?</span>
+            </div>
             <span class="faq-q-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer-panel">
@@ -1567,7 +1689,10 @@
         <!-- FAQ Item 6 -->
         <div class="faq-accordion-item">
           <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)">
-            <span class="faq-q-text">How do I reach the sanctuary in Bir, Himachal Pradesh?</span>
+            <div class="faq-q-left">
+              <span class="faq-q-num">06</span>
+              <span class="faq-q-text">How do I reach the sanctuary in Bir, Himachal Pradesh?</span>
+            </div>
             <span class="faq-q-icon" aria-hidden="true">+</span>
           </button>
           <div class="faq-answer-panel">
