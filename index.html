@@ -1661,18 +1661,17 @@
       backdrop-filter: blur(8px);
       box-shadow: 0 4px 16px rgba(15, 35, 71, 0.08);
     }
-    .opt4-tabs {
-      display: none !important;
-    }
     .opt4-grid {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 2rem !important;
+      display: block;
     }
     .opt4-grid .prog-card {
-      display: flex !important;
-      width: 100% !important;
-      margin-bottom: 0 !important;
+      display: none;
+      animation: progFadeIn 0.3s ease;
+      width: 100%;
+      margin-bottom: 0;
+    }
+    .opt4-grid .prog-card.active-card {
+      display: flex;
     }
   }
 

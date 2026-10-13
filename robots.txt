@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /dashboard.html
-Disallow: /dashboard
 
 Sitemap: https://www.thereset-co.in/sitemap.xml

@@ -764,7 +764,7 @@
   }
 
   .section-pad {
-    padding: 5.5rem 2rem;
+    padding: 3.75rem 1.5rem;
   }
 
   .container {
@@ -774,8 +774,8 @@
 
   .sec-header {
     text-align: center;
-    max-width: 720px;
-    margin: 0 auto 3.5rem;
+    max-width: 960px;
+    margin: 0 auto 2.5rem;
   }
 
   .sec-shloka {
@@ -1145,6 +1145,58 @@
   .btn-dossier:hover {
     border-color: var(--gold);
     background: #FAF7F0;
+  }
+
+  
+  /* ─── MOBILE VIEW: SEGMENTED TABS (<= 900px) ─── */
+  @media (max-width: 900px) {
+    .opt4-tabs {
+      display: flex !important;
+      background: var(--stone);
+      padding: 4px;
+      border-radius: 30px;
+      border: 1px solid rgba(201, 168, 76, 0.35);
+      gap: 4px;
+      position: sticky;
+      top: 75px;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(15, 35, 71, 0.08);
+      margin-bottom: 1.5rem;
+    }
+    .opt4-tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 0.65rem 0.5rem;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .opt4-tab-btn.active {
+      background: var(--royal-deep);
+      color: var(--gold-light);
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(15, 35, 71, 0.25);
+    }
+    .opt4-grid {
+      display: block !important;
+    }
+    .opt4-grid .prog-card {
+      display: none !important;
+      animation: progFadeIn 0.3s ease;
+      width: 100% !important;
+      margin-bottom: 0 !important;
+    }
+    .opt4-grid .prog-card.active-card {
+      display: flex !important;
+    }
   }
 
   /* MOBILE RESPONSIVE STACKING */
@@ -1606,7 +1658,7 @@
 <section class="section-pad" id="about">
   <div class="container">
     <div class="sec-header">
-      <div class="sec-shloka">प्रयोजनं चास्य स्वस्थस्य स्वास्थ्यरक्षणमातुरस्य विकारप्रशमनं च</div>
+      <div class="sec-shloka">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
       <p class="sec-eyebrow">Lineage &amp; Sanctuary Philosophy</p>
       <h2 class="sec-title">Stillness is not a luxury.<br><em>It is a prescription.</em></h2>
       <div class="gold-divider"></div>
@@ -1679,6 +1731,54 @@
       </p>
     </div>
 
+        <!-- THE FOUR CLASSICAL PILLARS (RESTORED VISUAL GRID) -->
+    <div class="svc-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 3.5rem;">
+      <!-- 1: Yoga -->
+      <div class="svc-card" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
+          <img src="images/yoga.jpg" alt="Condition-Adaptive Yoga in Himalayas" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+        </div>
+        <div style="padding: 1.35rem 1.25rem;">
+          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Condition-Adaptive Yoga</h3>
+          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Hatha &bull; Pranayama &bull; Restorative Asana</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Classical Hatha yoga taught as restorative therapy. Practiced in fresh Himalayan mountain air with every posture and breath cycle tailored to joint health.</p>
+        </div>
+      </div>
+      <!-- 2: Meditation -->
+      <div class="svc-card" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
+          <img src="images/meditation.jpg" alt="Vedic Dhyana & Trataka Meditation" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+        </div>
+        <div style="padding: 1.35rem 1.25rem;">
+          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Vedic Dhyana &amp; Trataka</h3>
+          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Dharana &bull; Trataka &bull; Deep Nervous Reset</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Guided mindfulness rooted in classical yogic science: steady concentration (Dharana), candle gazing (Trataka), and evening stillness to settle neural overactivity.</p>
+        </div>
+      </div>
+      <!-- 3: Shatkarma -->
+      <div class="svc-card" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
+          <img src="images/dinacharya_ritual.jpg" alt="Classical Shatkarma Purification" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+        </div>
+        <div style="padding: 1.35rem 1.25rem;">
+          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Classical Shatkarma Purification</h3>
+          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Jal Neti &bull; Kapalabhati &bull; Trataka</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Traditional internal cleansing kriyas guided step-by-step by doctors: gentle nasal cleansing (Jal Neti), rhythmic breathwork, and sensory clarity rituals.</p>
+        </div>
+      </div>
+      <!-- 4: Basti Procedures -->
+      <div class="svc-card" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
+          <img src="images/ayurveda.jpg" alt="Localized Bahya Bastis" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+        </div>
+        <div style="padding: 1.35rem 1.25rem;">
+          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Localized Bahya Bastis</h3>
+          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Kati &bull; Greeva &bull; Nabhi &bull; Netra Tarpana</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Warm medicated oil reservoirs held in handcrafted herbal dough rings. Relieves lumbar back strain (Kati), cervical neck ache (Greeva), and screen fatigue (Netra).</p>
+        </div>
+      </div>
+    </div>
+
     <div class="rhythm-wrap" id="rhythm">
       <div class="rhythm-img-box">
         <img src="images/dinacharya_ritual.jpg" alt="Dinacharya Ritual at The Reset Co." loading="lazy" width="600" height="400">
@@ -1732,14 +1832,19 @@
       <p class="sec-eyebrow">Preserved Visual Reference &bull; Distinct Card Colors</p>
       <h2 class="sec-title">Three pathways of <em>clinical restoration</em></h2>
       <div class="gold-divider"></div>
-      <p class="sec-desc">
-        Each 4N/5D pathway is calibrated to a specific depth of burnout, directed full-time by Dr. Himanshu &amp; Dr. Aditya (B.A.M.S.).
-      </p>
+      <p class="sec-desc" style="max-width: 960px; margin: 0 auto; white-space: normal; letter-spacing: 0.01em;">Each 4N/5D pathway is calibrated to a specific depth of burnout, directed full-time by Dr. Himanshu &amp; Dr. Aditya (B.A.M.S.).</p>
     </div>
+
+          <!-- Mobile Segmented Tabs -->
+      <div class="opt4-tabs" style="display: none;">
+        <button class="opt4-tab-btn" onclick="selectProgCard(0)">Awakening Journey</button>
+        <button class="opt4-tab-btn active" onclick="selectProgCard(1)">Rejuvenation <span style="color: var(--gold);">&#9733;</span></button>
+        <button class="opt4-tab-btn" onclick="selectProgCard(2)">Classical Reset</button>
+      </div>
 
     <div class="opt4-grid">
       <!-- CARD 1: THE AWAKENING JOURNEY (WARM CREAM) -->
-      <div class="prog-card">
+      <div class="prog-card" id="prog-card-0">
         <div class="card-img-header">
           <img src="images/yoga.jpg" alt="The Awakening Journey" loading="lazy" width="400" height="180">
           <div class="card-pill-tag">4 Nights &bull; 5 Days</div>
@@ -1791,7 +1896,7 @@
       </div>
 
       <!-- CARD 2: THE DEEP REJUVENATION (ROYAL NAVY APPROVED FEATURED CARD) -->
-      <div class="prog-card featured">
+      <div class="prog-card featured active-card" id="prog-card-1">
         <div class="card-img-header">
           <img src="images/ayurveda.jpg" alt="The Deep Rejuvenation" loading="lazy" width="400" height="180">
           <div class="card-pill-tag">4 Nights &bull; 5 Days</div>
@@ -1845,7 +1950,7 @@
       </div>
 
       <!-- CARD 3: THE CLASSICAL RESET (WARM CREAM) -->
-      <div class="prog-card">
+      <div class="prog-card" id="prog-card-2">
         <div class="card-img-header">
           <img src="images/meditation.jpg" alt="The Classical Reset" loading="lazy" width="400" height="180">
           <div class="card-pill-tag">4 Nights &bull; 5 Days</div>
@@ -2160,53 +2265,101 @@
 </section>
 
 <!-- ─── 14. FREQUENTLY ASKED QUESTIONS ─── -->
-<section class="section-pad" id="faq">
+<!-- ─── 14. FREQUENTLY ASKED QUESTIONS ─── -->
+<section class="section-pad faq-section" id="faq" style="background: #FFFFFF;">
   <div class="container">
     <div class="sec-header">
-      <p class="sec-eyebrow">Clarity &amp; Reassurance</p>
-      <h2 class="sec-title">Frequently asked <em>questions</em></h2>
+      <div class="sec-shloka">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
+      <p class="sec-eyebrow">Guidance &amp; Retreat Clarifications</p>
+      <h2 class="sec-title">Frequently Asked <em>Questions</em></h2>
       <div class="gold-divider"></div>
-      <p class="sec-desc">Everything you need to know about retreat suitability, dates, and medical protocols.</p>
+      <p class="sec-desc">
+        Clear answers on our doctor-led Himachal retreat, 8-to-12 guest cohort capacity, classical Ayurvedic therapies, and intake requirements.
+      </p>
     </div>
 
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span>What are the exact dates and duration of the upcoming retreat?</span>
-          <span class="faq-icon">+</span>
+    <div class="faq-accordion-container" style="max-width: 880px; margin: 0 auto;">
+      <!-- FAQ Item 1 -->
+      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
+          <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
+            <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">01</span>
+            <span class="faq-q-text">How many guests are in each cohort, and what is the confirmation threshold?</span>
+          </div>
+          <span class="faq-q-icon" aria-hidden="true" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.4); background: rgba(201,168,76,0.08); color: var(--royal-deep); display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 1.3rem;">+</span>
         </button>
-        <div class="faq-answer">
-          The upcoming cohort runs from <strong>26 to 30 November 2026 (4 Nights / 5 Days)</strong>. Check-in is Thursday afternoon, and departure is Monday morning following clinical debrief and personalized take-home prescription.
+        <div class="faq-answer-panel" style="display: none; padding: 0 1.85rem 1.6rem 4.25rem; border-top: 1px solid rgba(201,168,76,0.15); font-size: 0.95rem; color: #4A5568; line-height: 1.8;">
+          <p style="margin-top: 1rem;">Each cohort requires a <strong>minimum of 8 guests</strong> to confirm the residency, and is <strong>strictly capped at 12 guests maximum</strong>. This deliberate boutique limit ensures our founding Ayurvedic doctors (Dr. Himanshu Bhatt and Dr. Aditya Kaundal) can conduct unhurried daily one-on-one interactions and maintain personalized oversight for every participant.</p>
         </div>
       </div>
 
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span>Is this retreat suitable for beginners with no Ayurvedic experience?</span>
-          <span class="faq-icon">+</span>
+      <!-- FAQ Item 2 -->
+      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
+          <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
+            <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">02</span>
+            <span class="faq-q-text">What wellness goals and concerns are best suited for this retreat?</span>
+          </div>
+          <span class="faq-q-icon" aria-hidden="true" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.4); background: rgba(201,168,76,0.08); color: var(--royal-deep); display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 1.3rem;">+</span>
         </button>
-        <div class="faq-answer">
-          Yes. The Awakening Journey is specifically calibrated for beginners experiencing modern fatigue. Prior to the retreat, Dr. Himanshu and Dr. Aditya conduct a 1-on-1 consultation to customize all treatments to your individual constitution.
+        <div class="faq-answer-panel" style="display: none; padding: 0 1.85rem 1.6rem 4.25rem; border-top: 1px solid rgba(201,168,76,0.15); font-size: 0.95rem; color: #4A5568; line-height: 1.8;">
+          <p style="margin-top: 1rem;">Our retreats excel for burnout, chronic digital fatigue, sluggish digestion, joint stiffness, neck and back ache, sleep disruption, and nervous exhaustion. Please note that we are a <strong>restorative classical Ayurvedic sanctuary, not an acute surgical or emergency hospital</strong>. Guests with active acute medical crises or surgical needs must seek hospital treatment.</p>
         </div>
       </div>
 
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span>What is the cohort size and why is it limited?</span>
-          <span class="faq-icon">+</span>
+      <!-- FAQ Item 3 -->
+      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
+          <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
+            <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">03</span>
+            <span class="faq-q-text">What therapies are included (Bahya Basti, Abhyanga, Shatkarma)?</span>
+          </div>
+          <span class="faq-q-icon" aria-hidden="true" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.4); background: rgba(201,168,76,0.08); color: var(--royal-deep); display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 1.3rem;">+</span>
         </button>
-        <div class="faq-answer">
-          Every residency is strictly capped at a <strong>maximum of 12 participants</strong>. This ensures that both B.A.M.S. physicians can personally conduct pulse assessments, supervise therapies, and lead discussions without diluted clinical care.
+        <div class="faq-answer-panel" style="display: none; padding: 0 1.85rem 1.6rem 4.25rem; border-top: 1px solid rgba(201,168,76,0.15); font-size: 0.95rem; color: #4A5568; line-height: 1.8;">
+          <p style="margin-top: 1rem;">Depending on your chosen pathway (The Awakening Pathway, The Deep Rejuvenation, or The Classical Reset), therapies include localized <strong>Bahya Basti</strong> (warm herbal oil reservoirs on the cervical or lumbar spine), full-body synchronized <strong>Abhyanga</strong>, soothing Triphala Kwath eye wash (<strong>Netra Tarpana</strong>), gentle morning cleansing kriyas (<strong>Jalaneti</strong>), condition-adaptive restorative yoga, and personalized herbal decoctions.</p>
         </div>
       </div>
 
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <span>How does the deposit and cancellation policy work?</span>
-          <span class="faq-icon">+</span>
+      <!-- FAQ Item 4 -->
+      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
+          <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
+            <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">04</span>
+            <span class="faq-q-text">What is the reservation deposit, cancellation, and 30-day transfer policy?</span>
+          </div>
+          <span class="faq-q-icon" aria-hidden="true" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.4); background: rgba(201,168,76,0.08); color: var(--royal-deep); display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 1.3rem;">+</span>
         </button>
-        <div class="faq-answer">
-          A 30% advance deposit confirms your suite once accepted by the physicians. Cancellations 30+ days prior receive a 100% refund. Between 15–30 days, 50% is refunded. Within 14 days, your deposit transfers as credit to any future 2026–2027 cohort. If our minimum quorum of 8 participants is not met, you receive an immediate 100% refund.
+        <div class="faq-answer-panel" style="display: none; padding: 0 1.85rem 1.6rem 4.25rem; border-top: 1px solid rgba(201,168,76,0.15); font-size: 0.95rem; color: #4A5568; line-height: 1.8;">
+          <p style="margin-top: 1rem;">A <strong>50% advance deposit</strong> reserves your private suite. Cancellations requested <strong>15 days or more prior</strong> to check-in receive a 100% refund (less a 5% administrative payment processing fee). Cancellations requested within 14 days of arrival are non-refundable; however, <strong>100% of all funds paid may be transferred toward any future Reset Co. cohort within 1 month (30 days)</strong>.</p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 5 -->
+      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
+          <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
+            <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">05</span>
+            <span class="faq-q-text">What are the sanctuary rules regarding Noble Silence and Digital Detox?</span>
+          </div>
+          <span class="faq-q-icon" aria-hidden="true" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.4); background: rgba(201,168,76,0.08); color: var(--royal-deep); display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 1.3rem;">+</span>
+        </button>
+        <div class="faq-answer-panel" style="display: none; padding: 0 1.85rem 1.6rem 4.25rem; border-top: 1px solid rgba(201,168,76,0.15); font-size: 0.95rem; color: #4A5568; line-height: 1.8;">
+          <p style="margin-top: 1rem;">To nurture mental tranquility, all guests observe <strong>Arya Mauna (noble silence)</strong> from waking until after morning yoga and breakfast. In accordance with our <strong>Digital Sundown protocol</strong>, phones and laptops remain inside your private room during morning sessions, therapies, and communal dining. Therapy suites, gardens, and dining halls are screen-free environments.</p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 6 -->
+      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+        <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
+          <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
+            <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">06</span>
+            <span class="faq-q-text">How do I reach the sanctuary in Bir, Himachal Pradesh?</span>
+          </div>
+          <span class="faq-q-icon" aria-hidden="true" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.4); background: rgba(201,168,76,0.08); color: var(--royal-deep); display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 1.3rem;">+</span>
+        </button>
+        <div class="faq-answer-panel" style="display: none; padding: 0 1.85rem 1.6rem 4.25rem; border-top: 1px solid rgba(201,168,76,0.15); font-size: 0.95rem; color: #4A5568; line-height: 1.8;">
+          <p style="margin-top: 1rem;">The retreat is hosted at <strong>Vaikunth Mud House, Zostel Road, Bir Khas, Kangra (HP 176077)</strong>. The closest airport is <strong>Kangra/Dharamshala Airport (DHM)</strong>, approximately 1.5 hours scenic drive from the property. Daily luxury overnight Volvo buses operate directly between New Delhi (ISBT Kashmere Gate / Majnu Ka Tilla) or Chandigarh and Bir Tibetan Colony. Our concierge assists with chauffeured transfer coordination.</p>
         </div>
       </div>
     </div>
@@ -2521,6 +2674,18 @@
   }
 
   // 4. Accordion Toggle for Inclusions
+  function selectProgCard(index) {
+    document.querySelectorAll('.opt4-tab-btn').forEach((b, i) => {
+      b.classList.toggle('active', i === index);
+    });
+    [0, 1, 2].forEach(i => {
+      const card = document.getElementById('prog-card-' + i);
+      if (card) {
+        card.classList.toggle('active-card', i === index);
+      }
+    });
+  }
+
   function toggleAccordion(btn) {
     const panel = btn.nextElementSibling;
     const isOpen = panel.classList.contains('open');
@@ -2537,14 +2702,53 @@
 
   // 5. FAQ Accordion Toggle
   function toggleFaq(btn) {
-    const item = btn.parentElement;
-    item.classList.toggle('open');
+    const item = btn.closest('.faq-accordion-item');
+    if (!item) return;
+    const panel = item.querySelector('.faq-answer-panel');
+    const icon = item.querySelector('.faq-q-icon');
+    const isOpen = panel.style.display === 'block';
+    
+    // Close other items
+    document.querySelectorAll('.faq-accordion-item').forEach(other => {
+      const otherPanel = other.querySelector('.faq-answer-panel');
+      const otherIcon = other.querySelector('.faq-q-icon');
+      const otherBtn = other.querySelector('.faq-question-btn');
+      if (otherPanel && other !== item) {
+        otherPanel.style.display = 'none';
+        if (otherIcon) otherIcon.textContent = '+';
+        if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    if (isOpen) {
+      panel.style.display = 'none';
+      if (icon) icon.textContent = '+';
+      btn.setAttribute('aria-expanded', 'false');
+    } else {
+      panel.style.display = 'block';
+      if (icon) icon.textContent = '×';
+      btn.setAttribute('aria-expanded', 'true');
+    }
   }
 
   // 6. Plan Selector in Form
   function selectPlanInForm(planKey) {
     const select = document.getElementById('fPlan');
-    if (select) select.value = planKey;
+    if (select) {
+      select.value = planKey;
+      select.style.transition = 'all 0.3s ease';
+      select.style.border = '2px solid #C9A84C';
+      select.style.boxShadow = '0 0 0 4px rgba(201, 168, 76, 0.35)';
+      setTimeout(() => { if (select) select.style.boxShadow = ''; }, 3000);
+    }
+    const formSection = document.getElementById('enquiry') || document.getElementById('booking');
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => {
+        const nameInput = document.getElementById('fName');
+        if (nameInput) nameInput.focus();
+      }, 500);
+    }
   }
 
   // 7. Unified Connected Enquiry Submission

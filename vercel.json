@@ -133,5 +133,27 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/the-reset-co-presentation",
+      "destination": "/programmes",
+      "permanent": true
+    },
+    {
+      "source": "/the-reset-co-presentation.html",
+      "destination": "/programmes",
+      "permanent": true
+    },
+    {
+      "source": "/booking",
+      "destination": "/#contact",
+      "permanent": true
+    },
+    {
+      "source": "/sanctuary",
+      "destination": "/properties",
+      "permanent": true
+    }
   ]
 }
