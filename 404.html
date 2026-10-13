@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Page Not Found (404) | The Reset Co.</title>
+<meta name="description" content="The page you are looking for does not exist. Return to The Reset Co. Ayurvedic sanctuary in Bir Billing, Himachal Pradesh.">
+<meta name="robots" content="noindex, follow">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/logo-emblem.png">
+
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --royal: #1A3A6B;
+    --royal-deep: #0F2347;
+    --ivory: #FDFAF3;
+    --parchment: #FAF7F0;
+    --text: #1A1A1A;
+    --text-muted: #5C6779;
+    --border: #E8DFCC;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --display: 'Cinzel', serif;
+    --sans: 'Jost', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background-color: var(--royal-deep);
+    color: var(--ivory);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-x: hidden;
+  }
+
+  nav {
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  }
+
+  .nav-logo-text { font-family: var(--serif); font-size: 1.5rem; letter-spacing: 0.08em; color: var(--ivory); }
+  .nav-logo-text span { color: var(--gold); }
+
+  .content-center {
+    max-width: 650px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+
+  .err-num {
+    font-family: var(--display);
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+  }
+
+  .err-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    line-height: 1.25;
+  }
+  .err-title em { font-style: italic; color: var(--gold-light); }
+
+  .err-desc {
+    font-size: 1rem;
+    color: rgba(253, 250, 243, 0.8);
+    line-height: 1.65;
+    margin-bottom: 2.25rem;
+  }
+
+  .recovery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .rec-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(201, 168, 76, 0.25);
+    border-radius: 4px;
+    padding: 1.25rem 1rem;
+    text-decoration: none;
+    color: var(--ivory);
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .rec-card:hover {
+    background: rgba(201, 168, 76, 0.12);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+  .rec-title { font-family: var(--serif); font-size: 1.15rem; color: var(--gold-light); }
+  .rec-sub { font-size: 0.78rem; color: rgba(253, 250, 243, 0.6); }
+
+  .btn-gold {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--royal-deep);
+    font-weight: 600;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+  }
+  .btn-gold:hover { background: var(--gold-light); }
+
+  footer {
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: rgba(253, 250, 243, 0.45);
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo-text">The Reset <span>Co.</span></div>
+</nav>
+
+<main class="content-center">
+  <div class="err-num">404</div>
+  <h1 class="err-title">This Pathway <em>Does Not Exist</em></h1>
+  <p class="err-desc">
+    Like a wandering thought in meditation, the link you followed may have expired or shifted. Return to the sanctuary or explore one of the main pathways below.
+  </p>
+
+  <div class="recovery-grid">
+    <a href="index.html" class="rec-card">
+      <span class="rec-title">Sanctuary Home</span>
+      <span class="rec-sub">Main retreat overview</span>
+    </a>
+    <a href="programmes.html" class="rec-card">
+      <span class="rec-title">Retreat Pathways</span>
+      <span class="rec-sub">Explore the 3 options</span>
+    </a>
+    <a href="meet-the-doctors.html" class="rec-card">
+      <span class="rec-title">Meet the Doctors</span>
+      <span class="rec-sub">Founding physicians</span>
+    </a>
+    <a href="international.html" class="rec-card">
+      <span class="rec-title">International Guests</span>
+      <span class="rec-sub">Travel &amp; payment guide</span>
+    </a>
+  </div>
+
+  <a href="index.html" class="btn-gold">&larr; Return to Sanctuary</a>
+</main>
+
+<footer>
+  &copy; 2026 The Reset Co. &bull; Bir Billing, Himachal Pradesh
+</footer>
+
+</body>
+</html>

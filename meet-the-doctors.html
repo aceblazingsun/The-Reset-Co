@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Meet the Founding Physicians | The Reset Co.</title>
+<meta name="description" content="Meet Dr. Himanshu Bhatt and Dr. Aditya Kaundal, B.A.M.S. Ayurvedic physicians and co-founders of The Reset Co. Learn about our clinical philosophy and doctor-led care.">
+<link rel="canonical" href="https://www.thereset-co.in/meet-the-doctors">
+<meta name="robots" content="index, follow">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/logo-emblem.png">
+
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --gold-pale: #F7F0DC;
+    --royal: #1A3A6B;
+    --royal-deep: #0F2347;
+    --ivory: #FDFAF3;
+    --parchment: #FAF7F0;
+    --stone: #F0EBE0;
+    --text: #1A1A1A;
+    --text-muted: #5C6779;
+    --border: #E8DFCC;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --display: 'Cinzel', serif;
+    --sans: 'Jost', system-ui, sans-serif;
+    --devanagari: 'Noto Serif Devanagari', serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background-color: var(--parchment);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(15, 35, 71, 0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+    padding: 0.85rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; color: var(--ivory); }
+  .nav-logo-text { font-family: var(--serif); font-size: 1.35rem; letter-spacing: 0.08em; }
+  .nav-logo-text span { color: var(--gold); }
+  .nav-back-link {
+    color: var(--gold-light);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s;
+  }
+  .nav-back-link:hover { color: var(--ivory); }
+
+  .page-hero {
+    background: var(--royal-deep);
+    color: var(--ivory);
+    padding: 7.5rem 1.5rem 3.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+    position: relative;
+  }
+
+  .sec-tag {
+    font-family: var(--display);
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-title {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .page-title em { font-style: italic; color: var(--gold-light); }
+
+  .page-intro {
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    color: rgba(253, 250, 243, 0.82);
+    line-height: 1.65;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem;
+  }
+
+  .doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .doctor-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(15, 35, 71, 0.05);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .doc-img-wrap {
+    height: 320px;
+    overflow: hidden;
+    background: var(--stone);
+    position: relative;
+  }
+  .doc-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .doc-content {
+    padding: 2rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .doc-name {
+    font-family: var(--serif);
+    font-size: 1.75rem;
+    color: var(--royal-deep);
+    margin-bottom: 0.25rem;
+  }
+
+  .doc-title {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .doc-creds {
+    background: rgba(201, 168, 76, 0.08);
+    border-left: 3px solid var(--gold);
+    padding: 0.65rem 0.9rem;
+    font-size: 0.85rem;
+    color: var(--royal-deep);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .doc-bio {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .doc-duties-title {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--royal-deep);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .doc-duties-list {
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+  .doc-duties-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
+  }
+  .doc-duties-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  /* Philosophy & Boundaries */
+  .boundary-box {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2.2rem 2rem;
+    margin-bottom: 3rem;
+  }
+  .boundary-box h3 {
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    color: var(--royal-deep);
+    margin-bottom: 0.85rem;
+  }
+  .boundary-box p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .boundary-box p:last-child { margin-bottom: 0; }
+
+  /* CTA strip */
+  .doc-cta {
+    text-align: center;
+    background: var(--royal-deep);
+    color: var(--ivory);
+    padding: 2.5rem 1.5rem;
+    border-radius: 6px;
+  }
+  .doc-cta h3 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .doc-cta p {
+    font-size: 0.92rem;
+    color: rgba(253, 250, 243, 0.8);
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn-gold {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--royal-deep);
+    font-weight: 600;
+    padding: 0.75rem 1.75rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+  }
+  .btn-gold:hover { background: var(--gold-light); }
+
+  footer {
+    background: #09152B;
+    color: rgba(253, 250, 243, 0.65);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+  footer a { color: var(--gold-light); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-text">The Reset <span>Co.</span></span>
+  </a>
+  <a href="index.html" class="nav-back-link">
+    &larr; Return to Sanctuary
+  </a>
+</nav>
+
+<header class="page-hero">
+  <div class="sec-tag">Founding Physicians</div>
+  <h1 class="page-title">Directly Guided by <em>Licensed Doctors</em></h1>
+  <p class="page-intro">
+    We believe authentic restoration requires physician-level oversight. Our co-founders are licensed Ayurvedic doctors who live on-site during every retreat, conducting all diagnostic consultations and personally supervising restorative protocols.
+  </p>
+</header>
+
+<main class="container">
+  <div class="doctors-grid">
+    <!-- Dr. Himanshu Bhatt -->
+    <article class="doctor-card">
+      <div class="doc-img-wrap">
+        <img src="images/theresetco-social-preview.jpg" alt="Dr. Himanshu Bhatt">
+      </div>
+      <div class="doc-content">
+        <h2 class="doc-name">Dr. Himanshu Bhatt</h2>
+        <div class="doc-title">Co-Founder &bull; B.A.M.S. Doctor</div>
+        <div class="doc-creds">
+          <strong>Degree &amp; Title:</strong> B.A.M.S. Ayurvedic Doctor
+        </div>
+        <p class="doc-bio">
+          Dr. Bhatt brings extensive training in classical Ayurvedic preventive health and Dinacharya lifestyle medicine. He works closely with modern urban professionals experiencing chronic screen fatigue, irregular sleep patterns, and somatic stress, translating traditional principles into sustainable everyday rhythms.
+        </p>
+        <div class="doc-duties-title">Retreat Responsibilities:</div>
+        <ul class="doc-duties-list">
+          <li>Conducts initial one-on-one Prakriti &amp; health intake consultations</li>
+          <li>Guides morning Shatkarma nasal cleansing and breathwork</li>
+          <li>Prepares personalized 7-day home wellness transition plans</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- Dr. Aditya Kaundal -->
+    <article class="doctor-card">
+      <div class="doc-img-wrap">
+        <img src="images/theresetco-social-preview.jpg" alt="Dr. Aditya Kaundal">
+      </div>
+      <div class="doc-content">
+        <h2 class="doc-name">Dr. Aditya Kaundal</h2>
+        <div class="doc-title">Co-Founder &bull; B.A.M.S. Doctor</div>
+        <div class="doc-creds">
+          <strong>Degree &amp; Title:</strong> B.A.M.S. Ayurvedic Doctor
+        </div>
+        <p class="doc-bio">
+          Rooted in Himalayan traditions and classical Ayurvedic pharmacology, Dr. Kaundal oversees all somatic external therapies at The Reset Co. He carefully assesses musculoskeletal tension patterns and customizes medicated herbal oil formulations for each resident.
+        </p>
+        <div class="doc-duties-title">Retreat Responsibilities:</div>
+        <ul class="doc-duties-list">
+          <li>Supervises all Bahya Basti (warm herbal oil spinal &amp; cervical baths)</li>
+          <li>Oversees Marma point stimulation and Abhyanga oil therapies</li>
+          <li>Calibrates daily Sattvic dietary recommendations to individual digestion</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <!-- Clinical Boundaries & Scope -->
+  <section class="boundary-box">
+    <h3>Our Scope of Care &amp; Safety Standard</h3>
+    <p>
+      <strong>Educational &amp; Restorative Scope:</strong> The Reset Co. conducts residential wellness retreats designed for deep relaxation, circadian reset, and constitutional balance. We do not operate an inpatient hospital, and our retreats are not intended to diagnose, treat, or cure acute medical illnesses.
+    </p>
+    <p>
+      <strong>Individual Assessment:</strong> Every prospective guest completes a confidential health suitability review prior to booking. Certain external therapies (such as specific Bahya Basti applications) are customized or modified based on individual comfort and medical history.
+    </p>
+    <p>
+      <strong>Emergency Procedures:</strong> While our founding doctors reside on property throughout the residency, local regional medical facilities in Bir and Palampur are mapped and accessible for any unforeseen medical needs.
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section class="doc-cta">
+    <h3>Experience Doctor-Led Healing in the Himalayas</h3>
+    <p>
+      Our next 4-night residency runs 26–30 November 2026 in Bir Billing. Strictly limited to 12 participants.
+    </p>
+    <a href="index.html#programmes" class="btn-gold">Explore Retreat Programmes &rarr;</a>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 The Reset Co. All rights reserved. &bull; Bir Billing, Himachal Pradesh</p>
+  <p style="margin-top:0.4rem;"><a href="index.html">Home</a> &bull; <a href="programmes.html">Programmes</a> &bull; <a href="privacy.html">Privacy Policy</a> &bull; <a href="terms.html">Terms</a></p>
+</footer>
+
+</body>
+</html>

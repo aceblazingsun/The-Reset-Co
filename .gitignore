@@ -17,3 +17,9 @@ local_brochures_nov26-30/
 .env.local
 .env.production
 !.env.example
+
+# Local audit & screenshot scratch
+screenshots/
+*.png
+*.jpg.tmp
+
