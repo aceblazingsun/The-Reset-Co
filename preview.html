@@ -1199,33 +1199,278 @@
     }
   }
 
+  .opt4-tabs {
+    display: none;
+  }
+
   /* MOBILE RESPONSIVE STACKING */
   @media (max-width: 900px) {
     nav#mainNav { padding: 0.85rem 1.5rem; }
     .nav-groups { display: none !important; }
     .nav-hamburger { display: inline-flex !important; }
-    
-    .opt4-grid {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 2rem !important;
-    }
-    .opt4-grid .prog-card {
-      display: flex !important;
-      width: 100% !important;
+    .btn-outline, .btn-primary {
+      max-width: 100%;
+      white-space: normal;
+      box-sizing: border-box;
+      text-align: center;
     }
   }
 
-  /* ─── INCLUSIONS COMPARISON TABLE ─── */
-  .comparison-wrapper {
-    background: #FFFFFF; border: 1px solid var(--border); border-radius: 8px;
-    overflow-x: auto; box-shadow: 0 8px 30px rgba(15,35,71,0.04);
+  /* ─── INCLUSIONS COMPARISON TABLE (DESKTOP & MOBILE RESPONSIVE) ─── */
+  .comp-sec-header {
+    text-align: center;
+    margin-bottom: 2rem;
   }
-  .comp-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem; }
-  .comp-table th, .comp-table td { padding: 1.1rem 1.4rem; border-bottom: 1px solid var(--border-light); }
-  .comp-table th { background: #FAF7F0; font-family: var(--serif); font-size: 1.15rem; color: var(--royal-deep); font-weight: 600; }
+  .comp-sec-title {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--royal-deep);
+    margin-bottom: 0.35rem;
+  }
+  .comp-sec-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  /* Desktop Table (Preserved side-by-side view >= 901px) */
+  .comparison-wrapper {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow-x: auto;
+    box-shadow: 0 8px 30px rgba(15,35,71,0.04);
+  }
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.88rem;
+  }
+  .comp-table th, .comp-table td {
+    padding: 1.1rem 1.4rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .comp-table th {
+    background: #FAF7F0;
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--royal-deep);
+    font-weight: 600;
+  }
   .comp-table th:first-child { width: 28%; }
   .comp-table tr:hover td { background: rgba(250, 247, 240, 0.4); }
+
+  /* Mobile Stacked Comparison (Hidden on Desktop) */
+  .comp-mobile-stack {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    /* Hide desktop table completely on mobile to prevent horizontal overflow */
+    .comparison-wrapper {
+      display: none !important;
+    }
+
+    /* Stacked card layout for mobile */
+    .comp-mobile-stack {
+      display: flex !important;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .comp-m-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(15, 35, 71, 0.05);
+      position: relative;
+    }
+
+    /* Deep Rejuvenation Featured Card: Royal Navy & Gold Identity */
+    .comp-m-card.comp-m-featured {
+      background: var(--royal-deep);
+      border: 2px solid var(--gold);
+      box-shadow: 0 10px 30px rgba(15, 35, 71, 0.22);
+    }
+
+    .comp-m-rec-badge {
+      background: var(--gold);
+      color: var(--royal-deep);
+      text-align: center;
+      padding: 0.42rem 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .comp-m-head {
+      padding: 1.25rem 1.25rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .comp-m-featured .comp-m-head {
+      border-bottom-color: rgba(201, 168, 76, 0.22);
+    }
+
+    .comp-m-tier {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 0.3rem;
+    }
+    .comp-m-tier-gold {
+      color: var(--gold-light);
+    }
+
+    .comp-m-title {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      line-height: 1.2;
+      color: var(--royal-deep);
+      margin-bottom: 0.45rem;
+    }
+    .comp-m-title-light {
+      color: #FFFFFF;
+    }
+
+    .comp-m-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .comp-m-price {
+      font-family: var(--serif);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--royal-deep);
+      line-height: 1;
+    }
+    .comp-m-price-gold {
+      color: var(--gold-light);
+    }
+    .comp-m-duration {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .comp-m-duration-light {
+      color: rgba(253, 250, 243, 0.75);
+    }
+
+    .comp-m-inclusions {
+      padding: 0.5rem 1.25rem 1rem;
+    }
+    .comp-m-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .comp-m-row:last-child {
+      border-bottom: none;
+    }
+    .comp-m-featured .comp-m-row {
+      border-bottom-color: rgba(201, 168, 76, 0.16);
+    }
+
+    .comp-m-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    .comp-m-featured .comp-m-label {
+      color: rgba(232, 201, 122, 0.9);
+    }
+
+    .comp-m-val {
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: var(--royal-deep);
+    }
+    .comp-m-featured .comp-m-val {
+      color: #FFFFFF;
+    }
+    .comp-m-empty {
+      color: var(--text-muted);
+      opacity: 0.45;
+    }
+    .comp-m-featured .comp-m-empty {
+      color: rgba(253, 250, 243, 0.35);
+    }
+
+    .comp-m-footer {
+      padding: 0 1.25rem 1.25rem;
+    }
+    .comp-m-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.85rem 0.75rem;
+      border-radius: 4px;
+      font-family: var(--sans);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      cursor: pointer;
+      box-sizing: border-box;
+      white-space: normal;
+      line-height: 1.35;
+      transition: all 0.2s ease;
+    }
+    .comp-m-btn-outline {
+      background: #FFFFFF;
+      border: 1.5px solid var(--royal-deep);
+      color: var(--royal-deep);
+    }
+    .comp-m-btn-outline:hover, .comp-m-btn-outline:active {
+      background: var(--royal-deep);
+      color: #FFFFFF;
+    }
+    .comp-m-btn-gold {
+      background: var(--gold);
+      border: 1.5px solid var(--gold);
+      color: var(--royal-deep);
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(201, 168, 76, 0.3);
+    }
+    .comp-m-btn-gold:hover, .comp-m-btn-gold:active {
+      background: var(--gold-light);
+      color: var(--royal-deep);
+    }
+  }
+
+  @media (max-width: 360px) {
+    .comp-sec-title {
+      font-size: 1.45rem !important;
+      line-height: 1.25 !important;
+      padding: 0 0.5rem !important;
+    }
+    .comp-m-head, .comp-m-inclusions, .comp-m-footer {
+      padding-left: 0.9rem !important;
+      padding-right: 0.9rem !important;
+    }
+    .comp-m-title { font-size: 1.25rem !important; }
+    .comp-m-price { font-size: 1.45rem !important; }
+    .comp-m-btn {
+      font-size: 0.74rem !important;
+      letter-spacing: 0.02em !important;
+      padding: 0.75rem 0.4rem !important;
+    }
+    .btn-outline {
+      letter-spacing: 0.06em !important;
+      font-size: 0.74rem !important;
+      padding: 0.75rem 1rem !important;
+    }
+  }
 
   /* ─── WELCOME KIT SHOWCASE ─── */
   .welcome-kit-sec { background: var(--ivory); border-top: 1px solid rgba(201,168,76,0.2); }
@@ -1416,6 +1661,8 @@
     document.write('<style>#scrollExpandContainer, .strip, .retreat-strip, #about, #doctors, #approach, #programmes, #welcome-kit { display: none !important; }</style>');
   } else if (params.get('view') === 'doctors') {
     document.write('<style>#scrollExpandContainer, .strip, .retreat-strip, #about { display: none !important; }</style>');
+  } else if (params.get('view') === 'comparison') {
+    document.write('<style>#scrollExpandContainer, .strip, .retreat-strip, #about, #doctors, #approach, .opt4-tabs, .opt4-grid { display: none !important; }</style>');
   } else if (params.get('view') === 'enquiry') {
     document.write('<style>#scrollExpandContainer, .strip, .retreat-strip, #about, #doctors, #approach, #programmes, #welcome-kit, #portals, #prakriti-intro, #international, #feedback, #faq { display: none !important; }</style>');
   }
@@ -1836,7 +2083,7 @@
     </div>
 
           <!-- Mobile Segmented Tabs -->
-      <div class="opt4-tabs" style="display: none;">
+      <div class="opt4-tabs">
         <button class="opt4-tab-btn" onclick="selectProgCard(0)">Awakening Journey</button>
         <button class="opt4-tab-btn active" onclick="selectProgCard(1)">Rejuvenation <span style="color: var(--gold);">&#9733;</span></button>
         <button class="opt4-tab-btn" onclick="selectProgCard(2)">Classical Reset</button>
@@ -2003,18 +2250,19 @@
     </div>
 
     <!-- HUB BUTTON & COMPARISON TABLE -->
-    <div style="text-align: center; margin-bottom: 3.5rem;">
-      <a href="programmes.html" class="btn-outline" style="color: var(--royal-deep); border-color: var(--royal-deep);">
+    <div style="text-align: center; margin-bottom: 3.5rem; padding: 0 1rem;">
+      <a href="programmes.html" class="btn-outline" style="color: var(--royal-deep); border-color: var(--royal-deep); max-width: 100%; white-space: normal; text-align: center; line-height: 1.4;">
         Explore Complete Master Syllabus &amp; Curriculum on Programmes Hub &rarr;
       </a>
     </div>
 
     <div id="comparison">
-      <div style="text-align: center; margin-bottom: 2rem;">
-        <h3 style="font-family: var(--serif); font-size: 2rem; color: var(--royal-deep);">Side-by-Side Inclusions Comparison</h3>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">Compare physician direction, therapies, and care across the three 4N/5D pathways</p>
+      <div class="comp-sec-header">
+        <h3 class="comp-sec-title">Side-by-Side Inclusions Comparison</h3>
+        <p class="comp-sec-subtitle">Compare physician direction, therapies, and care across the three 4N/5D pathways</p>
       </div>
 
+      <!-- DESKTOP VIEW: PRESERVED SIDE-BY-SIDE TABLE (>= 901px) -->
       <div class="comparison-wrapper">
         <table class="comp-table">
           <thead>
@@ -2082,6 +2330,159 @@
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- MOBILE VIEW: RESPONSIVE STACKED COMPARISON CARDS (<= 900px) -->
+      <div class="comp-mobile-stack" aria-label="Mobile Programme Inclusions Comparison">
+        <!-- CARD 1: THE AWAKENING JOURNEY -->
+        <article class="comp-m-card">
+          <header class="comp-m-head">
+            <span class="comp-m-tier">FOUNDATIONAL RECALIBRATION</span>
+            <h4 class="comp-m-title">The Awakening Journey</h4>
+            <div class="comp-m-price-row">
+              <span class="comp-m-price">&#8377;27,990</span>
+              <span class="comp-m-duration">4N / 5D &bull; All-Inclusive</span>
+            </div>
+          </header>
+          <div class="comp-m-inclusions">
+            <div class="comp-m-row">
+              <span class="comp-m-label">Target Suitability</span>
+              <span class="comp-m-val">General burnout &amp; circadian fatigue</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Doctor Pulse Diagnostics</span>
+              <span class="comp-m-val">Arrival &amp; Departure evaluations</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Abhyanga Oil Sessions</span>
+              <span class="comp-m-val">2x Medicated full-body Abhyanga</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Specialized Bahya Basti</span>
+              <span class="comp-m-val comp-m-empty">&mdash;</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Netra Tarpana Eye Reset</span>
+              <span class="comp-m-val comp-m-empty">&mdash;</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Welcome Kit &amp; Tools</span>
+              <span class="comp-m-val">Standard welcome kit with Kansa wand</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Cottage Accommodation</span>
+              <span class="comp-m-val">Twin-sharing handcrafted mud cottage</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Follow-Up Physician Care</span>
+              <span class="comp-m-val">30-Day post-retreat roadmap</span>
+            </div>
+          </div>
+          <div class="comp-m-footer">
+            <a href="#enquiry" class="comp-m-btn comp-m-btn-outline" onclick="selectPlanInForm('awakening')">Reserve Awakening Pathway &rarr;</a>
+          </div>
+        </article>
+
+        <!-- CARD 2: THE DEEP REJUVENATION (ROYAL NAVY APPROVED FEATURED CARD) -->
+        <article class="comp-m-card comp-m-featured">
+          <div class="comp-m-rec-badge">
+            <span>&#9733; RECOMMENDED COHORT</span>
+          </div>
+          <header class="comp-m-head">
+            <span class="comp-m-tier comp-m-tier-gold">SIGNATURE SPINAL &amp; POSTURE RESET</span>
+            <h4 class="comp-m-title comp-m-title-light">The Deep Rejuvenation</h4>
+            <div class="comp-m-price-row">
+              <span class="comp-m-price comp-m-price-gold">&#8377;34,990</span>
+              <span class="comp-m-duration comp-m-duration-light">4N / 5D &bull; All-Inclusive</span>
+            </div>
+          </header>
+          <div class="comp-m-inclusions">
+            <div class="comp-m-row">
+              <span class="comp-m-label">Target Suitability</span>
+              <span class="comp-m-val">Spinal tightness, neck &amp; posture strain</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Doctor Pulse Diagnostics</span>
+              <span class="comp-m-val">Daily 1-on-1 pulse consultations</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Abhyanga Oil Sessions</span>
+              <span class="comp-m-val">3x Prescribed Abhyanga with steam</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Specialized Bahya Basti</span>
+              <span class="comp-m-val"><strong>2x Kati / Greeva Basti</strong> (warm oil pooling)</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Netra Tarpana Eye Reset</span>
+              <span class="comp-m-val comp-m-empty">&mdash;</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Welcome Kit &amp; Tools</span>
+              <span class="comp-m-val">Full kit + pure copper water vessel</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Cottage Accommodation</span>
+              <span class="comp-m-val">Twin-sharing handcrafted mud cottage</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Follow-Up Physician Care</span>
+              <span class="comp-m-val">60-Day care + 1 virtual doctor call</span>
+            </div>
+          </div>
+          <div class="comp-m-footer">
+            <a href="#enquiry" class="comp-m-btn comp-m-btn-gold" onclick="selectPlanInForm('rejuvenation')">Reserve Deep Rejuvenation &rarr;</a>
+          </div>
+        </article>
+
+        <!-- CARD 3: THE CLASSICAL RESET -->
+        <article class="comp-m-card">
+          <header class="comp-m-head">
+            <span class="comp-m-tier">INTENSIVE CELLULAR RESTORATION</span>
+            <h4 class="comp-m-title">The Classical Reset</h4>
+            <div class="comp-m-price-row">
+              <span class="comp-m-price">&#8377;39,990</span>
+              <span class="comp-m-duration">4N / 5D &bull; All-Inclusive</span>
+            </div>
+          </header>
+          <div class="comp-m-inclusions">
+            <div class="comp-m-row">
+              <span class="comp-m-label">Target Suitability</span>
+              <span class="comp-m-val">Deep chronic depletion &amp; sensory fatigue</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Doctor Pulse Diagnostics</span>
+              <span class="comp-m-val">Continuous daily clinical monitoring</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Abhyanga Oil Sessions</span>
+              <span class="comp-m-val">4x Classical Abhyanga sessions</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Specialized Bahya Basti</span>
+              <span class="comp-m-val"><strong>2x Specialized Basti</strong> included</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Netra Tarpana Eye Reset</span>
+              <span class="comp-m-val"><strong>Included</strong> (Medicated ghee eye therapy)</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Welcome Kit &amp; Tools</span>
+              <span class="comp-m-val">Deluxe kit + custom herbal formulations</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Cottage Accommodation</span>
+              <span class="comp-m-val">Priority high-elevation cottage allocation</span>
+            </div>
+            <div class="comp-m-row">
+              <span class="comp-m-label">Follow-Up Physician Care</span>
+              <span class="comp-m-val">90-Day care + 2 virtual doctor calls</span>
+            </div>
+          </div>
+          <div class="comp-m-footer">
+            <a href="#enquiry" class="comp-m-btn comp-m-btn-outline" onclick="selectPlanInForm('classical')">Reserve Classical Reset &rarr;</a>
+          </div>
+        </article>
       </div>
     </div>
   </div>
