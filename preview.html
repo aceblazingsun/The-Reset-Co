@@ -47,7 +47,7 @@
   .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
   .lenis [data-lenis-prevent] { overscroll-behavior: contain; }
 
-  /* ─── SCROLL EXPAND HERO COMPONENT (ORIGINAL AUTHENTIC PHYSICS) ─── */
+  /* ─── SCROLL EXPAND HERO COMPONENT (AUTHENTIC CUBIC-BEZIER PHYSICS) ─── */
   html.is-welcome-locked,
   body.is-welcome-locked {
     overflow: hidden !important;
@@ -83,7 +83,13 @@
     box-shadow: 0 35px 100px rgba(15, 35, 71, 0.7);
     background: var(--royal-deep, #0F2347);
     overflow: hidden;
-    transition: box-shadow 0.6s ease;
+    transition: clip-path 0.85s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.85s ease;
+  }
+
+  @media (max-width: 768px) {
+    .scroll-expand__frame {
+      clip-path: inset(18% 10% 18% 10% round 18px);
+    }
   }
 
   .scroll-expand__frame.is-full {
@@ -100,30 +106,36 @@
     transform-origin: center;
     user-select: none;
     -webkit-user-drag: none;
+    filter: brightness(0.85);
+    transform: scale(1.35);
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .scroll-expand__scrim {
     position: absolute;
     inset: 0;
+    pointer-events: none;
     background: linear-gradient(
       180deg,
       rgba(6, 18, 36, 0.45) 0%,
       rgba(15, 35, 71, 0.65) 60%,
       rgba(6, 18, 36, 0.92) 100%
     );
-    pointer-events: none;
   }
 
   .scroll-expand__title-wrap {
     position: absolute;
-    z-index: 10;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    color: var(--ivory, #FDFAF3);
-    pointer-events: auto;
+    padding: 0 6%;
+    z-index: 10;
     cursor: pointer;
-    padding: 0 1.5rem;
     will-change: opacity, transform;
-    transition: transform 0.3s ease;
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .scroll-expand__title-wrap:hover {
@@ -131,10 +143,10 @@
   }
 
   .scroll-expand__emblem {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
-    margin: 0 auto 1.5rem;
+    margin-bottom: 1.25rem;
     filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.5));
     display: block;
   }
@@ -149,18 +161,19 @@
   }
 
   .scroll-expand__title {
+    margin: 0;
     font-family: var(--serif, 'Cormorant Garamond', Georgia, serif);
-    font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+    font-size: clamp(2.4rem, 5.5vw, 4.4rem);
     font-weight: 300;
     line-height: 1.15;
     letter-spacing: 0.02em;
-    color: var(--ivory, #FDFAF3);
+    color: var(--ivory, #FDFAF3) !important;
     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
   }
 
   .scroll-expand__title span {
     font-style: italic;
-    color: var(--gold-light, #E8C97A);
+    color: var(--gold-light, #E8C97A) !important;
     font-weight: 400;
   }
 
@@ -184,8 +197,27 @@
   }
 
   @keyframes hintPulse {
-    0%, 100% { opacity: 0.55; transform: translate(-50%, 0); }
+    0%, 100% { opacity: 0.65; transform: translate(-50%, 0); }
     50% { opacity: 1; transform: translate(-50%, 6px); }
+  }
+
+  /* ─── ENTRANCE & MOTION STANDARDS ─── */
+  @keyframes ornamentGrow {
+    from { transform: scaleY(0); opacity: 0; }
+    to   { transform: scaleY(1); opacity: 1; }
+  }
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes dotPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50%      { transform: scale(1.35); opacity: 1; }
+  }
+  @keyframes waPulse {
+    0%   { transform: scale(1); opacity: 0.6; }
+    70%  { transform: scale(1.55); opacity: 0; }
+    100% { transform: scale(1.55); opacity: 0; }
   }
 
   /* ─── HERO LANDING CONTENT (INSIDE EXPANDED FRAME) ─── */
@@ -197,95 +229,132 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 6rem 2rem 3rem;
+    padding: 3rem 6% 2rem 6%;
     color: var(--ivory, #FDFAF3);
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s;
-    z-index: 5;
+    transform: translate3d(0, 30px, 0);
+    will-change: opacity, transform;
+    z-index: 8;
+    pointer-events: none;
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .scroll-expand__hero-landing.is-visible {
+  .scroll-expand__hero-landing.is-landed {
     opacity: 1;
-    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    pointer-events: auto;
+  }
+
+  .scroll-expand__hero-landing:not(.is-landed) > * {
+    opacity: 0;
+  }
+
+  .scroll-expand__hero-landing.is-landed .hero-shloka {
+    animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+  }
+  .scroll-expand__hero-landing.is-landed .hero-location {
+    animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
+  }
+  .scroll-expand__hero-landing.is-landed .hero-badge {
+    animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;
+  }
+  .scroll-expand__hero-landing.is-landed h1 {
+    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both;
+  }
+  .scroll-expand__hero-landing.is-landed .hero-tagline {
+    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.60s both;
+  }
+  .scroll-expand__hero-landing.is-landed .hero-pillars {
+    animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.72s both;
+  }
+  .scroll-expand__hero-landing.is-landed .hero-cta-row {
+    animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.84s both;
   }
 
   .hero-shloka {
     font-family: var(--devanagari, 'Noto Serif Devanagari', serif);
     color: var(--gold-light, #E8C97A);
-    font-size: 1.1rem;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.75rem;
-    text-shadow: 0 2px 15px rgba(0,0,0,0.5);
+    font-size: 1.35rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.85rem;
+    text-shadow: 0 2px 16px rgba(15, 35, 71, 0.75);
   }
 
   .hero-location {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 0.8rem;
-    letter-spacing: 0.25em;
+    font-size: 0.76rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--gold-pale, #F7F0DC);
-    margin-bottom: 1.25rem;
+    color: var(--gold-light, #E8C97A);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 2px 12px rgba(15, 35, 71, 0.75);
   }
 
   .hero-dot {
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     background: var(--gold, #C9A84C);
     border-radius: 50%;
+    animation: dotPulse 2.4s ease-in-out infinite;
   }
 
   .hero-badge {
-    display: inline-block;
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    background: rgba(15, 35, 71, 0.55);
-    backdrop-filter: blur(8px);
-    padding: 0.4rem 1.25rem;
-    border-radius: 30px;
-    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 1.25rem;
   }
 
   .hero-badge span {
+    border: 1px solid rgba(201, 168, 76, 0.45);
+    padding: 0.4rem 1.1rem;
+    border-radius: 30px;
     font-size: 0.75rem;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--gold-light, #E8C97A);
-    font-weight: 500;
+    background: rgba(15, 35, 71, 0.65);
+    backdrop-filter: blur(4px);
   }
 
-  .hero h1 {
-    font-family: var(--serif);
-    font-size: clamp(2.4rem, 5.5vw, 4.4rem);
-    font-weight: 300;
-    line-height: 1.1;
-    margin-bottom: 1.25rem;
-    color: var(--ivory);
-    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+  .scroll-expand__hero-landing h1 {
+    font-family: var(--serif, 'Cormorant Garamond', Georgia, serif) !important;
+    font-size: clamp(2.8rem, 5.5vw, 4.6rem) !important;
+    font-weight: 400 !important;
+    line-height: 1.15 !important;
+    color: #FDFAF3 !important;
+    margin-bottom: 1.25rem !important;
+    letter-spacing: -0.01em !important;
+    text-shadow: 0 4px 30px rgba(15, 35, 71, 0.85) !important;
   }
 
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold-light);
+  .scroll-expand__hero-landing h1 em {
+    font-style: italic !important;
+    color: var(--gold-light, #E8C97A) !important;
+    text-shadow: 0 4px 30px rgba(15, 35, 71, 0.85) !important;
   }
 
   .hero-tagline {
-    font-size: clamp(0.95rem, 1.8vw, 1.15rem);
-    max-width: 640px;
-    margin: 0 auto 1rem;
-    color: rgba(253, 250, 243, 0.9);
-    font-weight: 300;
-    line-height: 1.6;
+    font-size: clamp(1rem, 2vw, 1.25rem) !important;
+    color: #FDFAF3 !important;
+    max-width: 640px !important;
+    margin: 0 auto 1rem auto !important;
+    line-height: 1.65 !important;
+    font-weight: 300 !important;
+    text-shadow: 0 2px 18px rgba(15, 35, 71, 0.85) !important;
   }
 
   .hero-pillars {
-    font-size: 0.85rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gold-light);
-    margin-bottom: 2rem;
-    font-weight: 500;
+    font-size: 0.82rem !important;
+    letter-spacing: 0.14em !important;
+    color: var(--gold-light, #E8C97A) !important;
+    margin-bottom: 2rem !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    text-shadow: 0 2px 14px rgba(15, 35, 71, 0.75) !important;
   }
 
   .hero-cta-row {
@@ -293,6 +362,55 @@
     gap: 1.25rem;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  /* ─── GLOBAL SCROLL REVEAL MOTION STANDARDS ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+
+  .fade-up.vis {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-up .gold-divider,
+  .fade-up.sec-header .gold-divider,
+  .fade-up .divider {
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+
+  .fade-up.vis .gold-divider,
+  .fade-up.sec-header.vis .gold-divider,
+  .fade-up.vis .divider {
+    transform: scaleX(1);
+  }
+
+  .stagger-1 { transition-delay: 0.08s; }
+  .stagger-2 { transition-delay: 0.16s; }
+  .stagger-3 { transition-delay: 0.24s; }
+  .stagger-4 { transition-delay: 0.32s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .fade-up {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .fade-up .gold-divider,
+    .fade-up.sec-header .gold-divider,
+    .fade-up .divider {
+      transform: scaleX(1) !important;
+    }
   }
 
   .btn-primary {
@@ -1205,7 +1323,18 @@
 
   /* MOBILE RESPONSIVE STACKING */
   @media (max-width: 900px) {
-    nav#mainNav { padding: 0.85rem 1.5rem; }
+    .preview-bar {
+      padding: 4px 0.75rem;
+      font-size: 0.7rem;
+      height: 28px;
+    }
+    .preview-bar > div:last-child {
+      display: none;
+    }
+    nav#mainNav {
+      top: 28px;
+      padding: 0.75rem 1.25rem;
+    }
     .nav-groups { display: none !important; }
     .nav-hamburger { display: inline-flex !important; }
     .btn-outline, .btn-primary {
@@ -1877,7 +2006,7 @@
 </div>
 
 <!-- ─── 3. EXCLUSIVITY STRIP ─── -->
-<div class="strip">
+<div class="strip fade-up">
   <div class="strip-item"><span class="glyph">&#10022;</span><span>12 Guests Maximum per Cohort</span></div>
   <div class="strip-item"><span class="glyph">&#10022;</span><span>2 BAMS Vaidyas On-Site Full-Time</span></div>
   <div class="strip-item"><span class="glyph">&#10022;</span><span>4 Classical Restorative Disciplines</span></div>
@@ -1885,7 +2014,7 @@
 </div>
 
 <!-- ─── 4. UPCOMING RETREAT STRIP (PHASE 2) ─── -->
-<div class="retreat-strip">
+<div class="retreat-strip fade-up">
   <div class="retreat-strip-inner">
     <div>
       <div class="strip-col-title">Next Scheduled Residency</div>
@@ -1904,7 +2033,7 @@
 <!-- ─── 5. SANCTUARY PHILOSOPHY & ABOUT ─── -->
 <section class="section-pad" id="about">
   <div class="container">
-    <div class="sec-header">
+    <div class="sec-header fade-up">
       <div class="sec-shloka">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
       <p class="sec-eyebrow">Lineage &amp; Sanctuary Philosophy</p>
       <h2 class="sec-title">Stillness is not a luxury.<br><em>It is a prescription.</em></h2>
@@ -1919,7 +2048,7 @@
 <!-- ─── 6. MEET THE FOUNDING PHYSICIANS (STRICTLY B.A.M.S.) ─── -->
 <section class="section-pad doctors-sec" id="doctors">
   <div class="container">
-    <div class="sec-header">
+    <div class="sec-header fade-up">
       <p class="sec-eyebrow">Medical Oversight &bull; Clinical Lineage</p>
       <h2 class="sec-title">Clinically Directed by<br><em>Licensed B.A.M.S. Doctors</em></h2>
       <div class="gold-divider"></div>
@@ -1930,7 +2059,7 @@
 
     <div class="doctors-grid">
       <!-- Doctor 1 -->
-      <div class="doctor-card">
+      <div class="doctor-card fade-up">
         <div>
           <h3 class="doctor-title">Dr. Himanshu Bhatt</h3>
           <p class="doctor-role">Founder &bull; B.A.M.S. Doctor</p>
@@ -1944,7 +2073,7 @@
       </div>
 
       <!-- Doctor 2 -->
-      <div class="doctor-card">
+      <div class="doctor-card fade-up stagger-1">
         <div>
           <h3 class="doctor-title">Dr. Aditya Kaundal</h3>
           <p class="doctor-role">Founder &bull; B.A.M.S. Doctor</p>
@@ -1958,7 +2087,7 @@
       </div>
     </div>
 
-    <div style="text-align: center;">
+    <div style="text-align: center;" class="fade-up stagger-2">
       <a href="meet-the-doctors.html" class="btn-dossier" style="display: inline-block; padding: 0.8rem 1.8rem;">
         Read Dedicated Physician Biographies &amp; Clinical Boundaries &rarr;
       </a>
@@ -1969,7 +2098,7 @@
 <!-- ─── 7. THE FOUR CLASSICAL PILLARS & DAILY RHYTHM ─── -->
 <section class="section-pad" id="approach">
   <div class="container">
-    <div class="sec-header">
+    <div class="sec-header fade-up">
       <p class="sec-eyebrow">The Classical Sanctuary Pillars</p>
       <h2 class="sec-title">Four disciplines of <em>vital restoration</em></h2>
       <div class="gold-divider"></div>
@@ -1981,7 +2110,7 @@
         <!-- THE FOUR CLASSICAL PILLARS (RESTORED VISUAL GRID) -->
     <div class="svc-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 3.5rem;">
       <!-- 1: Yoga -->
-      <div class="svc-card" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+      <div class="svc-card fade-up" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
           <img src="images/yoga.jpg" alt="Condition-Adaptive Yoga in Himalayas" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
         </div>
@@ -1992,7 +2121,7 @@
         </div>
       </div>
       <!-- 2: Meditation -->
-      <div class="svc-card" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+      <div class="svc-card fade-up stagger-1" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
           <img src="images/meditation.jpg" alt="Vedic Dhyana & Trataka Meditation" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
         </div>
@@ -2003,7 +2132,7 @@
         </div>
       </div>
       <!-- 3: Shatkarma -->
-      <div class="svc-card" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+      <div class="svc-card fade-up stagger-2" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
           <img src="images/dinacharya_ritual.jpg" alt="Classical Shatkarma Purification" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
         </div>
@@ -2014,7 +2143,7 @@
         </div>
       </div>
       <!-- 4: Basti Procedures -->
-      <div class="svc-card" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+      <div class="svc-card fade-up stagger-3" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
           <img src="images/ayurveda.jpg" alt="Localized Bahya Bastis" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
         </div>
@@ -2026,7 +2155,7 @@
       </div>
     </div>
 
-    <div class="rhythm-wrap" id="rhythm">
+    <div class="rhythm-wrap fade-up" id="rhythm">
       <div class="rhythm-img-box">
         <img src="images/dinacharya_ritual.jpg" alt="Dinacharya Ritual at The Reset Co." loading="lazy" width="600" height="400">
       </div>
@@ -2075,7 +2204,7 @@
 <!-- ─── 8. THE THREE PROGRAMME CARDS (APPROVED VISUAL REFERENCE) ─── -->
 <section class="section-pad" id="programmes" style="background: #FAF7F0;">
   <div class="container">
-    <div class="sec-header">
+    <div class="sec-header fade-up">
       <p class="sec-eyebrow">Preserved Visual Reference &bull; Distinct Card Colors</p>
       <h2 class="sec-title">Three pathways of <em>clinical restoration</em></h2>
       <div class="gold-divider"></div>
@@ -2089,7 +2218,7 @@
         <button class="opt4-tab-btn" onclick="selectProgCard(2)">Classical Reset</button>
       </div>
 
-    <div class="opt4-grid">
+    <div class="opt4-grid fade-up">
       <!-- CARD 1: THE AWAKENING JOURNEY (WARM CREAM) -->
       <div class="prog-card" id="prog-card-0">
         <div class="card-img-header">
@@ -2256,7 +2385,7 @@
       </a>
     </div>
 
-    <div id="comparison">
+    <div id="comparison" class="fade-up">
       <div class="comp-sec-header">
         <h3 class="comp-sec-title">Side-by-Side Inclusions Comparison</h3>
         <p class="comp-sec-subtitle">Compare physician direction, therapies, and care across the three 4N/5D pathways</p>
@@ -2491,7 +2620,7 @@
 <!-- ─── 9. THE SACRED WELCOME KIT SHOWCASE ─── -->
 <section class="section-pad welcome-kit-sec" id="welcome-kit">
   <div class="container">
-    <div class="kit-wrap">
+    <div class="kit-wrap fade-up">
       <div class="kit-img-box">
         <img src="images/welcome_kit.jpg" alt="The Reset Co. Welcome Kit" loading="lazy" width="600" height="400">
       </div>
@@ -2529,7 +2658,7 @@
 <!-- ─── 10. INTEGRATED HIMALAYAN LIVING & PORTALS ─── -->
 <section class="section-pad portals-sec" id="portals">
   <div class="container">
-    <div class="portal-wrap">
+    <div class="portal-wrap fade-up">
       <div>
         <p class="sec-eyebrow">Himalayan Sanctuary Setting</p>
         <h2 class="sec-title">Vaikunth Mud Cottages &bull; <em>Bir Billing</em></h2>
@@ -2578,7 +2707,7 @@
 <!-- ─── 11. PRAKRITI PARIKSHAN ASSESSMENT GATEWAY ─── -->
 <section class="section-pad" id="prakriti-intro">
   <div class="container">
-    <div class="prakriti-banner">
+    <div class="prakriti-banner fade-up">
       <div style="max-width: 650px;">
         <span class="intl-badge" style="background: rgba(201,168,76,0.12); color: var(--gold-dark); border-color: var(--gold);">
           Clinical Diagnostic Engine
@@ -2602,7 +2731,7 @@
 <!-- ─── 12. INTERNATIONAL GUESTS CALLOUT ─── -->
 <section class="section-pad" id="international" style="padding-top: 0;">
   <div class="container">
-    <div class="intl-banner">
+    <div class="intl-banner fade-up">
       <div class="intl-content">
         <div class="intl-badge">Global Seekers Welcome</div>
         <h3 class="intl-title">Travelling from abroad to <em>Himachal Pradesh?</em></h3>
@@ -2622,7 +2751,7 @@
 <!-- ─── 13. GUEST REFLECTIONS & CLINICAL OUTCOMES ─── -->
 <section class="section-pad testi-sec" id="feedback">
   <div class="container">
-    <div class="sec-header">
+    <div class="sec-header fade-up">
       <p class="sec-eyebrow">Verified Guest Experiences</p>
       <h2 class="sec-title">Reflections from <em>our seekers</em></h2>
       <div class="gold-divider"></div>
@@ -2632,7 +2761,7 @@
     </div>
 
     <div class="testi-grid">
-      <div class="testi-card">
+      <div class="testi-card fade-up">
         <p class="testi-quote">
           "The combination of early mornings, no screens after dusk, and Dr. Aditya's Kati Basti resolved lower-back stiffness I had carried for four years. The clarity of mind by Day 4 was astonishing."
         </p>
@@ -2640,7 +2769,7 @@
         <div class="testi-metric">Deep Rejuvenation Cohort</div>
       </div>
 
-      <div class="testi-card">
+      <div class="testi-card fade-up stagger-1">
         <p class="testi-quote">
           "This is not a commercial hotel resort; it is a genuine sanctuary. Being guided by two licensed doctors who understand both modern burnout and classical scriptures made all the difference."
         </p>
@@ -2648,7 +2777,7 @@
         <div class="testi-metric">Classical Reset Cohort</div>
       </div>
 
-      <div class="testi-card">
+      <div class="testi-card fade-up stagger-2">
         <p class="testi-quote">
           "The noble silence (Arya Mauna) in the evenings was deeply liberating. I slept through the night for the first time in eighteen months without waking up once."
         </p>
@@ -2657,7 +2786,7 @@
       </div>
     </div>
 
-    <div style="text-align: center; margin-top: 2.5rem;">
+    <div style="text-align: center; margin-top: 2.5rem;" class="fade-up stagger-3">
       <a href="review.html" class="btn-dossier" style="display: inline-block;">
         View Verified Clinical Outcomes &amp; Leave a Reflection &rarr;
       </a>
@@ -2666,10 +2795,9 @@
 </section>
 
 <!-- ─── 14. FREQUENTLY ASKED QUESTIONS ─── -->
-<!-- ─── 14. FREQUENTLY ASKED QUESTIONS ─── -->
 <section class="section-pad faq-section" id="faq" style="background: #FFFFFF;">
   <div class="container">
-    <div class="sec-header">
+    <div class="sec-header fade-up">
       <div class="sec-shloka">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
       <p class="sec-eyebrow">Guidance &amp; Retreat Clarifications</p>
       <h2 class="sec-title">Frequently Asked <em>Questions</em></h2>
@@ -2679,7 +2807,7 @@
       </p>
     </div>
 
-    <div class="faq-accordion-container" style="max-width: 880px; margin: 0 auto;">
+    <div class="faq-accordion-container fade-up" style="max-width: 880px; margin: 0 auto;">
       <!-- FAQ Item 1 -->
       <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
         <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
@@ -2771,7 +2899,7 @@
 <section class="section-pad enquiry-sec" id="enquiry">
   <div id="booking" style="position:relative; top:-80px;"></div>
   <div class="container">
-    <div class="sec-header">
+    <div class="sec-header fade-up">
       <p class="sec-eyebrow">Intake Application &bull; November 26–30, 2026</p>
       <h2 class="sec-title">Reserve your <em>sanctuary suite</em></h2>
       <div class="gold-divider"></div>
@@ -2780,7 +2908,7 @@
       </p>
     </div>
 
-    <div class="enquiry-card">
+    <div class="enquiry-card fade-up">
       <form id="previewForm" onsubmit="handleUnifiedEnquiry(event)">
         <div class="form-row">
           <div class="form-group">
@@ -2940,118 +3068,287 @@
     lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 0.9
+      syncTouch: false,
+      respectReducedMotion: true,
+      anchors: false
     });
+    window.lenis = lenis;
 
-    function raf(time) {
+    function lenisRaf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      requestAnimationFrame(lenisRaf);
     }
-    requestAnimationFrame(raf);
-  }
+    requestAnimationFrame(lenisRaf);
 
-  // 2. ScrollExpand Hero Physics (Authentic Direct Land & Dynamic Lock)
-  const frame = document.getElementById('scrollExpandFrame');
-  const media = document.getElementById('scrollExpandMedia');
-  const titleWrap = document.getElementById('scrollExpandTitleWrap');
-  const hint = document.getElementById('scrollExpandHint');
-  const heroLanding = document.getElementById('scrollExpandHeroLanding');
-  let isExpanded = false;
-
-  function landOnHero() {
-    if (isExpanded) return;
-    isExpanded = true;
-    document.documentElement.classList.remove('is-welcome-locked');
-    document.body.classList.remove('is-welcome-locked');
-    
-    if (frame) {
-      frame.style.clipPath = 'inset(0% 0% 0% 0% round 0px)';
-      frame.classList.add('is-full');
+    if (document.documentElement.classList.contains('is-welcome-locked')) {
+      lenis.stop();
     }
-    if (media) media.style.transform = 'scale(1)';
-    if (titleWrap) {
-      titleWrap.style.opacity = '0';
-      titleWrap.style.pointerEvents = 'none';
-    }
-    if (hint) hint.style.opacity = '0';
-    if (heroLanding) heroLanding.classList.add('is-visible');
 
-    if (lenis) lenis.start();
+    lenis.on('scroll', ({ scroll, limit, progress }) => {
+      const bar = document.getElementById('scroll-progress');
+      if (bar) bar.style.width = (progress * 100) + '%';
+      const navEl = document.getElementById('mainNav');
+      if (navEl) navEl.classList.toggle('scrolled', scroll > 40);
+    });
   }
 
-  // Check if URL has an anchor hash or plan query
-  const hasTargetHash = window.location.hash && window.location.hash !== '#' && window.location.hash !== '#home';
-  const urlParams = new URLSearchParams(window.location.search);
-  const shouldDirectLand = hasTargetHash || urlParams.has('land') || urlParams.has('plan');
-
-  if (shouldDirectLand) {
-    landOnHero();
-  } else {
-    document.documentElement.classList.add('is-welcome-locked');
-    document.body.classList.add('is-welcome-locked');
+  // Fallback native scroll listener if Lenis is unavailable
+  if (!lenis) {
+    const bar = document.getElementById('scroll-progress');
+    const navEl = document.getElementById('mainNav');
+    let isScrolling = false;
+    window.addEventListener('scroll', () => {
+      if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+          const total = document.documentElement.scrollHeight - window.innerHeight;
+          if (total > 0 && bar) {
+            bar.style.width = (window.scrollY / total * 100) + '%';
+          }
+          if (navEl) navEl.classList.toggle('scrolled', window.scrollY > 40);
+          isScrolling = false;
+        });
+        isScrolling = true;
+      }
+    }, { passive: true });
   }
 
-  function landOnHero_legacy() {
-    if (isExpanded) return;
-    isExpanded = true;
-    document.documentElement.classList.remove('is-welcome-locked');
-    document.body.classList.remove('is-welcome-locked');
-    
-    frame.style.clipPath = 'inset(0% 0% 0% 0% round 0px)';
-    frame.classList.add('is-full');
-    media.style.transform = 'scale(1)';
-    titleWrap.style.opacity = '0';
-    titleWrap.style.pointerEvents = 'none';
-    hint.style.opacity = '0';
-    heroLanding.classList.add('is-visible');
-
-    if (lenis) lenis.start();
-  }
-
-  
-  // Auto-unlock hero if page loaded with a section hash
-  if (typeof window !== 'undefined' && window.location.hash && window.location.hash !== '#home') {
-    setTimeout(landOnHero, 50);
-  }
-
-  // Auto-unlock hero when any internal anchor link is clicked
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', () => {
-      const h = a.getAttribute('href');
-      if (h && h !== '#home') {
-        landOnHero();
+  // Smooth anchor link gliding via Lenis
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#' && !targetId.startsWith('#sanctuary-accord')) {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          if (window.landOnHero) window.landOnHero();
+          if (window.lenis && !document.documentElement.classList.contains('is-welcome-locked')) {
+            window.lenis.scrollTo(targetEl, {
+              offset: -75,
+              duration: 1.2,
+              easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
+          } else {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
       }
     });
   });
 
-  // Click on title or hint unlocks hero immediately
-  titleWrap.addEventListener('click', landOnHero);
-  hint.addEventListener('click', landOnHero);
+  // 2. Scroll-to-Expand Hero Physics (Authentic Two-Way Physics)
+  (function() {
+    const frame = document.getElementById('scrollExpandFrame');
+    const media = document.getElementById('scrollExpandMedia');
+    const titleWrap = document.getElementById('scrollExpandTitleWrap');
+    const hint = document.getElementById('scrollExpandHint');
+    const heroLanding = document.getElementById('scrollExpandHeroLanding');
 
-  // Wheel / Touch detection to trigger expansion
-  let touchStartY = 0;
-  window.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
+    if (!frame || !media || !titleWrap || !heroLanding) return;
 
-  window.addEventListener('touchmove', (e) => {
-    if (!isExpanded) {
-      const deltaY = touchStartY - e.touches[0].clientY;
-      if (deltaY > 20) {
-        landOnHero();
+    const isMobile = window.innerWidth <= 768;
+    const startW = isMobile ? 80 : 42;
+    const startH = isMobile ? 64 : 58;
+    const startR = isMobile ? 18 : 24;
+
+    let isLanded = false;
+    let animating = false;
+
+    function lockScroll() {
+      document.documentElement.classList.add('is-welcome-locked');
+      document.body.classList.add('is-welcome-locked');
+      if (window.scrollY > 0) {
+        window.scrollTo(0, 0);
       }
     }
-  }, { passive: true });
 
-  window.addEventListener('wheel', (e) => {
-    if (!isExpanded) {
-      if (e.deltaY > 10) {
+    function unlockScroll() {
+      document.documentElement.classList.remove('is-welcome-locked');
+      document.body.classList.remove('is-welcome-locked');
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasTargetHash = window.location.hash && window.location.hash !== '#' && !window.location.hash.startsWith('#sanctuary-accord');
+    const hasPlanParam = urlParams.has('plan') || (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('trc_prakriti_plan'));
+    const hasLandParam = urlParams.has('land');
+    const shouldDirectLand = hasTargetHash || hasPlanParam || hasLandParam;
+
+    function landOnHero() {
+      if (isLanded || animating) return;
+      animating = true;
+      isLanded = true;
+
+      frame.style.transition = 'clip-path 0.85s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.85s ease';
+      media.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1)';
+      
+      frame.style.clipPath = 'inset(0% 0% 0% 0% round 0px)';
+      frame.classList.add('is-full');
+      media.style.transform = 'scale(1)';
+
+      titleWrap.style.opacity = '0';
+      titleWrap.style.transform = 'translate3d(0, -32px, 0) scale(1.05)';
+      titleWrap.style.pointerEvents = 'none';
+      if (hint) {
+        hint.style.opacity = '0';
+        hint.style.pointerEvents = 'none';
+      }
+
+      setTimeout(function() {
+        heroLanding.classList.add('is-landed');
+      }, 250);
+
+      setTimeout(function() {
+        unlockScroll();
+        if (window.lenis) window.lenis.start();
+        animating = false;
+        if (window.location.hash && window.location.hash !== '#' && !window.location.hash.startsWith('#sanctuary-accord')) {
+          try {
+            const target = document.querySelector(window.location.hash);
+            if (target) {
+              setTimeout(function() {
+                if (window.lenis) {
+                  window.lenis.scrollTo(target, { offset: -60, duration: 1.2 });
+                } else {
+                  target.scrollIntoView({ behavior: 'smooth' });
+                }
+              }, 60);
+            }
+          } catch(e) {}
+        }
+      }, 850);
+    }
+
+    function collapseToWelcome() {
+      if (!isLanded || animating) return;
+      animating = true;
+      isLanded = false;
+
+      if (window.lenis) window.lenis.stop();
+      lockScroll();
+      heroLanding.classList.remove('is-landed');
+
+      const ix = (100 - startW) / 2;
+      const iy = (100 - startH) / 2;
+
+      setTimeout(function() {
+        frame.style.transition = 'clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.75s ease';
+        media.style.transition = 'transform 0.75s cubic-bezier(0.16, 1, 0.3, 1)';
+
+        frame.style.clipPath = 'inset(' + iy + '% ' + ix + '% ' + iy + '% ' + ix + '% round ' + startR + 'px)';
+        frame.classList.remove('is-full');
+        media.style.transform = 'scale(1.35)';
+
+        titleWrap.style.opacity = '1';
+        titleWrap.style.transform = 'translate3d(0, 0, 0) scale(1)';
+        titleWrap.style.pointerEvents = 'auto';
+        if (hint) {
+          hint.style.opacity = '1';
+          hint.style.pointerEvents = 'auto';
+        }
+        animating = false;
+      }, 200);
+    }
+
+    if (shouldDirectLand) {
+      isLanded = true;
+      animating = false;
+      frame.style.clipPath = 'inset(0% 0% 0% 0% round 0px)';
+      frame.classList.add('is-full');
+      media.style.transform = 'scale(1)';
+      media.style.filter = 'brightness(0.85)';
+      titleWrap.style.opacity = '0';
+      titleWrap.style.display = 'none';
+      titleWrap.style.pointerEvents = 'none';
+      if (hint) {
+        hint.style.opacity = '0';
+        hint.style.display = 'none';
+        hint.style.pointerEvents = 'none';
+      }
+      heroLanding.classList.add('is-landed');
+      unlockScroll();
+      if (window.lenis) window.lenis.start();
+
+      if (hasTargetHash || hasPlanParam) {
+        const targetSelector = hasTargetHash ? window.location.hash : (document.getElementById('enquiry') ? '#enquiry' : '#contact');
+        const glideToTarget = () => {
+          try {
+            const target = document.querySelector(targetSelector);
+            if (target) {
+              if (window.lenis) {
+                window.lenis.scrollTo(target, { offset: -50, duration: 1.0, immediate: false });
+              } else {
+                target.scrollIntoView({ behavior: 'smooth' });
+              }
+            }
+          } catch (e) {}
+        };
+
+        setTimeout(glideToTarget, 50);
+        setTimeout(glideToTarget, 250);
+        setTimeout(glideToTarget, 600);
+      }
+    } else {
+      lockScroll();
+      if (window.lenis) window.lenis.stop();
+    }
+
+    window.addEventListener('wheel', function(e) {
+      if (!isLanded) {
+        e.preventDefault();
+        if (e.deltaY > 0) {
+          landOnHero();
+        }
+      } else if (isLanded && window.scrollY === 0 && e.deltaY < -20) {
+        collapseToWelcome();
+      }
+    }, { passive: false });
+
+    let touchStartY = 0;
+    window.addEventListener('touchstart', function(e) {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', function(e) {
+      if (!isLanded) {
+        e.preventDefault();
+        const delta = touchStartY - e.touches[0].clientY;
+        if (delta > 15) {
+          landOnHero();
+        }
+      }
+    }, { passive: false });
+
+    titleWrap.addEventListener('click', landOnHero);
+    if (hint) hint.addEventListener('click', landOnHero);
+
+    window.addEventListener('keydown', function(e) {
+      if (!isLanded && (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter')) {
+        e.preventDefault();
         landOnHero();
       }
-    }
-  }, { passive: true });
+    });
+
+    window.landOnHero = landOnHero;
+  })();
+
+  // 3. Scroll Reveal Observer (Intersection Observer for silky smooth reveals)
+  if ('IntersectionObserver' in window) {
+    const revealObs = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('vis');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.fade-up').forEach(el => revealObs.observe(el));
+  } else {
+    document.querySelectorAll('.fade-up').forEach(el => el.classList.add('vis'));
+  }
 
   // 3. Navigation Drawer Toggle
   if (typeof window !== "undefined" && window.location.search.includes("nav=open")) { setTimeout(toggleNavDrawer, 120); }
