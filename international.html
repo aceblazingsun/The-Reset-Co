@@ -226,6 +226,149 @@
     text-transform: uppercase;
   }
 
+  /* ─── INTERNATIONAL BOOKING FORM SECTION ─── */
+  .intl-booking-section {
+    margin-top: 3.5rem;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--gold);
+    border-radius: 8px;
+    padding: 3rem 2.5rem;
+    box-shadow: 0 10px 30px rgba(15, 35, 71, 0.08);
+  }
+  @media (max-width: 600px) {
+    .intl-booking-section { padding: 2rem 1.25rem; }
+  }
+  .intl-form-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+  }
+  .intl-form-tag {
+    font-family: var(--display);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .intl-form-title {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    color: var(--royal-deep);
+    margin-bottom: 0.6rem;
+  }
+  .intl-form-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .intl-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  @media (max-width: 650px) {
+    .intl-form-grid { grid-template-columns: 1fr; }
+  }
+  .intl-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .intl-field.full {
+    grid-column: 1 / -1;
+  }
+  .intl-field label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--royal-deep);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .intl-field input,
+  .intl-field select,
+  .intl-field textarea {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    border: 1px solid #D5CEBD;
+    border-radius: 4px;
+    background: #FAF7F0;
+    color: var(--text);
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+  .intl-field input:focus,
+  .intl-field select:focus,
+  .intl-field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: #FFFFFF;
+    box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.2);
+  }
+  .intl-field small {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  .intl-submit-btn {
+    background: var(--royal-deep);
+    color: var(--ivory);
+    border: 1px solid var(--gold);
+    padding: 0.9rem 2rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  .intl-submit-btn:hover {
+    background: var(--gold);
+    color: var(--royal-deep);
+  }
+  .intl-wa-direct {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    color: #128C7E;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+  .intl-wa-direct:hover { text-decoration: underline; }
+
+  .intl-confirmation-box {
+    display: none;
+    background: #FAF7F0;
+    border: 2px solid var(--gold);
+    border-radius: 6px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  .intl-confirmation-box.active { display: block; }
+  .intl-confirmation-box h4 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    color: var(--royal-deep);
+    margin-bottom: 0.6rem;
+  }
+  .intl-confirmation-box p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 0 auto 1.25rem;
+  }
+
   footer {
     background: #09152B;
     color: rgba(253, 250, 243, 0.65);
@@ -348,8 +491,158 @@
   <section class="cta-box">
     <h3>Plan Your Himalayan Ayurvedic Residency</h3>
     <p>Late November 2026 Cohort (26–30 Nov) &bull; Maximum 12 Participants</p>
-    <a href="index.html#booking" class="btn-gold">Enquire for International Booking &rarr;</a>
+    <a href="#international-enquiry" class="btn-gold">Enquire for International Booking &darr;</a>
   </section>
+
+  <!-- INTERNATIONAL RESERVATION INTAKE FORM -->
+  <section class="intl-booking-section" id="international-enquiry">
+    <div id="booking" style="position:relative; top:-80px;"></div>
+    <div class="intl-form-header">
+      <div class="intl-form-tag">Direct Admissions &bull; Global Seekers</div>
+      <h2 class="intl-form-title">International Residency Intake</h2>
+      <p class="intl-form-desc">
+        Complete your intake below. Dr. Himanshu Bhatt &amp; Dr. Aditya Kaundal personally review each international profile. Our concierge will coordinate your Delhi (DEL) connection, private Dharamshala (DHM) pickup, and send a foreign currency payment link.
+      </p>
+    </div>
+
+    <form id="intlEnquiryForm" onsubmit="handleIntlSubmit(event)">
+      <div class="intl-form-grid">
+        <div class="intl-field">
+          <label for="intlName">Full Legal Name *</label>
+          <input type="text" id="intlName" name="name" required placeholder="As shown on your passport">
+        </div>
+
+        <div class="intl-field">
+          <label for="intlEmail">Email Address *</label>
+          <input type="email" id="intlEmail" name="email" required placeholder="name@domain.com">
+        </div>
+
+        <div class="intl-field">
+          <label for="intlPhone">WhatsApp / Mobile *</label>
+          <input type="tel" id="intlPhone" name="phone" required placeholder="Include Country Code (e.g. +1 / +44 / +971)">
+          <small>For confidential pre-arrival concierge coordination</small>
+        </div>
+
+        <div class="intl-field">
+          <label for="intlCountry">Country of Residence &amp; Passport Nationality *</label>
+          <input type="text" id="intlCountry" name="country" required placeholder="e.g. United Kingdom / United States / UAE">
+        </div>
+
+        <div class="intl-field">
+          <label for="intlDates">Selected Cohort Dates</label>
+          <input type="text" id="intlDates" name="dates" value="Late November Cohort (26–30 Nov 2026)">
+        </div>
+
+        <div class="intl-field">
+          <label for="intlPathway">Preferred Restorative Pathway *</label>
+          <select id="intlPathway" name="pathway" required>
+            <option value="The Deep Rejuvenation (Recommended)">The Deep Rejuvenation &mdash; &#8377;65,000 (Recommended)</option>
+            <option value="The Awakening Journey">The Awakening Journey &mdash; &#8377;55,000</option>
+            <option value="The Classical Reset">The Classical Reset &mdash; &#8377;75,000</option>
+          </select>
+        </div>
+
+        <div class="intl-field">
+          <label for="intlRoom">Suite Preference</label>
+          <select id="intlRoom" name="roomPreference">
+            <option value="Private Single Suite Supplement">Private Single Suite Supplement (+&#8377;18,000)</option>
+            <option value="Deluxe Twin Sharing">Deluxe Twin Sharing (Included in tariff)</option>
+          </select>
+        </div>
+
+        <div class="intl-field">
+          <label for="intlTransit">Himalayan Airport Chauffeur Pickup</label>
+          <select id="intlTransit" name="transit">
+            <option value="DHM Dharamshala Airport Private Chauffeur">Kangra / Dharamshala Airport (DHM) Chauffeur (2 hrs to estate)</option>
+            <option value="Chandigarh Airport Innova Transfer">Chandigarh (IXC) Private Transfer (5.5 hrs)</option>
+            <option value="Delhi Flight Coordination Assistance">Request Delhi (DEL) to DHM Flight Booking Guidance</option>
+            <option value="Self Arranged">Self-Arranged Travel</option>
+          </select>
+        </div>
+
+        <div class="intl-field full">
+          <label for="intlHealth">Health Background &amp; Dietary Sensitivities</label>
+          <textarea id="intlHealth" name="healthNotes" rows="3" placeholder="Please share current health objectives, stress/sleep challenges, or food sensitivities (gluten-free, vegan, nut-free, etc.)"></textarea>
+        </div>
+
+        <div class="intl-field full">
+          <button type="submit" class="intl-submit-btn" id="intlSubmitBtn">
+            Submit International Reservation Intake &rarr;
+          </button>
+          <div style="font-size:0.75rem; color:var(--text-muted); text-align:center; margin-top:0.4rem;">
+            &#128274; Strictly confidential physician intake &bull; 25% deposit invoice dispatched only upon medical clearance
+          </div>
+          <a href="https://wa.me/917888540046?text=Hello%20The%20Reset%20Co.%20physicians%2C%20I%20am%20an%20international%20traveler%20enquiring%20about%20the%20Himachal%20residency." target="_blank" rel="noopener" class="intl-wa-direct">
+            <span>&#128172; Prefer direct chat? Message Dr. Himanshu &amp; Dr. Aditya on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </form>
+
+    <div id="intlConfirmationBox" class="intl-confirmation-box">
+      <h4>Namaste &amp; Welcome</h4>
+      <p>
+        Your international reservation intake has been received directly by the founding physicians. We will review your clinical considerations and contact you via email and WhatsApp within 12 hours with transit options and secure payment link.
+      </p>
+      <div style="font-family:var(--serif); font-size:1.1rem; color:var(--royal-deep); margin-bottom:1rem;">
+        Intake Reference: <strong id="intlRefCode">TRC-INTL-2026</strong>
+      </div>
+      <a href="https://wa.me/917888540046?text=Hello%2C%20I%20just%20submitted%20my%20international%20intake%20on%20the%20website." target="_blank" rel="noopener" class="btn-gold" style="display:inline-block;">
+        Open Priority WhatsApp Thread &rarr;
+      </a>
+    </div>
+  </section>
+
+  <script>
+    async function handleIntlSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('intlSubmitBtn');
+      const form = document.getElementById('intlEnquiryForm');
+      const box = document.getElementById('intlConfirmationBox');
+      const ref = document.getElementById('intlRefCode');
+      
+      btn.disabled = true;
+      btn.innerText = 'Transmitting to Clinical Team...';
+      
+      const payload = {
+        name: document.getElementById('intlName').value,
+        email: document.getElementById('intlEmail').value,
+        phone: document.getElementById('intlPhone').value,
+        country: document.getElementById('intlCountry').value,
+        dates: document.getElementById('intlDates').value,
+        pathway: document.getElementById('intlPathway').value,
+        roomPreference: document.getElementById('intlRoom').value,
+        transit: document.getElementById('intlTransit').value,
+        healthNotes: document.getElementById('intlHealth').value,
+        source: 'international_page'
+      };
+
+      const refId = 'TRC-INTL-' + Math.floor(1000 + Math.random() * 9000);
+      if (ref) ref.innerText = refId;
+
+      try {
+        const res = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        form.style.display = 'none';
+        box.classList.add('active');
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        form.style.display = 'none';
+        box.classList.add('active');
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    if (window.location.hash === '#booking' || window.location.hash === '#international-enquiry') {
+      setTimeout(() => {
+        const el = document.getElementById('international-enquiry');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+  </script>
 </main>
 
 <footer>
