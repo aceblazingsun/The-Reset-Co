@@ -1614,6 +1614,31 @@
 
   /* ─── WELCOME KIT SHOWCASE ─── */
   .welcome-kit-sec { background: var(--ivory); border-top: 1px solid rgba(201,168,76,0.2); }
+
+  /* ─── WCAG 2.2 AA SKIP LINK ─── */
+  .skip-to-content {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 99999;
+    padding: 0.75rem 1.25rem;
+    background: #0F2347;
+    color: #C9A84C;
+    border: 1.5px solid #C9A84C;
+    border-radius: 4px;
+    font-family: 'Jost', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: top 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  .skip-to-content:focus {
+    top: 1rem;
+    outline: 2px solid #E8C97A;
+  }
+
 </style>
 
   <!-- Structured Data JSON-LD -->
@@ -1678,13 +1703,98 @@
   ]
 }
   </script>
+
+  <!-- Local SEO & Geographic Entity Metadata -->
+  <meta name="geo.region" content="IN-HP">
+  <meta name="geo.placename" content="Bir Billing, Himachal Pradesh">
+  <meta name="geo.position" content="32.0463;76.7202">
+  <meta name="ICBM" content="32.0463, 76.7202">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.thereset-co.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Programmes",
+      "item": "https://www.thereset-co.in/programmes"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many guests are in each cohort, and what is the confirmation threshold?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every retreat cohort is strictly capped at 8–10 guests across 5 handcrafted earthen mud suites at Vaikunth Mud House to maintain genuine clinical depth and unhurried doctor-patient interaction. To preserve the contemplative atmosphere, a cohort confirms with a minimum of 6 guests."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What wellness goals and concerns are best suited for this retreat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Reset Co. is designed for individuals navigating chronic burnout, nervous exhaustion, corporate fatigue, digital overstimulation, cervical/lumbar musculoskeletal tension, mild digestive sluggishness, or sleep fragmentation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What therapies are included (Bahya Basti, Abhyanga, Shatkarma)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depending on your chosen pathway (The Awakening Pathway, The Deep Rejuvenation, or The Classical Reset), therapies include localized Bahya Basti (warm herbal oil reservoirs on the cervical or lumbar spine), full-body synchronized Abhyanga, deeply nourishing Netra Tarpana (warm medicated Triphala Ghrita eye bath), soothing Netra Prakshalana (cleansing Triphala Kwath eye wash), gentle morning cleansing kriyas (Jalaneti), condition-adaptive restorative yoga, and personalized herbal decoctions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the reservation deposit, cancellation, and 3-month transfer policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A ₹10,000 reservation deposit secures your cohort placement, with the remaining balance due 15 days prior to check-in. Cancellations requested 15 days or more prior to check-in receive a 100% refund (less 5% processing). Cancellations within 14 days of arrival may transfer 100% of funds toward any future Reset Co. cohort within 3 months (90 days)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the sanctuary rules regarding Noble Silence and Digital Detox?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "To nurture mental tranquility, all guests observe Arya Mauna (noble silence) from waking until after morning yoga and breakfast. In accordance with our Digital Sundown protocol, phones and laptops remain inside your private room during morning sessions, therapies, and communal dining."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I reach the sanctuary in Bir, Himachal Pradesh?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The retreat is hosted at Vaikunth Mud House, Upper Bir Khas Pine Valley, Bir Billing, Kangra (HP 176077). The closest airport is Kangra/Dharamshala Airport (DHM), approximately 1.5 hours scenic drive from the property. Daily luxury overnight Volvo buses operate directly between New Delhi or Chandigarh and Bir Tibetan Colony."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
   <!-- FIXED NAVIGATION -->
   <nav role="navigation" aria-label="Main Navigation">
     <a href="index.html" class="nav-logo">
-      <img src="images/logo-emblem.png" alt="The Reset Co." class="nav-logo-mark">
+      <img src="images/logo-emblem.png" alt="The Reset Co." class="nav-logo-mark" width="32" height="32" decoding="async">
       <span class="nav-logo-text">The Reset <span>Co.</span></span>
     </a>
     <div class="nav-links">
@@ -1708,7 +1818,7 @@
   </header>
 
   <!-- MAIN CONTENT CONTAINER -->
-  <main class="container">
+  <main id="main-content" class="container">
 
     <!-- ETHICAL CARE & MEDICAL SUITABILITY BANNER -->
     <section class="philosophy-banner" aria-label="Care Philosophy">
@@ -1741,7 +1851,7 @@
         <!-- Card 1: Awakening Journey -->
         <article class="prog-card" id="prog-card-0">
           <div class="card-img-header">
-            <img src="images/yoga.jpg" alt="The Awakening Pathway" loading="lazy">
+            <img src="images/yoga.jpg" alt="The Awakening Pathway" width="600" height="400" loading="lazy" decoding="async">
             <span class="card-pill-tag">Restorative</span>
           </div>
           <div class="card-main-pane">
@@ -1809,7 +1919,7 @@
         <!-- Card 2: Deep Rejuvenation (Default Active) -->
         <article class="prog-card featured active-card" id="prog-card-1">
           <div class="card-img-header">
-            <img src="images/ayurveda.jpg" alt="The Deep Rejuvenation" loading="lazy">
+            <img src="images/ayurveda.jpg" alt="The Deep Rejuvenation" width="600" height="400" loading="lazy" decoding="async">
             <span class="card-feat-badge">Signature &bull; Most Requested</span>
           </div>
           <div class="card-main-pane">
@@ -1885,7 +1995,7 @@
         <!-- Card 3: Classical Reset -->
         <article class="prog-card" id="prog-card-2">
           <div class="card-img-header">
-            <img src="images/meditation.jpg" alt="The Classical Reset" loading="lazy">
+            <img src="images/meditation.jpg" alt="The Classical Reset" width="600" height="400" loading="lazy" decoding="async">
             <span class="card-pill-tag">Intensive Reset</span>
           </div>
           <div class="card-main-pane">
@@ -2607,6 +2717,11 @@
     });
   }
 </script>
+
+
+  <!-- Vercel Telemetry & Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 
 </body>
 </html>

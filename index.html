@@ -2481,6 +2481,31 @@
     }
   }
 
+
+  /* ─── WCAG 2.2 AA SKIP LINK ─── */
+  .skip-to-content {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 99999;
+    padding: 0.75rem 1.25rem;
+    background: var(--royal-deep);
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+    border-radius: 4px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: top 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  .skip-to-content:focus {
+    top: 1rem;
+    outline: 2px solid var(--gold-light);
+  }
+
 </style>
 
 <script>
@@ -2543,7 +2568,13 @@
       "@id": "https://www.thereset-co.in/#website",
       "url": "https://www.thereset-co.in/",
       "name": "The Reset Co.",
-      "alternateName": ["TheResetCo", "theresetco", "the reset co", "The Reset Co In", "The Reset Company"],
+      "alternateName": [
+        "TheResetCo",
+        "theresetco",
+        "the reset co",
+        "The Reset Co In",
+        "The Reset Company"
+      ],
       "description": "Classical Ayurvedic Wellness Retreat Sanctuary in Bir Billing, Himachal Pradesh, India.",
       "publisher": {
         "@id": "https://www.thereset-co.in/#organization"
@@ -2554,7 +2585,11 @@
       "@type": "HealthAndBeautyBusiness",
       "@id": "https://www.thereset-co.in/#organization",
       "name": "The Reset Co.",
-      "alternateName": ["TheResetCo", "theresetco", "The Reset Co India"],
+      "alternateName": [
+        "TheResetCo",
+        "theresetco",
+        "The Reset Co India"
+      ],
       "url": "https://www.thereset-co.in/",
       "logo": "https://www.thereset-co.in/images/logo-emblem.png",
       "image": "https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008",
@@ -2605,12 +2640,74 @@
           "item": "https://www.thereset-co.in/dosha-prakriti-assessment"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.thereset-co.in/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How many guests are in each cohort, and what is the confirmation threshold?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every retreat cohort is strictly capped at 8–10 guests across 5 handcrafted earthen mud suites at Vaikunth Mud House to maintain genuine clinical depth and unhurried doctor-patient interaction. To preserve the contemplative atmosphere, a cohort confirms with a minimum of 6 guests. In the rare event minimum threshold is not met 14 days prior, guests receive an immediate 100% refund or preferred transfer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What wellness goals and concerns are best suited for this retreat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Reset Co. is designed for individuals navigating chronic burnout, nervous exhaustion, corporate fatigue, digital overstimulation, cervical/lumbar musculoskeletal tension, mild digestive sluggishness, or sleep fragmentation. We provide clinical Ayurvedic restoration, personalized daily Vaidya consultations, and circadian recalibration."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What therapies are included (Bahya Basti, Abhyanga, Shatkarma)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depending on your chosen pathway (The Awakening Pathway, The Deep Rejuvenation, or The Classical Reset), therapies include localized Bahya Basti (warm herbal oil reservoirs on the cervical or lumbar spine), full-body synchronized Abhyanga, deeply nourishing Netra Tarpana (warm medicated Triphala Ghrita eye bath), soothing Netra Prakshalana (cleansing Triphala Kwath eye wash), gentle morning cleansing kriyas (Jalaneti), condition-adaptive restorative yoga, and personalized herbal decoctions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the reservation deposit, cancellation, and 3-month transfer policy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A ₹10,000 reservation deposit secures your cohort placement, with the remaining balance due 15 days prior to check-in (for bookings made within 15 days of retreat commencement, 100% payment is required upon confirmation). Cancellations requested 15 days or more prior to check-in receive a 100% refund (less a 5% administrative payment processing fee). Cancellations within 14 days of arrival are non-refundable; however, 100% of all funds paid may be transferred toward any future Reset Co. cohort within 3 months (90 days)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the sanctuary rules regarding Noble Silence and Digital Detox?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To nurture mental tranquility, all guests observe Arya Mauna (noble silence) from waking until after morning yoga and breakfast. In accordance with our Digital Sundown protocol, phones and laptops remain inside your private room during morning sessions, therapies, and communal dining. Therapy suites, gardens, and dining halls are screen-free environments."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I reach the sanctuary in Bir, Himachal Pradesh?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The retreat is hosted at Vaikunth Mud House, Upper Bir Khas Pine Valley, Bir Billing, Kangra (HP 176077). The closest airport is Kangra/Dharamshala Airport (DHM), approximately 1.5 hours scenic drive from the property. Daily luxury overnight Volvo buses operate directly between New Delhi (ISBT Kashmere Gate / Majnu Ka Tilla) or Chandigarh and Bir Tibetan Colony. Our concierge assists with chauffeured transfer coordination."
+          }
+        }
+      ]
     }
   ]
 }
 </script>
+
+  <!-- Local SEO & Geographic Entity Metadata -->
+  <meta name="geo.region" content="IN-HP">
+  <meta name="geo.placename" content="Bir Billing, Himachal Pradesh">
+  <meta name="geo.position" content="32.0463;76.7202">
+  <meta name="ICBM" content="32.0463, 76.7202">
+
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
 <!-- ─── 1. FIXED NAVIGATION (PHASE 1: 5 ACCESSIBLE DESTINATION GROUPS) ─── -->
 <nav id="mainNav" role="navigation" aria-label="Main navigation">
@@ -2725,6 +2822,8 @@
   </div>
 </aside>
 
+<main id="main-content">
+
 <!-- ─── 2. ORIGINAL AUTHENTIC SCROLL-EXPAND HERO ANIMATION ─── -->
 <div id="scrollExpandContainer" aria-label="Welcome and Hero Section">
   <div class="scroll-expand__stage" id="scrollExpandStage">
@@ -2756,7 +2855,7 @@
     <div class="scroll-expand__title-wrap" id="scrollExpandTitleWrap" title="Click or scroll to enter">
       <img src="images/logo-emblem.webp" alt="The Reset Co. Emblem" class="scroll-expand__emblem" width="120" height="120" decoding="async" />
       <div class="scroll-expand__pretitle">A Sanctuary for Restoration</div>
-      <h1 class="scroll-expand__title">Welcome to<br><span>The Reset Co.</span></h1>
+      <h2 class="scroll-expand__title">Welcome to<br><span>The Reset Co.</span></h2>
     </div>
 
     <div class="scroll-expand__hint" id="scrollExpandHint">
@@ -2882,7 +2981,7 @@
       <!-- 1: Yoga -->
       <div class="svc-card fade-up" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
-          <img src="images/yoga.jpg" alt="Condition-Adaptive Yoga in Himalayas" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+          <img src="images/yoga.jpg" alt="Condition-Adaptive Yoga in Himalayas" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
         </div>
         <div style="padding: 1.35rem 1.25rem;">
           <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Condition-Adaptive Yoga</h3>
@@ -2893,7 +2992,7 @@
       <!-- 2: Meditation -->
       <div class="svc-card fade-up stagger-1" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
-          <img src="images/meditation.jpg" alt="Vedic Dhyana & Trataka Meditation" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+          <img src="images/meditation.jpg" alt="Vedic Dhyana & Trataka Meditation" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
         </div>
         <div style="padding: 1.35rem 1.25rem;">
           <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Vedic Dhyana &amp; Trataka</h3>
@@ -2904,7 +3003,7 @@
       <!-- 3: Shatkarma -->
       <div class="svc-card fade-up stagger-2" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
-          <img src="images/dinacharya_ritual.jpg" alt="Classical Shatkarma Purification" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+          <img src="images/dinacharya_ritual.jpg" alt="Classical Shatkarma Purification" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
         </div>
         <div style="padding: 1.35rem 1.25rem;">
           <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Classical Shatkarma Purification</h3>
@@ -2915,7 +3014,7 @@
       <!-- 4: Basti Procedures -->
       <div class="svc-card fade-up stagger-3" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
-          <img src="images/ayurveda.jpg" alt="Localized Bahya Bastis" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+          <img src="images/ayurveda.jpg" alt="Localized Bahya Bastis" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
         </div>
         <div style="padding: 1.35rem 1.25rem;">
           <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Localized Bahya Bastis</h3>
@@ -3736,6 +3835,8 @@
     </div>
   </div>
 </div>
+
+</main>
 
 <!-- ─── 17. FOOTER WITH FULL 12-PAGE LINK MAP ─── -->
 <footer>
@@ -4664,7 +4765,7 @@
     <div class="prop-modal-stage">
       <button class="prop-modal-nav prev" onclick="prevPropertyPhoto()" aria-label="Previous Photo">&lsaquo;</button>
       <div class="prop-modal-media-frame">
-        <img id="propModalImg" src="images/vaikunth_sanctuary_entrance.jpg" alt="Vaikunth Sanctuary Photo" class="prop-modal-img" />
+        <img id="propModalImg" src="images/vaikunth_sanctuary_entrance.jpg" alt="Vaikunth Sanctuary Photo" width="800" height="600" class="prop-modal-img" loading="lazy" decoding="async" />
       </div>
       <button class="prop-modal-nav next" onclick="nextPropertyPhoto()" aria-label="Next Photo">&rsaquo;</button>
     </div>
@@ -4994,6 +5095,11 @@
     }
   });
 </script>
+
+
+  <!-- Vercel Telemetry & Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 
 </body>
 </html>

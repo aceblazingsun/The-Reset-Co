@@ -281,14 +281,82 @@
     .pillars-grid { grid-template-columns: 1fr; }
     nav .nav-links { display: none; }
   }
+
+  /* ─── WCAG 2.2 AA SKIP LINK ─── */
+  .skip-to-content {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 99999;
+    padding: 0.75rem 1.25rem;
+    background: #0F2347;
+    color: #C9A84C;
+    border: 1.5px solid #C9A84C;
+    border-radius: 4px;
+    font-family: 'Jost', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: top 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  .skip-to-content:focus {
+    top: 1rem;
+    outline: 2px solid #E8C97A;
+  }
+
 </style>
+
+  <!-- Local SEO & Geographic Entity Metadata -->
+  <meta name="geo.region" content="IN-HP">
+  <meta name="geo.placename" content="Bir Billing, Himachal Pradesh">
+  <meta name="geo.position" content="32.0463;76.7202">
+  <meta name="ICBM" content="32.0463, 76.7202">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.thereset-co.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Sanctuary Guidelines & Conduct",
+      "item": "https://www.thereset-co.in/guidelines"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Sanctuary Guidelines & Conduct | The Reset Co.",
+  "description": "Discover the 6 Sanctuary Conduct Pillars of The Reset Co.: Arya Mauna noble silence, digital sundown, and egalitarian retreat culture.",
+  "url": "https://www.thereset-co.in/guidelines",
+  "publisher": {
+    "@type": "HealthAndBeautyBusiness",
+    "name": "The Reset Co.",
+    "url": "https://www.thereset-co.in/"
+  }
+}
+</script>
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
   <!-- NAVIGATION -->
   <nav role="navigation" aria-label="Main Navigation">
     <a href="index.html" class="nav-logo">
-      <img src="images/logo-emblem.png" alt="The Reset Co." class="nav-logo-mark">
+      <img src="images/logo-emblem.png" alt="The Reset Co." class="nav-logo-mark" width="32" height="32" decoding="async">
       <span class="nav-logo-text">The Reset <span>Co.</span></span>
     </a>
     <div class="nav-links">
@@ -310,7 +378,7 @@
     <p class="hero-sub">A sanctuary is not a hotel. It is a shared container of biological restoration and psychological silence, held in sacred trust by 8–10 guests across 5 earthen suites and our founding Vaidyas.</p>
   </header>
 
-  <main class="container">
+  <main id="main-content" class="container">
 
     <section class="intro-box">
       <p>
@@ -392,6 +460,11 @@
   <p style="font-size: 0.76rem; color: rgba(253, 250, 243, 0.6); line-height: 1.6; max-width: 900px; margin: 0 auto;">The Reset Co. offers traditional Ayurvedic lifestyle, yoga, and restorative wellness retreats for relaxation and holistic wellbeing, and does not constitute medical diagnosis, treatment, or a licensed clinical establishment.</p>
 </div>
 </footer>
+
+
+  <!-- Vercel Telemetry & Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 
 </body>
 </html>

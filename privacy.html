@@ -132,14 +132,97 @@
     font-size: 0.85rem;
     text-align: center;
   }
+
+  /* ─── WCAG 2.2 AA SKIP LINK ─── */
+  .skip-to-content {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 99999;
+    padding: 0.75rem 1.25rem;
+    background: #0F2347;
+    color: #C9A84C;
+    border: 1.5px solid #C9A84C;
+    border-radius: 4px;
+    font-family: 'Jost', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: top 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  .skip-to-content:focus {
+    top: 1rem;
+    outline: 2px solid #E8C97A;
+  }
+
 </style>
+
+  <!-- Local SEO & Geographic Entity Metadata -->
+  <meta name="geo.region" content="IN-HP">
+  <meta name="geo.placename" content="Bir Billing, Himachal Pradesh">
+  <meta name="geo.position" content="32.0463;76.7202">
+  <meta name="ICBM" content="32.0463, 76.7202">
+
+
+  <!-- OpenGraph & Social Cards -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.thereset-co.in/privacy">
+  <meta property="og:title" content="Privacy Policy & Health Data Protection | The Reset Co.">
+  <meta property="og:description" content="Privacy policy and confidential medical data handling standards for The Reset Co. Ayurvedic sanctuaries under the Digital Personal Data Protection Act.">
+  <meta property="og:image" content="https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="The Reset Co.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy Policy & Health Data Protection | The Reset Co.">
+  <meta name="twitter:description" content="Privacy policy and confidential medical data handling standards for The Reset Co. Ayurvedic sanctuaries under the Digital Personal Data Protection Act.">
+  <meta name="twitter:image" content="https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.thereset-co.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Privacy Policy & Health Data Protection",
+      "item": "https://www.thereset-co.in/privacy"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Privacy Policy & Health Data Protection | The Reset Co.",
+  "description": "Privacy policy and confidential medical data handling standards for The Reset Co. Ayurvedic sanctuaries under the Digital Personal Data Protection Act.",
+  "url": "https://www.thereset-co.in/privacy",
+  "publisher": {
+    "@type": "HealthAndBeautyBusiness",
+    "name": "The Reset Co.",
+    "url": "https://www.thereset-co.in/"
+  }
+}
+</script>
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
   <!-- NAVIGATION -->
   <nav role="navigation" aria-label="Main Navigation">
     <a href="index.html" class="nav-logo">
-      <img src="images/logo-emblem.png" alt="The Reset Co." class="nav-logo-mark">
+      <img src="images/logo-emblem.png" alt="The Reset Co." class="nav-logo-mark" width="32" height="32" decoding="async">
       <span class="nav-logo-text">The Reset <span>Co.</span></span>
     </a>
     <div>
@@ -157,7 +240,7 @@
     <p style="color: rgba(253,250,243,0.8); font-size: 0.95rem;">Compliance: Digital Personal Data Protection Act 2023 &bull; Himachal Pradesh, India</p>
   </header>
 
-  <main class="container">
+  <main id="main-content" class="container">
 
     <section class="legal-section">
       <h2>1. Physician-Patient Data Confidentiality</h2>
@@ -197,6 +280,11 @@
     <p style="margin-bottom: 0.5rem;">The Reset Co. &bull; Classical Ayurvedic Sanctuaries in Himachal Pradesh, India</p>
     <p style="color: var(--gold-light); font-size: 0.8rem;">स्वस्थस्य स्वास्थ्यरक्षणम्</p>
   </footer>
+
+
+  <!-- Vercel Telemetry & Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 
 </body>
 </html>
