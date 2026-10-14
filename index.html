@@ -482,7 +482,72 @@
     background: rgba(253, 250, 243, 0.96);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(201, 168, 76, 0.25);
-    transition: all 0.3s;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+  }
+
+  nav#mainNav.nav-visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+  }
+
+  .nav-cta-short { display: none; }
+
+  @media (max-width: 768px) {
+    nav#mainNav {
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      padding: 0.55rem 0.85rem !important;
+      box-sizing: border-box !important;
+    }
+    .nav-logo {
+      font-size: 1.1rem !important;
+      gap: 0.4rem !important;
+      flex-shrink: 1 !important;
+      min-width: 0 !important;
+    }
+    .nav-logo img {
+      width: 22px !important;
+      height: 22px !important;
+    }
+    .nav-logo span {
+      white-space: nowrap !important;
+    }
+    .nav-right {
+      gap: 0.4rem !important;
+      flex-shrink: 0 !important;
+    }
+    .nav-cta {
+      padding: 0.35rem 0.65rem !important;
+      font-size: 0.7rem !important;
+      letter-spacing: 0.04em !important;
+      min-height: 32px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      white-space: nowrap !important;
+      border-radius: 2px !important;
+    }
+    .nav-cta-full { display: none !important; }
+    .nav-cta-short { display: inline !important; }
+    .nav-hamburger {
+      display: inline-flex !important;
+      min-height: 32px !important;
+      padding: 0.35rem 0.6rem !important;
+      gap: 0.4rem !important;
+    }
+    .hamburger-bars {
+      width: 16px !important;
+      gap: 3px !important;
+    }
+    .menu-label {
+      font-size: 0.7rem !important;
+    }
   }
 
   .nav-logo {
@@ -812,6 +877,29 @@
     text-transform: uppercase;
     flex-wrap: wrap;
     border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  @media (max-width: 768px) {
+    .strip {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 0.65rem 0.75rem !important;
+      padding: 0.85rem 1.15rem !important;
+      font-size: 0.66rem !important;
+      letter-spacing: 0.05em !important;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15) !important;
+    }
+    .strip-item {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.4rem !important;
+      line-height: 1.25 !important;
+      white-space: normal !important;
+    }
+    .strip-item .glyph {
+      font-size: 0.62rem !important;
+      flex-shrink: 0 !important;
+    }
   }
 
   .strip-item {
@@ -1313,7 +1401,7 @@
       display: none;
     }
     nav#mainNav {
-      top: 28px;
+      top: 0;
       padding: 0.75rem 1.25rem;
     }
     .nav-groups { display: none !important; }
@@ -2313,6 +2401,86 @@
     }
   }
 
+
+  /* 4 Disciplines Responsive Styling */
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+  .disc-tabs-mobile, .disc-dots-mobile {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .disc-tabs-mobile {
+      display: flex;
+      gap: 0.45rem;
+      overflow-x: auto;
+      padding: 0.25rem 0.25rem 0.75rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 0.5rem;
+    }
+    .disc-tabs-mobile::-webkit-scrollbar { display: none; }
+    .disc-tab-btn {
+      flex: 0 0 auto;
+      background: #FFFFFF;
+      border: 1px solid rgba(201, 168, 76, 0.35);
+      color: var(--royal-deep);
+      padding: 0.42rem 0.85rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .disc-tab-btn.active {
+      background: var(--royal-deep);
+      color: var(--gold-light);
+      border-color: var(--royal-deep);
+    }
+    .svc-grid {
+      display: flex !important;
+      flex-direction: row !important;
+      overflow-x: auto !important;
+      scroll-snap-type: x mandatory !important;
+      gap: 0.85rem !important;
+      padding: 0.25rem 0.25rem 0.75rem !important;
+      margin-bottom: 0.75rem !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+    }
+    .svc-grid::-webkit-scrollbar { display: none; }
+    .svc-card {
+      flex: 0 0 84vw !important;
+      max-width: 320px !important;
+      scroll-snap-align: center !important;
+      margin-bottom: 0 !important;
+    }
+    .disc-dots-mobile {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 2.5rem;
+    }
+    .disc-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(15, 35, 71, 0.2);
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .disc-dot.active {
+      width: 22px;
+      border-radius: 4px;
+      background: var(--gold);
+    }
+  }
+
 </style>
 
 <script>
@@ -2509,7 +2677,7 @@
 
   <!-- NAV RIGHT & MOBILE HAMBURGER -->
   <div class="nav-right">
-    <a class="nav-cta" href="#enquiry">Enquire About Retreat</a>
+    <a class="nav-cta" href="#enquiry"><span class="nav-cta-full">Enquire About Retreat</span><span class="nav-cta-short">Enquire</span></a>
     <button class="nav-hamburger" id="navHamburgerBtn" aria-label="Open Navigation Menu" onclick="toggleNavDrawer()">
       <div class="hamburger-bars">
         <span></span>
@@ -2531,7 +2699,10 @@
       <img src="images/logo-emblem.webp" alt="The Reset Co." width="28" height="28">
       <span>The Reset Co.</span>
     </a>
-    <button class="drawer-close" aria-label="Close Menu" onclick="toggleNavDrawer()">&times;</button>
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <span class="drawer-swipe-hint" style="font-size: 0.7rem; color: rgba(253,250,243,0.5); letter-spacing: 0.04em;">&larr; Swipe right to back</span>
+      <button class="drawer-close" aria-label="Close Menu" onclick="toggleNavDrawer()">&times;</button>
+    </div>
   </div>
 
   <div class="drawer-body">
@@ -2700,7 +2871,14 @@
     </div>
 
         <!-- THE FOUR CLASSICAL PILLARS (RESTORED VISUAL GRID) -->
-    <div class="svc-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 3.5rem;">
+    <div class="disc-tabs-mobile" id="discTabsMobile" role="tablist" aria-label="Select Classical Discipline">
+        <button type="button" class="disc-tab-btn active" onclick="selectDiscipline(0)">Adaptive Yoga</button>
+        <button type="button" class="disc-tab-btn" onclick="selectDiscipline(1)">Vedic Dhyana</button>
+        <button type="button" class="disc-tab-btn" onclick="selectDiscipline(2)">Shatkarma</button>
+        <button type="button" class="disc-tab-btn" onclick="selectDiscipline(3)">Bahya Basti</button>
+      </div>
+
+    <div class="svc-grid" id="discGrid">
       <!-- 1: Yoga -->
       <div class="svc-card fade-up" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
@@ -2745,6 +2923,14 @@
           <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Warm medicated oil reservoirs held in handcrafted herbal dough rings. Relieves lumbar back strain (Kati), cervical neck ache (Greeva), and screen fatigue (Netra).</p>
         </div>
       </div>
+    </div>
+
+    <!-- Mobile Swipe Dots for 4 Disciplines -->
+    <div class="disc-dots-mobile" id="discDotsMobile">
+      <div class="disc-dot active" onclick="selectDiscipline(0)"></div>
+      <div class="disc-dot" onclick="selectDiscipline(1)"></div>
+      <div class="disc-dot" onclick="selectDiscipline(2)"></div>
+      <div class="disc-dot" onclick="selectDiscipline(3)"></div>
     </div>
 
     <div class="rhythm-wrap desktop-rhythm fade-up" id="rhythm">
@@ -3136,275 +3322,24 @@
       </a>
     </div>
 
-    <div id="comparison" class="fade-up">
-      <div class="comp-sec-header">
-        <h3 class="comp-sec-title">Side-by-Side Inclusions Comparison</h3>
-        <p class="comp-sec-subtitle">Compare physician direction, therapies, and care across the three 4N/5D pathways</p>
-      </div>
-
-      <!-- DESKTOP VIEW: PRESERVED SIDE-BY-SIDE TABLE (>= 901px) -->
-      <div class="comparison-wrapper">
-        <table class="comp-table">
-          <thead>
-            <tr>
-              <th>Feature / Component</th>
-              <th>The Awakening Journey</th>
-              <th>The Deep Rejuvenation</th>
-              <th>The Classical Reset</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Price (4N / 5D)</strong></td>
-              <td><strong>&#8377;27,990</strong></td>
-              <td><strong style="color: var(--gold-dark);">&#8377;34,990 (Recommended)</strong></td>
-              <td><strong>&#8377;39,990</strong></td>
-            </tr>
-            <tr>
-              <td><strong>Target Suitability</strong></td>
-              <td>General burnout &amp; circadian fatigue</td>
-              <td>Spinal tightness, neck &amp; posture strain</td>
-              <td>Deep chronic depletion &amp; sensory fatigue</td>
-            </tr>
-            <tr>
-              <td><strong>Doctor Pulse Diagnostics</strong></td>
-              <td>Arrival &amp; Departure evaluations</td>
-              <td>Daily 1-on-1 pulse consultations</td>
-              <td>Continuous daily pulse &amp; wellness monitoring</td>
-            </tr>
-            <tr>
-              <td><strong>Abhyanga Oil Sessions</strong></td>
-              <td>2x Medicated full-body Abhyanga</td>
-              <td>3x Prescribed Abhyanga with steam</td>
-              <td>4x Classical Abhyanga sessions</td>
-            </tr>
-            <tr>
-              <td><strong>Specialized Bahya Basti</strong></td>
-              <td>&mdash;</td>
-              <td><strong>2x Kati / Greeva Basti</strong> (warm oil pooling)</td>
-              <td><strong>2x Specialized Basti</strong> included</td>
-            </tr>
-            <tr>
-              <td><strong>Netra Tarpana Eye Reset</strong></td>
-              <td>&mdash;</td>
-              <td>&mdash;</td>
-              <td><strong>Included</strong> (Medicated ghee eye therapy)</td>
-            </tr>
-            <tr>
-              <td><strong>Welcome Kit &amp; Tools</strong></td>
-              <td>Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</td>
-              <td>Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</td>
-              <td>Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</td>
-            </tr>
-            <tr>
-              <td><strong>Earthen Suite Stay</strong></td>
-              <td>Twin-sharing base tariff (Private Single &amp; Couple options across 5 suites)</td>
-              <td>Twin-sharing base tariff (Private Single &amp; Couple options across 5 suites)</td>
-              <td>Twin-sharing base tariff (Private Single &amp; Couple options across 5 suites)</td>
-            </tr>
-            <tr>
-              <td><strong>Follow-Up Physician Care</strong></td>
-              <td>3-Day post-retreat roadmap</td>
-              <td>5-Day care + 1 virtual doctor call</td>
-              <td>7-Day care + 2 virtual doctor calls</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- MOBILE VIEW: INTERACTIVE FEATURE TAB MATRIX (<= 900px) -->
-      <div class="comp-matrix-container" aria-label="Mobile Programme Inclusions Comparison">
-        <!-- Interactive Sticky Tab Bar -->
-        <div class="comp-matrix-nav" role="tablist" aria-label="Select Programme Pathway">
-          <button type="button" class="comp-matrix-tab" id="comp-tab-0" role="tab" aria-selected="false" aria-controls="comp-panel-0" onclick="switchCompMatrix(0)">
-            <span class="comp-matrix-tab-name">Awakening</span>
-            <span class="comp-matrix-tab-price">&#8377;27,990</span>
-          </button>
-          <button type="button" class="comp-matrix-tab active" id="comp-tab-1" role="tab" aria-selected="true" aria-controls="comp-panel-1" onclick="switchCompMatrix(1)">
-            <span class="comp-tab-badge">&#9733; Recommended</span>
-            <span class="comp-matrix-tab-name">Deep Rejuvenation</span>
-            <span class="comp-matrix-tab-price">&#8377;34,990</span>
-          </button>
-          <button type="button" class="comp-matrix-tab" id="comp-tab-2" role="tab" aria-selected="false" aria-controls="comp-panel-2" onclick="switchCompMatrix(2)">
-            <span class="comp-matrix-tab-name">Classical Reset</span>
-            <span class="comp-matrix-tab-price">&#8377;39,990</span>
-          </button>
-        </div>
-
-        <div class="comp-matrix-panels">
-          <!-- PANEL 0: THE AWAKENING JOURNEY -->
-          <article class="comp-m-card comp-matrix-panel" id="comp-panel-0" role="tabpanel" aria-labelledby="comp-tab-0">
-            <header class="comp-m-head">
-              <span class="comp-m-tier">FOUNDATIONAL RECALIBRATION</span>
-              <h4 class="comp-m-title">The Awakening Journey</h4>
-              <div class="comp-m-price-row">
-                <span class="comp-m-price">&#8377;27,990</span>
-                <span class="comp-m-duration">4N / 5D &bull; All-Inclusive</span>
-              </div>
-            </header>
-            <div class="comp-m-inclusions">
-              <div class="comp-m-row">
-                <span class="comp-m-label">Target Suitability</span>
-                <span class="comp-m-val">General burnout &amp; circadian fatigue</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Doctor Pulse Diagnostics</span>
-                <span class="comp-m-val">Arrival &amp; Departure evaluations</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Abhyanga Oil Sessions</span>
-                <span class="comp-m-val">2x Medicated full-body Abhyanga</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Specialized Bahya Basti</span>
-                <span class="comp-m-val comp-m-empty">&mdash;</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Netra Tarpana Eye Reset</span>
-                <span class="comp-m-val comp-m-empty">&mdash;</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Welcome Kit &amp; Tools</span>
-                <span class="comp-m-val">Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Suite Accommodation</span>
-                <span class="comp-m-val">Twin-sharing base tariff (Private Single &amp; Couple options)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Follow-Up Physician Care</span>
-                <span class="comp-m-val">3-Day post-retreat roadmap</span>
-              </div>
-            </div>
-            <div class="comp-m-footer">
-              <a href="#enquiry" class="comp-m-btn comp-m-btn-outline" onclick="selectPlanInForm('awakening')">Reserve Awakening Pathway &rarr;</a>
-              <div class="comp-matrix-quick-switch">
-                <span class="comp-quick-label">Compare with other pathways:</span>
-                <div class="comp-quick-btns">
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(1)">Deep Rejuvenation (&#8377;34,990) &rarr;</button>
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(2)">Classical Reset (&#8377;39,990) &rarr;</button>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- PANEL 1: THE DEEP REJUVENATION (ROYAL NAVY APPROVED FEATURED CARD) -->
-          <article class="comp-m-card comp-m-featured comp-matrix-panel active-panel" id="comp-panel-1" role="tabpanel" aria-labelledby="comp-tab-1">
-            <div class="comp-m-rec-badge">
-              <span>&#9733; RECOMMENDED COHORT</span>
-            </div>
-            <header class="comp-m-head">
-              <span class="comp-m-tier comp-m-tier-gold">SIGNATURE SPINAL &amp; POSTURE RESET</span>
-              <h4 class="comp-m-title comp-m-title-light">The Deep Rejuvenation</h4>
-              <div class="comp-m-price-row">
-                <span class="comp-m-price comp-m-price-gold">&#8377;34,990</span>
-                <span class="comp-m-duration comp-m-duration-light">4N / 5D &bull; All-Inclusive</span>
-              </div>
-            </header>
-            <div class="comp-m-highlight">
-              <strong>Signature Restorative Focus:</strong> 2x Kati / Greeva Basti targeted spinal oil pooling and daily 1-on-1 pulse consultations included.
-            </div>
-            <div class="comp-m-inclusions">
-              <div class="comp-m-row">
-                <span class="comp-m-label">Target Suitability</span>
-                <span class="comp-m-val">Spinal tightness, neck &amp; posture strain</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Doctor Pulse Diagnostics</span>
-                <span class="comp-m-val">Daily 1-on-1 pulse consultations</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Abhyanga Oil Sessions</span>
-                <span class="comp-m-val">3x Prescribed Abhyanga with steam</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Specialized Bahya Basti</span>
-                <span class="comp-m-val"><strong>2x Kati / Greeva Basti</strong> (warm oil pooling)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Netra Tarpana Eye Reset</span>
-                <span class="comp-m-val comp-m-empty">&mdash;</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Welcome Kit &amp; Tools</span>
-                <span class="comp-m-val">Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Suite Accommodation</span>
-                <span class="comp-m-val">Twin-sharing base tariff (Private Single &amp; Couple options)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Follow-Up Physician Care</span>
-                <span class="comp-m-val">5-Day care + 1 virtual doctor call</span>
-              </div>
-            </div>
-            <div class="comp-m-footer">
-              <a href="#enquiry" class="comp-m-btn comp-m-btn-gold" onclick="selectPlanInForm('rejuvenation')">Reserve Deep Rejuvenation &rarr;</a>
-              <div class="comp-matrix-quick-switch">
-                <span class="comp-quick-label">Compare with other pathways:</span>
-                <div class="comp-quick-btns">
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(0)">&larr; Awakening (&#8377;27,990)</button>
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(2)">Classical Reset (&#8377;39,990) &rarr;</button>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- PANEL 2: THE CLASSICAL RESET -->
-          <article class="comp-m-card comp-matrix-panel" id="comp-panel-2" role="tabpanel" aria-labelledby="comp-tab-2">
-            <header class="comp-m-head">
-              <span class="comp-m-tier">INTENSIVE CELLULAR RESTORATION</span>
-              <h4 class="comp-m-title">The Classical Reset</h4>
-              <div class="comp-m-price-row">
-                <span class="comp-m-price">&#8377;39,990</span>
-                <span class="comp-m-duration">4N / 5D &bull; All-Inclusive</span>
-              </div>
-            </header>
-            <div class="comp-m-inclusions">
-              <div class="comp-m-row">
-                <span class="comp-m-label">Target Suitability</span>
-                <span class="comp-m-val">Deep chronic depletion &amp; sensory fatigue</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Doctor Pulse Diagnostics</span>
-                <span class="comp-m-val">Continuous daily pulse &amp; wellness monitoring</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Abhyanga Oil Sessions</span>
-                <span class="comp-m-val">4x Classical Abhyanga sessions</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Specialized Bahya Basti</span>
-                <span class="comp-m-val"><strong>2x Specialized Basti</strong> included</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Netra Tarpana Eye Reset</span>
-                <span class="comp-m-val"><strong>Included</strong> (Medicated ghee eye therapy)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Welcome Kit &amp; Tools</span>
-                <span class="comp-m-val">Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Suite Accommodation</span>
-                <span class="comp-m-val">Twin-sharing base tariff (Private Single &amp; Couple options)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Follow-Up Physician Care</span>
-                <span class="comp-m-val">7-Day care + 2 virtual doctor calls</span>
-              </div>
-            </div>
-            <div class="comp-m-footer">
-              <a href="#enquiry" class="comp-m-btn comp-m-btn-outline" onclick="selectPlanInForm('classical')">Reserve Classical Reset &rarr;</a>
-              <div class="comp-matrix-quick-switch">
-                <span class="comp-quick-label">Compare with other pathways:</span>
-                <div class="comp-quick-btns">
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(0)">&larr; Awakening (&#8377;27,990)</button>
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(1)">Deep Rejuvenation (&#8377;34,990) &rarr;</button>
-                </div>
-              </div>
-            </div>
-          </article>
+    <div id="comparison" class="fade-up" style="margin-top: 2rem; margin-bottom: 1rem;">
+      <div class="comp-link-card" style="max-width: 760px; margin: 0 auto; text-align: center; padding: 2.75rem 2rem; background: #FFFFFF; border: 1.5px solid rgba(201,168,76,0.35); border-radius: 6px; box-shadow: 0 10px 35px rgba(15,35,71,0.05);">
+        <span class="sec-eyebrow" style="margin-bottom: 0.45rem; display: inline-block;">Transparent Deliverables Matrix</span>
+        <h3 style="font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--royal-deep); margin-bottom: 0.75rem; font-weight: 600;">
+          Side-by-Side Programme Inclusions
+        </h3>
+        <div class="gold-divider" style="margin: 0 auto 1.25rem;"></div>
+        <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; max-width: 600px; margin: 0 auto 1.75rem;">
+          Compare daily doctor pulse evaluations, targeted Bahya Basti procedures, Netra Tarpana optical treatments, earthen suite accommodation, and post-retreat care across all three retreat pathways.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="programmes.html#comparison" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.9rem 2.2rem; font-size: 0.85rem; text-decoration: none; border-radius: 3px;">
+            <span>Compare Inclusions Side-by-Side</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="programmes.html" class="btn-dossier" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.9rem 1.5rem; font-size: 0.85rem;">
+            <span>Master Programmes Hub &rarr;</span>
+          </a>
         </div>
       </div>
     </div>
@@ -3491,8 +3426,12 @@
           </a>
         </div>
       </div>
-      <div class="portal-img-box">
+      <div class="portal-img-box" onclick="openPropertyGallery(0)" style="cursor: pointer; position: relative;" title="Click to view Sanctuary Photo Gallery">
         <img src="images/vaikunth_sanctuary_entrance.jpg" alt="Vaikunth Mud Cottages Sanctuary Entrance" loading="lazy" width="600" height="400">
+        <div class="portal-img-badge" style="position: absolute; bottom: 1rem; right: 1rem; background: rgba(15, 35, 71, 0.85); backdrop-filter: blur(8px); color: var(--gold-light); font-size: 0.72rem; font-weight: 600; padding: 0.45rem 0.9rem; border-radius: 20px; border: 1px solid var(--gold); display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>View Property Gallery (8 Photos)</span>
+        </div>
       </div>
     </div>
   </div>
@@ -3970,6 +3909,7 @@
     const shouldDirectLand = hasTargetHash || hasPlanParam || hasLandParam;
 
     function landOnHero() {
+      document.getElementById('mainNav')?.classList.add('nav-visible');
       if (isLanded || animating) return;
       animating = true;
       isLanded = true;
@@ -4015,6 +3955,7 @@
     }
 
     function collapseToWelcome() {
+      document.getElementById('mainNav')?.classList.remove('nav-visible');
       if (!isLanded || animating) return;
       animating = true;
       isLanded = false;
@@ -4046,6 +3987,7 @@
     }
 
     if (shouldDirectLand) {
+      document.getElementById('mainNav')?.classList.add('nav-visible');
       isLanded = true;
       animating = false;
       frame.style.clipPath = 'inset(0% 0% 0% 0% round 0px)';
@@ -4673,5 +4615,351 @@
     <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198.455.706.726 1.29.271.584.542 1.168.916 1.761.374.593.817 1.118 1.34 1.57.523.452 1.118.817 1.761.916.643.099 1.168-.173 1.761-.446.593-.272 1.29-.726 1.587-1.023.297-.297.446-.644.446-.99zM12.04 2C6.516 2 2.023 6.493 2.023 12.017c0 1.91.536 3.693 1.462 5.217L2 22l4.908-1.436a9.96 9.96 0 005.132 1.453h.004c5.524 0 10.017-4.493 10.017-10.017C22.061 6.493 17.564 2 12.04 2z"/></svg>
     <span class="wa-tooltip">Chat with Sanctuary Concierge</span>
   </a>
+
+<!-- ─── VAIKUNTH PROPERTY DOSSIER LIGHTBOX GALLERY ─── -->
+<div id="propertyGalleryModal" class="prop-modal-backdrop" onclick="closePropertyGallery(event)" aria-modal="true" role="dialog" aria-label="Vaikunth Mud House Photo Gallery">
+  <div class="prop-modal-container" onclick="event.stopPropagation()">
+    <div class="prop-modal-header">
+      <div class="prop-modal-title-wrap">
+        <span class="prop-modal-eyebrow">Vaikunth Mud House Sanctuary Dossier</span>
+        <h4 id="propModalCaption" class="prop-modal-caption">Sanctuary Entrance &bull; Bir Billing</h4>
+      </div>
+      <button class="prop-modal-close" onclick="closePropertyGallery()" aria-label="Close Gallery">&times;</button>
+    </div>
+
+    <div class="prop-modal-stage">
+      <button class="prop-modal-nav prev" onclick="prevPropertyPhoto()" aria-label="Previous Photo">&lsaquo;</button>
+      <div class="prop-modal-media-frame">
+        <img id="propModalImg" src="images/vaikunth_sanctuary_entrance.jpg" alt="Vaikunth Sanctuary Photo" class="prop-modal-img" />
+      </div>
+      <button class="prop-modal-nav next" onclick="nextPropertyPhoto()" aria-label="Next Photo">&rsaquo;</button>
+    </div>
+
+    <div class="prop-modal-footer">
+      <div class="prop-modal-counter" id="propModalCounter">Photo 1 of 8</div>
+      <div class="prop-modal-actions">
+        <a href="properties.html" class="btn-dossier" style="font-size: 0.75rem; padding: 0.45rem 1rem;">View Full Property Dossier &rarr;</a>
+        <a href="https://wa.me/917888540046" target="_blank" rel="noopener" class="btn-primary" style="font-size: 0.75rem; padding: 0.45rem 1rem;">WhatsApp Concierge</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Lightbox Modal Styles */
+.prop-modal-backdrop {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(6, 18, 36, 0.92);
+  backdrop-filter: blur(10px);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.prop-modal-backdrop.active {
+  display: flex;
+  opacity: 1;
+}
+.prop-modal-container {
+  background: var(--royal-deep);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 6px;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.7);
+}
+.prop-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  background: rgba(0,0,0,0.25);
+}
+.prop-modal-eyebrow {
+  display: block;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.prop-modal-caption {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: var(--ivory);
+  margin: 0.15rem 0 0;
+}
+.prop-modal-close {
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold-light);
+  font-size: 1.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.prop-modal-close:hover {
+  background: var(--gold);
+  color: var(--royal-deep);
+}
+.prop-modal-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  min-height: 350px;
+  max-height: 60vh;
+}
+.prop-modal-media-frame {
+  width: 100%;
+  height: 100%;
+  max-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prop-modal-img {
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+.prop-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(15, 35, 71, 0.75);
+  border: 1px solid var(--gold);
+  color: var(--ivory);
+  font-size: 2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.2s;
+}
+.prop-modal-nav:hover {
+  background: var(--gold);
+  color: var(--royal-deep);
+}
+.prop-modal-nav.prev { left: 1rem; }
+.prop-modal-nav.next { right: 1rem; }
+.prop-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.75rem;
+  border-top: 1px solid rgba(201, 168, 76, 0.2);
+  background: rgba(0,0,0,0.25);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.prop-modal-counter {
+  font-size: 0.78rem;
+  color: var(--gold-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.prop-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+@media (max-width: 768px) {
+  .prop-modal-backdrop { padding: 0.75rem; }
+  .prop-modal-header { padding: 1rem; }
+  .prop-modal-caption { font-size: 1.05rem; }
+  .prop-modal-stage { min-height: 250px; max-height: 50vh; }
+  .prop-modal-img { max-height: 50vh; }
+  .prop-modal-nav { width: 36px; height: 36px; font-size: 1.5rem; }
+  .prop-modal-nav.prev { left: 0.5rem; }
+  .prop-modal-nav.next { right: 0.5rem; }
+  .prop-modal-footer { padding: 0.85rem 1rem; flex-direction: column; align-items: flex-start; }
+}
+</style>
+
+
+<script>
+  // A. Mobile Classical Disciplines Swipe & Tab Sync
+  function selectDiscipline(index) {
+    const tabs = document.querySelectorAll('.disc-tab-btn');
+    const dots = document.querySelectorAll('.disc-dot');
+    const grid = document.getElementById('discGrid');
+    
+    tabs.forEach((t, i) => t.classList.toggle('active', i === index));
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    
+    if (grid && grid.children[index]) {
+      const card = grid.children[index];
+      const leftPos = card.offsetLeft - (grid.offsetWidth - card.offsetWidth) / 2;
+      grid.scrollTo({ left: leftPos, behavior: 'smooth' });
+    }
+  }
+
+  (function initDisciplineScroll() {
+    const grid = document.getElementById('discGrid');
+    if (!grid) return;
+    let scrollTimer = null;
+    grid.addEventListener('scroll', function() {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function() {
+        const cards = grid.querySelectorAll('.svc-card');
+        const scrollCenter = grid.scrollLeft + grid.offsetWidth / 2;
+        let closestIndex = 0;
+        let minDiff = Infinity;
+        cards.forEach((card, i) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const diff = Math.abs(scrollCenter - cardCenter);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestIndex = i;
+          }
+        });
+        const tabs = document.querySelectorAll('.disc-tab-btn');
+        const dots = document.querySelectorAll('.disc-dot');
+        tabs.forEach((t, i) => t.classList.toggle('active', i === closestIndex));
+        dots.forEach((d, i) => d.classList.toggle('active', i === closestIndex));
+      }, 50);
+    }, { passive: true });
+  })();
+
+  // B. Swipe-Right Feature on Navigation Drawer to Go Back
+  (function initDrawerSwipeRight() {
+    const drawer = document.getElementById('navDrawer');
+    if (!drawer) return;
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let isSwiping = false;
+
+    drawer.addEventListener('touchstart', function(e) {
+      if (!drawer.classList.contains('open')) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      currentX = startX;
+      isSwiping = false;
+    }, { passive: true });
+
+    drawer.addEventListener('touchmove', function(e) {
+      if (!drawer.classList.contains('open')) return;
+      currentX = e.touches[0].clientX;
+      const diffX = currentX - startX;
+      const diffY = e.touches[0].clientY - startY;
+
+      if (diffX > 10 && Math.abs(diffX) > Math.abs(diffY)) {
+        isSwiping = true;
+        drawer.style.transition = 'none';
+        drawer.style.transform = 'translateX(' + diffX + 'px)';
+      }
+    }, { passive: true });
+
+    drawer.addEventListener('touchend', function(e) {
+      if (!isSwiping || !drawer.classList.contains('open')) return;
+      const diffX = currentX - startX;
+      drawer.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+      if (diffX > 60) {
+        toggleNavDrawer();
+        setTimeout(function() {
+          drawer.style.transform = '';
+          drawer.style.transition = '';
+        }, 350);
+      } else {
+        drawer.style.transform = 'translateX(0)';
+        setTimeout(function() {
+          drawer.style.transform = '';
+          drawer.style.transition = '';
+        }, 350);
+      }
+      isSwiping = false;
+    }, { passive: true });
+  })();
+
+  // C. Vaikunth Mud House Photo Gallery Lightbox Modal
+  const propertyPhotos = [
+    { src: 'images/vaikunth_sanctuary_entrance.jpg', caption: 'Sanctuary Entrance &bull; Upper Bir Khas Pine Valley' },
+    { src: 'images/vaikunth_rose_terrace.jpg', caption: 'Rose Garden &amp; Earthen Terrace Pavilion' },
+    { src: 'images/vaikunth_facade.jpg', caption: 'Traditional Earthen Mud House &amp; Stone Pathway' },
+    { src: 'images/vaikunth_therapy_room.jpg', caption: 'Earthen Dhyana &amp; Sound Healing Chamber' },
+    { src: 'images/vaikunth_yoga_lawn.jpg', caption: 'Sacred Tree Dhyana Platform &amp; Prana Lawn' },
+    { src: 'images/vaikunth_living_suite.jpg', caption: 'Restorative Living Suite &amp; Pine Wood Ceiling' },
+    { src: 'images/vaikunth_dining_hall_illuminated.jpg', caption: 'Sattvic Dining Pavilion &amp; Evening Lanterns' },
+    { src: 'images/vaikunth_veranda_evening.jpg', caption: 'Evening Earthen Veranda &amp; Pine Mountain Air' }
+  ];
+
+  let currentPhotoIdx = 0;
+
+  function openPropertyGallery(index) {
+    currentPhotoIdx = (typeof index === 'number' && index >= 0 && index < propertyPhotos.length) ? index : 0;
+    updatePropertyPhoto();
+    const modal = document.getElementById('propertyGalleryModal');
+    if (modal) {
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closePropertyGallery(e) {
+    if (e && e.target && e.target.closest('.prop-modal-container') && !e.target.classList.contains('prop-modal-close')) return;
+    const modal = document.getElementById('propertyGalleryModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+
+  function nextPropertyPhoto() {
+    currentPhotoIdx = (currentPhotoIdx + 1) % propertyPhotos.length;
+    updatePropertyPhoto();
+  }
+
+  function prevPropertyPhoto() {
+    currentPhotoIdx = (currentPhotoIdx - 1 + propertyPhotos.length) % propertyPhotos.length;
+    updatePropertyPhoto();
+  }
+
+  function updatePropertyPhoto() {
+    const item = propertyPhotos[currentPhotoIdx];
+    const img = document.getElementById('propModalImg');
+    const caption = document.getElementById('propModalCaption');
+    const counter = document.getElementById('propModalCounter');
+    if (img) {
+      img.style.opacity = '0';
+      setTimeout(function() {
+        img.src = item.src;
+        img.alt = item.caption.replace(/<[^>]+>/g, '');
+        img.style.opacity = '1';
+      }, 150);
+    }
+    if (caption) caption.innerHTML = item.caption;
+    if (counter) counter.innerText = 'Photo ' + (currentPhotoIdx + 1) + ' of ' + propertyPhotos.length;
+  }
+
+  // Keyboard navigation for property lightbox
+  window.addEventListener('keydown', function(e) {
+    const modal = document.getElementById('propertyGalleryModal');
+    if (modal && modal.classList.contains('active')) {
+      if (e.key === 'Escape') closePropertyGallery();
+      if (e.key === 'ArrowRight') nextPropertyPhoto();
+      if (e.key === 'ArrowLeft') prevPropertyPhoto();
+    }
+  });
+</script>
+
 </body>
 </html>
