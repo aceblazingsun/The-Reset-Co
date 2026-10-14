@@ -3647,6 +3647,7 @@
 </section>
 
 <!-- ─── 15. CONNECTED RETREAT RESERVATION FORM ─── -->
+<div id="contact" style="position: relative; top: -70px;"></div>
 <section class="section-pad enquiry-sec" id="enquiry">
   <div id="booking" style="position:relative; top:-80px;"></div>
   <div class="container">
@@ -4217,6 +4218,17 @@
   }
 
   // 6. Plan Selector in Form
+    // Auto-select plan from URL query on load
+  document.addEventListener('DOMContentLoaded', () => {
+    try {
+      const uParams = new URLSearchParams(window.location.search);
+      const urlPlan = uParams.get('plan') || (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('trc_prakriti_plan'));
+      if (urlPlan) {
+        setTimeout(() => { selectPlanInForm(urlPlan); }, 200);
+      }
+    } catch(e) {}
+  });
+
   function selectPlanInForm(planKey) {
     const select = document.getElementById('fPlan');
     if (select) {

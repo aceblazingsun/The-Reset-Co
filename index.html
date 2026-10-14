@@ -4591,6 +4591,7 @@ function scrollToBookingForm(customDateStr) {
 
   // ─── PRESELECT PLAN & PRAKRITI HANDOVER ─────────────────────────────────────
   function preselectPlan(planVal) {
+    if (planVal === 'classical') planVal = 'reset';
     const sel = document.getElementById('bPlan');
     if (sel && planVal) {
       sel.value = planVal;
