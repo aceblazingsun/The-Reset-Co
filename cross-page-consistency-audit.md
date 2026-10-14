@@ -1,298 +1,259 @@
-# The Reset Co. — Cross-Page Consistency & Architectural Audit (Read-Only)
+# The Reset Co. — Full Website Consistency & Cross-Page Audit (Read-Only)
 
 **Date of Audit:** October 14, 2026  
-**Subject:** The Reset Co. Codebase & Live Production Topology (`https://www.thereset-co.in/`)  
-**Audit Mode:** Read-Only Verification (No database rows modified, no secrets exposed, no application code changed)
+**Audited Target:** [The Reset Co. Production Repository & Live Topology](https://www.thereset-co.in/)  
+**Audit Protocol:** Strictly Read-Only (No application files modified, no database records altered, no environment variables or deployment configs touched)
 
 ---
 
 ## 1. Executive Summary
 
-This comprehensive audit evaluates cross-page consistency, botanical/ayurvedic terminological accuracy, commercial pricing parity, privacy claims versus technical implementations, and SEO indexing configurations across the complete repository of **The Reset Co.**.
+This comprehensive, evidence-based audit was executed across the complete repository of **The Reset Co.**, inspecting all 31 HTML files, client-side interaction scripts, serverless Node.js edge functions, database integration models, SEO schemas, and legal charters.
 
-### Key Findings Snapshot
-1. **Critical Eye Procedure Conflation (Clinical / Classical Inconsistency):**  
-   The codebase conflates **Netra Tarpana** (nourishing medicated ghee pool using *Triphala Ghrita*) with **Netra Prakshalana** (herbal decoction ocular irrigation using *Triphala Kwath*). Multiple occurrences in `index.html`, `programmes.html`, and `programme-reset.html` inaccurately state `"Triphala Kwath eye wash (Netra Tarpana)"`, which violates classical Ayurvedic protocol.
-2. **International Pricing & Occupancy Conflict:**  
-   While business rules confirm that international rates (₹55k, ₹65k, ₹75k) are inherently higher because international guests prefer single suites, the booking form on `international.html` explicitly includes a redundant checkbox for `"Private Single Suite Supplement (+₹18,000)"` while listing `"Deluxe Twin Sharing"` as `"Included in tariff"`.
-3. **Reservation Deposit Discrepancy:**  
-   Domestic routes and legal terms state a flat **₹10,000** deposit with balance due **15 days** prior, whereas `international.html` states a **25%** deposit (₹13,750–₹18,750) with balance due **14 days** prior.
-4. **Allergy & Dietary Disclosure Deficit vs. Privacy Policy Claim:**  
-   `privacy.html` (Section 2) asserts that guest medical conditions, food allergies, and dietary constraints are collected during reservation for safe administration of Shatkarma and Bastis. In reality, neither the domestic enquiry form (`index.html`) nor the international enquiry form (`international.html`) possesses an allergy field or dietary radio group—only a generic comments textarea.
-5. **SEO & Sitemap Deficits:**  
-   `sitemap.xml` omits all three canonical standalone pathway landing pages (`/programme-awakening`, `/programme-rejuvenation`, and `/programme-reset`), while `robots.txt` leaves internal preview files and `/dashboard/` exposed to crawlers without disallow directives.
+### Context & Status
+Following the recent alignment updates (which deployed accurate botanical terminology for Netra Tarpana with Triphala Ghrita, updated international single-occupancy tariff inclusion, and expanded sitemap coverage), this audit inspects the remaining nuances across the codebase to ensure 100% architectural symmetry.
+
+### Top Findings Summary
+1. **Capacity Cap Inconsistency (Lingering 12-Guest References):**  
+   While the homepage hero badge and guidelines state an intimate capacity of **8–10 guests across 5 private earthen suites**, two subpages ([`programmes.html#L2362`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programmes.html#L2362) and [`meet-the-doctors.html#L403`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/meet-the-doctors.html#L403)) still cite a maximum cap of **12 guests/participants**.
+2. **Pathway Title Asymmetry ("Awakening Journey" vs. "Awakening Pathway"):**  
+   While the dedicated landing page is `/programme-awakening` titled **The Awakening Pathway**, several UI headings and tab buttons across [`index.html`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/index.html#L3133), [`programmes.html`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programmes.html#L1735), [`dosha-prakriti-assessment.html`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/dosha-prakriti-assessment.html#L912), and [`review.html`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/review.html#L831) retain the older label **The Awakening Journey**.
+3. **Internal Duration Conflict on Assessment Page:**  
+   In [`dosha-prakriti-assessment.html#L912-L921`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/dosha-prakriti-assessment.html#L912-L921), the recommendation variable states `The Awakening Journey (4 Days)`, while the accompanying description text in the very next line describes it as a `restorative 5-day immersion`.
+4. **Allergy Intake Field Structure:**  
+   While [`index.html`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/index.html#L3684) now includes a dedicated text input for dietary preferences and allergies, neither form provides an explicit 3-way radio choice (`Yes` / `No` / `I'm not sure`), which would provide heightened clinical safety prior to oil and decoction administration.
+5. **Social Proof vs. Commercial Launch:**  
+   Published reflections cite past completed 4-day cohorts from named individuals. Since the commercial launch is scheduled for November 26–30, 2026 (preceded by an authentic feedback collection yoga session on October 25, 2026), these testimonials function as prototype demonstration assets.
 
 ---
 
 ## 2. Project Structure & Routes Inspected
 
-### Architecture & Tech Stack
-- **Framework & Foundation:** Vanilla ECMAScript 6+ / HTML5 / CSS3 (Semantic markup, BEM-inspired styling, modular vanilla script controllers).
-- **Hosting & Infrastructure:** Static CDN & Serverless Node.js edge functions on **Vercel** (`vercel.json`).
-- **Database & Persistence:** **Supabase PostgreSQL** via REST API (`@supabase/supabase-js`), targeting table `retreat_bookings`.
-- **Transactional Communication:** **Resend API** for HTML email dispatch to admin (`reservations@thereset-co.in`) and applicant.
+### Tech Stack & Runtime Environment
+- **Core Engine:** Vanilla HTML5, CSS3 (CSS Variables, Flexbox/Grid), ES6+ JavaScript.
+- **Hosting & Edge Delivery:** Vercel Global Edge Network (`vercel.json`).
+- **Serverless API:** Node.js Edge Functions (`api/confirm-booking.js`, `api/send-email.js`, `api/dashboard-bookings.js`, `api/dashboard-auth.js`).
+- **Database Architecture:** Supabase PostgreSQL (`vsscbjpuafnniouqzwvj.supabase.co`) utilizing table `retreat_bookings`.
+- **Communications:** Resend API for transactional email notifications to doctors and applicants.
+- **Client Smooth Scrolling:** Lenis Scroll Engine (`js/lenis.min.js`).
 
-### Inventory of Public Routes & HTML Files Inspected
-| Route / File | Canonical URL | Type & Role |
-| :--- | :--- | :--- |
-| `index.html` | `https://www.thereset-co.in/` | Primary Homepage & Master Reservation Modal |
-| `programmes.html` | `https://www.thereset-co.in/programmes` | Master Programmes Overview & Interactive Comparison Matrix |
-| `programme-awakening.html` | `https://www.thereset-co.in/programme-awakening` | Dedicated Landing Page: The Awakening Pathway (₹27,990) |
-| `programme-rejuvenation.html` | `https://www.thereset-co.in/programme-rejuvenation` | Dedicated Landing Page: The Deep Rejuvenation Pathway (₹34,990) |
-| `programme-reset.html` | `https://www.thereset-co.in/programme-reset` | Dedicated Landing Page: The Classical Reset Pathway (₹39,990) |
-| `properties.html` | `https://www.thereset-co.in/properties` | Estate Dossier & 5 Earthen Suites Architectural Showcase |
-| `meet-the-doctors.html` | `https://www.thereset-co.in/meet-the-doctors` | Biographies of Founding Vaidyas (Dr. Himanshu & Dr. Aditya) |
-| `dosha-prakriti-assessment.html` | `https://www.thereset-co.in/dosha-prakriti-assessment` | Interactive 30-Question Ayurvedic Constitution Diagnostic |
-| `review.html` | `https://www.thereset-co.in/review` | Guest Testimonials & Immersive Reflections Archive |
-| `international.html` | `https://www.thereset-co.in/international` | International Traveler Concierge & Dedicated Single-Suite Booking Form |
-| `guidelines.html` | `https://www.thereset-co.in/guidelines` | Sanctuary Ingress Rules, Digital Detox, & Code of Conduct |
-| `terms.html` | `https://www.thereset-co.in/terms` | Legal Terms of Service, Cancellation Policy & Liabilities |
-| `privacy.html` | `https://www.thereset-co.in/privacy` | Data Privacy, DPDP Act 2023 & GDPR Compliance Charter |
-| `404.html` | `https://www.thereset-co.in/404` | Error Fallback Route |
-| `dashboard/index.html` | `https://www.thereset-co.in/dashboard/` | Administrative Operational Console |
+### Public Routes & HTML Files Inspected
+| Route / File | Canonical URL | Type & Role | Status |
+| :--- | :--- | :--- | :--- |
+| `index.html` | `https://www.thereset-co.in/` | Primary Homepage & Booking Modal | Operational |
+| `programmes.html` | `https://www.thereset-co.in/programmes` | Comparison Matrix & Tariffs | Operational |
+| `programme-awakening.html` | `https://www.thereset-co.in/programme-awakening` | The Awakening Pathway (₹27,990) | Operational |
+| `programme-rejuvenation.html` | `https://www.thereset-co.in/programme-rejuvenation` | Deep Rejuvenation Pathway (₹34,990) | Operational |
+| `programme-reset.html` | `https://www.thereset-co.in/programme-reset` | Classical Reset Pathway (₹39,990) | Operational |
+| `properties.html` | `https://www.thereset-co.in/properties` | Vaikunth Mud House Architectural Dossier | Operational |
+| `meet-the-doctors.html` | `https://www.thereset-co.in/meet-the-doctors` | Founding Vaidyas Biographies & Standards | Operational |
+| `dosha-prakriti-assessment.html` | `https://www.thereset-co.in/dosha-prakriti-assessment` | 30-Question Ayurvedic Diagnostic Tool | Operational |
+| `review.html` | `https://www.thereset-co.in/review` | Guest Reflections & Outcomes Archive | Operational |
+| `international.html` | `https://www.thereset-co.in/international` | Concierge & Form for Overseas Guests | Operational |
+| `guidelines.html` | `https://www.thereset-co.in/guidelines` | 6 Conduct Pillars & Noble Silence | Operational |
+| `terms.html` | `https://www.thereset-co.in/terms` | Terms of Service & Cancellation Policy | Operational |
+| `privacy.html` | `https://www.thereset-co.in/privacy` | DPDP Act 2023 & Medical Privacy Charter | Operational |
+| `404.html` | `https://www.thereset-co.in/404` | Error Fallback Route | Operational |
+| `dashboard/index.html` | `https://www.thereset-co.in/dashboard/` | Administrative Operational Console | Protected |
 
 ---
 
 ## 3. Confirmed Cross-Page Inconsistencies
 
-| Finding ID | Domain / Component | Severity | Confidence | Summary of Inconsistency |
-| :--- | :--- | :--- | :--- | :--- |
-| **INC-01** | Clinical / Classical Protocol | **Critical** | Confirmed (100%) | Conflation of *Netra Tarpana* (Triphala Ghrita pool) with *Netra Prakshalana* (Triphala Kwath eye wash). |
-| **INC-02** | Commercial & Pricing | **High** | Confirmed (100%) | `international.html` applies an extra +₹18,000 Single Supplement when base international tariff already accounts for single occupancy. |
-| **INC-03** | Commercial & Terms | **Medium** | Confirmed (100%) | Deposit terms state ₹10,000 flat (15 days balance) on domestic vs 25% (14 days balance) on international. |
-| **INC-04** | Privacy vs Implementation | **High** | Confirmed (100%) | `privacy.html` pledges dietary/allergy intake collection, but neither form has dedicated allergy inputs. |
-| **INC-05** | SEO & Sitemap Indexing | **Medium** | Confirmed (100%) | `sitemap.xml` omits all 3 individual pathway URLs (`programme-awakening`, `programme-rejuvenation`, `programme-reset`). |
-| **INC-06** | Metadata & Schema Parity | **Medium** | Confirmed (100%) | `index.html` JSON-LD schema refers to "Doctor-led 4-day" instead of updated "5-day (4N/5D)" retreat format. |
-| **INC-07** | Testimonials vs Launch Timeline | **Low** | Confirmed (100%) | `index.html` and `review.html` display verified multi-day cohort quotes before the inaugural commercial cohort. |
-| **INC-08** | Navigation Link Symmetry | **Low** | Confirmed (100%) | `privacy.html` is omitted from the footer navigation on `programmes.html`, `properties.html`, `review.html`, and `terms.html`. |
-| **INC-09** | Nomenclature Parity | **Low** | Confirmed (100%) | `international.html` labels Pathway 1 "The Awakening Journey" instead of canonical "The Awakening Pathway". |
+```
+┌───────────┬───────────────────────────┬──────────┬────────────┬─────────────────────────────────────────────────────────────┐
+│ ID        │ Domain                    │ Severity │ Confidence │ Finding Description                                         │
+├───────────┼───────────────────────────┼──────────┼────────────┼─────────────────────────────────────────────────────────────┤
+│ INC-01    │ Capacity & Operations     │ High     │ Verified   │ Lingering "12 guests maximum" in programmes.html & doctors  │
+│ INC-02    │ Branding & Nomenclature   │ Medium   │ Verified   │ "Awakening Journey" used instead of "Awakening Pathway"     │
+│ INC-03    │ Assessment Consistency    │ Medium   │ Verified   │ Prakriti recommendation states 4 Days vs 5 Days in text     │
+│ INC-04    │ Form Review Pathway Names │ Low      │ Verified   │ review.html pathway dropdown lists legacy "(4 Days)"        │
+│ INC-05    │ Allergy Field Granularity │ Medium   │ Verified   │ Forms lack explicit Yes/No/Unsure structured triage radios  │
+│ INC-06    │ Social Proof Timing       │ Low      │ Verified   │ Verified guest quotes displayed prior to Nov 2026 launch    │
+│ INC-07    │ Founder Photo Assets      │ Inform.  │ Confirmed  │ Social preview card used as placeholder for doctor portraits │
+└───────────┴───────────────────────────┴──────────┴────────────┴─────────────────────────────────────────────────────────────┘
+```
+
+### Detailed Breakdown of Inconsistencies
+
+#### INC-01: Cohort Capacity Discrepancy (8–10 vs. 12 Guests)
+- **Severity:** High
+- **Affected URLs:** 
+  - `https://www.thereset-co.in/programmes` ([`programmes.html#L2362`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programmes.html#L2362))
+  - `https://www.thereset-co.in/meet-the-doctors` ([`meet-the-doctors.html#L403`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/meet-the-doctors.html#L403))
+- **Current Text:**
+  - `programmes.html:2362`: *"Each cohort requires a minimum of 8 guests to confirm the residency, and is strictly capped at 12 guests maximum."*
+  - `meet-the-doctors.html:403`: *"Our next 4-night residency runs 26–30 November 2026 in Bir Billing. Strictly limited to 12 participants."*
+- **Source of Truth Conflict:** The confirmed business rule and estate specification state: **8–10 guests maximum across 5 private earthen suites**.
+- **Impact:** Misinforms prospective guests about cohort size and overstates Vaikunth Mud House suite capacity.
+- **Recommended Correction:** Change "strictly capped at 12 guests maximum" to "strictly capped at 8–10 guests across 5 private earthen suites".
+
+#### INC-02: Pathway Title Asymmetry ("The Awakening Journey" vs "The Awakening Pathway")
+- **Severity:** Medium
+- **Affected URLs:**
+  - `https://www.thereset-co.in/` ([`index.html#L3133`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/index.html#L3133), [`#L3147`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/index.html#L3147))
+  - `https://www.thereset-co.in/programmes` ([`programmes.html#L1735`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programmes.html#L1735), [`#L1749`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programmes.html#L1749), [`#L1977`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programmes.html#L1977), [`#L2065`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programmes.html#L2065))
+  - `https://www.thereset-co.in/dosha-prakriti-assessment` ([`dosha-prakriti-assessment.html#L912`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/dosha-prakriti-assessment.html#L912))
+- **Current Text:** Tab buttons and card titles use "The Awakening Journey", whereas the reservation forms and canonical URL `/programme-awakening` use "The Awakening Pathway".
+- **Impact:** Minor brand dissonance and cross-page inconsistency for Tier 1 applicants.
+- **Recommended Correction:** Standardize to "The Awakening Pathway" across all tab buttons, card headers, and table columns.
+
+#### INC-03: Internal Duration Conflict in Assessment Tool
+- **Severity:** Medium
+- **Affected URL:** `https://www.thereset-co.in/dosha-prakriti-assessment` ([`dosha-prakriti-assessment.html#L912-L921`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/dosha-prakriti-assessment.html#L912-L921))
+- **Current Code:**
+  ```javascript
+  let recName = 'The Awakening Journey (4 Days)';
+  let recDesc = 'A restorative 5-day immersion in Bir Billing featuring daily grounding asanas...';
+  ```
+- **Conflict:** `recName` cites "(4 Days)" while `recDesc` in the exact same object cites "5-day immersion".
+- **Impact:** Confuses prospective guests viewing their diagnostic result about actual stay duration.
+- **Recommended Correction:** Update `recName` to `"The Awakening Pathway (4N/5D)"`.
 
 ---
 
 ## 4. Pricing, Occupancy & Meals
 
 ### Source of Truth Verification
-- **Domestic Rates (Fixed Source of Truth):**
-  - Awakening: **₹27,990**
-  - Deep Rejuvenation: **₹34,990**
-  - Classical Reset: **₹39,990**
-- **Coverage:** Includes luxury earthen suite accommodation, all tri-doshic sattvic meals, doctor consultations, herbal preparations, and daily guided sadhana. Guests arrange only personal transportation to/from Bir.
-
-### Analysis of International Pricing Discrepancy (INC-02)
-- **Code Inspection (`international.html`, lines 539–550):**
-  ```html
-  <select class="field-select" id="intlProgramme" required>
-    <option value="awakening" data-price="55000">The Awakening Journey — ₹55,000</option>
-    <option value="rejuvenation" data-price="65000">The Deep Rejuvenation — ₹65,000</option>
-    <option value="reset" data-price="75000">The Classical Reset — ₹75,000</option>
-  </select>
-  ...
-  <input type="radio" name="room" value="single"> Private Single Suite Supplement (+₹18,000)
-  <input type="radio" name="room" value="twin" checked> Deluxe Twin Sharing (Included in tariff)
-  ```
-- **Architectural Conflict:**
-  Confirmed business rules dictate that international prices are elevated precisely because international guests receive private single occupancy. Charging an additional ₹18,000 single supplement contradicts this model and displays an inflated price (e.g. ₹93,000 for Classical Reset).
-- **Remedy:** Set the default room selection on `international.html` to **Private Earthen Suite (Single Occupancy — Included)** and eliminate or mark the twin option as an optional discounted companion arrangement.
-
-### Deposit & Balance Payment Terms (INC-03)
-- `terms.html` (Section 3.1) & `index.html`: **₹10,000 flat reservation deposit** per seat; remaining balance payable **15 days prior to arrival**.
-- `international.html` (line 433): Stated as **25% advance deposit** upon invoice; balance due **14 days prior to arrival**.
-- **Remedy:** Align international terms with either the uniform ₹10,000 reservation fee or clarify that international wire transfers require a fixed flat deposit (or standard percentage) with consistent balance cutoffs.
+- **Confirmed Tariffs:**
+  - The Awakening Pathway: **₹27,990**
+  - The Deep Rejuvenation: **₹34,990**
+  - The Classical Reset: **₹39,990**
+- **Inclusions Model:** Stated tariffs represent complete, all-inclusive packages (accommodation in Vaikunth Mud House, all tri-doshic meals, herbal teas, doctor interactions, therapies, and workshops). Guests arrange and fund only personal transit to Bir.
+- **International Pricing:** International guests are billed ₹55,000, ₹65,000, and ₹75,000 respectively. Following our recent update on [`international.html`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/international.html#L548), the dropdown now clearly states that private single earthen suite accommodation is **Included in Tariff**, resolving the previous +₹18,000 supplement confusion.
+- **Meal Policy:** All meals are tri-doshic, organic, vegetarian, and sattvic. The policy explicitly accommodates gluten-free, vegan, and nut sensitivities upon advance disclosure.
 
 ---
 
 ## 5. Programme Inclusions & Eye-Procedure Terminology
 
-### Ayurvedic Source of Truth
-- **Netra Tarpana:** Unctuous ocular rejuvenation where rings of black gram dough (*Masha*) are molded around the eye sockets and filled with lukewarm medicated ghee (**Triphala Ghrita**), deeply nourishing the optic nerve and relieving Vata/Pitta dryness.
-- **Netra Prakshalana:** A cleansing irrigation technique using a filtered herbal decoction (**Triphala Kwath**) through an eye cup or sterile wash stream.
+### Ayurvedic Botanical Protocol Audit
+- **Netra Tarpana (अक्षीतर्पण):** Nourishing ocular pool utilizing lukewarm medicated ghee (**Triphala Ghrita**), molded with black gram flour dams.
+- **Netra Prakshalana (नेत्र प्रक्षालन):** Cleansing eye wash using filtered herbal decoction (**Triphala Kwath**).
 
-### Exact Violations in Codebase (INC-01)
-1. **`index.html` (Line 3582):**
-   ```html
-   <p>Netra Tarpana: soothing Triphala Kwath eye wash for digital screen strain and optic fatigue</p>
-   ```
-   *Error:* Uses "Triphala Kwath eye wash" to define "Netra Tarpana".
-2. **`programmes.html` (Line 1909):**
-   ```html
-   <div class="col-feature-title">Netra Tarpana Eye Care</div>
-   <div class="col-feature-desc">Soothing Triphala Kwath eye wash for digital screen strain*</div>
-   ```
-3. **`programmes.html` (Lines 2285 & 2394):**
-   ```html
-   <span class="detail-label">Netra Tarpana</span>
-   <span class="detail-val">Triphala Kwath eye wash for digital strain</span>
-   ```
-4. **`programme-reset.html` (Lines 396–397):**
-   ```html
-   <h3>Netra Tarpana & Triphala Kwath Eye Wash</h3>
-   <p>Soothing classical eyewash using sterile decoctions...</p>
-   ```
+### Status Across Routes
+- [`index.html#L3582`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/index.html#L3582): **Accurate** — explicitly defines Netra Tarpana (*warm medicated Triphala Ghrita eye bath*) and Netra Prakshalana (*cleansing Triphala Kwath eye wash*).
+- [`programmes.html#L1909`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programmes.html#L1909), [`#L2285`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programmes.html#L2285): **Accurate** — specifies *Triphala Ghrita* ocular care.
+- [`programme-reset.html#L396`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programme-reset.html#L396): **Accurate** — titled *"Netra Tarpana & Netra Prakshalana Ocular Care"* with distinct botanical mediums.
 
-### Protocol Alignment Table
-| Procedure | Classical Sanskrit Name | Classical Medium | Accurate Patient Description | Correct Programme Assignment |
-| :--- | :--- | :--- | :--- | :--- |
-| **Nourishing Eye Bath** | *Netra Tarpana* (अक्षीतर्पण) | Medicated Ghee (*Triphala Ghrita*) | Unctuous medicated ghee bath for deep optic nourishment and screen exhaustion | Deep Rejuvenation & Classical Reset |
-| **Herbal Eye Wash** | *Netra Prakshalana* (नेत्र प्रक्षालन) | Herbal Decoction (*Triphala Kwath*) | Cleansing herbal decoction wash to clarify ocular passages and alleviate redness | Awakening Pathway |
+### Post-Retreat Continuity Schedule
+- **Awakening Pathway:** **3-day** personalized post-retreat lifestyle plan with WhatsApp doctor access.
+- **Deep Rejuvenation:** **5-day** post-retreat care & guidance handover + 1 virtual follow-up.
+- **Classical Reset:** **7-day** personalized Dinacharya routine + 2 virtual doctor calls.
+- *Status:* Verified consistent across all 3 individual pathway landing pages and the programmes comparison table.
 
 ---
 
 ## 6. Forms, Allergies & Dietary Information
 
-### Form Implementation Audit
+### Form Architecture & Data Pathways
 1. **Domestic Reservation Form (`#previewForm` in `index.html`):**
-   - **Fields present:** `fName` (text), `fEmail` (email), `fPhone` (tel), `fProgramme` (select: Awakening, Rejuvenation, Reset), `fNotes` (textarea for general notes).
-   - **Missing:** Zero explicit checkboxes, radio toggles, or input fields for food allergies, intolerances, or dietary restrictions.
-2. **International Enquiry Form (`#intlEnquiryForm` in `international.html`):**
-   - **Fields present:** `intlName`, `intlEmail`, `intlPhone`, `intlCountry`, `intlProgramme`, `intlArrival`, `intlGuests`, `intlDiet` (select: Sattvic Vegetarian, Vegan, Gluten-Free, Jain, Other), `intlHealth` (textarea).
-   - **Missing:** Dedicated boolean confirmation for clinical allergies/anaphylaxis risks or contraindications.
+   - Fields captured: `fName`, `fEmail`, `fPhone`, `fPlan`, `fDates`, `fCountry`, `fDietAllergies`, `fNotes`.
+   - Submission triggers: Dispatches to `/api/send-email` (Resend) and directly persists to Supabase table `retreat_bookings`.
+2. **International Form (`#intlEnquiryForm` in `international.html`):**
+   - Fields captured: `intlName`, `intlEmail`, `intlPhone`, `intlCountry`, `intlDates`, `intlPathway`, `intlRoom`, `intlTransit`, `intlHealth`.
+   - Combines room preference, transit, and health/diet notes into structured payload sent to `/api/send-email`.
 
-### Data Path & Submission Endpoints
-- **DOM Event:** Form submission triggers vanilla JS asynchronous `fetch()` POST request.
-- **Backend Handlers:**
-  - `api/confirm-booking.js` receives `payload` and writes record directly into Supabase table `retreat_bookings`.
-  - `api/send-email.js` uses Resend SDK to format and transmit notification emails to `reservations@thereset-co.in`.
-- **Database Schema (`retreat_bookings`):**
-  - Fields stored: `id`, `full_name`, `email`, `phone`, `programme_slug`, `programme_name`, `total_price`, `currency`, `notes`, `booking_status`, `payment_status`, `created_at`.
-  - There is currently no dedicated `allergies` or `dietary_requirements` database column. Any guest dietary note entered into `fNotes` is merged as raw unstructured text in `notes`.
-
-### Exact Remediation Blueprint for Allergy Intake
-To implement allergy screening without breaking backwards compatibility:
-1. **Frontend (`index.html` & `international.html`):** Add a structured radio selector:
+### Explicit 3-Way Allergy Intake Implementation Blueprint
+To achieve medical-grade clinical triage without altering database schema:
+1. **Frontend (`index.html` & `international.html`):**
    ```html
-   <label class="form-label">Do you have any severe food allergies or medical dietary restrictions?</label>
-   <div class="radio-group">
-     <label><input type="radio" name="has_allergies" value="no" checked> No</label>
-     <label><input type="radio" name="has_allergies" value="yes"> Yes (Specify below)</label>
+   <div class="form-group">
+     <label class="form-label">Do you have any severe food allergies, asthma, or herbal sensitivities? *</label>
+     <div class="radio-pill-group">
+       <label><input type="radio" name="has_allergy" value="no" checked> No</label>
+       <label><input type="radio" name="has_allergy" value="yes"> Yes</label>
+       <label><input type="radio" name="has_allergy" value="unsure"> I'm not sure</label>
+     </div>
+     <div id="allergyDetailsWrap" style="display:none; margin-top:0.5rem;">
+       <input type="text" id="allergyDetails" class="form-input" placeholder="Specify substances (e.g. Peanuts, Gluten, Dairy, Sesame, Latex, Ashwagandha)">
+     </div>
    </div>
-   <input type="text" id="allergyDetails" name="allergy_details" class="field-input" placeholder="e.g. Peanuts, Dairy, Gluten, Honey..." style="display:none;">
    ```
-2. **Edge Function (`api/confirm-booking.js`):** Parse `has_allergies` and `allergy_details`, prepending `[DIETARY ALERT: ...]` to the `notes` column (or appending to a new `allergies` column).
-3. **Email Notification (`api/send-email.js`):** Inject a high-visibility red callout box in the Vaidya intake notification email whenever allergies are flagged.
+2. **Data Pipeline:**
+   - In `handleUnifiedEnquiry()`: Prefix notes with `[ALLERGY STATUS: YES - Peanuts]`.
+   - In `api/send-email.js`: If `has_allergy === 'yes'`, render an urgent amber callout box in the intake email for Dr. Himanshu and Dr. Aditya.
 
 ---
 
 ## 7. Privacy & Security
 
-### Legal Commitments vs Technical Reality
-| `privacy.html` Commitment | Technical Implementation in Codebase | Compliance Status |
-| :--- | :--- | :--- |
-| **Section 2:** Collects dietary constraints & allergies for safe Shatkarma. | No dedicated allergy inputs on domestic booking form. Raw text dumped into generic textarea. | **Discrepancy (INC-04)** |
-| **Section 3:** Payment information is tokenized via RBI-licensed gateways. | Client currently uses manual reservation deposit & wire transfer instructions; no direct inline card tokenization occurs on the frontend. | **Accurate** (No PCI liability on site) |
-| **Section 5:** 256-bit encryption in transit and at rest. | HTTPS enforced via Vercel Edge SSL; Supabase PostgreSQL stores data encrypted at rest. | **Compliant** |
-| **Section 6:** Guest right to data erasure & Grievance Officer contacts. | Grievance Officer listed (`privacy@thereset-co.in` / `contact@thereset-co.in`). | **Compliant** |
-
-### Environment Secrets & Access Hygiene
-- `SUPABASE_SERVICE_ROLE_KEY` is restricted strictly to `/api/` serverless edge functions and is **never** leaked to client-side bundles.
-- Client-side code in `assets/main.js` correctly uses only the public anon key or dispatches to internal `/api/` endpoints.
+### Commitments vs. Technical Reality
+- **Data Protection:** [`privacy.html`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/privacy.html) cites compliance with India's **Digital Personal Data Protection (DPDP) Act 2023** and GDPR rights.
+- **Access Restrictions:** Supabase Service Role Key is confined strictly to `/api/` serverless execution; the frontend uses only the public anon key with Row Level Security (RLS) policies.
+- **Payment Information:** No credit card credentials or bank numbers are handled on client-side forms. Reservations utilize direct bank transfers and verified invoices, eliminating PCI-DSS attack surfaces.
 
 ---
 
 ## 8. SEO, Metadata, Redirects & Indexing
 
-### Sitemap & Robots Verification
-- **`sitemap.xml` Issues (INC-05):**
-  The sitemap lists 8 URLs:
-  - `https://www.thereset-co.in/`
-  - `https://www.thereset-co.in/programmes`
-  - `https://www.thereset-co.in/properties`
-  - `https://www.thereset-co.in/meet-the-doctors`
-  - `https://www.thereset-co.in/dosha-prakriti-assessment`
-  - `https://www.thereset-co.in/review`
-  - `https://www.thereset-co.in/international`
-  - `https://www.thereset-co.in/guidelines`
-  - *Omissions:* **`programme-awakening.html`**, **`programme-rejuvenation.html`**, **`programme-reset.html`**, **`terms.html`**, and **`privacy.html`** are completely missing from `sitemap.xml`.
-- **`robots.txt` Issues:**
-  Currently contains:
-  ```txt
-  User-agent: *
-  Allow: /
-  Sitemap: https://www.thereset-co.in/sitemap.xml
-  ```
-  *Deficit:* Does not disallow `/dashboard/`, `/scratch/`, or testing preview artifacts.
-
-### Structured Data (JSON-LD) Inconsistency (INC-06)
-In `index.html` (Lines 2561–2565):
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "HealthAndBeautyBusiness",
-  "name": "The Reset Co.",
-  "description": "Doctor-led 4-day classical Ayurvedic immersion in Bir, Himachal Pradesh..."
-}
-```
-*Issue:* The description still cites "4-day" instead of the updated "5-day (4N/5D)" retreat duration.
+### Indexability & Technical SEO Status
+- **Canonical Tags:** All 14 major HTML routes declare absolute, clean canonical tags (`https://www.thereset-co.in/...`).
+- **Sitemap Coverage:** [`sitemap.xml`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/sitemap.xml) includes all 11 core public routes, including the individual pathway pages (`/programme-awakening`, `/programme-rejuvenation`, `/programme-reset`).
+- **Robots Directives:** [`robots.txt`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/robots.txt) correctly disallows `/dashboard/`, `/api/`, and `/scratch/`.
+- **JSON-LD Structured Data:**
+  - `index.html`: `HealthAndBeautyBusiness` schema with 5-day duration.
+  - `properties.html`: `LodgingBusiness` schema specifying 5 guest suites.
+  - `programmes.html`: `ItemList` schema indexing all 3 retreat pathways.
 
 ---
 
 ## 9. Desktop/Mobile User Experience
 
-1. **Comparison Matrix Responsiveness:**
-   - On desktop viewport (>992px), `programmes.html` renders a side-by-side 3-column feature matrix with synchronized sticky headers.
-   - On mobile viewport (<768px), the layout switches to a tabbed pathway selector (`Awakening | Rejuvenation | Classical Reset`) displaying individual inclusion cards.
-2. **Navigation Drawer Behavior:**
-   - The mobile hamburger menu drawer slides smoothly from the right with a full-viewport overlay.
-   - Dismissal occurs via tap outside, close icon, or escape key.
-3. **Estate Dossier Gallery:**
-   - Clicking property previews in `properties.html` triggers modal gallery lightboxes with full-resolution imagery of the 5 private earthen suites.
+- **Responsive Viewports:**
+  - Desktop (>992px): Synchronized 3-column comparative matrix on `programmes.html`.
+  - Mobile (<768px): Interactive 3-tab switcher (`Awakening | Rejuvenation | Classical Reset`) preventing horizontal scroll fatigue.
+- **Mobile Navigation:**
+  - Sticky glassmorphic navbar with smooth slide-in drawer.
+  - Enquire CTA is compact and positioned after initial scroll threshold.
+- **Accessibility:**
+  - High-contrast typography adhering to WCAG 2.1 AA standards for ivory-on-navy and gold-on-cream contrast ratios.
+  - Form inputs feature explicit `<label for="...">` pairings.
 
 ---
 
 ## 10. Recommended Changes by Priority
 
-### Priority 1: Immediate Critical Corrections (Content & Terminology)
-1. **Fix Eye-Procedure Terminology Across All Pages:**
-   - Update `index.html`, `programmes.html`, and `programme-reset.html` so that **Netra Tarpana** is described as a *Triphala Ghrita* eye bath, and **Netra Prakshalana** is described as a *Triphala Kwath* eye wash.
-2. **Correct International Single Occupancy Model:**
-   - Remove or adjust the redundant `+₹18,000` Single Suite Supplement in `international.html` to reflect that single occupancy is already bundled into the international tariff.
+### Priority 1: High Priority (Operational & Capacity Accuracy)
+1. **Fix Lingering 12-Guest References:**
+   - [`programmes.html:2362`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/programmes.html#L2362): Update "capped at 12 guests maximum" to "strictly capped at 8–10 guests (5 earthen suites)".
+   - [`meet-the-doctors.html:403`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/meet-the-doctors.html#L403): Update "Strictly limited to 12 participants" to "Strictly limited to 8–10 guests".
 
-### Priority 2: High Priority Legal & Intake Enhancements
-3. **Implement Structured Dietary & Allergy Disclosure:**
-   - Add allergy/intolerance confirmation fields to both booking forms to fulfill the safety pledge in `privacy.html`.
-4. **Synchronize Reservation Deposit & Balance Due Timelines:**
-   - Harmonize `international.html` deposit terms with `terms.html` (₹10,000 reservation fee, balance due 15 days prior).
+### Priority 2: Medium Priority (Nomenclature & Diagnostic Sync)
+2. **Harmonize Pathway Titles:**
+   - Update remaining "The Awakening Journey" instances in `index.html` (lines 3133, 3147) and `programmes.html` (lines 1735, 1749, 1977, 2065) to **The Awakening Pathway**.
+3. **Resolve Assessment Diagnostic Duration Conflict:**
+   - In [`dosha-prakriti-assessment.html#L912`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/dosha-prakriti-assessment.html#L912), change `The Awakening Journey (4 Days)` to `The Awakening Pathway (4N/5D)`.
+4. **Update Review Form Pathway Dropdown:**
+   - In [`review.html#L831-L833`](file:///C:/Users/Administrator/.gemini/antigravity/scratch/the-reset-co/review.html#L831-L833), update `(4 Days)` to `(4N/5D)`.
 
-### Priority 3: Medium Priority SEO & Indexing Updates
-5. **Update `sitemap.xml` & `robots.txt`:**
-   - Add the three dedicated pathway URLs (`/programme-awakening`, `/programme-rejuvenation`, `/programme-reset`), `/terms`, and `/privacy` to `sitemap.xml`.
-   - Add `Disallow: /dashboard/` in `robots.txt`.
-6. **Update JSON-LD Duration Schema:**
-   - Change "Doctor-led 4-day" to "Doctor-led 5-day (4N/5D)" in `index.html`.
-
-### Priority 4: Low Priority Polish & Navigation Symmetry
-7. **Add Footer Privacy Policy Link:**
-   - Add `privacy.html` link to footers in `programmes.html`, `properties.html`, `review.html`, and `terms.html`.
-8. **Harmonize Pathway Titles:**
-   - Ensure "The Awakening Pathway" is used uniformly instead of "The Awakening Journey" on `international.html`.
+### Priority 3: Low Priority (Form Triage Enhancement)
+5. **Add Structured 3-Way Allergy Radios:**
+   - Add `Yes / No / I'm not sure` radio pills to `#previewForm` in `index.html` and `#intlEnquiryForm` in `international.html`.
 
 ---
 
-## 11. Files & Components Needing Modification
+## 11. Files and Components Needing Modification
 
-| File Path | Component / Section | Modification Needed |
-| :--- | :--- | :--- |
-| `index.html` | Line 2561 (JSON-LD) | Update "4-day" to "5-day (4N/5D)" in schema description. |
-| `index.html` | Line 3582 (FAQ / Inclusions) | Replace "Triphala Kwath eye wash (Netra Tarpana)" with "Triphala Ghrita eye bath (Netra Tarpana)". |
-| `index.html` | Line 3780 (Reservation Modal) | Add explicit food allergy / dietary restriction selection fields. |
-| `programmes.html` | Line 1909 & 2285 | Differentiate Netra Tarpana (*Triphala Ghrita*) from Netra Prakshalana (*Triphala Kwath*). |
-| `programmes.html` | Footer Navigation | Add missing link to `privacy.html`. |
-| `programme-reset.html` | Lines 396–397 | Retitle and clarify Netra Tarpana procedure with *Triphala Ghrita*. |
-| `international.html` | Lines 433 & 548 | Align deposit terms with ₹10,000 / 15 days; remove redundant +₹18k single supplement. |
-| `sitemap.xml` | `<urlset>` | Add `/programme-awakening`, `/programme-rejuvenation`, `/programme-reset`, `/terms`, `/privacy`. |
-| `robots.txt` | Crawler Directives | Add `Disallow: /dashboard/` to prevent indexing of internal dashboard. |
-| `api/confirm-booking.js` | Booking Payload Handler | Accept and store structured allergy data in `notes`. |
-| `api/send-email.js` | Email Template Generator | Add high-visibility alert box for guest allergies in admin intake notifications. |
+| File Path | Lines | Target Component | Modification |
+| :--- | :--- | :--- | :--- |
+| `programmes.html` | Line 2362 | FAQ Accordion Item 01 | Replace "12 guests maximum" with "8–10 guests (5 earthen suites)". |
+| `programmes.html` | Lines 1735, 1749, 1977, 2065 | Tab, Card Header & Matrix Title | Replace "The Awakening Journey" with "The Awakening Pathway". |
+| `meet-the-doctors.html` | Line 403 | Bottom CTA Section | Replace "12 participants" with "8–10 guests across 5 suites". |
+| `index.html` | Lines 3133, 3147 | Programme Tab & Card Title | Replace "The Awakening Journey" with "The Awakening Pathway". |
+| `dosha-prakriti-assessment.html` | Lines 912, 920 | Recommendation Object | Change "(4 Days)" to "(4N/5D)" and standardize to Pathway. |
+| `review.html` | Lines 831–833 | Form Pathway Select | Update options to reflect 4N/5D duration format. |
 
 ---
 
 ## 12. Checks That Could Not Be Completed (And Why)
 
-1. **Direct Live Vercel Edge Deployment Logs:**
-   - Production build and runtime server logs on Vercel Edge could not be streamed directly via read-only repository inspection as they require active Vercel CLI token access.
-2. **Third-Party Email Delivery Telemetry (Resend Dashboard):**
-   - Resend inbox delivery rates, bounce logs, and spam scoring could not be verified directly from code inspection alone without external API authentication.
-3. **Live Payment Gateway Webhooks:**
-   - Since online gateway checkout (e.g. Razorpay/Stripe) is currently handled via direct bank transfer and booking inquiry reservation rather than an automated client-side SDK checkout, live webhook lifecycle tests were not executed.
+1. **Third-Party Email Delivery Telemetry (Resend Webhook Bounces):**
+   - Live bounce, spam complaint, and delivery latency logs reside inside the authenticated Resend web dashboard and cannot be inspected via local static code.
+2. **Production Supabase RLS Policy Simulation:**
+   - While client connection keys were verified, live simulated insertion rejection tests under non-anon roles were omitted to adhere strictly to the read-only audit constraint.
+3. **Google Search Console Live Coverage Indexing:**
+   - External Google crawl logs and SERP impressions require authenticated Google Search Console access.
 
 ---
-*End of Cross-Page Consistency Audit Document. Preserved as a read-only architectural baseline.*
+*End of Cross-Page Consistency Audit Document.*
