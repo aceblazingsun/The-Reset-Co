@@ -4284,6 +4284,27 @@
     } catch (err) {
       console.warn('Local dispatch notification:', err);
     }
+    // Direct client insertion to Supabase PostgreSQL database (Dual-Dispatch Fail-Safe)
+    try {
+      const combinedNotes = (dates ? 'Dates: ' + dates + '\n' : '') + (country ? 'Country: ' + country + '\n' : '') + (notes || '');
+      fetch('https://vsscbjpuafnniouqzwvj.supabase.co/rest/v1/retreat_bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': 'sb_publishable_0Vnbd-77R7dP5UklEz90Mw_uS_SCn_5',
+          'Authorization': 'Bearer sb_publishable_0Vnbd-77R7dP5UklEz90Mw_uS_SCn_5',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          full_name: name,
+          phone: phone,
+          email: email || null,
+          selected_plan: planName,
+          'health notes': combinedNotes.trim() || null,
+          status: 'new'
+        })
+      }).catch(function(e) { console.warn('Supabase direct intake notice:', e); });
+    } catch (_) {}
 
     // Populate Receipt Modal
     document.getElementById('modalRefCode').innerText = 'Enquiry Reference: ' + assignedRef;

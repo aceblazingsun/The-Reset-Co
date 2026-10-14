@@ -330,10 +330,46 @@ export default async function handler(req, res) {
       }
     }
 
+    // 7. Persist booking to Supabase database (PostgreSQL retreat_bookings table)
+    let dbSaved = false;
+    const supabaseUrl = process.env.SUPABASE_URL || 'https://vsscbjpuafnniouqzwvj.supabase.co';
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || 'sb_publishable_0Vnbd-77R7dP5UklEz90Mw_uS_SCn_5';
+
+    if (supabaseUrl && supabaseKey) {
+      try {
+        const combinedNotes = (safeDates ? 'Dates: ' + safeDates + '\n' : '') +
+          (safeDosha !== 'Not completed' ? 'Prakriti: ' + safeDosha + '\n' : '') +
+          (safeNotes !== 'None provided' ? safeNotes : '');
+        const notesPayload = combinedNotes.trim() || null;
+
+        const sbRes = await fetch(`${supabaseUrl}/rest/v1/retreat_bookings`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': supabaseKey,
+            'Authorization': `Bearer ${supabaseKey}`,
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify({
+            full_name: safeName,
+            phone: safePhone,
+            email: safeEmail,
+            selected_plan: safePlan,
+            'health notes': notesPayload,
+            status: 'new'
+          })
+        });
+        if (sbRes.ok) dbSaved = true;
+      } catch (dbErr) {
+        console.error('Supabase intake insert notice:', dbErr);
+      }
+    }
+
     return res.status(200).json({
       success: true,
       refCode: safeRef,
       provider: providerUsed,
+      dbSaved: dbSaved,
       emailsSent: {
         guest: guestEmailSent,
         doctors: doctorEmailSent
