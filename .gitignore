@@ -20,6 +20,7 @@ local_brochures_nov26-30/
 
 # Local audit & screenshot scratch
 screenshots/
-*.png
+/*.png
+!images/*.png
 *.jpg.tmp
 

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&amp;family=Plus+Jakarta+Sans:wght@300;400;600&amp;display=swap');
+      .title { font-family: 'Cinzel', serif; font-size: 26px; font-weight: 700; fill: #0F2347; letter-spacing: 0.15em; text-anchor: middle; }
+      .sub { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 500; fill: #A37D2C; letter-spacing: 0.22em; text-anchor: middle; }
+      .sanskrit { font-family: 'Georgia', serif; font-size: 14px; fill: #A37D2C; letter-spacing: 0.1em; text-anchor: middle; }
+      .url-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600; fill: #0F2347; letter-spacing: 0.12em; text-anchor: middle; }
+      .tagline { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 400; fill: #5A6A85; letter-spacing: 0.08em; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="800" fill="#FDFAF3" rx="16"/>
+
+  <!-- Ornate Border -->
+  <rect x="25" y="25" width="550" height="750" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-opacity="0.4" rx="10"/>
+  <rect x="33" y="33" width="534" height="734" fill="none" stroke="#C9A84C" stroke-width="0.75" stroke-opacity="0.25" rx="8"/>
+
+  <!-- Corner Accents -->
+  <path d="M 45 60 L 45 45 L 60 45" fill="none" stroke="#C9A84C" stroke-width="2"/>
+  <path d="M 555 60 L 555 45 L 540 45" fill="none" stroke="#C9A84C" stroke-width="2"/>
+  <path d="M 45 740 L 45 755 L 60 755" fill="none" stroke="#C9A84C" stroke-width="2"/>
+  <path d="M 555 740 L 555 755 L 540 755" fill="none" stroke="#C9A84C" stroke-width="2"/>
+
+  <!-- Header Branding -->
+  <text x="300" y="115" class="title">THE RESET CO.</text>
+  <text x="300" y="145" class="sub">CLASSICAL AYURVEDIC SANCTUARY</text>
+  <text x="300" y="172" class="sanskrit">स्वस्थस्य स्वास्थ्यरक्षणम्</text>
+
+  <!-- Center Decorative Divider -->
+  <line x1="220" y1="190" x2="380" y2="190" stroke="#C9A84C" stroke-width="1" stroke-opacity="0.5"/>
+  <polygon points="300,187 304,190 300,193 296,190" fill="#C9A84C"/>
+
+  <!-- QR Frame Card -->
+  <rect x="140" y="225" width="320" height="320" fill="#FFFFFF" stroke="#E8DFCC" stroke-width="1.5" rx="12"/>
+  <rect x="145" y="230" width="310" height="310" fill="#FFFFFF" rx="8"/>
+
+  <!-- QR Code Placement -->
+  <g transform="translate(160, 245) scale(8.48)">
+    <path stroke="#0F2347" d="M1 1.5h7m2 0h1m1 0h1m1 0h1m2 0h1m2 0h4m1 0h1m1 0h7M1 2.5h1m5 0h1m1 0h1m1 0h3m2 0h2m1 0h2m2 0h1m3 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h3m2 0h1m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m3 0h1m2 0h2m3 0h4m2 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h3m2 0h3m2 0h1m2 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h2m5 0h1m5 0h3m2 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M10 8.5h3m5 0h1m1 0h2m2 0h2M3 9.5h1m2 0h4m2 0h1m1 0h4m3 0h1m3 0h2m1 0h5M1 10.5h4m1 0h1m3 0h1m1 0h2m4 0h3m3 0h1m1 0h3m3 0h2M4 11.5h6m7 0h3m1 0h4m3 0h2m3 0h1M1 12.5h6m4 0h1m1 0h1m2 0h2m1 0h1m3 0h3m1 0h2m1 0h1m1 0h2M1 13.5h1m2 0h1m2 0h1m1 0h1m1 0h3m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m2 0h1M2 14.5h4m2 0h3m2 0h1m2 0h2m1 0h1m1 0h7m2 0h2m1 0h1M1 15.5h3m3 0h2m2 0h4m1 0h1m1 0h2m1 0h1m2 0h2m3 0h1m3 0h1M3 16.5h1m2 0h1m1 0h1m1 0h2m3 0h1m1 0h2m1 0h1m2 0h1m2 0h1m5 0h2M3 17.5h2m1 0h3m1 0h1m1 0h3m1 0h2m2 0h1m2 0h1m3 0h2m1 0h3M2 18.5h1m5 0h1m1 0h1m1 0h1m2 0h1m5 0h1m2 0h1m2 0h1m3 0h1m1 0h1M2 19.5h2m1 0h1m1 0h1m2 0h2m4 0h1m1 0h2m3 0h2m3 0h6M3 20.5h3m5 0h1m3 0h1m1 0h1m1 0h1m4 0h1m2 0h2m1 0h1m2 0h1M3 21.5h1m1 0h1m1 0h1m1 0h1m1 0h6m2 0h1m1 0h1m2 0h1m3 0h1M3 22.5h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m1 0h3m7 0h1m1 0h2M1 23.5h2m2 0h3m6 0h1m1 0h1m1 0h1m2 0h4m1 0h2m5 0h1M4 24.5h1m1 0h1m1 0h2m2 0h3m1 0h1m1 0h1m2 0h1m1 0h1m4 0h1m1 0h1m1 0h1M1 25.5h3m2 0h2m1 0h6m1 0h1m4 0h1m2 0h6m3 0h1M9 26.5h1m3 0h1m5 0h2m1 0h1m2 0h1m3 0h2m1 0h2M1 27.5h7m1 0h1m1 0h2m2 0h1m1 0h1m1 0h1m5 0h1m1 0h1m1 0h1m1 0h1m1 0h1M1 28.5h1m5 0h1m1 0h1m1 0h1m1 0h4m1 0h1m3 0h1m1 0h2m3 0h2m1 0h2M1 29.5h1m1 0h3m1 0h1m3 0h6m1 0h1m1 0h3m1 0h6M1 30.5h1m1 0h3m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1m1 0h2m1 0h3m1 0h5M1 31.5h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m3 0h2m3 0h2m1 0h2M1 32.5h1m5 0h1m2 0h1m1 0h1m5 0h1m1 0h1m2 0h1m1 0h2m3 0h2M1 33.5h7m2 0h2m1 0h2m1 0h1m1 0h1m1 0h1m4 0h3m1 0h3m1 0h1"/>
+
+  </g>
+
+  <!-- Bottom Details -->
+  <text x="300" y="590" class="url-text">WWW.THERESET-CO.IN</text>
+  <text x="300" y="620" class="tagline">SCAN TO EXPLORE 2026 RETREAT PATHWAYS &amp; INTAKE</text>
+  <text x="300" y="642" class="tagline">BIR BILLING • HIMACHAL PRADESH • 1,525M</text>
+
+  <!-- Bottom Doctor Attribution -->
+  <line x1="240" y1="675" x2="360" y2="675" stroke="#C9A84C" stroke-width="0.75" stroke-opacity="0.3"/>
+  <text x="300" y="705" class="tagline" style="font-size: 10px; fill: #8A98A8;">FOUNDED &amp; DIRECTED BY DR. HIMANSHU BHATT &amp; DR. ADITYA KAUNDAL (B.A.M.S.)</text>
+</svg>
