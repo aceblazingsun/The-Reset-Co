@@ -179,7 +179,7 @@
 
   .scroll-expand__hint {
     position: absolute;
-    bottom: 3.5rem;
+    bottom:  1.25rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -194,6 +194,15 @@
     cursor: pointer;
     transition: opacity 0.4s ease;
     animation: hintPulse 2.4s ease-in-out infinite;
+  }
+
+  @media (max-height: 750px), (max-width: 768px) {
+    .scroll-expand__hint {
+      bottom: 0.85rem !important;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.18em !important;
+      gap: 0.35rem !important;
+    }
   }
 
   @keyframes hintPulse {
@@ -229,7 +238,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 3rem 6% 2rem 6%;
+    padding:  2.5rem 6% 4.25rem 6%;
     color: var(--ivory, #FDFAF3);
     opacity: 0;
     transform: translate3d(0, 30px, 0);
@@ -1389,8 +1398,8 @@
   .comp-table th:first-child { width: 28%; }
   .comp-table tr:hover td { background: rgba(250, 247, 240, 0.4); }
 
-  /* Mobile Stacked Comparison (Hidden on Desktop) */
-  .comp-mobile-stack {
+  /* Mobile Interactive Feature Tab Matrix (Hidden on Desktop) */
+  .comp-matrix-container {
     display: none;
   }
 
@@ -1400,12 +1409,120 @@
       display: none !important;
     }
 
-    /* Stacked card layout for mobile */
-    .comp-mobile-stack {
-      display: flex !important;
-      flex-direction: column;
-      gap: 1.5rem;
+    /* Interactive Feature Tab Matrix layout for mobile */
+    .comp-matrix-container {
+      display: block !important;
       margin-top: 1rem;
+    }
+
+    .comp-sec-title {
+      font-size: 1.55rem;
+      line-height: 1.25;
+      padding: 0 0.5rem;
+    }
+
+    /* Sticky pathway selector tabs */
+    .comp-matrix-nav {
+      position: sticky;
+      top: 72px;
+      z-index: 25;
+      display: grid;
+      grid-template-columns: 1fr 1.14fr 1fr;
+      gap: 0.35rem;
+      padding: 0.65rem 0 0.5rem;
+      background: rgba(250, 247, 240, 0.96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      margin: 0 0 1.25rem;
+      border-bottom: 1px solid var(--border-light);
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .comp-matrix-tab {
+      flex: 1 1 0;
+      min-width: 0;
+      min-height: 52px;
+      padding: 0.5rem 0.3rem 0.45rem;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 6px rgba(15, 35, 71, 0.04);
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .comp-matrix-tab-name {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: var(--royal-deep);
+      line-height: 1.15;
+    }
+
+    .comp-matrix-tab-price {
+      font-family: var(--serif);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin-top: 0.15rem;
+      line-height: 1;
+    }
+
+    .comp-tab-badge {
+      position: absolute;
+      top: -8px;
+      background: var(--gold);
+      color: var(--royal-deep);
+      font-size: 0.52rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+      line-height: 1.2;
+    }
+
+    /* Active Tab State */
+    .comp-matrix-tab.active {
+      background: var(--royal-deep);
+      border-color: var(--royal-deep);
+      box-shadow: 0 4px 14px rgba(15, 35, 71, 0.2);
+      transform: translateY(-1px);
+    }
+    .comp-matrix-tab.active .comp-matrix-tab-name {
+      color: #FFFFFF;
+    }
+    .comp-matrix-tab.active .comp-matrix-tab-price {
+      color: var(--gold-light);
+    }
+
+    /* Panels */
+    .comp-matrix-panels {
+      position: relative;
+    }
+    .comp-matrix-panel {
+      display: none;
+    }
+    .comp-matrix-panel.active-panel {
+      display: block;
+      animation: compMatrixFade 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes compMatrixFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .comp-m-card {
@@ -1535,6 +1652,17 @@
       color: rgba(253, 250, 243, 0.35);
     }
 
+    .comp-m-highlight {
+      margin: 0.5rem 1.25rem 0.85rem;
+      padding: 0.65rem 0.85rem;
+      background: rgba(201, 168, 76, 0.12);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+      font-size: 0.78rem;
+      line-height: 1.4;
+      color: var(--gold-light);
+    }
+
     .comp-m-footer {
       padding: 0 1.25rem 1.25rem;
     }
@@ -1573,6 +1701,55 @@
     }
     .comp-m-btn-gold:hover, .comp-m-btn-gold:active {
       background: var(--gold-light);
+      color: var(--royal-deep);
+    }
+
+    /* Bottom quick switcher */
+    .comp-matrix-quick-switch {
+      margin-top: 1rem;
+      padding-top: 0.85rem;
+      border-top: 1px dashed rgba(15, 35, 71, 0.15);
+      text-align: center;
+    }
+    .comp-m-featured .comp-matrix-quick-switch {
+      border-top-color: rgba(201, 168, 76, 0.25);
+    }
+    .comp-quick-label {
+      display: block;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 0.45rem;
+    }
+    .comp-m-featured .comp-quick-label {
+      color: rgba(253, 250, 243, 0.65);
+    }
+    .comp-quick-btns {
+      display: flex;
+      gap: 0.4rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .comp-quick-btn {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.72rem;
+      font-family: var(--sans);
+      font-weight: 500;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+      color: var(--royal-deep);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .comp-m-featured .comp-quick-btn {
+      background: rgba(253, 250, 243, 0.1);
+      border-color: rgba(201, 168, 76, 0.3);
+      color: #FFFFFF;
+    }
+    .comp-quick-btn:active {
+      background: var(--gold);
       color: var(--royal-deep);
     }
   }
@@ -2911,7 +3088,7 @@
 
     <!-- HUB BUTTON & COMPARISON TABLE -->
     <div style="text-align: center; margin-bottom: 3.5rem; padding: 0 1rem;">
-      <a href="programmes.html" class="btn-outline" style="color: var(--royal-deep); border-color: var(--royal-deep); max-width: 100%; white-space: normal; text-align: center; line-height: 1.4;">
+      <a href="programmes.html" class="btn-outline syllabus-hub-btn" style="color: var(--royal-deep); border-color: var(--royal-deep); max-width: 100%; white-space: normal; text-align: center; line-height: 1.4; padding: 0.75rem 1rem; letter-spacing: 0.05em; font-size: 0.75rem; box-sizing: border-box;">
         Explore Complete Master Syllabus &amp; Curriculum on Programmes Hub &rarr;
       </a>
     </div>
@@ -2992,157 +3169,200 @@
         </table>
       </div>
 
-      <!-- MOBILE VIEW: RESPONSIVE STACKED COMPARISON CARDS (<= 900px) -->
-      <div class="comp-mobile-stack" aria-label="Mobile Programme Inclusions Comparison">
-        <!-- CARD 1: THE AWAKENING JOURNEY -->
-        <article class="comp-m-card">
-          <header class="comp-m-head">
-            <span class="comp-m-tier">FOUNDATIONAL RECALIBRATION</span>
-            <h4 class="comp-m-title">The Awakening Journey</h4>
-            <div class="comp-m-price-row">
-              <span class="comp-m-price">&#8377;27,990</span>
-              <span class="comp-m-duration">4N / 5D &bull; All-Inclusive</span>
-            </div>
-          </header>
-          <div class="comp-m-inclusions">
-            <div class="comp-m-row">
-              <span class="comp-m-label">Target Suitability</span>
-              <span class="comp-m-val">General burnout &amp; circadian fatigue</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Doctor Pulse Diagnostics</span>
-              <span class="comp-m-val">Arrival &amp; Departure evaluations</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Abhyanga Oil Sessions</span>
-              <span class="comp-m-val">2x Medicated full-body Abhyanga</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Specialized Bahya Basti</span>
-              <span class="comp-m-val comp-m-empty">&mdash;</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Netra Tarpana Eye Reset</span>
-              <span class="comp-m-val comp-m-empty">&mdash;</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Welcome Kit &amp; Tools</span>
-              <span class="comp-m-val">Standard welcome kit with Kansa wand</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Cottage Accommodation</span>
-              <span class="comp-m-val">Twin-sharing handcrafted mud cottage</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Follow-Up Physician Care</span>
-              <span class="comp-m-val">30-Day post-retreat roadmap</span>
-            </div>
-          </div>
-          <div class="comp-m-footer">
-            <a href="#enquiry" class="comp-m-btn comp-m-btn-outline" onclick="selectPlanInForm('awakening')">Reserve Awakening Pathway &rarr;</a>
-          </div>
-        </article>
+      <!-- MOBILE VIEW: INTERACTIVE FEATURE TAB MATRIX (<= 900px) -->
+      <div class="comp-matrix-container" aria-label="Mobile Programme Inclusions Comparison">
+        <!-- Interactive Sticky Tab Bar -->
+        <div class="comp-matrix-nav" role="tablist" aria-label="Select Programme Pathway">
+          <button type="button" class="comp-matrix-tab" id="comp-tab-0" role="tab" aria-selected="false" aria-controls="comp-panel-0" onclick="switchCompMatrix(0)">
+            <span class="comp-matrix-tab-name">Awakening</span>
+            <span class="comp-matrix-tab-price">&#8377;27,990</span>
+          </button>
+          <button type="button" class="comp-matrix-tab active" id="comp-tab-1" role="tab" aria-selected="true" aria-controls="comp-panel-1" onclick="switchCompMatrix(1)">
+            <span class="comp-tab-badge">&#9733; Recommended</span>
+            <span class="comp-matrix-tab-name">Deep Rejuvenation</span>
+            <span class="comp-matrix-tab-price">&#8377;34,990</span>
+          </button>
+          <button type="button" class="comp-matrix-tab" id="comp-tab-2" role="tab" aria-selected="false" aria-controls="comp-panel-2" onclick="switchCompMatrix(2)">
+            <span class="comp-matrix-tab-name">Classical Reset</span>
+            <span class="comp-matrix-tab-price">&#8377;39,990</span>
+          </button>
+        </div>
 
-        <!-- CARD 2: THE DEEP REJUVENATION (ROYAL NAVY APPROVED FEATURED CARD) -->
-        <article class="comp-m-card comp-m-featured">
-          <div class="comp-m-rec-badge">
-            <span>&#9733; RECOMMENDED COHORT</span>
-          </div>
-          <header class="comp-m-head">
-            <span class="comp-m-tier comp-m-tier-gold">SIGNATURE SPINAL &amp; POSTURE RESET</span>
-            <h4 class="comp-m-title comp-m-title-light">The Deep Rejuvenation</h4>
-            <div class="comp-m-price-row">
-              <span class="comp-m-price comp-m-price-gold">&#8377;34,990</span>
-              <span class="comp-m-duration comp-m-duration-light">4N / 5D &bull; All-Inclusive</span>
+        <div class="comp-matrix-panels">
+          <!-- PANEL 0: THE AWAKENING JOURNEY -->
+          <article class="comp-m-card comp-matrix-panel" id="comp-panel-0" role="tabpanel" aria-labelledby="comp-tab-0">
+            <header class="comp-m-head">
+              <span class="comp-m-tier">FOUNDATIONAL RECALIBRATION</span>
+              <h4 class="comp-m-title">The Awakening Journey</h4>
+              <div class="comp-m-price-row">
+                <span class="comp-m-price">&#8377;27,990</span>
+                <span class="comp-m-duration">4N / 5D &bull; All-Inclusive</span>
+              </div>
+            </header>
+            <div class="comp-m-inclusions">
+              <div class="comp-m-row">
+                <span class="comp-m-label">Target Suitability</span>
+                <span class="comp-m-val">General burnout &amp; circadian fatigue</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Doctor Pulse Diagnostics</span>
+                <span class="comp-m-val">Arrival &amp; Departure evaluations</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Abhyanga Oil Sessions</span>
+                <span class="comp-m-val">2x Medicated full-body Abhyanga</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Specialized Bahya Basti</span>
+                <span class="comp-m-val comp-m-empty">&mdash;</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Netra Tarpana Eye Reset</span>
+                <span class="comp-m-val comp-m-empty">&mdash;</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Welcome Kit &amp; Tools</span>
+                <span class="comp-m-val">Standard welcome kit with Kansa wand</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Cottage Accommodation</span>
+                <span class="comp-m-val">Twin-sharing handcrafted mud cottage</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Follow-Up Physician Care</span>
+                <span class="comp-m-val">30-Day post-retreat roadmap</span>
+              </div>
             </div>
-          </header>
-          <div class="comp-m-inclusions">
-            <div class="comp-m-row">
-              <span class="comp-m-label">Target Suitability</span>
-              <span class="comp-m-val">Spinal tightness, neck &amp; posture strain</span>
+            <div class="comp-m-footer">
+              <a href="#enquiry" class="comp-m-btn comp-m-btn-outline" onclick="selectPlanInForm('awakening')">Reserve Awakening Pathway &rarr;</a>
+              <div class="comp-matrix-quick-switch">
+                <span class="comp-quick-label">Compare with other pathways:</span>
+                <div class="comp-quick-btns">
+                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(1)">Deep Rejuvenation (&#8377;34,990) &rarr;</button>
+                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(2)">Classical Reset (&#8377;39,990) &rarr;</button>
+                </div>
+              </div>
             </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Doctor Pulse Diagnostics</span>
-              <span class="comp-m-val">Daily 1-on-1 pulse consultations</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Abhyanga Oil Sessions</span>
-              <span class="comp-m-val">3x Prescribed Abhyanga with steam</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Specialized Bahya Basti</span>
-              <span class="comp-m-val"><strong>2x Kati / Greeva Basti</strong> (warm oil pooling)</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Netra Tarpana Eye Reset</span>
-              <span class="comp-m-val comp-m-empty">&mdash;</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Welcome Kit &amp; Tools</span>
-              <span class="comp-m-val">Full kit + pure copper water vessel</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Cottage Accommodation</span>
-              <span class="comp-m-val">Twin-sharing handcrafted mud cottage</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Follow-Up Physician Care</span>
-              <span class="comp-m-val">60-Day care + 1 virtual doctor call</span>
-            </div>
-          </div>
-          <div class="comp-m-footer">
-            <a href="#enquiry" class="comp-m-btn comp-m-btn-gold" onclick="selectPlanInForm('rejuvenation')">Reserve Deep Rejuvenation &rarr;</a>
-          </div>
-        </article>
+          </article>
 
-        <!-- CARD 3: THE CLASSICAL RESET -->
-        <article class="comp-m-card">
-          <header class="comp-m-head">
-            <span class="comp-m-tier">INTENSIVE CELLULAR RESTORATION</span>
-            <h4 class="comp-m-title">The Classical Reset</h4>
-            <div class="comp-m-price-row">
-              <span class="comp-m-price">&#8377;39,990</span>
-              <span class="comp-m-duration">4N / 5D &bull; All-Inclusive</span>
+          <!-- PANEL 1: THE DEEP REJUVENATION (ROYAL NAVY APPROVED FEATURED CARD) -->
+          <article class="comp-m-card comp-m-featured comp-matrix-panel active-panel" id="comp-panel-1" role="tabpanel" aria-labelledby="comp-tab-1">
+            <div class="comp-m-rec-badge">
+              <span>&#9733; RECOMMENDED COHORT</span>
             </div>
-          </header>
-          <div class="comp-m-inclusions">
-            <div class="comp-m-row">
-              <span class="comp-m-label">Target Suitability</span>
-              <span class="comp-m-val">Deep chronic depletion &amp; sensory fatigue</span>
+            <header class="comp-m-head">
+              <span class="comp-m-tier comp-m-tier-gold">SIGNATURE SPINAL &amp; POSTURE RESET</span>
+              <h4 class="comp-m-title comp-m-title-light">The Deep Rejuvenation</h4>
+              <div class="comp-m-price-row">
+                <span class="comp-m-price comp-m-price-gold">&#8377;34,990</span>
+                <span class="comp-m-duration comp-m-duration-light">4N / 5D &bull; All-Inclusive</span>
+              </div>
+            </header>
+            <div class="comp-m-highlight">
+              <strong>Signature Clinical Focus:</strong> 2x Kati / Greeva Basti targeted spinal oil pooling and daily 1-on-1 pulse consultations included.
             </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Doctor Pulse Diagnostics</span>
-              <span class="comp-m-val">Continuous daily clinical monitoring</span>
+            <div class="comp-m-inclusions">
+              <div class="comp-m-row">
+                <span class="comp-m-label">Target Suitability</span>
+                <span class="comp-m-val">Spinal tightness, neck &amp; posture strain</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Doctor Pulse Diagnostics</span>
+                <span class="comp-m-val">Daily 1-on-1 pulse consultations</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Abhyanga Oil Sessions</span>
+                <span class="comp-m-val">3x Prescribed Abhyanga with steam</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Specialized Bahya Basti</span>
+                <span class="comp-m-val"><strong>2x Kati / Greeva Basti</strong> (warm oil pooling)</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Netra Tarpana Eye Reset</span>
+                <span class="comp-m-val comp-m-empty">&mdash;</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Welcome Kit &amp; Tools</span>
+                <span class="comp-m-val">Full kit + pure copper water vessel</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Cottage Accommodation</span>
+                <span class="comp-m-val">Twin-sharing handcrafted mud cottage</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Follow-Up Physician Care</span>
+                <span class="comp-m-val">60-Day care + 1 virtual doctor call</span>
+              </div>
             </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Abhyanga Oil Sessions</span>
-              <span class="comp-m-val">4x Classical Abhyanga sessions</span>
+            <div class="comp-m-footer">
+              <a href="#enquiry" class="comp-m-btn comp-m-btn-gold" onclick="selectPlanInForm('rejuvenation')">Reserve Deep Rejuvenation &rarr;</a>
+              <div class="comp-matrix-quick-switch">
+                <span class="comp-quick-label">Compare with other pathways:</span>
+                <div class="comp-quick-btns">
+                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(0)">&larr; Awakening (&#8377;27,990)</button>
+                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(2)">Classical Reset (&#8377;39,990) &rarr;</button>
+                </div>
+              </div>
             </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Specialized Bahya Basti</span>
-              <span class="comp-m-val"><strong>2x Specialized Basti</strong> included</span>
+          </article>
+
+          <!-- PANEL 2: THE CLASSICAL RESET -->
+          <article class="comp-m-card comp-matrix-panel" id="comp-panel-2" role="tabpanel" aria-labelledby="comp-tab-2">
+            <header class="comp-m-head">
+              <span class="comp-m-tier">INTENSIVE CELLULAR RESTORATION</span>
+              <h4 class="comp-m-title">The Classical Reset</h4>
+              <div class="comp-m-price-row">
+                <span class="comp-m-price">&#8377;39,990</span>
+                <span class="comp-m-duration">4N / 5D &bull; All-Inclusive</span>
+              </div>
+            </header>
+            <div class="comp-m-inclusions">
+              <div class="comp-m-row">
+                <span class="comp-m-label">Target Suitability</span>
+                <span class="comp-m-val">Deep chronic depletion &amp; sensory fatigue</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Doctor Pulse Diagnostics</span>
+                <span class="comp-m-val">Continuous daily clinical monitoring</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Abhyanga Oil Sessions</span>
+                <span class="comp-m-val">4x Classical Abhyanga sessions</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Specialized Bahya Basti</span>
+                <span class="comp-m-val"><strong>2x Specialized Basti</strong> included</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Netra Tarpana Eye Reset</span>
+                <span class="comp-m-val"><strong>Included</strong> (Medicated ghee eye therapy)</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Welcome Kit &amp; Tools</span>
+                <span class="comp-m-val">Deluxe kit + custom herbal formulations</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Cottage Accommodation</span>
+                <span class="comp-m-val">Priority high-elevation cottage allocation</span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Follow-Up Physician Care</span>
+                <span class="comp-m-val">90-Day care + 2 virtual doctor calls</span>
+              </div>
             </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Netra Tarpana Eye Reset</span>
-              <span class="comp-m-val"><strong>Included</strong> (Medicated ghee eye therapy)</span>
+            <div class="comp-m-footer">
+              <a href="#enquiry" class="comp-m-btn comp-m-btn-outline" onclick="selectPlanInForm('classical')">Reserve Classical Reset &rarr;</a>
+              <div class="comp-matrix-quick-switch">
+                <span class="comp-quick-label">Compare with other pathways:</span>
+                <div class="comp-quick-btns">
+                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(0)">&larr; Awakening (&#8377;27,990)</button>
+                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(1)">Deep Rejuvenation (&#8377;34,990) &rarr;</button>
+                </div>
+              </div>
             </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Welcome Kit &amp; Tools</span>
-              <span class="comp-m-val">Deluxe kit + custom herbal formulations</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Cottage Accommodation</span>
-              <span class="comp-m-val">Priority high-elevation cottage allocation</span>
-            </div>
-            <div class="comp-m-row">
-              <span class="comp-m-label">Follow-Up Physician Care</span>
-              <span class="comp-m-val">90-Day care + 2 virtual doctor calls</span>
-            </div>
-          </div>
-          <div class="comp-m-footer">
-            <a href="#enquiry" class="comp-m-btn comp-m-btn-outline" onclick="selectPlanInForm('classical')">Reserve Classical Reset &rarr;</a>
-          </div>
-        </article>
+          </article>
+        </div>
       </div>
     </div>
   </div>
@@ -3903,6 +4123,36 @@
   }
 
   // 4. Accordion Toggle for Inclusions
+  // Mobile Feature Comparison Matrix Switcher
+  function switchCompMatrix(index) {
+    const tabs = document.querySelectorAll('.comp-matrix-tab');
+    const panels = document.querySelectorAll('.comp-matrix-panel');
+    
+    tabs.forEach((tab, i) => {
+      const isActive = i === index;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      if (isActive) {
+        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    });
+
+    panels.forEach((panel, i) => {
+      const isActive = i === index;
+      panel.classList.toggle('active-panel', isActive);
+    });
+  }
+
+  // URL query trigger for automated testing of comparison tabs
+  if (typeof window !== 'undefined') {
+    const _cParams = new URLSearchParams(window.location.search);
+    if (_cParams.has('compTab')) {
+      setTimeout(() => {
+        switchCompMatrix(parseInt(_cParams.get('compTab'), 10));
+      }, 100);
+    }
+  }
+
   function selectProgCard(index) {
     const tabs = document.querySelectorAll('.opt4-tab-btn');
     tabs.forEach((b, i) => {
