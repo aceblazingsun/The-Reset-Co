@@ -74,7 +74,7 @@ export default async function handler(req, res) {
 
     const guestName = sanitizeString(record.full_name || record.name || 'Valued Guest', 100);
     const guestPhone = sanitizeString(record.phone || record.whatsapp_number || 'Not provided', 30);
-    const planName = sanitizeString(record.selected_plan || record.planName || record.plan || 'The Awakening Journey', 120);
+    const planName = sanitizeString(record.selected_plan || record.planName || record.plan || 'The Awakening Pathway', 120);
     const bookingId = sanitizeString(record.id || record.refCode || 'TRC-' + Math.floor(1000 + Math.random() * 9000), 50);
     const suiteAssigned = sanitizeString(record.suite_assigned || record.suite || 'Sanctuary Suite', 80);
     const customNotes = sanitizeString(record.notes || record.doctor_notes || record['health notes'] || '', 2000);

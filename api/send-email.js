@@ -60,7 +60,7 @@ export default async function handler(req, res) {
     const safeEmail = sanitizeString(email, 120);
     const safePhone = sanitizeString(phone, 30);
     const safeRef = sanitizeString(refCode || 'TRC-2026-BIR-' + Math.floor(1000 + Math.random() * 9000), 50);
-    const safePlan = sanitizeString(planName || 'The Awakening Journey (Rs 26,000)', 120);
+    const safePlan = sanitizeString(planName || 'The Awakening Pathway (Rs 27,990)', 120);
     const safeDates = sanitizeString(dates || 'Flexible / To be finalized on clinical call', 100);
     const safeNotes = sanitizeString(notes || 'None provided', 2000);
     const safeDosha = sanitizeString(prakritiProfile || 'Not completed', 150);

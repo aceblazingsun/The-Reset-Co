@@ -430,7 +430,7 @@
         <strong>Currency &amp; Invoicing:</strong> Invoices are billed in Indian Rupees (INR). Your card provider will convert this at their standard daily exchange rate. A clear itemized GST invoice is provided upon receipt.
       </p>
       <p>
-        <strong>Deposit Structure:</strong> A 25% deposit reserves your suite upon health suitability clearance; the balance is due 14 days prior to retreat commencement.
+        <strong>Deposit Structure:</strong> A flat &#8377;10,000 reservation deposit (or foreign currency equivalent) reserves your suite upon health suitability clearance; the balance is due 15 days prior to retreat commencement.
       </p>
     </div>
   </div>
@@ -537,7 +537,7 @@
           <label for="intlPathway">Preferred Restorative Pathway *</label>
           <select id="intlPathway" name="pathway" required>
             <option value="The Deep Rejuvenation (Recommended)">The Deep Rejuvenation &mdash; &#8377;65,000 (Recommended)</option>
-            <option value="The Awakening Journey">The Awakening Journey &mdash; &#8377;55,000</option>
+            <option value="The Awakening Pathway">The Awakening Pathway &mdash; &#8377;55,000</option>
             <option value="The Classical Reset">The Classical Reset &mdash; &#8377;75,000</option>
           </select>
         </div>
@@ -545,8 +545,8 @@
         <div class="intl-field">
           <label for="intlRoom">Suite Preference</label>
           <select id="intlRoom" name="roomPreference">
-            <option value="Private Single Suite Supplement">Private Single Suite Supplement (+&#8377;18,000)</option>
-            <option value="Deluxe Twin Sharing">Deluxe Twin Sharing (Included in tariff)</option>
+            <option value="Private Single Suite (Included in Tariff)" selected>Private Single Earthen Suite (Included in Tariff)</option>
+            <option value="Deluxe Twin / Couple Sharing (Included in Tariff)">Deluxe Twin / Couple Sharing Suite (Included in Tariff)</option>
           </select>
         </div>
 
@@ -570,7 +570,7 @@
             Submit International Reservation Intake &rarr;
           </button>
           <div style="font-size:0.75rem; color:var(--text-muted); text-align:center; margin-top:0.4rem;">
-            &#128274; Strictly confidential physician intake &bull; 25% deposit invoice dispatched only upon medical clearance
+            &#128274; Strictly confidential physician intake &bull; &#8377;10,000 reservation deposit invoice dispatched only upon medical clearance
           </div>
           <a href="https://wa.me/917888540046?text=Hello%20The%20Reset%20Co.%20physicians%2C%20I%20am%20an%20international%20traveler%20enquiring%20about%20the%20Himachal%20residency." target="_blank" rel="noopener" class="intl-wa-direct">
             <span>&#128172; Prefer direct chat? Message Dr. Himanshu &amp; Dr. Aditya on WhatsApp</span>
@@ -604,21 +604,26 @@
       btn.disabled = true;
       btn.innerText = 'Transmitting to Sanctuary Team...';
       
+      const refId = 'TRC-INTL-' + Math.floor(1000 + Math.random() * 9000);
+      if (ref) ref.innerText = refId;
+
+      const fullIntlNotes = [
+        'Country / Nationality: ' + document.getElementById('intlCountry').value,
+        'Suite Preference: ' + document.getElementById('intlRoom').value,
+        'Airport Chauffeur Transit: ' + document.getElementById('intlTransit').value,
+        'Health & Dietary Considerations: ' + document.getElementById('intlHealth').value
+      ].filter(Boolean).join('\n');
+
       const payload = {
         name: document.getElementById('intlName').value,
         email: document.getElementById('intlEmail').value,
         phone: document.getElementById('intlPhone').value,
-        country: document.getElementById('intlCountry').value,
+        planName: document.getElementById('intlPathway').value,
         dates: document.getElementById('intlDates').value,
-        pathway: document.getElementById('intlPathway').value,
-        roomPreference: document.getElementById('intlRoom').value,
-        transit: document.getElementById('intlTransit').value,
-        healthNotes: document.getElementById('intlHealth').value,
+        notes: fullIntlNotes,
+        refCode: refId,
         source: 'international_page'
       };
-
-      const refId = 'TRC-INTL-' + Math.floor(1000 + Math.random() * 9000);
-      if (ref) ref.innerText = refId;
 
       try {
         const res = await fetch('/api/send-email', {
@@ -647,7 +652,7 @@
 
 <footer>
   <p>&copy; 2026 The Reset Co. All rights reserved. &bull; Bir Billing, Himachal Pradesh</p>
-  <p style="margin-top:0.4rem;"><a href="index.html">Home</a> &bull; <a href="meet-the-doctors.html">Meet the Doctors</a> &bull; <a href="programmes.html">Programmes</a> &bull; <a href="privacy.html">Privacy</a></p>
+  <p style="margin-top:0.4rem;"><a href="index.html">Home</a> &bull; <a href="meet-the-doctors.html">Meet the Doctors</a> &bull; <a href="programmes.html">Programmes</a> &bull; <a href="privacy.html">Privacy</a> &bull; <a href="terms.html">Terms</a></p>
   <div style="text-align: center; margin-top: 1rem; width: 100%;">
   <p style="font-size: 0.76rem; color: rgba(253, 250, 243, 0.6); line-height: 1.6; max-width: 900px; margin: 0 auto;">The Reset Co. offers traditional Ayurvedic lifestyle, yoga, and restorative wellness retreats for relaxation and holistic wellbeing, and does not constitute medical diagnosis, treatment, or a licensed clinical establishment.</p>
 </div>

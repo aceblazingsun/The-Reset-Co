@@ -2558,7 +2558,7 @@
       "url": "https://www.thereset-co.in/",
       "logo": "https://www.thereset-co.in/images/logo-emblem.png",
       "image": "https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008",
-      "description": "Doctor-led 4-day restorative Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh. Founded and administered on-site by certified BAMS Ayurvedic physicians Dr. Himanshu Bhatt and Dr. Aditya Kaundal.",
+      "description": "Doctor-led 5-day (4N/5D) restorative Ayurvedic wellness retreats in Bir Billing, Himachal Pradesh. Founded and administered on-site by certified BAMS Ayurvedic physicians Dr. Himanshu Bhatt and Dr. Aditya Kaundal.",
       "telephone": "+91-7888540046",
       "email": "hello@thereset-co.in",
       "priceRange": "₹₹₹",
@@ -3579,7 +3579,7 @@
           <span class="faq-q-icon" aria-hidden="true" style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.4); background: rgba(201,168,76,0.08); color: var(--royal-deep); display: inline-flex; align-items: center; justify-content: center; font-family: var(--sans); font-size: 1.3rem;">+</span>
         </button>
         <div class="faq-answer-panel" style="display: none; padding: 0 1.85rem 1.6rem 4.25rem; border-top: 1px solid rgba(201,168,76,0.15); font-size: 0.95rem; color: #4A5568; line-height: 1.8;">
-          <p style="margin-top: 1rem;">Depending on your chosen pathway (The Awakening Pathway, The Deep Rejuvenation, or The Classical Reset), therapies include localized <strong>Bahya Basti</strong> (warm herbal oil reservoirs on the cervical or lumbar spine), full-body synchronized <strong>Abhyanga</strong>, soothing Triphala Kwath eye wash (<strong>Netra Tarpana</strong>), gentle morning cleansing kriyas (<strong>Jalaneti</strong>), condition-adaptive restorative yoga, and personalized herbal decoctions.</p>
+          <p style="margin-top: 1rem;">Depending on your chosen pathway (The Awakening Pathway, The Deep Rejuvenation, or The Classical Reset), therapies include localized <strong>Bahya Basti</strong> (warm herbal oil reservoirs on the cervical or lumbar spine), full-body synchronized <strong>Abhyanga</strong>, deeply nourishing <strong>Netra Tarpana</strong> (warm medicated Triphala Ghrita eye bath), soothing <strong>Netra Prakshalana</strong> (cleansing Triphala Kwath eye wash), gentle morning cleansing kriyas (<strong>Jalaneti</strong>), condition-adaptive restorative yoga, and personalized herbal decoctions.</p>
         </div>
       </div>
 
@@ -3665,7 +3665,7 @@
             <label class="form-label" for="fPlan">Selected Pathway *</label>
             <select id="fPlan" class="form-select" required>
               <option value="rejuvenation" selected>The Deep Rejuvenation (&#8377;34,990) &mdash; Recommended</option>
-              <option value="awakening">The Awakening Journey (&#8377;27,990)</option>
+              <option value="awakening">The Awakening Pathway (&#8377;27,990)</option>
               <option value="reset">The Classical Reset (&#8377;39,990)</option>
             </select>
           </div>
@@ -3680,6 +3680,12 @@
             <label class="form-label" for="fCountry">Country / City of Residence</label>
             <input type="text" id="fCountry" class="form-input" autocomplete="country-name" placeholder="e.g. Mumbai, India or London, UK">
           </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="fDietAllergies">Dietary Preferences &amp; Food Allergies</label>
+          <input type="text" id="fDietAllergies" class="form-input" placeholder="e.g. Vegetarian, Vegan, Gluten intolerance, Nut/Dairy allergy, or None">
+          <span class="form-helper">Disclosed to our kitchen and Vaidyas prior to herbal decoction and sattvic meal preparation</span>
         </div>
 
         <div class="form-group">
@@ -4251,13 +4257,20 @@
     const plan = document.getElementById('fPlan').value;
     const dates = document.getElementById('fDates').value;
     const country = document.getElementById('fCountry').value.trim();
+    const dietAllergies = (document.getElementById('fDietAllergies') ? document.getElementById('fDietAllergies').value.trim() : '');
     const notes = document.getElementById('fNotes').value.trim();
 
     let planName = 'The Deep Rejuvenation (Rs 34,990)';
-    if (plan === 'awakening') planName = 'The Awakening Journey (Rs 27,990)';
+    if (plan === 'awakening') planName = 'The Awakening Pathway (Rs 27,990)';
     if (plan === 'reset') planName = 'The Classical Reset (Rs 39,990)';
 
     let assignedRef = 'ENQ-' + Math.floor(10000 + Math.random() * 90000);
+
+    const fullNotesPayload = [
+      country ? 'Country: ' + country : '',
+      dietAllergies ? 'Dietary / Allergies: ' + dietAllergies : '',
+      notes ? 'Health Notes: ' + notes : ''
+    ].filter(Boolean).join('\n');
 
     // Call /api/send-email (handled by local server and production Vercel)
     try {
@@ -4271,7 +4284,7 @@
           plan: plan,
           planName: planName,
           dates: dates,
-          notes: (country ? 'Country: ' + country + '\n' : '') + notes,
+          notes: fullNotesPayload,
           refCode: assignedRef,
           prakritiProfile: (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('trc_prakriti_dosha') : null) || null
         })
@@ -4286,7 +4299,7 @@
     }
     // Direct client insertion to Supabase PostgreSQL database (Dual-Dispatch Fail-Safe)
     try {
-      const combinedNotes = (dates ? 'Dates: ' + dates + '\n' : '') + (country ? 'Country: ' + country + '\n' : '') + (notes || '');
+      const combinedNotes = (dates ? 'Dates: ' + dates + '\n' : '') + (fullNotesPayload || '');
       fetch('https://vsscbjpuafnniouqzwvj.supabase.co/rest/v1/retreat_bookings', {
         method: 'POST',
         headers: {
