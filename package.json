@@ -22,7 +22,8 @@
   "homepage": "https://github.com/aceblazingsun/The-Reset-Co#readme",
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
-    "@vercel/speed-insights": "^2.0.0"
+    "@vercel/speed-insights": "^2.0.0",
+    "potrace": "^2.1.8"
   },
   "devDependencies": {
     "qrcode": "^1.5.4"
