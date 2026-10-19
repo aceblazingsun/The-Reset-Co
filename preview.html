@@ -3961,8 +3961,6 @@
         if (e.deltaY > 0) {
           landOnHero();
         }
-      } else if (isLanded && window.scrollY === 0 && e.deltaY < -20) {
-        collapseToWelcome();
       }
     }, { passive: false });
 
@@ -4210,27 +4208,7 @@
       console.warn('Local dispatch notification:', err);
     }
 
-    // Direct client insertion to Supabase PostgreSQL database (Dual-Dispatch Fail-Safe)
-    try {
-      const combinedNotes = (dates ? 'Dates: ' + dates + '\n' : '') + (country ? 'Country: ' + country + '\n' : '') + (notes || '');
-      fetch('https://vsscbjpuafnniouqzwvj.supabase.co/rest/v1/retreat_bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': 'sb_publishable_0Vnbd-77R7dP5UklEz90Mw_uS_SCn_5',
-          'Authorization': 'Bearer sb_publishable_0Vnbd-77R7dP5UklEz90Mw_uS_SCn_5',
-          'Prefer': 'return=minimal'
-        },
-        body: JSON.stringify({
-          full_name: name,
-          phone: phone,
-          email: email || null,
-          selected_plan: planName,
-          'health notes': combinedNotes.trim() || null,
-          status: 'new'
-        })
-      }).catch(function(e) { console.warn('Supabase direct intake notice:', e); });
-    } catch (_) {}
+    // Client intake routes securely via authenticated edge function (/api/send-email)
 
     // Populate Receipt Modal
     document.getElementById('modalRefCode').innerText = 'Enquiry Reference: ' + assignedRef;
@@ -4513,10 +4491,10 @@
       const isQuickFlick = Math.abs(velocityX) > 0.35;
 
       if (isHorizontal) {
-        if (deltaX > 0 && (deltaX > 60 || (isQuickFlick && velocityX > 0.2))) {
+        if (deltaX < 0 && (absDeltaX > 50 || (isQuickFlick && velocityX < -0.2))) {
           swipeDeckCard('next');
           return;
-        } else if (deltaX < 0 && (absDeltaX > 60 || (isQuickFlick && velocityX < -0.2))) {
+        } else if (deltaX > 0 && (deltaX > 50 || (isQuickFlick && velocityX > 0.2))) {
           swipeDeckCard('prev');
           return;
         }

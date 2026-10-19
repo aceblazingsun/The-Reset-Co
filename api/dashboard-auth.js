@@ -27,12 +27,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ success: false, error: 'Sanctuary passkey is required.' });
     }
 
-    // Configured server-side passkey (fallback to secure default only if env not set)
+    // Configured server-side passkey
     const configuredKey = (process.env.DASHBOARD_PASSKEY || 'reset2026').toLowerCase().trim();
     const cleanInput = passkey.trim().toLowerCase();
-    const legacyKeys = ['reset2026', '2026', 'resetco'];
 
-    const isValid = safeEqual(cleanInput, configuredKey) || legacyKeys.some(k => safeEqual(cleanInput, k));
+    const isValid = safeEqual(cleanInput, configuredKey);
 
     if (!isValid) {
       return res.status(401).json({

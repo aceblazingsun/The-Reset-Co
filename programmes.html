@@ -14,11 +14,14 @@
 <!-- Open Graph / Social Media -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Reset Co.">
+<meta property="og:url" content="https://www.thereset-co.in/programmes">
 <meta property="og:title" content="Ayurvedic Retreat Packages & Pricing | The Reset Co.">
 <meta property="og:description" content="Compare all-inclusive 4N/5D Ayurvedic retreat packages in Himachal Pradesh. Bahya Basti, daily Vaidya guidance & earthen suites from ₹27,990. View pathways ✓">
 <meta property="og:image" content="https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008">
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="768">
+<meta name="twitter:title" content="Ayurvedic Retreat Packages & Pricing | The Reset Co.">
+<meta name="twitter:description" content="Compare all-inclusive 4N/5D Ayurvedic retreat packages in Himachal Pradesh. Bahya Basti, daily Vaidya guidance & earthen suites from ₹27,990.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008">
 
@@ -1639,6 +1642,168 @@
     outline: 2px solid #E8C97A;
   }
 
+
+/* ─── UNIVERSAL SANCTUARY MOBILE DRAWER CSS ─── */
+.nav-hamburger {
+  display: none;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 40px;
+  padding: 0.45rem 0.85rem;
+  cursor: pointer;
+  background: rgba(201, 168, 76, 0.1);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+.hamburger-bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 20px;
+}
+.hamburger-bars span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--royal-deep, #0F2347);
+  transition: all 0.25s ease;
+}
+.menu-label {
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--royal-deep, #0F2347);
+  font-weight: 600;
+}
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 14, 28, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.menu-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 440px;
+  background: var(--royal-deep, #0F2347);
+  color: var(--ivory, #FDFAF3);
+  z-index: 2001;
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.6);
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-left: 1px solid rgba(201, 168, 76, 0.25);
+}
+.nav-drawer.open {
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.18);
+}
+.drawer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--serif, 'Cormorant Garamond', Georgia, serif);
+  font-size: 1.35rem;
+  color: var(--ivory, #FDFAF3);
+  text-decoration: none;
+}
+.drawer-brand img {
+  width: 28px;
+  height: 28px;
+}
+.drawer-close {
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: var(--gold-light, #E8C97A);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.drawer-close:hover {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: var(--gold, #C9A84C);
+}
+.drawer-body {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+}
+.drawer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0;
+  margin: 0;
+}
+.drawer-links li a {
+  color: var(--ivory, #FDFAF3);
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: block;
+  padding: 0.35rem 0;
+  transition: color 0.2s, transform 0.2s;
+}
+.drawer-links li a:hover {
+  color: var(--gold-light, #E8C97A);
+  transform: translateX(4px);
+}
+.drawer-links li a small {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(253, 250, 243, 0.6);
+}
+.drawer-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(201, 168, 76, 0.18);
+  background: rgba(6, 18, 36, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+@media (max-width: 900px) {
+  .nav-hamburger {
+    display: inline-flex !important;
+    min-height: 38px !important;
+    padding: 0.35rem 0.65rem !important;
+  }
+}
+
 </style>
 
   <!-- Structured Data JSON-LD -->
@@ -1805,7 +1970,52 @@
       <a href="guidelines.html" class="nav-link">Guidelines</a>
     </div>
     <a href="https://wa.me/917888540046?text=Namaste.%20I%20would%20like%20to%20consult%20with%20a%20physician%20about%20the%20retreat%20programmes." class="nav-cta" target="_blank" rel="noopener">Inquire on WhatsApp</a>
-  </nav>
+  
+  <button class="nav-hamburger" id="navHamburgerBtn" aria-label="Open Navigation Menu" onclick="toggleNavDrawer()">
+    <div class="hamburger-bars">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <span class="menu-label">Menu</span>
+  </button>
+
+</nav>
+
+<!-- ─── MOBILE SLIDE-OVER DRAWER OVERLAY ─── -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleNavDrawer()"></div>
+
+<!-- ─── MOBILE SLIDE-OVER DRAWER ─── -->
+<aside class="nav-drawer" id="navDrawer" aria-label="Mobile Navigation Menu">
+  <div class="drawer-header">
+    <a class="drawer-brand" href="index.html" onclick="toggleNavDrawer()">
+      <img src="images/logo-emblem.webp" alt="The Reset Co." width="28" height="28">
+      <span>The Reset Co.</span>
+    </a>
+    <button class="drawer-close" aria-label="Close Menu" onclick="toggleNavDrawer()">&times;</button>
+  </div>
+  <div class="drawer-body">
+    <ul class="drawer-links">
+      <li><a href="index.html">Home<small>Sanctuary overview &amp; philosophy</small></a></li>
+      <li><a href="programmes.html">Master Programmes Hub &rarr;<small>Compare all 3 retreat pathways</small></a></li>
+      <li><a href="programme-awakening.html">The Awakening Pathway<small>4N/5D &bull; Mental clarity &amp; stress reset</small></a></li>
+      <li><a href="programme-rejuvenation.html">The Deep Rejuvenation<small>4N/5D &bull; Spinal care &amp; nervous recovery</small></a></li>
+      <li><a href="programme-reset.html">The Classical Reset<small>4N/5D &bull; Intensive bodily recalibration</small></a></li>
+      <li><a href="properties.html">Sanctuary Grounds<small>Vaikunth Mud House &bull; Bir Billing</small></a></li>
+      <li><a href="meet-the-doctors.html">Founding Vaidyas<small>Dr. Himanshu &amp; Dr. Aditya (B.A.M.S.)</small></a></li>
+      <li><a href="dosha-prakriti-assessment.html">Prakriti Assessment<small>Comprehensive constitutional questionnaire</small></a></li>
+      <li><a href="review.html">Guest Reflections &amp; Outcomes<small>Documented biological markers</small></a></li>
+      <li><a href="guidelines.html">Sanctuary Guidelines &amp; Conduct<small>Noble silence &amp; sacred decorum</small></a></li>
+      <li><a href="international.html">International Guests<small>Visas, DHM airport transit &amp; rates</small></a></li>
+      <li><a href="terms.html">Terms &amp; Cancellation<small>Transparent deposit &amp; transfer policy</small></a></li>
+    </ul>
+  </div>
+  <div class="drawer-footer">
+    <a href="index.html#enquiry" class="btn-primary" style="width: 100%; text-align: center; display: block; padding: 0.8rem; background: var(--royal-deep, #0F2347); color: var(--gold-light, #E8C97A); border: 1px solid var(--gold, #C9A84C); text-transform: uppercase; font-size: 0.82rem; font-weight: 600; text-decoration: none;" onclick="toggleNavDrawer()">Enquire for November</a>
+    <a href="https://wa.me/917888540046" class="btn-outline" style="width: 100%; text-align: center; display: block; padding: 0.8rem; background: transparent; color: var(--ivory, #FDFAF3); border: 1px solid rgba(253,250,243,0.4); text-transform: uppercase; font-size: 0.82rem; font-weight: 600; text-decoration: none;" target="_blank" rel="noopener">WhatsApp Doctors</a>
+  </div>
+</aside>
+
 
   <!-- SACRED SHLOKA HERO -->
   <header class="prog-hero">
@@ -2722,6 +2932,28 @@
   <!-- Vercel Telemetry & Speed Insights -->
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
+
+
+<script>
+function toggleNavDrawer() {
+  var drawer = document.getElementById('navDrawer');
+  var overlay = document.getElementById('menuOverlay');
+  var hamburger = document.getElementById('navHamburgerBtn');
+  if (!drawer || !overlay) return;
+  var isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    if (hamburger) hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  } else {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    if (hamburger) hamburger.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+</script>
 
 </body>
 </html>

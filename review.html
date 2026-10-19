@@ -14,11 +14,14 @@
 <!-- Open Graph / Social Media -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Reset Co.">
+<meta property="og:url" content="https://www.thereset-co.in/review">
 <meta property="og:title" content="Guest Reflections & Wellness Shifts | The Reset Co.">
 <meta property="og:description" content="Read verified guest reflections and physiological wellness shifts from our 5-day closed cohorts in Bir Billing, Himachal Pradesh. Explore experiences ✓">
 <meta property="og:image" content="https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008">
 <meta property="og:image:width" content="1024">
 <meta property="og:image:height" content="768">
+<meta name="twitter:title" content="Guest Reflections & Outcomes | The Reset Co.">
+<meta name="twitter:description" content="Read documented wellness shifts, circadian sleep depth reflections, and personal words from guests who completed our 4-day retreat cohorts.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008">
 
@@ -633,6 +636,168 @@
     outline: 2px solid #E8C97A;
   }
 
+
+/* ─── UNIVERSAL SANCTUARY MOBILE DRAWER CSS ─── */
+.nav-hamburger {
+  display: none;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 40px;
+  padding: 0.45rem 0.85rem;
+  cursor: pointer;
+  background: rgba(201, 168, 76, 0.1);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+.hamburger-bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 20px;
+}
+.hamburger-bars span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--royal-deep, #0F2347);
+  transition: all 0.25s ease;
+}
+.menu-label {
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--royal-deep, #0F2347);
+  font-weight: 600;
+}
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 14, 28, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.menu-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 440px;
+  background: var(--royal-deep, #0F2347);
+  color: var(--ivory, #FDFAF3);
+  z-index: 2001;
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.6);
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-left: 1px solid rgba(201, 168, 76, 0.25);
+}
+.nav-drawer.open {
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.18);
+}
+.drawer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--serif, 'Cormorant Garamond', Georgia, serif);
+  font-size: 1.35rem;
+  color: var(--ivory, #FDFAF3);
+  text-decoration: none;
+}
+.drawer-brand img {
+  width: 28px;
+  height: 28px;
+}
+.drawer-close {
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: var(--gold-light, #E8C97A);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.drawer-close:hover {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: var(--gold, #C9A84C);
+}
+.drawer-body {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+}
+.drawer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0;
+  margin: 0;
+}
+.drawer-links li a {
+  color: var(--ivory, #FDFAF3);
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: block;
+  padding: 0.35rem 0;
+  transition: color 0.2s, transform 0.2s;
+}
+.drawer-links li a:hover {
+  color: var(--gold-light, #E8C97A);
+  transform: translateX(4px);
+}
+.drawer-links li a small {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(253, 250, 243, 0.6);
+}
+.drawer-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(201, 168, 76, 0.18);
+  background: rgba(6, 18, 36, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+@media (max-width: 900px) {
+  .nav-hamburger {
+    display: inline-flex !important;
+    min-height: 38px !important;
+    padding: 0.35rem 0.65rem !important;
+  }
+}
+
 </style>
 
   <!-- Local SEO & Geographic Entity Metadata -->
@@ -662,21 +827,7 @@
   ]
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HealthAndBeautyBusiness",
-  "name": "The Reset Co.",
-  "url": "https://www.thereset-co.in/",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "24",
-    "bestRating": "5",
-    "worstRating": "1"
-  }
-}
-</script>
+
 </head>
 <body>
   <a href="#main-content" class="skip-to-content">Skip to main content</a>
@@ -696,7 +847,52 @@
       <a href="dosha-prakriti-assessment.html" class="nav-link">Dosha Assessment</a>
     </div>
     <a href="https://wa.me/917888540046?text=Namaste.%20I%20would%20like%20to%20learn%20more%20about%20restorative%20retreat%20reflections." class="nav-cta" target="_blank" rel="noopener">Inquire on WhatsApp</a>
-  </nav>
+  
+  <button class="nav-hamburger" id="navHamburgerBtn" aria-label="Open Navigation Menu" onclick="toggleNavDrawer()">
+    <div class="hamburger-bars">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <span class="menu-label">Menu</span>
+  </button>
+
+</nav>
+
+<!-- ─── MOBILE SLIDE-OVER DRAWER OVERLAY ─── -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleNavDrawer()"></div>
+
+<!-- ─── MOBILE SLIDE-OVER DRAWER ─── -->
+<aside class="nav-drawer" id="navDrawer" aria-label="Mobile Navigation Menu">
+  <div class="drawer-header">
+    <a class="drawer-brand" href="index.html" onclick="toggleNavDrawer()">
+      <img src="images/logo-emblem.webp" alt="The Reset Co." width="28" height="28">
+      <span>The Reset Co.</span>
+    </a>
+    <button class="drawer-close" aria-label="Close Menu" onclick="toggleNavDrawer()">&times;</button>
+  </div>
+  <div class="drawer-body">
+    <ul class="drawer-links">
+      <li><a href="index.html">Home<small>Sanctuary overview &amp; philosophy</small></a></li>
+      <li><a href="programmes.html">Master Programmes Hub &rarr;<small>Compare all 3 retreat pathways</small></a></li>
+      <li><a href="programme-awakening.html">The Awakening Pathway<small>4N/5D &bull; Mental clarity &amp; stress reset</small></a></li>
+      <li><a href="programme-rejuvenation.html">The Deep Rejuvenation<small>4N/5D &bull; Spinal care &amp; nervous recovery</small></a></li>
+      <li><a href="programme-reset.html">The Classical Reset<small>4N/5D &bull; Intensive bodily recalibration</small></a></li>
+      <li><a href="properties.html">Sanctuary Grounds<small>Vaikunth Mud House &bull; Bir Billing</small></a></li>
+      <li><a href="meet-the-doctors.html">Founding Vaidyas<small>Dr. Himanshu &amp; Dr. Aditya (B.A.M.S.)</small></a></li>
+      <li><a href="dosha-prakriti-assessment.html">Prakriti Assessment<small>Comprehensive constitutional questionnaire</small></a></li>
+      <li><a href="review.html">Guest Reflections &amp; Outcomes<small>Documented biological markers</small></a></li>
+      <li><a href="guidelines.html">Sanctuary Guidelines &amp; Conduct<small>Noble silence &amp; sacred decorum</small></a></li>
+      <li><a href="international.html">International Guests<small>Visas, DHM airport transit &amp; rates</small></a></li>
+      <li><a href="terms.html">Terms &amp; Cancellation<small>Transparent deposit &amp; transfer policy</small></a></li>
+    </ul>
+  </div>
+  <div class="drawer-footer">
+    <a href="index.html#enquiry" class="btn-primary" style="width: 100%; text-align: center; display: block; padding: 0.8rem; background: var(--royal-deep, #0F2347); color: var(--gold-light, #E8C97A); border: 1px solid var(--gold, #C9A84C); text-transform: uppercase; font-size: 0.82rem; font-weight: 600; text-decoration: none;" onclick="toggleNavDrawer()">Enquire for November</a>
+    <a href="https://wa.me/917888540046" class="btn-outline" style="width: 100%; text-align: center; display: block; padding: 0.8rem; background: transparent; color: var(--ivory, #FDFAF3); border: 1px solid rgba(253,250,243,0.4); text-transform: uppercase; font-size: 0.82rem; font-weight: 600; text-decoration: none;" target="_blank" rel="noopener">WhatsApp Doctors</a>
+  </div>
+</aside>
+
 
   <!-- SHLOKA HERO -->
   <header class="page-hero">
@@ -713,7 +909,7 @@
     <section class="markers-section">
       <div class="section-heading">
         <h2>Five Biological Recovery Markers</h2>
-        <p>Physiological metrics observed by Dr. Himanshu Bhatt and Dr. Aditya Kaundal across retreat cohorts in Himachal Pradesh.</p>
+        <p>Restorative experiential shifts cultivated under the daily guidance of Dr. Himanshu Bhatt and Dr. Aditya Kaundal during 4N/5D retreats in Bir Billing.</p>
       </div>
 
       <div class="markers-grid">
@@ -723,7 +919,7 @@
           <div class="marker-icon">&#9684;</div>
           <h3 class="marker-name">Circadian Sleep Depth</h3>
           <p style="font-size: 0.88rem; color: #4A5568; line-height: 1.6;">
-            Sensory fasting, digital sundown, and nightly Trataka candle meditation downregulate sympathetic beta waves, restoring natural melatonin synthesis.
+            Sensory fasting, digital sundown, and nightly Trataka candle meditation provide a quiet, screen-free atmosphere to help calm mental chatter and support natural circadian rest.
           </p>
           <div class="marker-shift">
             <span class="shift-before">Intake: Fragmented 2:00 AM waking &amp; screen insomnia</span>
@@ -736,7 +932,7 @@
           <div class="marker-icon">&#9877;</div>
           <h3 class="marker-name">Metabolic Agni &amp; Gut Lightness</h3>
           <p style="font-size: 0.88rem; color: #4A5568; line-height: 1.6;">
-            Physician-led Shatkarma followed by Samsarjana Krama warm broths dissolves accumulated digestive endotoxins (Ama).
+            Physician-led Shatkarma followed by Samsarjana Krama warm broths offers mindful digestive rest and nourishing warmth for balanced vitality.
           </p>
           <div class="marker-shift">
             <span class="shift-before">Intake: Post-meal sluggishness, acid reflux &amp; gut heaviness</span>
@@ -749,7 +945,7 @@
           <div class="marker-icon">&#9832;</div>
           <h3 class="marker-name">Spinal &amp; Postural Decompression</h3>
           <p style="font-size: 0.88rem; color: #4A5568; line-height: 1.6;">
-            Warm medicated oil pools (Bahya Basti) deeply lubricate paraspinal ligaments and decompress disc spaces compressed by desk work.
+            Warm medicated oil pools (Bahya Basti) provide soothing warmth and localized comfort to ease muscular tightness from desk posture.
           </p>
           <div class="marker-shift">
             <span class="shift-before">Intake: Persistent neck tightness &amp; lower back compression</span>
@@ -762,7 +958,7 @@
           <div class="marker-icon">&#9678;</div>
           <h3 class="marker-name">Ocular Screen Strain Reversal</h3>
           <p style="font-size: 0.88rem; color: #4A5568; line-height: 1.6;">
-            Netra Tarpana herbal Triphala ghee baths soothe inflamed optic capillaries and replenish dehydrated lipid tear films.
+            Classical Triphala herbal eye practices offer cooling refreshment and comfort to eyes weary from extended screen exposure.
           </p>
           <div class="marker-shift">
             <span class="shift-before">Intake: Chronic dry eyes, screen glare sensitivity &amp; redness</span>
@@ -775,7 +971,7 @@
           <div class="marker-icon">&#9670;</div>
           <h3 class="marker-name">Autonomic Vagus Down-Regulation</h3>
           <p style="font-size: 0.88rem; color: #4A5568; line-height: 1.6;">
-            Noble morning silence (Arya Mauna) and Hatha pranayama quiet the amygdala and stimulate restorative parasympathetic vagal tone.
+            Noble morning silence (Arya Mauna) and Hatha pranayama nurture deep internal quietude, allowing an overactive mind to settle naturally.
           </p>
           <div class="marker-shift">
             <span class="shift-before">Intake: Chronic hypervigilance &amp; racing thought patterns</span>
@@ -803,14 +999,14 @@
     <section>
       <div class="section-heading">
         <h2>Reflections From Sanctuary Guests</h2>
-        <p>Direct words from executive professionals who experienced our 4-day closed retreat cohorts.</p>
+        <p>Reflections from professionals who participated in our preliminary prototype immersions and pilot cohorts in Himachal Pradesh.</p>
       </div>
 
       <div class="reflections-grid">
         <article class="reflection-card">
           <div class="reflection-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
           <p class="reflection-quote">
-            &ldquo;Having Dr. Himanshu and Dr. Aditya oversee every therapy personally changed everything. The localized Kati Basti melted lower back tension that months of physiotherapy could not touch. The noble silence mornings gave me my mind back.&rdquo;
+            &ldquo;Having Dr. Himanshu and Dr. Aditya oversee every therapy personally changed everything. The localized Kati Basti provided profound, comforting relief for my persistent lower back tightness. The noble silence mornings gave me my mind back.&rdquo;
           </p>
           <div>
             <div class="reflection-author">Pooja Sharma</div>
@@ -915,7 +1111,7 @@
 
           <!-- Ethical Consent -->
           <label class="form-consent" for="reviewConsent">
-            <input type="checkbox" id="reviewConsent" name="consent" aria-label="I confirm that I attended a retreat at The Reset Co. and consent to sharing my wellness reflection under ethical privacy guidelines." required checked>
+            <input type="checkbox" id="reviewConsent" name="consent" aria-label="I confirm that I attended a retreat at The Reset Co. and consent to sharing my wellness reflection under ethical privacy guidelines." required>
             <span>I confirm that I attended a retreat at The Reset Co. and consent to sharing my wellness reflection under ethical privacy guidelines.</span>
           </label>
 
@@ -1029,6 +1225,28 @@
   <!-- Vercel Telemetry & Speed Insights -->
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
+
+
+<script>
+function toggleNavDrawer() {
+  var drawer = document.getElementById('navDrawer');
+  var overlay = document.getElementById('menuOverlay');
+  var hamburger = document.getElementById('navHamburgerBtn');
+  if (!drawer || !overlay) return;
+  var isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    if (hamburger) hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  } else {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    if (hamburger) hamburger.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+</script>
 
 </body>
 </html>
