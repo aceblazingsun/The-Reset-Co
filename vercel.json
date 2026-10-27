@@ -136,6 +136,16 @@
   ],
   "redirects": [
     {
+      "source": "/programme-reset",
+      "destination": "/programme-rejuvenation",
+      "permanent": true
+    },
+    {
+      "source": "/programme-reset.html",
+      "destination": "/programme-rejuvenation",
+      "permanent": true
+    },
+    {
       "source": "/the-reset-co-presentation",
       "destination": "/programmes",
       "permanent": true

@@ -300,7 +300,7 @@
 
   .opt4-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 520px)); justify-content: center;
     gap: 1.75rem;
     align-items: stretch;
   }
@@ -1820,7 +1820,7 @@
       "item": {
         "@type": "TouristTrip",
         "name": "The Awakening Pathway",
-        "description": "A 4N/5D gentle restorative Ayurvedic immersion focused on nervous system recovery, Shatkarma, and Dinacharya rhythm.",
+        "description": "A 4N/5D gentle restorative Ayurvedic immersion focused on nervous system recovery, 2 days Bahya Basti, stargazing, trails with Daisy, Tratak, and Reflective Samvada.",
         "touristType": "Restorative Wellness",
         "offers": {
           "@type": "Offer",
@@ -1837,31 +1837,14 @@
       "item": {
         "@type": "TouristTrip",
         "name": "The Deep Rejuvenation",
-        "description": "A 4N/5D structural alignment Ayurvedic retreat targeting spinal, neck, and musculoskeletal strain with 2 Bahya Bastis.",
+        "description": "A 4N/5D structural alignment & intensive Ayurvedic retreat targeting spinal, cervical, and sensory renewal with 3 days Bahya Basti, pottery, Netra Tarpana, sound healing, and acoustic jamming.",
         "touristType": "Restorative Wellness",
         "offers": {
           "@type": "Offer",
-          "price": "34990",
+          "price": "35990",
           "priceCurrency": "INR",
           "availability": "https://schema.org/InStock",
           "url": "https://www.thereset-co.in/programme-rejuvenation"
-        }
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "item": {
-        "@type": "TouristTrip",
-        "name": "The Classical Reset",
-        "description": "A 4N/5D comprehensive classical Ayurvedic immersion featuring 3 Bahya Bastis, Netra Tarpana ocular care, and Marma therapy.",
-        "touristType": "Restorative Wellness",
-        "offers": {
-          "@type": "Offer",
-          "price": "39990",
-          "priceCurrency": "INR",
-          "availability": "https://schema.org/InStock",
-          "url": "https://www.thereset-co.in/programme-reset"
         }
       }
     }
@@ -1922,7 +1905,7 @@
       "name": "What therapies are included (Bahya Basti, Abhyanga, Shatkarma)?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Depending on your chosen pathway (The Awakening Pathway, The Deep Rejuvenation, or The Classical Reset), therapies include localized Bahya Basti (warm herbal oil reservoirs on the cervical or lumbar spine), full-body synchronized Abhyanga, deeply nourishing Netra Tarpana (warm medicated Triphala Ghrita eye bath), soothing Netra Prakshalana (cleansing Triphala Kwath eye wash), gentle morning cleansing kriyas (Jalaneti), condition-adaptive restorative yoga, and personalized herbal decoctions."
+        "text": "Depending on your chosen pathway (The Awakening Pathway or The Deep Rejuvenation), therapies include localized Bahya Basti (warm herbal oil reservoirs on the cervical or lumbar spine), full-body synchronized Abhyanga, deeply nourishing Netra Tarpana (warm medicated Triphala Ghrita eye bath), soothing Netra Prakshalana (cleansing Triphala Kwath eye wash), gentle morning cleansing kriyas (Jalaneti), condition-adaptive restorative yoga, and personalized herbal decoctions."
       }
     },
     {
@@ -1997,7 +1980,7 @@
   <div class="drawer-body">
     <ul class="drawer-links">
       <li><a href="index.html">Home<small>Sanctuary overview &amp; philosophy</small></a></li>
-      <li><a href="programmes.html">Master Programmes Hub &rarr;<small>Compare all 3 retreat pathways</small></a></li>
+      <li><a href="programmes.html">Master Programmes Hub &rarr;<small>Compare both retreat pathways</small></a></li>
       <li><a href="programme-awakening.html">The Awakening Pathway<small>4N/5D &bull; Mental clarity &amp; stress reset</small></a></li>
       <li><a href="programme-rejuvenation.html">The Deep Rejuvenation<small>4N/5D &bull; Spinal care &amp; nervous recovery</small></a></li>
       <li><a href="programme-reset.html">The Classical Reset<small>4N/5D &bull; Intensive bodily recalibration</small></a></li>
@@ -2024,7 +2007,7 @@
       <span class="shloka-subtext">Our Classical Ayurvedic Mandate</span>
     </div>
     <h1>Vaidya-Led Restorative Pathways</h1>
-    <p>Every retreat immersion at The Reset Co. is individually diagnosed and administered on-site by founding Vaidyas Dr. Himanshu Bhatt and Dr. Aditya Kaundal. Select the depth of physiological restoration aligned with your body constitution.</p>
+    <p>Every retreat immersion at The Reset Co. is personally customized and guided on-site by founding Vaidyas Dr. Himanshu Bhatt and Dr. Aditya Kaundal. Select the pathway aligned with your lifestyle and restorative intentions.</p>
   </header>
 
   <!-- MAIN CONTENT CONTAINER -->
@@ -2053,8 +2036,7 @@
       <!-- Mobile Segmented Tabs -->
       <div class="opt4-tabs">
         <button class="opt4-tab-btn" onclick="selectProgCard(0)">Awakening Pathway</button>
-        <button class="opt4-tab-btn active" onclick="selectProgCard(1)">Rejuvenation <span class="tab-star">&#9733;</span></button>
-        <button class="opt4-tab-btn" onclick="selectProgCard(2)">Classical Reset</button>
+        <button class="opt4-tab-btn active" onclick="selectProgCard(1)">Deep Rejuvenation <span class="tab-star">&#9733;</span></button>
       </div>
 
       <div class="opt4-grid">
@@ -2062,7 +2044,7 @@
         <article class="prog-card" id="prog-card-0">
           <div class="card-img-header">
             <img src="images/yoga.jpg" alt="The Awakening Pathway" width="600" height="400" loading="lazy" decoding="async">
-            <span class="card-pill-tag">Restorative</span>
+            <span class="card-pill-tag">Restorative &bull; Foundational</span>
           </div>
           <div class="card-main-pane">
             <div class="card-heading-group">
@@ -2071,22 +2053,22 @@
                 <span class="card-amount">&#8377;27,990</span>
                 <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
               </div>
-              <span class="card-scope-badge">Burnout reset for seekers with zero joint complaints</span>
+              <span class="card-scope-badge">Burnout reset, screen fatigue &amp; circadian rhythm recovery</span>
             </div>
 
             <!-- Top 3 Curated Highlights -->
             <ul class="bullet-list" style="margin-bottom: 0.85rem;">
-              <li class="bullet-item">
+              <li class="bullet-item highlight-bullet">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Day 1 Doctor Interaction:</strong> 1:1 doctor interaction &amp; personal plan for the days</span>
+                <span><strong>2 Days Bahya Basti:</strong> Soothing localized warm herbal oil pooling for neck or back comfort*</span>
               </li>
-              <li class="bullet-item">
+              <li class="bullet-item highlight-bullet">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Morning Decoctions &amp; Shatkarma:</strong> Warm herbal kadha &amp; gentle nasal cleansing</span>
+                <span><strong>Trails with Daisy 🐾 &amp; Stargazing:</strong> Pine valley nature walks &amp; clear Himalayan night sky stillness</span>
               </li>
-              <li class="bullet-item">
+              <li class="bullet-item highlight-bullet">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Yoga &amp; Wholesome Meals:</strong> Daily morning yoga, fresh breakfast, lunch &amp; dinner</span>
+                <span><strong>Tratak Meditation &amp; Reflective Samvada:</strong> Flame gazing meditation &amp; mindful life dialogue</span>
               </li>
             </ul>
 
@@ -2099,34 +2081,34 @@
             <!-- Accordion Expanded Inclusions -->
             <div class="accordion-panel">
               <ul class="bullet-list">
-                <li class="bullet-item highlight-bullet">
+                <li class="bullet-item">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>1 Warm Oil Bahya Basti:</strong> Warm herbal oil therapy for neck and back comfort*</span>
+                  <span><strong>Day 1 Vaidya Interaction:</strong> 1:1 personal lifestyle consultation &amp; retreat orientation</span>
                 </li>
                 <li class="bullet-item">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Tactile Pottery Workshop:</strong> Grounding clay session shaping local Himalayan ceramics</span>
+                  <span><strong>Morning Decoctions &amp; Shatkarma:</strong> Warm herbal kadha &amp; gentle nasal cleansing (Jala Neti)</span>
                 </li>
                 <li class="bullet-item">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Bonfire &amp; Post-Dinner Music:</strong> Fireside gathering &amp; soothing acoustic melodies after dinner</span>
+                  <span><strong>Yoga &amp; Wholesome Meals:</strong> Daily morning restorative yoga, fresh breakfast, lunch &amp; dinner</span>
                 </li>
                 <li class="bullet-item">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>3-Day Dinacharya Handover:</strong> Closing doctor interaction &amp; 3-day home wellness guide</span>
+                  <span><strong>3-Day Dinacharya Handover:</strong> Closing doctor consult &amp; 3-day home wellness integration</span>
                 </li>
               </ul>
             </div>
 
             <div class="card-btn-stack">
               <a href="programme-awakening.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
-              <div style="font-size:0.75rem; color:var(--gold-dark); font-weight:600; margin-bottom:0.75rem;">Easy Reservation: Lock your suite with a ₹10,000 booking deposit (remaining balance due 15 days prior to arrival).</div>
+              <div style="font-size:0.75rem; color:var(--gold-dark); font-weight:600; margin-bottom:0.75rem;">Easy Reservation: Lock your suite with a &#8377;10,000 booking deposit (remaining balance due 15 days prior to arrival).</div>
               <a href="index.html?plan=awakening#enquiry" class="btn-apply">Apply For Cohort &rarr;</a>
             </div>
           </div>
         </article>
 
-        <!-- Card 2: Deep Rejuvenation (Default Active) -->
+        <!-- Card 2: Deep Rejuvenation (Signature Active) -->
         <article class="prog-card featured active-card" id="prog-card-1">
           <div class="card-img-header">
             <img src="images/ayurveda.jpg" alt="The Deep Rejuvenation" width="600" height="400" loading="lazy" decoding="async">
@@ -2136,25 +2118,25 @@
             <div class="card-heading-group">
               <h3 class="card-title">The Deep Rejuvenation</h3>
               <div class="card-tariff">
-                <span class="card-amount">&#8377;34,990</span>
+                <span class="card-amount">&#8377;35,990</span>
                 <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
               </div>
-              <span class="card-scope-badge">Targeted relief for neck and back stiffness &amp; desk fatigue</span>
+              <span class="card-scope-badge">Postural stiffness, neck comfort &amp; deep sensory restoration</span>
             </div>
 
             <!-- Top 3 Curated Highlights -->
             <ul class="bullet-list" style="margin-bottom: 0.85rem;">
               <li class="bullet-item highlight-bullet">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>2 Bahya Basti Sessions:</strong> Soothing warm herbal oil therapies for neck, back, and joint comfort.*</span>
+                <span><strong>3 Days Bahya Basti:</strong> Intensive localized warm herbal oil pools for lumbar &amp; cervical decompression*</span>
               </li>
-              <li class="bullet-item">
+              <li class="bullet-item highlight-bullet">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Trails with Daisy 🐾 &amp; Stargazing:</strong> Guided pine forest walks with Daisy &amp; clear night skies</span>
+                <span><strong>Netra Tarpana Eye Reset:</strong> Warm Triphala Ghrita medicated ghee bath for digital eye strain*</span>
               </li>
-              <li class="bullet-item">
+              <li class="bullet-item highlight-bullet">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>1 Full-Body Abhyanga:</strong> Warm medicated herbal oil massage to release deep muscle tension</span>
+                <span><strong>Pottery &amp; Sound Healing:</strong> Himalayan terracotta pottery workshop &amp; Tibetan singing bowls</span>
               </li>
             </ul>
 
@@ -2169,11 +2151,15 @@
               <ul class="bullet-list">
                 <li class="bullet-item">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Day 1 Doctor Interaction:</strong> One-on-one doctor interaction &amp; introductory orientation</span>
+                  <span><strong>Acoustic Music Jamming Session:</strong> Unplugged fireside evening acoustic music circle under the stars</span>
                 </li>
                 <li class="bullet-item">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Tactile Pottery Workshop:</strong> Grounding clay session shaping local Himalayan ceramics</span>
+                  <span><strong>1 Full-Body Abhyanga:</strong> Warm medicated herbal oil massage to release deep muscular tension</span>
+                </li>
+                <li class="bullet-item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span><strong>Daily Vaidya Check-Ins:</strong> One-on-one daily consultations &amp; personal lifestyle direction</span>
                 </li>
                 <li class="bullet-item">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -2181,99 +2167,19 @@
                 </li>
                 <li class="bullet-item">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Wholesome Sattvic Meals:</strong> Wholesome breakfast, lunch &amp; dinner prepared fresh daily</span>
+                  <span><strong>Wholesome Sattvic Meals:</strong> Nourishing breakfast, lunch &amp; dinner prepared fresh daily</span>
                 </li>
                 <li class="bullet-item">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Bonfire &amp; Post-Dinner Music:</strong> Fireside gathering &amp; soothing acoustic melodies after dinner</span>
-                </li>
-                <li class="bullet-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>5-Day Dinacharya Handover:</strong> Closing doctor interaction &amp; 5-day home wellness guide</span>
+                  <span><strong>5-Day Dinacharya Handover:</strong> Closing doctor consultation &amp; 5-day home wellness plan</span>
                 </li>
               </ul>
             </div>
 
             <div class="card-btn-stack">
               <a href="programme-rejuvenation.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
-              <div style="font-size:0.75rem; color:var(--gold); font-weight:600; margin-bottom:0.75rem;">Easy Reservation: Lock your suite with a ₹10,000 booking deposit (remaining balance due 15 days prior to arrival).</div>
+              <div style="font-size:0.75rem; color:var(--gold); font-weight:600; margin-bottom:0.75rem;">Easy Reservation: Lock your suite with a &#8377;10,000 booking deposit (remaining balance due 15 days prior to arrival).</div>
               <a href="index.html?plan=rejuvenation#enquiry" class="btn-apply">Apply For Cohort &rarr;</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 3: Classical Reset -->
-        <article class="prog-card" id="prog-card-2">
-          <div class="card-img-header">
-            <img src="images/meditation.jpg" alt="The Classical Reset" width="600" height="400" loading="lazy" decoding="async">
-            <span class="card-pill-tag">Intensive Reset</span>
-          </div>
-          <div class="card-main-pane">
-            <div class="card-heading-group">
-              <h3 class="card-title">The Classical Reset</h3>
-              <div class="card-tariff">
-                <span class="card-amount">&#8377;39,990</span>
-                <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
-              </div>
-              <span class="card-scope-badge">Comprehensive reset &bull; Burnout, screen strain &amp; spinal care</span>
-            </div>
-
-            <!-- Top 3 Curated Highlights -->
-            <ul class="bullet-list" style="margin-bottom: 0.85rem;">
-              <li class="bullet-item highlight-bullet">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>3 Bahya Basti Sessions:</strong> Warm herbal oil therapies for spine, neck, and joint ease*</span>
-              </li>
-              <li class="bullet-item highlight-bullet">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Netra Tarpana Eye Care:</strong> Deeply nourishing Triphala Ghrita ocular care for digital screen strain*</span>
-              </li>
-              <li class="bullet-item highlight-bullet">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Trails with Daisy 🐾 &amp; Stargazing:</strong> Forest walks with Daisy &amp; night sky contemplation</span>
-              </li>
-            </ul>
-
-            <!-- Accordion Toggle Button -->
-            <button class="accordion-toggle" data-closed-text="+ View 6 More Inclusions" onclick="toggleProgAccordion(this)">
-              <span>+ View 6 More Inclusions</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
-
-            <!-- Accordion Expanded Inclusions -->
-            <div class="accordion-panel">
-              <ul class="bullet-list">
-                <li class="bullet-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Tactile Pottery Workshop:</strong> Grounding clay session shaping local Himalayan ceramics</span>
-                </li>
-                <li class="bullet-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Daily 1:1 Doctor Interactions:</strong> Daily one-on-one interactions &amp; check-ins with founding doctors</span>
-                </li>
-                <li class="bullet-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Morning Decoctions, Yoga &amp; Shatkarma:</strong> Herbal kadhas, daily yoga &amp; gentle kriya cleansing</span>
-                </li>
-                <li class="bullet-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Wholesome Sattvic Dining:</strong> Wholesome breakfast, lunch &amp; dinner prepared fresh daily</span>
-                </li>
-                <li class="bullet-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>Bonfire &amp; Post-Dinner Music:</strong> Fireside gathering &amp; soothing acoustic melodies after dinner</span>
-                </li>
-                <li class="bullet-item">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  <span><strong>7-Day Dinacharya Handover:</strong> 7-day personalized home routine &amp; doctor WhatsApp support</span>
-                </li>
-              </ul>
-            </div>
-
-            <div class="card-btn-stack">
-              <a href="programme-reset.html" class="btn-dossier">View Detailed Pathway &rarr;</a>
-              <div style="font-size:0.75rem; color:var(--gold-dark); font-weight:600; margin-bottom:0.75rem;">Easy Reservation: Lock your suite with a ₹10,000 booking deposit (remaining balance due 15 days prior to arrival).</div>
-              <a href="index.html?plan=reset#enquiry" class="btn-apply">Apply For Cohort &rarr;</a>
             </div>
           </div>
         </article>
@@ -2285,7 +2191,7 @@
     <div id="comparison" class="fade-up">
       <div class="comp-sec-header">
         <h3 class="comp-sec-title">Side-by-Side Inclusions Comparison</h3>
-        <p class="comp-sec-subtitle">Compare physician direction, therapies, and care across the three 4N/5D pathways</p>
+        <p class="comp-sec-subtitle">Compare physician direction, therapies, and care across the two 4N/5D pathways</p>
       </div>
 
       <!-- DESKTOP VIEW: PRESERVED SIDE-BY-SIDE TABLE (>= 901px) -->
@@ -2296,63 +2202,63 @@
               <th>Feature / Component</th>
               <th>The Awakening Pathway</th>
               <th>The Deep Rejuvenation</th>
-              <th>The Classical Reset</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Price (4N / 5D)</strong></td>
+              <td><strong>Price (4N / 5D All-Inclusive)</strong></td>
               <td><strong>&#8377;27,990</strong></td>
-              <td><strong style="color: var(--gold-dark);">&#8377;34,990 (Recommended)</strong></td>
-              <td><strong>&#8377;39,990</strong></td>
+              <td><strong style="color: var(--gold-dark);">&#8377;35,990 (Signature Cohort)</strong></td>
             </tr>
             <tr>
               <td><strong>Target Suitability</strong></td>
-              <td>General burnout &amp; circadian fatigue</td>
-              <td>Spinal tightness, neck &amp; posture strain</td>
-              <td>Deep chronic depletion &amp; sensory fatigue</td>
+              <td>General burnout, modern screen fatigue &amp; circadian rhythm reset</td>
+              <td>Prolonged desk posture, physical stiffness &amp; deep sensory renewal</td>
             </tr>
             <tr>
-              <td><strong>Doctor Pulse Diagnostics</strong></td>
-              <td>Arrival &amp; Departure evaluations</td>
-              <td>Daily 1-on-1 pulse consultations</td>
-              <td>Continuous daily pulse &amp; wellness monitoring</td>
+              <td><strong>Doctor Wellness Consultations</strong></td>
+              <td>Arrival &amp; Departure personalized consultations</td>
+              <td>Daily 1-on-1 unhurried consultations &amp; personal care</td>
             </tr>
             <tr>
               <td><strong>Abhyanga Oil Sessions</strong></td>
               <td>2x Medicated full-body Abhyanga</td>
-              <td>3x Prescribed Abhyanga with steam</td>
-              <td>4x Classical Abhyanga sessions</td>
+              <td>3x Prescribed Abhyanga with herbal steam</td>
             </tr>
             <tr>
               <td><strong>Specialized Bahya Basti</strong></td>
-              <td>&mdash;</td>
-              <td><strong>2x Kati / Greeva Basti</strong> (warm oil pooling)</td>
-              <td><strong>2x Specialized Basti</strong> included</td>
+              <td><strong>2 Days Bahya Basti</strong> (Kati or Greeva Basti)</td>
+              <td><strong>3 Days Bahya Basti</strong> (Intensive Kati &amp; Greeva Basti)</td>
             </tr>
             <tr>
-              <td><strong>Netra Tarpana Eye Reset</strong></td>
-              <td>&mdash;</td>
-              <td>&mdash;</td>
-              <td><strong>Included</strong> (Medicated ghee eye therapy)</td>
+              <td><strong>Ocular &amp; Sensory Care</strong></td>
+              <td>Netra Prakshalana (Triphala Kwath ocular wash)</td>
+              <td><strong>Netra Tarpana</strong> (Warm Triphala Ghrita eye bath)</td>
             </tr>
             <tr>
-              <td><strong>Welcome Kit &amp; Tools</strong></td>
-              <td>Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</td>
-              <td>Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</td>
-              <td>Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</td>
+              <td><strong>Mindful Workshops &amp; Nature</strong></td>
+              <td><strong>Trails with Daisy 🐾 &amp; Stargazing</strong></td>
+              <td><strong>Himalayan Pottery Workshop &amp; Tibetan Sound Healing</strong></td>
             </tr>
             <tr>
-              <td><strong>Earthen Suite Stay</strong></td>
-              <td>Twin-sharing base tariff (Private Single &amp; Couple options across 5 suites)</td>
+              <td><strong>Evening Gatherings</strong></td>
+              <td><strong>Tratak Flame Meditation &amp; Reflective Samvada</strong></td>
+              <td><strong>Fireside Acoustic Music Jamming Session</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Welcome Kit &amp; Sacred Tools</strong></td>
+              <td>Full sacred welcome kit (Copper vessel, reflection journal &amp; herbal tea blend)</td>
+              <td>Full sacred welcome kit (Copper vessel, reflection journal &amp; herbal tea blend)</td>
+            </tr>
+            <tr>
+              <td><strong>Earthen Suite Accommodation</strong></td>
               <td>Twin-sharing base tariff (Private Single &amp; Couple options across 5 suites)</td>
               <td>Twin-sharing base tariff (Private Single &amp; Couple options across 5 suites)</td>
             </tr>
             <tr>
               <td><strong>Follow-Up Physician Care</strong></td>
               <td>3-Day post-retreat roadmap</td>
-              <td>5-Day care + 1 virtual doctor call</td>
-              <td>7-Day care + 2 virtual doctor calls</td>
+              <td>5-Day personalized care + 1 virtual doctor call</td>
             </tr>
           </tbody>
         </table>
@@ -2367,13 +2273,9 @@
             <span class="comp-matrix-tab-price">&#8377;27,990</span>
           </button>
           <button type="button" class="comp-matrix-tab active" id="comp-tab-1" role="tab" aria-selected="true" aria-controls="comp-panel-1" onclick="switchCompMatrix(1)">
-            <span class="comp-tab-badge">&#9733; Recommended</span>
+            <span class="comp-tab-badge">&#9733; Signature</span>
             <span class="comp-matrix-tab-name">Deep Rejuvenation</span>
-            <span class="comp-matrix-tab-price">&#8377;34,990</span>
-          </button>
-          <button type="button" class="comp-matrix-tab" id="comp-tab-2" role="tab" aria-selected="false" aria-controls="comp-panel-2" onclick="switchCompMatrix(2)">
-            <span class="comp-matrix-tab-name">Classical Reset</span>
-            <span class="comp-matrix-tab-price">&#8377;39,990</span>
+            <span class="comp-matrix-tab-price">&#8377;35,990</span>
           </button>
         </div>
 
@@ -2391,11 +2293,11 @@
             <div class="comp-m-inclusions">
               <div class="comp-m-row">
                 <span class="comp-m-label">Target Suitability</span>
-                <span class="comp-m-val">General burnout &amp; circadian fatigue</span>
+                <span class="comp-m-val">General burnout, screen fatigue &amp; circadian reset</span>
               </div>
               <div class="comp-m-row">
-                <span class="comp-m-label">Doctor Pulse Diagnostics</span>
-                <span class="comp-m-val">Arrival &amp; Departure evaluations</span>
+                <span class="comp-m-label">Doctor Consultations</span>
+                <span class="comp-m-val">Arrival &amp; Departure personalized consultations</span>
               </div>
               <div class="comp-m-row">
                 <span class="comp-m-label">Abhyanga Oil Sessions</span>
@@ -2403,23 +2305,27 @@
               </div>
               <div class="comp-m-row">
                 <span class="comp-m-label">Specialized Bahya Basti</span>
-                <span class="comp-m-val comp-m-empty">&mdash;</span>
+                <span class="comp-m-val"><strong>2 Days Bahya Basti</strong> (Kati / Greeva Basti)</span>
               </div>
               <div class="comp-m-row">
-                <span class="comp-m-label">Netra Tarpana Eye Reset</span>
-                <span class="comp-m-val comp-m-empty">&mdash;</span>
+                <span class="comp-m-label">Ocular &amp; Sensory Care</span>
+                <span class="comp-m-val">Netra Prakshalana (Triphala Kwath)</span>
               </div>
               <div class="comp-m-row">
-                <span class="comp-m-label">Welcome Kit &amp; Tools</span>
-                <span class="comp-m-val">Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</span>
+                <span class="comp-m-label">Mindful Workshops</span>
+                <span class="comp-m-val"><strong>Trails with Daisy 🐾 &amp; Stargazing</strong></span>
               </div>
               <div class="comp-m-row">
-                <span class="comp-m-label">Suite Accommodation</span>
-                <span class="comp-m-val">Twin-sharing base tariff (Private Single &amp; Couple options)</span>
+                <span class="comp-m-label">Meditation &amp; Dialogue</span>
+                <span class="comp-m-val"><strong>Tratak Flame Meditation &amp; Reflective Samvada</strong></span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Welcome Kit &amp; Stay</span>
+                <span class="comp-m-val">Sacred copper kit &bull; 5 Handcrafted mud suites</span>
               </div>
               <div class="comp-m-row">
                 <span class="comp-m-label">Follow-Up Physician Care</span>
-                <span class="comp-m-val">3-Day post-retreat roadmap</span>
+                <span class="comp-m-val">3-Day post-retreat integration guide</span>
               </div>
             </div>
             <div class="comp-m-footer">
@@ -2427,37 +2333,36 @@
               <div class="comp-matrix-quick-switch">
                 <span class="comp-quick-label">Compare with other pathways:</span>
                 <div class="comp-quick-btns">
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(1)">Deep Rejuvenation (&#8377;34,990) &rarr;</button>
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(2)">Classical Reset (&#8377;39,990) &rarr;</button>
+                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(1)">Deep Rejuvenation (&#8377;35,990) &rarr;</button>
                 </div>
               </div>
             </div>
           </article>
 
-          <!-- PANEL 1: THE DEEP REJUVENATION (ROYAL NAVY APPROVED FEATURED CARD) -->
+          <!-- PANEL 1: THE DEEP REJUVENATION -->
           <article class="comp-m-card comp-m-featured comp-matrix-panel active-panel" id="comp-panel-1" role="tabpanel" aria-labelledby="comp-tab-1">
             <div class="comp-m-rec-badge">
-              <span>&#9733; RECOMMENDED COHORT</span>
+              <span>&#9733; SIGNATURE COHORT</span>
             </div>
             <header class="comp-m-head">
-              <span class="comp-m-tier comp-m-tier-gold">SIGNATURE SPINAL &amp; POSTURE RESET</span>
+              <span class="comp-m-tier comp-m-tier-gold">SIGNATURE SPINAL &amp; SENSORY RESET</span>
               <h4 class="comp-m-title comp-m-title-light">The Deep Rejuvenation</h4>
               <div class="comp-m-price-row">
-                <span class="comp-m-price comp-m-price-gold">&#8377;34,990</span>
+                <span class="comp-m-price comp-m-price-gold">&#8377;35,990</span>
                 <span class="comp-m-duration comp-m-duration-light">4N / 5D &bull; All-Inclusive</span>
               </div>
             </header>
             <div class="comp-m-highlight">
-              <strong>Signature Restorative Focus:</strong> 2x Kati / Greeva Basti targeted spinal oil pooling and daily 1-on-1 pulse consultations included.
+              <strong>Signature Immersion:</strong> 3 Days Bahya Basti spinal decompression, Netra Tarpana Triphala Ghrita eye bath, pottery, sound healing &amp; fireside acoustic jamming.
             </div>
             <div class="comp-m-inclusions">
               <div class="comp-m-row">
                 <span class="comp-m-label">Target Suitability</span>
-                <span class="comp-m-val">Spinal tightness, neck &amp; posture strain</span>
+                <span class="comp-m-val">Prolonged desk posture, physical stiffness &amp; sensory renewal</span>
               </div>
               <div class="comp-m-row">
-                <span class="comp-m-label">Doctor Pulse Diagnostics</span>
-                <span class="comp-m-val">Daily 1-on-1 pulse consultations</span>
+                <span class="comp-m-label">Doctor Consultations</span>
+                <span class="comp-m-val">Daily 1-on-1 unhurried consultations</span>
               </div>
               <div class="comp-m-row">
                 <span class="comp-m-label">Abhyanga Oil Sessions</span>
@@ -2465,19 +2370,23 @@
               </div>
               <div class="comp-m-row">
                 <span class="comp-m-label">Specialized Bahya Basti</span>
-                <span class="comp-m-val"><strong>2x Kati / Greeva Basti</strong> (warm oil pooling)</span>
+                <span class="comp-m-val"><strong>3 Days Bahya Basti</strong> (Intensive Kati &amp; Greeva)</span>
               </div>
               <div class="comp-m-row">
-                <span class="comp-m-label">Netra Tarpana Eye Reset</span>
-                <span class="comp-m-val comp-m-empty">&mdash;</span>
+                <span class="comp-m-label">Ocular &amp; Sensory Care</span>
+                <span class="comp-m-val"><strong>Netra Tarpana</strong> (Warm Triphala Ghrita)</span>
               </div>
               <div class="comp-m-row">
-                <span class="comp-m-label">Welcome Kit &amp; Tools</span>
-                <span class="comp-m-val">Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</span>
+                <span class="comp-m-label">Mindful Workshops</span>
+                <span class="comp-m-val"><strong>Himalayan Pottery &amp; Tibetan Sound Healing</strong></span>
               </div>
               <div class="comp-m-row">
-                <span class="comp-m-label">Suite Accommodation</span>
-                <span class="comp-m-val">Twin-sharing base tariff (Private Single &amp; Couple options)</span>
+                <span class="comp-m-label">Evening Gatherings</span>
+                <span class="comp-m-val"><strong>Acoustic Music Jamming Session</strong></span>
+              </div>
+              <div class="comp-m-row">
+                <span class="comp-m-label">Welcome Kit &amp; Stay</span>
+                <span class="comp-m-val">Sacred copper kit &bull; 5 Handcrafted mud suites</span>
               </div>
               <div class="comp-m-row">
                 <span class="comp-m-label">Follow-Up Physician Care</span>
@@ -2490,63 +2399,6 @@
                 <span class="comp-quick-label">Compare with other pathways:</span>
                 <div class="comp-quick-btns">
                   <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(0)">&larr; Awakening (&#8377;27,990)</button>
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(2)">Classical Reset (&#8377;39,990) &rarr;</button>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          <!-- PANEL 2: THE CLASSICAL RESET -->
-          <article class="comp-m-card comp-matrix-panel" id="comp-panel-2" role="tabpanel" aria-labelledby="comp-tab-2">
-            <header class="comp-m-head">
-              <span class="comp-m-tier">INTENSIVE CELLULAR RESTORATION</span>
-              <h4 class="comp-m-title">The Classical Reset</h4>
-              <div class="comp-m-price-row">
-                <span class="comp-m-price">&#8377;39,990</span>
-                <span class="comp-m-duration">4N / 5D &bull; All-Inclusive</span>
-              </div>
-            </header>
-            <div class="comp-m-inclusions">
-              <div class="comp-m-row">
-                <span class="comp-m-label">Target Suitability</span>
-                <span class="comp-m-val">Deep chronic depletion &amp; sensory fatigue</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Doctor Pulse Diagnostics</span>
-                <span class="comp-m-val">Continuous daily pulse &amp; wellness monitoring</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Abhyanga Oil Sessions</span>
-                <span class="comp-m-val">4x Classical Abhyanga sessions</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Specialized Bahya Basti</span>
-                <span class="comp-m-val"><strong>2x Specialized Basti</strong> included</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Netra Tarpana Eye Reset</span>
-                <span class="comp-m-val"><strong>Included</strong> (Medicated ghee eye therapy)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Welcome Kit &amp; Tools</span>
-                <span class="comp-m-val">Full sacred welcome kit (Kansa wand, copper vessel &amp; herbs)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Suite Accommodation</span>
-                <span class="comp-m-val">Twin-sharing base tariff (Private Single &amp; Couple options)</span>
-              </div>
-              <div class="comp-m-row">
-                <span class="comp-m-label">Follow-Up Physician Care</span>
-                <span class="comp-m-val">7-Day care + 2 virtual doctor calls</span>
-              </div>
-            </div>
-            <div class="comp-m-footer">
-              <a href="index.html?plan=reset#enquiry" class="comp-m-btn comp-m-btn-outline">Reserve Classical Reset &rarr;</a>
-              <div class="comp-matrix-quick-switch">
-                <span class="comp-quick-label">Compare with other pathways:</span>
-                <div class="comp-quick-btns">
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(0)">&larr; Awakening (&#8377;27,990)</button>
-                  <button type="button" class="comp-quick-btn" onclick="switchCompMatrix(1)">Deep Rejuvenation (&#8377;34,990) &rarr;</button>
                 </div>
               </div>
             </div>
@@ -2711,7 +2563,7 @@
           </button>
           <div class="faq-answer-panel">
             <div class="faq-answer-content">
-              <p>Depending on your chosen pathway (The Awakening Pathway, The Deep Rejuvenation, or The Classical Reset), therapies include localized <strong>Bahya Basti</strong> (warm herbal oil therapies on the cervical or lumbar spine), full-body synchronized <strong>Abhyanga</strong>, deeply nourishing <strong>Netra Tarpana</strong> (warm medicated Triphala Ghrita eye bath), soothing <strong>Netra Prakshalana</strong> (cleansing Triphala Kwath eye wash), gentle morning cleansing kriyas (<strong>Jalaneti</strong>), condition-adaptive restorative yoga, and personalized herbal decoctions.</p>
+              <p>Depending on your chosen pathway (The Awakening Pathway or The Deep Rejuvenation), therapies include localized <strong>Bahya Basti</strong> (warm herbal oil therapies on the cervical or lumbar spine), full-body synchronized <strong>Abhyanga</strong>, deeply nourishing <strong>Netra Tarpana</strong> (warm medicated Triphala Ghrita eye bath), soothing <strong>Netra Prakshalana</strong> (cleansing Triphala Kwath eye wash), gentle morning cleansing kriyas (<strong>Jalaneti</strong>), condition-adaptive restorative yoga, and personalized herbal decoctions.</p>
             </div>
           </div>
         </div>
@@ -2867,7 +2719,7 @@
       document.querySelectorAll('.opt4-tab-btn').forEach((b, i) => {
         b.classList.toggle('active', i === index);
       });
-      [0, 1, 2].forEach(i => {
+      [0, 1].forEach(i => {
         const card = document.getElementById('prog-card-' + i);
         if (card) {
           card.classList.toggle('active-card', i === index);
