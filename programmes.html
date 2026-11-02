@@ -1804,6 +1804,239 @@
   }
 }
 
+
+  /* ─── DUAL-TIER PRICING & FOUNDATION STYLING ─── */
+  .foundation-banner {
+    background: #F9F7F2;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    margin: 0 auto 2.25rem;
+    max-width: 1080px;
+    text-align: left;
+  }
+  .foundation-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.22);
+    padding-bottom: 0.5rem;
+  }
+  .foundation-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--royal-deep);
+    font-weight: 600;
+  }
+  .foundation-tag {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-dark);
+    font-weight: 600;
+  }
+  .foundation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem 1.5rem;
+  }
+  @media (max-width: 900px) {
+    .foundation-grid { grid-template-columns: 1fr; gap: 0.65rem; }
+  }
+  .foundation-item {
+    font-size: 0.78rem;
+    color: var(--text-main);
+    line-height: 1.45;
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+  }
+  .foundation-check {
+    color: var(--gold-dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .foundation-item strong {
+    color: var(--royal-deep);
+    font-weight: 600;
+  }
+
+  /* Pricing stack */
+  .pricing-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin: 0.9rem 0 1.25rem;
+    text-align: left;
+  }
+  .price-tier-box {
+    background: #FFF;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.85rem 1rem;
+    position: relative;
+    text-align: left;
+  }
+  .prog-card.featured .price-tier-box {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(201, 168, 76, 0.28);
+  }
+  .price-tier-box.primary-tier {
+    border-left: 3px solid var(--gold);
+  }
+  .price-tier-box.upgrade-tier {
+    background: #F9F7F2;
+    border-style: dashed;
+  }
+  .prog-card.featured .price-tier-box.upgrade-tier {
+    background: rgba(0, 0, 0, 0.2);
+    border-style: dashed;
+  }
+  .tier-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.25rem;
+  }
+  .tier-name {
+    font-family: var(--display);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--royal-deep);
+    font-weight: 700;
+  }
+  .prog-card.featured .tier-name {
+    color: var(--gold-light);
+  }
+  .tier-badge-recommended {
+    font-size: 0.65rem;
+    background: var(--gold-pale);
+    color: var(--gold-dark);
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .prog-card.featured .tier-badge-recommended {
+    background: rgba(201, 168, 76, 0.2);
+    color: var(--gold-light);
+  }
+  .tier-badge-limited {
+    font-size: 0.65rem;
+    background: #F0ECE1;
+    color: var(--text-muted);
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .prog-card.featured .tier-badge-limited {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(253, 250, 243, 0.7);
+  }
+  .tier-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .tier-amount {
+    font-family: var(--display);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--royal-deep);
+    line-height: 1;
+  }
+  .prog-card.featured .tier-amount {
+    color: #FFF;
+  }
+  .tier-scope {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+  .prog-card.featured .tier-scope {
+    color: rgba(253, 250, 243, 0.65);
+  }
+  .tier-desc {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+    line-height: 1.4;
+  }
+  .prog-card.featured .tier-desc {
+    color: rgba(253, 250, 243, 0.75);
+  }
+  .couple-note {
+    font-size: 0.71rem;
+    color: var(--gold-dark);
+    font-style: italic;
+    margin-top: 0.2rem;
+    line-height: 1.35;
+    text-align: left;
+  }
+  .prog-card.featured .couple-note {
+    color: var(--gold-light);
+  }
+
+  /* Occupancy Guidelines Section */
+  .occupancy-notes-sec {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem 2.25rem;
+    margin: 2.5rem auto 3rem;
+    max-width: 1080px;
+    box-shadow: 0 4px 16px rgba(15, 35, 71, 0.03);
+    text-align: left;
+  }
+  .notes-header {
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.22);
+    padding-bottom: 0.65rem;
+  }
+  .notes-title {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    color: var(--royal-deep);
+    font-weight: 600;
+  }
+  .notes-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+  .notes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+  @media (max-width: 900px) {
+    .notes-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .occupancy-notes-sec { padding: 1.5rem 1.25rem; }
+  }
+  .note-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .note-heading {
+    font-family: var(--display);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--royal-deep);
+    font-weight: 700;
+  }
+  .note-text {
+    font-size: 0.79rem;
+    color: var(--text-muted);
+    line-height: 1.52;
+  }
+  .note-text strong {
+    color: var(--text-main);
+  }
+
 </style>
 
   <!-- Structured Data JSON-LD -->
@@ -2028,10 +2261,57 @@
     <div class="section-head">
       <span class="section-tag">Cohort Pathways & Pricing</span>
       <h2 class="section-title">Vaidya-Led 5-Day Retreat Cohorts (4N / 5D)</h2>
-      <p class="section-sub">UPCOMING COHORT: November 26–30, 2026 at Vaikunth Mud House, Bir Billing (5 Earthen Suites Available — Complimentary Private Suite Upgrade for the first 5 solo bookings). Reserve your suite with a ₹10,000 deposit following a complimentary 10-minute Vaidya intro call.</p>
+      <p class="section-sub">Confirmed Cohort: November 26–30, 2026 at Vaikunth Mud House, Bir Billing.<br>Strictly capped at 8–10 seekers across 5 handcrafted earthen suites to maintain clinical depth and unhurried doctor-patient interaction.</p>
     </div>
 
     <!-- PROGRAMMES PRICING & INCLUSIONS GRID -->
+    
+    <!-- UNIVERSAL SANCTUARY FOUNDATION BANNER -->
+    <div class="foundation-banner fade-up">
+      <div class="foundation-head">
+        <h3 class="foundation-title">The Sanctuary Foundation</h3>
+        <span class="foundation-tag">Universal Across Both Pathways</span>
+      </div>
+      <div class="foundation-grid">
+        <div class="foundation-item">
+          <span class="foundation-check">✓</span>
+          <span><strong>4N / 5D Earthen Suite Stay:</strong> Thermal mud architecture, pine wood ceiling &amp; ensuite bath</span>
+        </div>
+        <div class="foundation-item">
+          <span class="foundation-check">✓</span>
+          <span><strong>Farm-to-Table Mountain Dining:</strong> 3 seasonal tridoshic meals daily with Vedic A2 cow ghee</span>
+        </div>
+        <div class="foundation-item">
+          <span class="foundation-check">✓</span>
+          <span><strong>Daily Restorative Yoga &amp; Breathwork:</strong> Condition-adaptive morning asana &amp; pranayama</span>
+        </div>
+        <div class="foundation-item">
+          <span class="foundation-check">✓</span>
+          <span><strong>Daily Shatkarma Cleansing:</strong> Gentle guided morning nasal purification (Jala Neti)</span>
+        </div>
+        <div class="foundation-item">
+          <span class="foundation-check">✓</span>
+          <span><strong>Trails with Daisy:</strong> Unhurried nature walks through the quiet Bir Khas pine valley</span>
+        </div>
+        <div class="foundation-item">
+          <span class="foundation-check">✓</span>
+          <span><strong>1:1 Founding Vaidya Intake:</strong> Unhurried lifestyle assessment with Dr. Bhatt &amp; Dr. Kaundal</span>
+        </div>
+        <div class="foundation-item">
+          <span class="foundation-check">✓</span>
+          <span><strong>Sacred Welcome Kit:</strong> Pure heavy copper water vessel (*Tamra Jal*), journal &amp; herbal tea</span>
+        </div>
+        <div class="foundation-item">
+          <span class="foundation-check">✓</span>
+          <span><strong>Sanctuary Conduct:</strong> Daily Arya Mauna (noble silence until breakfast) &amp; Digital Sundown</span>
+        </div>
+        <div class="foundation-item">
+          <span class="foundation-check">✓</span>
+          <span><strong>Easy Reservation:</strong> Lock your suite with a ₹10,000 deposit; balance due 15 days prior</span>
+        </div>
+      </div>
+    </div>
+
     <div class="opt4-container">
       <!-- Mobile Segmented Tabs -->
       <div class="opt4-tabs">
@@ -2049,11 +2329,35 @@
           <div class="card-main-pane">
             <div class="card-heading-group">
               <h3 class="card-title">The Awakening Pathway</h3>
-              <div class="card-tariff">
-                <span class="card-amount">&#8377;27,990</span>
-                <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+              <span class="card-scope-badge" style="margin-top:0.35rem;">Circadian rhythm reset, nervous system rest &amp; screen fatigue recovery</span>
+
+              <div class="pricing-stack">
+                <div class="price-tier-box primary-tier">
+                  <div class="tier-label-row">
+                    <span class="tier-name">Twin-Sharing / Curated Pairing</span>
+                    <span class="tier-badge-recommended">Standard Tariff</span>
+                  </div>
+                  <div class="tier-price-row">
+                    <span class="tier-amount">&#8377;27,990</span>
+                    <span class="tier-scope">all-inclusive per guest &bull; 4N / 5D</span>
+                  </div>
+                  <p class="tier-desc">Separate single bed in handcrafted suite with mindful same-gender pairing.</p>
+                </div>
+
+                <div class="price-tier-box upgrade-tier">
+                  <div class="tier-label-row">
+                    <span class="tier-name">Guaranteed Private Single Suite</span>
+                    <span class="tier-badge-limited">Strictly Max 2 Suites</span>
+                  </div>
+                  <div class="tier-price-row">
+                    <span class="tier-amount">&#8377;35,990</span>
+                    <span class="tier-scope">(+&#8377;8,000 private suite upgrade)</span>
+                  </div>
+                  <p class="tier-desc">Entire 2-guest earthen suite reserved exclusively for solo occupancy.</p>
+                </div>
+
+                <div class="couple-note">* Couples or friends booking together receive a private suite at &#8377;27,990 per person.</div>
               </div>
-              <span class="card-scope-badge">Burnout reset, screen fatigue &amp; circadian rhythm recovery</span>
             </div>
 
             <!-- Top 3 Curated Highlights -->
@@ -2117,11 +2421,35 @@
           <div class="card-main-pane">
             <div class="card-heading-group">
               <h3 class="card-title">The Deep Rejuvenation</h3>
-              <div class="card-tariff">
-                <span class="card-amount">&#8377;35,990</span>
-                <span class="card-subtext">all-inclusive &bull; 4N / 5D</span>
+              <span class="card-scope-badge" style="margin-top:0.35rem; color: var(--gold-light);">Postural stiffness, cervical decompression &amp; deep sensory renewal</span>
+
+              <div class="pricing-stack">
+                <div class="price-tier-box primary-tier">
+                  <div class="tier-label-row">
+                    <span class="tier-name">Twin-Sharing / Curated Pairing</span>
+                    <span class="tier-badge-recommended">Standard Tariff</span>
+                  </div>
+                  <div class="tier-price-row">
+                    <span class="tier-amount">&#8377;35,990</span>
+                    <span class="tier-scope">all-inclusive per guest &bull; 4N / 5D</span>
+                  </div>
+                  <p class="tier-desc">Separate single bed in handcrafted suite with mindful same-gender pairing.</p>
+                </div>
+
+                <div class="price-tier-box upgrade-tier">
+                  <div class="tier-label-row">
+                    <span class="tier-name">Guaranteed Private Single Suite</span>
+                    <span class="tier-badge-limited">Strictly Max 2 Suites</span>
+                  </div>
+                  <div class="tier-price-row">
+                    <span class="tier-amount">&#8377;43,990</span>
+                    <span class="tier-scope">(+&#8377;8,000 private suite upgrade)</span>
+                  </div>
+                  <p class="tier-desc">Entire 2-guest earthen suite reserved exclusively for solo occupancy.</p>
+                </div>
+
+                <div class="couple-note">* Couples or friends booking together receive a private suite at &#8377;35,990 per person.</div>
               </div>
-              <span class="card-scope-badge">Postural stiffness, neck comfort &amp; deep sensory restoration</span>
             </div>
 
             <!-- Top 3 Curated Highlights -->
@@ -2136,7 +2464,7 @@
               </li>
               <li class="bullet-item highlight-bullet">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Pottery &amp; Sound Healing:</strong> Himalayan terracotta pottery workshop &amp; Tibetan singing bowls</span>
+                <span><strong>Pottery &amp; Singing Bowl Sound Healing:</strong> Himalayan terracotta pottery &amp; singing bowl sound reset</span>
               </li>
             </ul>
 
@@ -2206,9 +2534,15 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>Price (4N / 5D All-Inclusive)</strong></td>
-              <td><strong>&#8377;27,990</strong></td>
-              <td><strong style="color: var(--gold-dark);">&#8377;35,990 (Signature Cohort)</strong></td>
+              <td><strong>Retreat Tariffs (4N / 5D All-Inclusive)</strong></td>
+              <td>
+                <strong>&#8377;27,990</strong> (Twin Sharing)<br>
+                <span style="font-size:0.8rem; color:var(--text-muted);">&#8377;35,990 (Private Single Suite)</span>
+              </td>
+              <td>
+                <strong style="color: var(--gold-dark);">&#8377;35,990</strong> (Twin Sharing)<br>
+                <span style="font-size:0.8rem; color:var(--text-muted);">&#8377;43,990 (Private Single Suite)</span>
+              </td>
             </tr>
             <tr>
               <td><strong>Target Suitability</strong></td>
@@ -2223,7 +2557,7 @@
             <tr>
               <td><strong>Abhyanga Oil Sessions</strong></td>
               <td>2x Medicated full-body Abhyanga</td>
-              <td>3x Prescribed Abhyanga with herbal steam</td>
+              <td>1 Full-Body Synchronized Abhyanga (35 Min)</td>
             </tr>
             <tr>
               <td><strong>Specialized Bahya Basti</strong></td>
@@ -2238,7 +2572,7 @@
             <tr>
               <td><strong>Mindful Workshops &amp; Nature</strong></td>
               <td><strong>Trails with Daisy 🐾 &amp; Stargazing</strong></td>
-              <td><strong>Himalayan Pottery Workshop &amp; Tibetan Sound Healing</strong></td>
+              <td><strong>Himalayan Pottery &amp; Singing Bowl Sound Healing</strong></td>
             </tr>
             <tr>
               <td><strong>Evening Gatherings</strong></td>
@@ -2366,7 +2700,7 @@
               </div>
               <div class="comp-m-row">
                 <span class="comp-m-label">Abhyanga Oil Sessions</span>
-                <span class="comp-m-val">3x Prescribed Abhyanga with steam</span>
+                <span class="comp-m-val">1 Full-Body Synchronized Abhyanga (35 Min)</span>
               </div>
               <div class="comp-m-row">
                 <span class="comp-m-label">Specialized Bahya Basti</span>
@@ -2378,7 +2712,7 @@
               </div>
               <div class="comp-m-row">
                 <span class="comp-m-label">Mindful Workshops</span>
-                <span class="comp-m-val"><strong>Himalayan Pottery &amp; Tibetan Sound Healing</strong></span>
+                <span class="comp-m-val"><strong>Himalayan Pottery &amp; Singing Bowl Sound Healing</strong></span>
               </div>
               <div class="comp-m-row">
                 <span class="comp-m-label">Evening Gatherings</span>
@@ -2472,6 +2806,35 @@
         </div>
       </div>
     </section>
+
+    
+    <!-- SANCTUARY CAPACITY & SUITE OCCUPANCY GUIDELINES -->
+    <div class="occupancy-notes-sec fade-up">
+      <div class="notes-header">
+        <h3 class="notes-title">Sanctuary Capacity &amp; Suite Occupancy Guidelines</h3>
+        <p class="notes-subtitle">Transparent guidelines on how we preserve intimate cohort quality across our 5 handcrafted earthen suites.</p>
+      </div>
+      <div class="notes-grid">
+        <div class="note-col">
+          <div class="note-heading">Mindful Twin Sharing (Base Tariff)</div>
+          <p class="note-text">
+            85% of our guests arrive solo. Solo seekers are comfortably paired with a mindful same-gender retreat companion in our spacious earthen suites. Each suite provides <strong>two distinct single beds</strong>, organic cotton bedding, separate storage, and a private ensuite bathroom. Sharing saves you &#8377;8,000 and honors the collaborative energy of the cohort.
+          </p>
+        </div>
+        <div class="note-col">
+          <div class="note-heading">Private Single Suites (+&#8377;8,000)</div>
+          <p class="note-text">
+            If you require complete solitary quiet, you may reserve an entire earthen suite exclusively to yourself. <strong>To protect our cohort capacity of 8–10 seekers, only 2 private single suites are released per residency.</strong> Once these 2 suites are reserved, subsequent solo bookings are accepted exclusively on a twin-sharing paired basis.
+          </p>
+        </div>
+        <div class="note-col">
+          <div class="note-heading">Couples &amp; Friends Travelling Together</div>
+          <p class="note-text">
+            Partners, spouses, or friends booking together are guaranteed a private King Double or Twin Suite for their exclusive use at the standard twin-sharing rate (<strong>&#8377;27,990</strong> or <strong>&#8377;35,990</strong> per person) with zero single upgrade surcharge. Simply note your companion's name during intake.
+          </p>
+        </div>
+      </div>
+    </div>
 
     <!-- DAY-BY-DAY RETREAT OUTLINE -->
     <div class="section-head">
