@@ -135,15 +135,20 @@
   }
 
   .doc-img-wrap {
-    height: 320px;
+    width: 100%;
+    aspect-ratio: 4 / 4.9;
+    max-height: 560px;
     overflow: hidden;
-    background: var(--stone);
+    background: #FFFFFF;
     position: relative;
+    border-bottom: 1px solid var(--border);
   }
   .doc-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
+    display: block;
   }
 
   .doc-content {
@@ -617,7 +622,10 @@
     <!-- Dr. Himanshu Bhatt -->
     <article class="doctor-card">
       <div class="doc-img-wrap">
-        <img src="images/theresetco-social-preview.jpg" alt="Dr. Himanshu Bhatt" width="400" height="267" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="images/dr-himanshu.webp" type="image/webp">
+          <img src="images/dr-himanshu.jpg" alt="Dr. Himanshu Bhatt, BAMS Founding Vaidya" width="400" height="494" loading="lazy" decoding="async" style="object-position: center top;">
+        </picture>
       </div>
       <div class="doc-content">
         <h2 class="doc-name">Dr. Himanshu Bhatt</h2>
@@ -640,7 +648,10 @@
     <!-- Dr. Aditya Kaundal -->
     <article class="doctor-card">
       <div class="doc-img-wrap">
-        <img src="images/theresetco-social-preview.jpg" alt="Dr. Aditya Kaundal" width="400" height="267" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="images/dr-aditya.webp" type="image/webp">
+          <img src="images/dr-aditya.jpg" alt="Dr. Aditya Kaundal, BAMS Founding Vaidya" width="400" height="465" loading="lazy" decoding="async" style="object-position: center top;">
+        </picture>
       </div>
       <div class="doc-content">
         <h2 class="doc-name">Dr. Aditya Kaundal</h2>
