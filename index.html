@@ -445,6 +445,59 @@
     }
   }
 
+
+  /* ─── GUARANTEED ZERO-LOCK ON MOBILE BROWSERS & IN-APP WEBVIEWS ─── */
+  @media (max-width: 860px) {
+    html.is-welcome-locked,
+    body.is-welcome-locked {
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      height: auto !important;
+      max-height: none !important;
+      touch-action: pan-y !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+    #scrollExpandContainer {
+      height: auto !important;
+      min-height: 100svh !important;
+    }
+    .scroll-expand__stage {
+      height: auto !important;
+      min-height: 100svh !important;
+    }
+    .scroll-expand__frame {
+      clip-path: none !important;
+      position: relative !important;
+      min-height: 100svh !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+    .scroll-expand__title-wrap {
+      display: none !important;
+    }
+    .scroll-expand__hint {
+      display: none !important;
+    }
+    .scroll-expand__hero-landing {
+      position: relative !important;
+      opacity: 1 !important;
+      transform: none !important;
+      pointer-events: auto !important;
+      min-height: 100svh !important;
+      padding-top: calc(var(--diwali-bar-h, 34px) + env(safe-area-inset-top, 0px) + 2rem) !important;
+      padding-bottom: 3.5rem !important;
+      justify-content: center !important;
+      z-index: 10 !important;
+    }
+    .scroll-expand__hero-landing > * {
+      opacity: 1 !important;
+    }
+    .scroll-expand__media {
+      transform: scale(1) !important;
+      filter: brightness(0.75) !important;
+    }
+  }
+
 </style>
 
 <!-- Production SEO & Canonical -->
@@ -1194,7 +1247,7 @@
       <!-- 2: Meditation -->
       <div class="svc-card fade-up stagger-1" id="svc-card-1" role="tabpanel" aria-labelledby="disc-tab-1" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
-          <img src="images/trataka-meditation-v2.webp" alt="Vedic Dhyana & Trataka Meditation" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
+          <img src="images/trataka-flame-altar.webp" alt="Vedic Dhyana & Trataka Meditation - Sacred Flame Altar" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
         </div>
         <div style="padding: 1.35rem 1.25rem;">
           <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Vedic Dhyana &amp; Trataka</h3>
@@ -2258,9 +2311,8 @@
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      syncTouch: true,              // Syncs touch momentum with Lenis virtual scroll for buttery mobile animations
-      touchMultiplier: 1.15,        // Natural 1:1 finger tracking on mobile
-      touchInertiaMultiplier: 25,   // Smooth kinetic glide after finger release
+      syncTouch: false,             // Allow native 120Hz GPU compositor momentum on mobile (prevents touch locking)
+      touchMultiplier: 1.0,
       wheelMultiplier: 1.0,
       infinite: false,
       autoResize: true,
@@ -2391,7 +2443,9 @@
     const hasTargetHash = window.location.hash && window.location.hash !== '#' && !window.location.hash.startsWith('#sanctuary-accord');
     const hasPlanParam = urlParams.has('plan') || (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('trc_prakriti_plan'));
     const hasLandParam = urlParams.has('land');
-    const shouldDirectLand = hasTargetHash || hasPlanParam || hasLandParam;
+    const isMobileDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 860);
+    // On mobile devices, always direct land immediately so the user can freely scroll with zero lock-out!
+    const shouldDirectLand = hasTargetHash || hasPlanParam || hasLandParam || isMobileDevice;
 
     function landOnHero() {
       // Keep mainNav tucked away while on the hero landing so the Sanskrit shloka is 100% visible
