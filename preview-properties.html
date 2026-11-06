@@ -3,27 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>Sanctuary Properties | The Reset Co.</title>
+<title>Vaikunth Mud House Sanctuary Bir Billing | The Reset Co.</title>
 
 <!-- SEO & Search Engine Indexing -->
-<meta name="description" content="Explore The Reset Co. Vaidya-led classical Ayurvedic retreat properties in Himachal Pradesh. Classical panchakarma sanctuaries, restorative mountain settings, and authentic care.">
-<meta name="keywords" content="the reset co properties, ayurvedic retreat properties himachal pradesh, wellness retreat india">
+<meta name="description" content="Discover Vaikunth Mud House in Bir Billing, Himachal Pradesh. 5 handcrafted sun-dried earthen suites at 1,525m altitude amidst quiet Himalayan pines. Explore stay ✓">
+<meta name="keywords" content="vaikunth mud house bir billing, eco luxury stay bir billing, himalayan mud architecture retreat, bir billing wellness property, the reset co">
 <link rel="canonical" href="https://www.thereset-co.in/properties">
 <meta name="robots" content="index, follow, max-image-preview:large">
 
 <!-- Open Graph / Social Media -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Reset Co.">
-<meta property="og:title" content="Sanctuary Properties | The Reset Co.">
-<meta property="og:description" content="Vaidya-led classical Ayurvedic retreat properties in Himachal Pradesh.">
 <meta property="og:url" content="https://www.thereset-co.in/properties">
-<meta property="og:image" content="https://www.thereset-co.in/images/hero_sanctuary.jpg">
+<meta property="og:title" content="Vaikunth Mud House Sanctuary Bir Billing | The Reset Co.">
+<meta property="og:description" content="Discover Vaikunth Mud House in Bir Billing, Himachal Pradesh. 5 handcrafted sun-dried earthen suites at 1,525m altitude amidst quiet Himalayan pines. Explore stay ✓">
+<meta property="og:image" content="https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="768">
+<meta name="twitter:title" content="Sanctuary Grounds & Earthen Mud Suites | The Reset Co.">
+<meta name="twitter:description" content="Explore Vaikunth Mud House sanctuary grounds, solar-oriented earthen suites, pine forest meditation shalas, and herbal therapy facilities in Bir Billing.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.thereset-co.in/images/theresetco-social-preview.jpg?v=20261008">
 
-<!-- Fonts: Cormorant Garamond & Jost -->
+<!-- Fonts: Cormorant Garamond & Jost (Non-blocking async) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="images/logo-emblem.png">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap">
+</noscript>
+    <link rel="icon" type="image/png" href="images/logo-emblem.png">
+
+<!-- Preload Largest Contentful Paint (LCP) Image -->
+<link rel="preload" as="image" href="images/vaikunth_entrance.webp" type="image/webp" fetchpriority="high">
 
 <style>
   :root {
@@ -66,13 +78,17 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(15, 35, 71, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(201, 168, 76, 0.25);
-    padding: 0.85rem 2rem;
+    background: rgba(15, 35, 71, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.22);
+    padding: 0 2rem;
+    height: 54px;
+    min-height: 54px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-sizing: border-box;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -82,17 +98,20 @@
     gap: 0.65rem;
     text-decoration: none;
     color: var(--ivory);
+    flex-shrink: 0;
   }
 
   .nav-logo-mark {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
   }
 
   .nav-logo-text {
     font-family: var(--serif);
-    font-size: 1.4rem;
+    font-size: 1.18rem;
     letter-spacing: 0.08em;
+    white-space: nowrap;
+    line-height: 1;
   }
 
   .nav-logo-text span {
@@ -102,16 +121,17 @@
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.35rem;
   }
 
   .nav-link {
-    color: rgba(253, 250, 243, 0.8);
+    color: rgba(253, 250, 243, 0.85);
     text-decoration: none;
-    font-size: 0.88rem;
+    font-size: 0.84rem;
     font-weight: 500;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     transition: color 0.2s;
+    white-space: nowrap;
   }
 
   .nav-link:hover, .nav-link.active {
@@ -121,21 +141,24 @@
   .nav-cta {
     background: var(--gold);
     color: var(--royal-deep);
-    padding: 0.55rem 1.25rem;
+    padding: 0.38rem 0.9rem;
     border-radius: 3px;
-    font-size: 0.82rem;
+    font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
-    min-height: 42px;
+    height: 32px;
+    min-height: 32px;
     display: inline-flex;
     align-items: center;
-    transition: background 0.2s;
+    white-space: nowrap;
+    transition: all 0.2s;
   }
 
   .nav-cta:hover {
     background: var(--gold-light);
+    transform: translateY(-1px);
   }
 
   /* ─── HERO HEADER ─── */
@@ -217,6 +240,12 @@
     min-height: 380px;
     background: var(--stone);
     overflow: hidden;
+  }
+
+  .property-gallery-box picture {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .property-main-img {
@@ -434,6 +463,12 @@
     border-color: rgba(201, 168, 76, 0.6);
   }
 
+  .gallery-item picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   .gallery-item img {
     width: 100%;
     height: 100%;
@@ -541,14 +576,8 @@
   }
 
   @media (max-width: 640px) {
-    nav {
-      padding: 0.75rem 1rem;
-    }
-    .nav-links .nav-link {
-      display: none;
-    }
     .prop-hero {
-      padding: 6rem 1rem 2.5rem;
+      padding: 5.5rem 1rem 2.25rem;
     }
     .prop-container {
       padding: 2rem 1rem 3.5rem;
@@ -584,262 +613,323 @@
       transform: none !important;
     }
   }
-</style>
-<style>
-/* ========================================================================== */
-/* --- REACT BITS DEPTH CAROUSEL CSS (THE RESET CO. EDITORIAL EDITION) --- */
-/* ========================================================================== */
 
-.depth-carousel {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 480px;
-  display: flex;
+  /* ─── WCAG 2.2 AA SKIP LINK ─── */
+  .skip-to-content {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 99999;
+    padding: 0.75rem 1.25rem;
+    background: #0F2347;
+    color: #C9A84C;
+    border: 1.5px solid #C9A84C;
+    border-radius: 4px;
+    font-family: 'Jost', system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: top 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  .skip-to-content:focus {
+    top: 1rem;
+    outline: 2px solid #E8C97A;
+  }
+
+
+/* ─── UNIVERSAL SANCTUARY MOBILE DRAWER CSS ─── */
+.nav-hamburger {
+  display: none;
   align-items: center;
-  justify-content: center;
-  perspective: var(--dc-perspective, 1400px);
-  perspective-origin: 50% 50%;
-  touch-action: pan-y;
-  outline: none;
-  user-select: none;
-  -webkit-user-select: none;
-  cursor: grab;
-  overflow: hidden;
-}
-
-.depth-carousel:active {
-  cursor: grabbing;
-}
-
-.depth-carousel:focus-visible {
-  outline: 2px solid var(--gold, #C9A84C);
-  outline-offset: 4px;
-  border-radius: 8px;
-}
-
-.depth-carousel__stage {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-}
-
-.depth-carousel__card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 320px;
-  height: 420px;
-  transform-origin: center center;
-  overflow: hidden;
-  background: var(--royal-deep, #0F2347);
-  border-radius: 6px;
-  border: 1px solid rgba(201, 168, 76, 0.3);
-  box-shadow:
-    0 30px 60px -15px rgba(15, 35, 71, 0.45),
-    0 10px 25px -10px rgba(0, 0, 0, 0.35);
-  will-change: transform, opacity, filter;
+  gap: 0.5rem;
+  height: 32px;
+  min-height: 32px;
+  padding: 0.25rem 0.65rem;
   cursor: pointer;
-  transform: translate(-50%, -50%);
-  transition: border-color 0.3s ease;
-}
-
-.depth-carousel__card::after {
-  content: '';
-  position: absolute;
-  inset: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  pointer-events: none;
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.45);
   border-radius: 4px;
-  transition: border-color 0.3s ease;
-  z-index: 5;
+  transition: all 0.25s;
 }
-
-.depth-carousel__card:hover::after {
-  border-color: rgba(201, 168, 76, 0.6);
+.nav-hamburger:hover {
+  background: rgba(201, 168, 76, 0.22);
+  border-color: var(--gold);
 }
-
-.depth-carousel__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.hamburger-bars {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3.5px;
+  width: 16px;
+}
+.hamburger-bars span {
   display: block;
-  pointer-events: none;
-  -webkit-user-drag: none;
+  width: 100%;
+  height: 1.5px;
+  background: var(--gold-light, #E8C97A);
+  border-radius: 1px;
+  transition: all 0.25s ease;
 }
-
-.depth-carousel__tint {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  background: #05060a;
-}
-
-/* Luxury Caption Overlay on Active Front Card */
-.depth-carousel__caption-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2rem 1.25rem 1.15rem;
-  background: linear-gradient(to top, rgba(15, 35, 71, 0.95) 0%, rgba(15, 35, 71, 0.6) 65%, transparent 100%);
-  color: var(--ivory, #FDFAF3);
-  z-index: 4;
-  pointer-events: none;
-}
-
-.depth-carousel__caption-tag {
-  font-size: 0.65rem;
-  letter-spacing: 0.16em;
+.menu-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold-light, #E8C97A);
   font-weight: 600;
-  margin-bottom: 0.3rem;
+  font-family: var(--sans, sans-serif);
+  line-height: 1;
 }
-
-.depth-carousel__caption-title {
-  font-family: var(--serif, 'Cormorant Garamond', Georgia, serif);
-  font-size: 1.35rem;
-  line-height: 1.2;
-  margin: 0 0 0.35rem 0;
-  color: var(--ivory, #FDFAF3);
-  font-weight: 500;
-}
-
-.depth-carousel__caption-desc {
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: rgba(253, 250, 243, 0.8);
-  margin: 0;
-  font-weight: 300;
-}
-
-/* Nav Arrows */
-.depth-carousel__arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3000;
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(201, 168, 76, 0.45);
-  border-radius: 999px;
-  background: rgba(15, 35, 71, 0.85);
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 14, 28, 0.75);
   backdrop-filter: blur(8px);
-  color: var(--gold-light, #E8C97A);
-  cursor: pointer;
-  transition:
-    background 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-.depth-carousel__arrow:hover {
+.menu-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 440px;
   background: var(--royal-deep, #0F2347);
-  border-color: var(--gold, #C9A84C);
-  transform: translateY(-50%) scale(1.08);
+  color: var(--ivory, #FDFAF3);
+  z-index: 2001;
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.6);
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-left: 1px solid rgba(201, 168, 76, 0.25);
 }
-
-.depth-carousel__arrow:active {
-  transform: translateY(-50%) scale(0.94);
+.nav-drawer.open {
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
 }
-
-.depth-carousel__arrow--prev {
-  left: 20px;
-}
-
-.depth-carousel__arrow--next {
-  right: 20px;
-}
-
-/* Dot Indicators */
-.depth-carousel__dots {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3000;
+.drawer-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(15, 35, 71, 0.75);
-  backdrop-filter: blur(8px);
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.18);
+}
+.drawer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--serif, 'Cormorant Garamond', Georgia, serif);
+  font-size: 1.35rem;
+  color: var(--ivory, #FDFAF3);
+  text-decoration: none;
+}
+.drawer-brand img {
+  width: 28px;
+  height: 28px;
+}
+.drawer-close {
+  background: transparent;
   border: 1px solid rgba(201, 168, 76, 0.3);
-}
-
-.depth-carousel__dot {
-  width: 7px;
-  height: 7px;
-  padding: 0;
-  border: none;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.35);
+  color: var(--gold-light, #E8C97A);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition:
-    width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    background 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s;
 }
-
-.depth-carousel__dot.is-active {
-  width: 24px;
-  background: var(--gold, #C9A84C);
+.drawer-close:hover {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: var(--gold, #C9A84C);
 }
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  .depth-carousel__card {
-    will-change: auto;
+.drawer-body {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+}
+.drawer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0;
+  margin: 0;
+}
+.drawer-links li a {
+  color: var(--ivory, #FDFAF3);
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: block;
+  padding: 0.35rem 0;
+  transition: color 0.2s, transform 0.2s;
+}
+.drawer-links li a:hover {
+  color: var(--gold-light, #E8C97A);
+  transform: translateX(4px);
+}
+.drawer-links li a small {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(253, 250, 243, 0.6);
+}
+.drawer-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(201, 168, 76, 0.18);
+  background: rgba(6, 18, 36, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+@media (max-width: 860px) {
+  nav {
+    padding: 0 1rem;
+    height: 52px;
+    min-height: 52px;
   }
-  .depth-carousel__arrow,
-  .depth-carousel__dot {
-    transition: none;
+  .nav-links {
+    display: none !important;
+  }
+  .nav-hamburger {
+    display: inline-flex !important;
   }
 }
-
-@media (max-width: 600px) {
-  .depth-carousel {
-    min-height: 440px;
-  }
-  .depth-carousel__card {
-    width: 270px;
-    height: 360px;
-  }
-  .depth-carousel__arrow {
-    width: 38px;
-    height: 38px;
-  }
-  .depth-carousel__arrow--prev {
-    left: 8px;
-  }
-  .depth-carousel__arrow--next {
-    right: 8px;
+@media (min-width: 861px) {
+  .nav-hamburger {
+    display: none !important;
   }
 }
 
 </style>
+
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  "name": "Vaikunth Mud House — The Reset Co. Sanctuary",
+  "description": "Handcrafted earthen mud architecture retreat sanctuary in Bir Billing, Himachal Pradesh at 1,525m altitude.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bir Billing",
+    "addressRegion": "Himachal Pradesh",
+    "addressCountry": "IN"
+  },
+  "numberOfRooms": 5,
+  "petsAllowed": false,
+  "url": "https://www.thereset-co.in/properties"
+}
+  </script>
+
+  <!-- Local SEO & Geographic Entity Metadata -->
+  <meta name="geo.region" content="IN-HP">
+  <meta name="geo.placename" content="Bir Billing, Himachal Pradesh">
+  <meta name="geo.position" content="32.0463;76.7202">
+  <meta name="ICBM" content="32.0463, 76.7202">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.thereset-co.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Properties",
+      "item": "https://www.thereset-co.in/properties"
+    }
+  ]
+}
+</script>
 </head>
 <body>
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
   <!-- ─── TOP NAVIGATION ─── -->
   <nav>
-    <a class="nav-logo" href="preview.html">
-      <img src="images/logo-emblem.png" alt="The Reset Co." class="nav-logo-mark">
+    <a class="nav-logo" href="index.html">
+      <img src="images/logo-emblem.webp" alt="The Reset Co." class="nav-logo-mark" width="32" height="32">
       <span class="nav-logo-text">The Reset <span>Co.</span></span>
     </a>
     <div class="nav-links">
-      <a class="nav-link" href="preview.html">Home</a>
+      <a class="nav-link" href="index.html">Home</a>
       <a class="nav-link" href="index.html#about">The Sanctuary</a>
       <a class="nav-link" href="programmes.html">Programmes</a>
       <a class="nav-link" href="index.html#contact">Contact</a>
       <a class="nav-cta" href="programmes.html">Explore Programmes</a>
     </div>
-  </nav>
+  
+  <button class="nav-hamburger" id="navHamburgerBtn" aria-label="Open Navigation Menu" onclick="toggleNavDrawer()">
+    <div class="hamburger-bars">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <span class="menu-label">Menu</span>
+  </button>
+
+</nav>
+
+<!-- ─── MOBILE SLIDE-OVER DRAWER OVERLAY ─── -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleNavDrawer()"></div>
+
+<!-- ─── MOBILE SLIDE-OVER DRAWER ─── -->
+<aside class="nav-drawer" id="navDrawer" aria-label="Mobile Navigation Menu">
+  <div class="drawer-header">
+    <a class="drawer-brand" href="index.html" onclick="toggleNavDrawer()">
+      <img src="images/logo-emblem.webp" alt="The Reset Co." width="28" height="28">
+      <span>The Reset Co.</span>
+    </a>
+    <button class="drawer-close" aria-label="Close Menu" onclick="toggleNavDrawer()">&times;</button>
+  </div>
+  <div class="drawer-body">
+    <ul class="drawer-links">
+      <li><a href="index.html">Home<small>Sanctuary overview &amp; philosophy</small></a></li>
+      <li><a href="programmes.html">Master Programmes Hub &rarr;<small>Compare both retreat pathways</small></a></li>
+      <li><a href="programme-awakening.html">The Awakening Pathway<small>4N/5D &bull; Mental clarity &amp; stress reset</small></a></li>
+      <li><a href="programme-rejuvenation.html">The Deep Rejuvenation<small>4N/5D &bull; Spinal care &amp; nervous recovery</small></a></li>
+      
+      <li><a href="properties.html">Sanctuary Grounds<small>Vaikunth Mud House &bull; Bir Billing</small></a></li>
+      <li><a href="meet-the-doctors.html">Founding Vaidyas<small>Dr. Himanshu &amp; Dr. Aditya (B.A.M.S.)</small></a></li>
+      <li><a href="dosha-prakriti-assessment.html">Prakriti Assessment<small>Comprehensive constitutional questionnaire</small></a></li>
+      <li><a href="review.html">Guest Reflections &amp; Outcomes<small>Documented biological markers</small></a></li>
+      <li><a href="guidelines.html">Sanctuary Guidelines &amp; Conduct<small>Noble silence &amp; sacred decorum</small></a></li>
+      <li><a href="international.html">International Guests<small>Visas, DHM airport transit &amp; rates</small></a></li>
+      <li><a href="terms.html">Terms &amp; Cancellation<small>Transparent deposit &amp; transfer policy</small></a></li>
+    </ul>
+  </div>
+  <div class="drawer-footer">
+    <a href="index.html#enquiry" class="btn-primary" style="width: 100%; text-align: center; display: block; padding: 0.8rem; background: var(--royal-deep, #0F2347); color: var(--gold-light, #E8C97A); border: 1px solid var(--gold, #C9A84C); text-transform: uppercase; font-size: 0.82rem; font-weight: 600; text-decoration: none;" onclick="toggleNavDrawer()">Enquire for November</a>
+    <a href="https://wa.me/917888540046" class="btn-outline" style="width: 100%; text-align: center; display: block; padding: 0.8rem; background: transparent; color: var(--ivory, #FDFAF3); border: 1px solid rgba(253,250,243,0.4); text-transform: uppercase; font-size: 0.82rem; font-weight: 600; text-decoration: none;" target="_blank" rel="noopener">WhatsApp Doctors</a>
+  </div>
+</aside>
+
 
   <!-- ─── HERO HEADER ─── -->
   <header class="prop-hero">
@@ -851,12 +941,14 @@
   </header>
 
   <!-- ─── PROPERTIES SHOWCASE ─── -->
-  <main class="prop-container">
+  <main id="main-content" class="prop-container">
 
     <article class="property-card" id="sanctuary-estate">
       <div class="property-hero-grid">
         <div class="property-gallery-box">
-          <img src="images/vaikunth_entrance.jpg" alt="Vaikunth Mud House Sanctuary Entrance, Bir Khas" class="property-main-img">
+          <picture>
+            <img src="images/vaikunth_sanctuary_entrance.jpg" alt="Vaikunth Mud House Sanctuary Entrance, Bir Khas" class="property-main-img" width="600" height="450" fetchpriority="high" decoding="async">
+          </picture>
           <span class="property-badge-floating">Sanctuary Entrance</span>
         </div>
         <div class="property-info-pane">
@@ -869,11 +961,11 @@
             
             <div class="property-address-box">
               <div class="property-address-label">Sanctuary Estate &amp; Address</div>
-              <div class="property-address-value">Vaikunth Mud House, Zostel Road, Bir Khas, Bir, Kangra (Himachal Pradesh), India</div>
+              <div class="property-address-value">Vaikunth Mud House, Upper Bir Khas Pine Valley, Bir Billing, Kangra (Himachal Pradesh), India</div>
             </div>
 
             <p class="property-desc">
-              Nestled on Zostel Road in Bir Khas, our mud house sanctuary merges traditional earthen architecture with the quiet pine valleys of Kangra. Designed for authentic clinical Ayurveda, unhurried rest, and silent nervous system renewal under the direct care of our founding BAMS doctors.
+              Nestled in the quiet Upper Bir Khas Pine Valley, Bir Billing, Kangra (Himachal Pradesh), our mud house sanctuary merges traditional earthen architecture with the quiet pine valleys of Kangra. Designed for authentic classical Ayurveda, unhurried rest, and silent nervous system renewal under the direct care of our founding Vaidyas.
             </p>
           </div>
 
@@ -893,17 +985,105 @@
         <p class="gallery-label">Sanctuary Imagery</p>
         <h3 class="gallery-title">Estate &amp; Sanctuary Gallery</h3>
       </div>
-      
-    <div style="margin: 0.5rem 0 1.5rem; text-align: center;">
-      <p style="font-size: 0.88rem; color: var(--text-muted); max-width: 620px; margin: 0 auto; line-height: 1.6;">
-        Explore our Himalayan retreat grounds in 3D depth. Drag, swipe, scroll, or use the arrow controls to navigate through each living space.
-      </p>
-    </div>
-
-    <!-- ─── REACT BITS DEPTH CAROUSEL (500px) ─── -->
-    <div style="height: 500px; position: relative; width: 100%; max-width: 1040px; margin: 0 auto; overflow: hidden;" id="propertyDepthCarousel"></div>
-  </section>
-
+      <div class="gallery-grid">
+        <!-- Photo Slot 1: Rose Garden & Main Terrace Pavilion -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_rose_terrace.webp" type="image/webp">
+            <img src="images/vaikunth_rose_terrace.jpg" alt="Vaikunth Mud House Rose Garden and Symmetrical Earthen Pavilion" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Rose Garden &amp; Earthen Terrace Pavilion</div>
+        </div>
+        <!-- Photo Slot 2: Mud House Facade & Stone Walkway -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_facade.webp" type="image/webp">
+            <img src="images/vaikunth_facade.jpg" alt="Vaikunth Mud House Earthen Architecture & Courtyard" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Traditional Earthen Mud House &amp; Stone Pathway</div>
+        </div>
+        <!-- Photo Slot 3: Dhyana & Therapy Space -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_therapy_room.webp" type="image/webp">
+            <img src="images/vaikunth_therapy_room.jpg" alt="Vaikunth Mud House Therapy & Dhyana Space with Earthen Hearth" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Earthen Dhyana &amp; Sound Healing Chamber</div>
+        </div>
+        <!-- Photo Slot 4: Sacred Tree Meditation Platform -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_yoga_lawn.webp" type="image/webp">
+            <img src="images/vaikunth_yoga_lawn.jpg" alt="Vaikunth Sanctuary Sacred Tree Meditation Platform and Lush Lawn" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Sacred Tree Dhyana Platform &amp; Prana Lawn</div>
+        </div>
+        <!-- Photo Slot 5: Restorative Living Suite -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_living_suite.webp" type="image/webp">
+            <img src="images/vaikunth_living_suite.jpg" alt="Vaikunth Mud House Restorative Bedroom Suite with Pine Wood Ceiling and Earthen Walls" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Restorative Living Suite &amp; Pine Ceiling</div>
+        </div>
+        <!-- Photo Slot 6: Sattvic Dining Pavilion -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_dining_hall_illuminated.webp" type="image/webp">
+            <img src="images/vaikunth_dining_hall_illuminated.jpg" alt="Vaikunth Mud House Sattvic Dining Pavilion with Glowing Paper Lanterns at Night" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Sattvic Dining Pavilion &amp; Glowing Lanterns</div>
+        </div>
+        <!-- Photo Slot 7: Earthen Veranda & Handcrafted Brickwork -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_earthen_corridor.webp" type="image/webp">
+            <img src="images/vaikunth_earthen_corridor.jpg" alt="Vaikunth Traditional Earthen Brickwork and Garden Pathway" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Handcrafted Earthen Brickwork &amp; Veranda Walkway</div>
+        </div>
+        <!-- Photo Slot 8: Garden Suite & Mandala Sanctum -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_mandala_suite.webp" type="image/webp">
+            <img src="images/vaikunth_mandala_suite.jpg" alt="Vaikunth Garden Suite with Sacred Hand-Drawn Mandala Frieze" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Garden Suite &amp; Sacred Mandala Sanctum</div>
+        </div>
+        <!-- Photo Slot 9: Upper Terrace & Snow Peak Panorama -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_terrace_mountain_view.webp" type="image/webp">
+            <img src="images/vaikunth_terrace_mountain_view.jpg" alt="Vaikunth Mud House Upper Terrace Balcony with Brass Lantern overlooking Snow Peaks" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Upper Terrace Balcony &amp; Snow Peak Solitude</div>
+        </div>
+        <!-- Photo Slot 10: Orchard Stairway & Estate Vista -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_terrace_garden_stairs.webp" type="image/webp">
+            <img src="images/vaikunth_terrace_garden_stairs.jpg" alt="Vaikunth Upper Terrace Stairway looking down into Blooming Orchard and Meditation Grounds" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Terrace Stairway &amp; Orchard Vista</div>
+        </div>
+        <!-- Photo Slot 11: Twilight Entrance & Mud House Glow -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_night_gate_illuminated.webp" type="image/webp">
+            <img src="images/vaikunth_night_gate_illuminated.jpg" alt="Vaikunth Mud House Illuminated Wooden Gate and Glowing Evening Mud House" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Illuminated Gateway &amp; Evening Mud House</div>
+        </div>
+        <!-- Photo Slot 12: Evening Veranda Glow & Courtyard -->
+        <div class="gallery-item">
+          <picture>
+            <source srcset="images/vaikunth_evening_terrace_glow.webp" type="image/webp">
+            <img src="images/vaikunth_evening_terrace_glow.jpg" alt="Vaikunth Mud House Evening Veranda Glow and Stone Staircase" width="600" height="400" loading="lazy" decoding="async">
+          </picture>
+          <div class="gallery-caption">Evening Veranda Glow &amp; Slate Courtyard</div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
@@ -911,570 +1091,53 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <a href="preview.html">The Reset <span>Co.</span></a>
+        <a href="index.html">The Reset <span>Co.</span></a>
         <div class="footer-tagline">
           Classical Ayurvedic Restorative Sanctuaries &bull; Bir Billing, Himachal Pradesh
         </div>
       </div>
       <div class="footer-links">
-        <a href="preview.html">Home</a>
+        <a href="index.html">Home</a>
         <a href="index.html#about">The Sanctuary</a>
-        <a href="index.html#founders">Founding Doctors</a>
+        <a href="index.html#doctors">Founding Doctors</a>
         <a href="programmes.html">Programmes</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
         <a href="https://wa.me/917888540046" target="_blank" rel="noopener">WhatsApp Concierge</a>
       </div>
     </div>
     <div class="footer-bottom">
+    <p style="font-size: 0.76rem; color: rgba(253, 250, 243, 0.6); margin-top: 0.75rem; line-height: 1.6; max-width: 100%; width: 100%;">The Reset Co. offers traditional Ayurvedic lifestyle, yoga, and restorative wellness retreats for relaxation and holistic wellbeing, and does not constitute medical diagnosis, treatment, or a licensed clinical establishment.</p>
       <div>&copy; 2026 The Reset Co. All rights reserved.</div>
       <div>Classical Ayurvedic medicine in Himalayan silence.</div>
     </div>
   </footer>
 
 
+  <!-- Vercel Telemetry & Speed Insights -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+
+
 <script>
-/**
- * DepthCarousel - Vanilla JS implementation matching @react-bits/DepthCarousel
- * 3D Rail with depth, spread, tilt, perspective, visibleCards, falloff, blur, autoplay, loop
- */
-
-(function(global) {
-  'use strict';
-
-  const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
-
-  class DepthCarousel {
-    constructor(container, options = {}) {
-      if (typeof container === 'string') {
-        this.container = document.querySelector(container);
-      } else {
-        this.container = container;
-      }
-
-      if (!this.container) {
-        console.warn('DepthCarousel: Container element not found.');
-        return;
-      }
-
-      this.options = Object.assign({
-        items: [],
-        cardWidth: 320,
-        cardHeight: 420,
-        radius: 6,
-        tint: '#05060a',
-        depth: 220,
-        spread: 90,
-        tilt: 22,
-        tiltDirection: 'right',
-        perspective: 1400,
-        visibleCards: 4,
-        falloff: 0.2,
-        blur: 6,
-        duration: 700,
-        autoplay: true,
-        autoplayDelay: 3200,
-        loop: true,
-        showControls: true,
-        showIndicators: true,
-        onChange: null
-      }, options);
-
-      this.items = this.options.items.map(it => typeof it === 'string' ? { image: it, alt: '' } : it);
-      this.count = this.items.length;
-      if (this.count === 0) return;
-
-      this.pos = 0;
-      this.targetPos = 0;
-      this.focusIndex = 0;
-      this.activeIndex = 0;
-      this.scale = 1;
-      this.animating = false;
-      this.animStartTime = 0;
-      this.animStartPos = 0;
-      this.animTargetPos = 0;
-
-      this.drag = null;
-      this.wheelTimer = null;
-      this.autoTimer = null;
-      this.isHovered = false;
-      this.isFocused = false;
-
-      this.initDOM();
-      this.bindEvents();
-      this.layout(this.pos);
-      this.startAutoplay();
-    }
-
-    initDOM() {
-      this.container.classList.add('depth-carousel');
-      this.container.style.setProperty('--dc-perspective', `${this.options.perspective}px`);
-      this.container.setAttribute('tabindex', '0');
-      this.container.setAttribute('role', 'region');
-      this.container.setAttribute('aria-label', '3D Sanctuary Photo Gallery');
-
-      this.stage = document.createElement('div');
-      this.stage.className = 'depth-carousel__stage';
-      this.container.appendChild(this.stage);
-
-      this.cardEls = [];
-      this.overlayEls = [];
-
-      this.items.forEach((item, i) => {
-        const card = document.createElement('div');
-        card.className = 'depth-carousel__card';
-        card.style.width = `${this.options.cardWidth}px`;
-        card.style.height = `${this.options.cardHeight}px`;
-        card.style.borderRadius = `${this.options.radius}px`;
-        card.setAttribute('role', 'group');
-        card.setAttribute('aria-label', `${i + 1} of ${this.count}`);
-
-        const img = document.createElement('img');
-        img.className = 'depth-carousel__img';
-        img.src = item.image;
-        img.alt = item.alt || item.title || '';
-        img.loading = i < 3 ? 'eager' : 'lazy';
-        img.draggable = false;
-        card.appendChild(img);
-
-        const tint = document.createElement('span');
-        tint.className = 'depth-carousel__tint';
-        tint.style.background = this.options.tint;
-        card.appendChild(tint);
-
-        // Optional title/caption overlay
-        if (item.title || item.caption || item.tag) {
-          const cap = document.createElement('div');
-          cap.className = 'depth-carousel__caption-overlay';
-          if (item.tag) {
-            const tag = document.createElement('div');
-            tag.className = 'depth-carousel__caption-tag';
-            tag.textContent = item.tag;
-            cap.appendChild(tag);
-          }
-          if (item.title) {
-            const title = document.createElement('h4');
-            title.className = 'depth-carousel__caption-title';
-            title.textContent = item.title;
-            cap.appendChild(title);
-          }
-          if (item.caption) {
-            const desc = document.createElement('p');
-            desc.className = 'depth-carousel__caption-desc';
-            desc.textContent = item.caption;
-            cap.appendChild(desc);
-          }
-          card.appendChild(cap);
-        }
-
-        card.addEventListener('click', () => {
-          if (this.drag && this.drag.moved) return;
-          this.setFocus(i, true);
-        });
-
-        this.stage.appendChild(card);
-        this.cardEls.push(card);
-        this.overlayEls.push(tint);
-      });
-
-      // Arrow Controls
-      if (this.options.showControls && this.count > 1) {
-        this.prevBtn = document.createElement('button');
-        this.prevBtn.type = 'button';
-        this.prevBtn.className = 'depth-carousel__arrow depth-carousel__arrow--prev';
-        this.prevBtn.setAttribute('aria-label', 'Previous photo');
-        this.prevBtn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-        this.prevBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          this.navigateBy(-1);
-        });
-
-        this.nextBtn = document.createElement('button');
-        this.nextBtn.type = 'button';
-        this.nextBtn.className = 'depth-carousel__arrow depth-carousel__arrow--next';
-        this.nextBtn.setAttribute('aria-label', 'Next photo');
-        this.nextBtn.innerHTML = `<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-        this.nextBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          this.navigateBy(1);
-        });
-
-        this.container.appendChild(this.prevBtn);
-        this.container.appendChild(this.nextBtn);
-      }
-
-      // Indicators
-      if (this.options.showIndicators && this.count > 1) {
-        this.dotsWrap = document.createElement('div');
-        this.dotsWrap.className = 'depth-carousel__dots';
-        this.dots = [];
-
-        this.items.forEach((_, i) => {
-          const dot = document.createElement('button');
-          dot.type = 'button';
-          dot.className = `depth-carousel__dot${i === 0 ? ' is-active' : ''}`;
-          dot.setAttribute('aria-label', `Go to photo ${i + 1}`);
-          dot.addEventListener('click', (e) => {
-            e.stopPropagation();
-            this.setFocus(i, true);
-          });
-          this.dotsWrap.appendChild(dot);
-          this.dots.push(dot);
-        });
-
-        this.container.appendChild(this.dotsWrap);
-      }
-    }
-
-    bindEvents() {
-      // Resize Observer for dynamic scale
-      if (typeof ResizeObserver !== 'undefined') {
-        this.resizeObserver = new ResizeObserver(entries => {
-          const w = entries[0].contentRect.width;
-          const needed = this.options.cardWidth + Math.abs(this.options.spread) * 2 + 80;
-          this.scale = clamp(w / needed, 0.45, 1);
-          this.layout(this.pos);
-        });
-        this.resizeObserver.observe(this.container);
-      }
-
-      // Pointer / Mouse Drag
-      this.container.addEventListener('pointerdown', (e) => {
-        if (this.count < 2) return;
-        this.stopAnimation();
-        this.drag = {
-          x: e.clientX,
-          startPos: this.pos,
-          lastX: e.clientX,
-          lastT: performance.now(),
-          v: 0,
-          moved: false,
-          id: e.pointerId
-        };
-      });
-
-      window.addEventListener('pointermove', (e) => {
-        if (!this.drag) return;
-        const stepPx = Math.max(this.options.cardWidth * 0.55 * this.scale, 40);
-        const dx = e.clientX - this.drag.x;
-        if (!this.drag.moved && Math.abs(dx) > 4) {
-          this.drag.moved = true;
-          try { this.container.setPointerCapture(this.drag.id); } catch(err) {}
-        }
-        if (!this.drag.moved) return;
-
-        const now = performance.now();
-        const dt = Math.max(now - this.drag.lastT, 1);
-        this.drag.v = (e.clientX - this.drag.lastX) / dt;
-        this.drag.lastX = e.clientX;
-        this.drag.lastT = now;
-
-        this.pos = this.drag.startPos - dx / stepPx;
-        this.layout(this.pos);
-      });
-
-      const onPointerEnd = () => {
-        if (!this.drag) return;
-        const drag = this.drag;
-        this.drag = null;
-        if (!drag.moved) return;
-
-        const stepPx = Math.max(this.options.cardWidth * 0.55 * this.scale, 40);
-        const projected = this.pos - (drag.v * 180) / stepPx;
-        this.setFocus(Math.round(projected), true);
-      };
-
-      window.addEventListener('pointerup', onPointerEnd);
-      window.addEventListener('pointercancel', onPointerEnd);
-
-      // Wheel navigation
-      this.container.addEventListener('wheel', (e) => {
-        if (this.count < 2) return;
-        e.preventDefault();
-        this.stopAnimation();
-        const raw = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-        const delta = e.deltaMode === 1 ? raw * 24 : raw;
-        const step = clamp(delta / (this.options.cardWidth * 0.9), -0.6, 0.6);
-        this.pos += step;
-        this.layout(this.pos);
-
-        if (this.wheelTimer) clearTimeout(this.wheelTimer);
-        this.wheelTimer = setTimeout(() => {
-          this.setFocus(Math.round(this.pos), true);
-        }, 130);
-      }, { passive: false });
-
-      // Keyboard
-      this.container.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          this.navigateBy(-1);
-        } else if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          this.navigateBy(1);
-        }
-      });
-
-      // Hover / Focus pause
-      this.container.addEventListener('mouseenter', () => { this.isHovered = true; });
-      this.container.addEventListener('mouseleave', () => { this.isHovered = false; });
-      this.container.addEventListener('focusin', () => { this.isFocused = true; });
-      this.container.addEventListener('focusout', () => { this.isFocused = false; });
-    }
-
-    layout(pos) {
-      const n = this.count;
-      if (!n) return;
-      const dir = this.options.tiltDirection === 'left' ? -1 : 1;
-      const sc = this.scale;
-
-      for (let i = 0; i < n; i++) {
-        const el = this.cardEls[i];
-        if (!el) continue;
-
-        let d = i - pos;
-        if (this.options.loop && n > 1) {
-          d = ((d % n) + n) % n;
-          if (d > n / 2) d -= n;
-        }
-
-        const back = Math.max(0, d);
-        const az = Math.abs(d);
-        const shown = az <= this.options.visibleCards + 0.5;
-
-        const tz = -this.options.depth * d;
-        const tx = dir * this.options.spread * d;
-        const ry = dir * this.options.tilt * clamp(d, 0, 1);
-
-        let opacity = d < 0 ? Math.max(0, 1 + d) : 1;
-        if (!shown) opacity = 0;
-
-        const brightness = Math.max(0.18, 1 - back * this.options.falloff);
-        const blurPx = this.options.blur > 0 ? Math.min(this.options.blur, (back / Math.max(1, this.options.visibleCards)) * this.options.blur) : 0;
-        const zi = Math.round(2000 - d * 20);
-
-        el.style.transform = `translate(-50%, -50%) scale(${sc}) translateX(${tx.toFixed(2)}px) translateZ(${tz.toFixed(2)}px) rotateY(${ry.toFixed(3)}deg)`;
-        el.style.opacity = opacity.toFixed(3);
-        el.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
-        el.style.zIndex = String(zi);
-        el.style.pointerEvents = shown && opacity > 0.05 ? 'auto' : 'none';
-
-        // Border highlighting for active card
-        if (Math.abs(d) < 0.3) {
-          el.style.borderColor = 'var(--gold, #C9A84C)';
-        } else {
-          el.style.borderColor = 'rgba(201, 168, 76, 0.25)';
-        }
-
-        const ov = this.overlayEls[i];
-        if (ov) {
-          ov.style.opacity = clamp(back * this.options.falloff * 1.25, 0, 0.85).toFixed(3);
-        }
-      }
-    }
-
-    setFocus(rawIndex, animate = true) {
-      const n = this.count;
-      if (!n) return;
-      const idx = this.options.loop ? ((rawIndex % n) + n) % n : clamp(rawIndex, 0, n - 1);
-      let delta = idx - this.pos;
-      if (this.options.loop && n > 1) {
-        delta = ((delta % n) + n) % n;
-        if (delta > n / 2) delta -= n;
-      }
-      this.animateTo(this.pos + delta, animate);
-
-      if (idx !== this.focusIndex) {
-        this.focusIndex = idx;
-        this.notify(idx);
-      }
-    }
-
-    notify(idx) {
-      this.activeIndex = idx;
-      if (this.dots) {
-        this.dots.forEach((dot, i) => {
-          dot.classList.toggle('is-active', i === idx);
-        });
-      }
-      if (typeof this.options.onChange === 'function') {
-        this.options.onChange(idx, this.items[idx]);
-      }
-    }
-
-    navigateBy(step) {
-      this.setFocus(this.focusIndex + step, true);
-    }
-
-    animateTo(target, animate = true) {
-      this.stopAnimation();
-      if (!animate) {
-        this.pos = target;
-        const n = this.count;
-        if (n > 0) this.pos = ((this.pos % n) + n) % n;
-        this.layout(this.pos);
-        return;
-      }
-
-      this.animating = true;
-      this.animStartTime = performance.now();
-      this.animStartPos = this.pos;
-      this.animTargetPos = target;
-
-      const dur = this.options.duration;
-      // Cubic-bezier(0.16, 1, 0.3, 1) easeOutExpo approximation
-      const ease = (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-
-      const step = (now) => {
-        if (!this.animating) return;
-        const elapsed = now - this.animStartTime;
-        const progress = clamp(elapsed / dur, 0, 1);
-        const eased = ease(progress);
-
-        this.pos = this.animStartPos + (this.animTargetPos - this.animStartPos) * eased;
-        this.layout(this.pos);
-
-        if (progress < 1) {
-          this.rafId = requestAnimationFrame(step);
-        } else {
-          this.animating = false;
-          const n = this.count;
-          if (n > 0) this.pos = ((this.pos % n) + n) % n;
-          this.layout(this.pos);
-        }
-      };
-
-      this.rafId = requestAnimationFrame(step);
-    }
-
-    stopAnimation() {
-      this.animating = false;
-      if (this.rafId) cancelAnimationFrame(this.rafId);
-    }
-
-    startAutoplay() {
-      if (!this.options.autoplay || this.count < 2) return;
-      this.stopAutoplay();
-      this.autoTimer = setInterval(() => {
-        if (!this.isHovered && !this.isFocused && !this.animating && !this.drag) {
-          this.navigateBy(1);
-        }
-      }, Math.max(this.options.autoplayDelay, 1200));
-    }
-
-    stopAutoplay() {
-      if (this.autoTimer) clearInterval(this.autoTimer);
-      this.autoTimer = null;
-    }
-
-    destroy() {
-      this.stopAnimation();
-      this.stopAutoplay();
-      if (this.resizeObserver) this.resizeObserver.disconnect();
-      if (this.wheelTimer) clearTimeout(this.wheelTimer);
-    }
+function toggleNavDrawer() {
+  var drawer = document.getElementById('navDrawer');
+  var overlay = document.getElementById('menuOverlay');
+  var hamburger = document.getElementById('navHamburgerBtn');
+  if (!drawer || !overlay) return;
+  var isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    if (hamburger) hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  } else {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    if (hamburger) hamburger.classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
-
-  global.DepthCarousel = DepthCarousel;
-
-})(typeof window !== 'undefined' ? window : this);
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  const items = [
-    {
-      image: 'images/vaikunth_rose_terrace.jpg',
-      title: 'Rose Garden & Earthen Terrace',
-      tag: 'Sanctuary Grounds',
-      caption: 'Blooming rose bushes framing the handcrafted mud-brick pavilion, stone staircase, and upper sun deck.'
-    },
-    {
-      image: 'images/vaikunth_facade.jpg',
-      title: 'Vaikunth Mud House Facade',
-      tag: 'Sanctuary Architecture',
-      caption: 'Traditional earthen mud structure with stone-paved garden paths and veranda.'
-    },
-    {
-      image: 'images/vaikunth_therapy_room.jpg',
-      title: 'Earthen Dhyana & Therapy Room',
-      tag: 'Restorative Sanctum',
-      caption: 'Traditional mud chamber with indigo beams, earthen fireplace, and woven Kashmiri carpets.'
-    },
-    {
-      image: 'images/vaikunth_yoga_lawn.jpg',
-      title: 'Sacred Tree Dhyana Platform',
-      tag: 'Prana & Meditation',
-      caption: 'Elevated meditation platform beneath the sacred shade tree for morning Pranayama.'
-    },
-    {
-      image: 'images/vaikunth_living_suite.jpg',
-      title: 'Restorative Living Suite',
-      tag: 'Sanctuary Living',
-      caption: 'Earthen bedroom suite with pitched natural pine ceilings, artisanal carpets, and heritage brass-studded doorway.'
-    },
-    {
-      image: 'images/vaikunth_dining_hall_illuminated.jpg',
-      title: 'Illuminated Dining Hall',
-      tag: 'Mindful Ahara',
-      caption: 'Handcrafted earthen dining hall softly lit with glowing paper lanterns, slate floors, and tranquil mountain air.'
-    },
-    {
-      image: 'images/vaikunth_earthen_corridor.jpg',
-      title: 'Earthen Veranda Walkway',
-      tag: 'Vedic Architecture',
-      caption: 'Handcrafted mud-brick masonry, terracotta planters, and red stone staircase leading to upper suites.'
-    },
-    {
-      image: 'images/vaikunth_dining_veranda_view.jpg',
-      title: 'Veranda Orchard Outlook',
-      tag: 'Nature & Solitude',
-      caption: 'Tranquil dining veranda balustrade looking out over fruit orchards and the Kangra valley landscape.'
-    },
-    {
-      image: 'images/vaikunth_mandala_suite.jpg',
-      title: 'Garden Suite & Mandala Sanctum',
-      tag: 'Earthen Living',
-      caption: 'Ground floor guest sanctuary adorned with sacred hand-rendered mandala frieze and natural mud plaster.'
-    },
-    {
-      image: 'images/vaikunth_terrace_mountain_view.jpg',
-      title: 'Upper Terrace & Snow Peaks',
-      tag: 'Himalayan Solitude',
-      caption: 'Antique brass lantern and wind chimes on the upper balcony overlooking golden fields and snow-capped Himalayan ranges.'
-    },
-    {
-      image: 'images/vaikunth_terrace_garden_stairs.jpg',
-      title: 'Orchard Staircase Outlook',
-      tag: 'Estate Vantage',
-      caption: 'Elevated view from the upper terrace stairway descending toward blooming fruit orchards and the tree dhyana platform.'
-    },
-    {
-      image: 'images/vaikunth_night_gate_illuminated.jpg',
-      title: 'Twilight Sanctuary Gateway',
-      tag: 'Evening Solitude',
-      caption: 'Traditional wooden entrance portal with warm lantern light, revealing the glowing mud house and lantern-lit veranda.'
-    },
-    {
-      image: 'images/vaikunth_evening_terrace_glow.jpg',
-      title: 'Evening Terrace Glow',
-      tag: 'Vedic Warmth',
-      caption: 'Handcrafted mud pavilion illuminated in warm golden light, with slate stairs and potted cypress planters.'
-    }
-  ];
-
-  new DepthCarousel('#propertyDepthCarousel', {
-    items: items,
-    depth: 220,
-    spread: 90,
-    tilt: 22,
-    tiltDirection: 'right',
-    perspective: 1400,
-    visibleCards: 4,
-    falloff: 0.2,
-    blur: 6,
-    autoplay: true,
-    autoplayDelay: 3400,
-    loop: true
-  });
-});
+}
 </script>
 
 </body>
