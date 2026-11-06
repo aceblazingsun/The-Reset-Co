@@ -428,6 +428,23 @@
     }
   }
 
+
+  /* ─── HERO LANDING SHLOKA TOP CLEARANCE (PREVENTS ANY HEADER OVERLAP) ─── */
+  @media (max-width: 768px) {
+    .scroll-expand__hero-landing {
+      padding-top: calc(var(--diwali-bar-h, 34px) + env(safe-area-inset-top, 0px) + 2.5rem) !important;
+      padding-bottom: 3.5rem !important;
+      justify-content: center !important;
+    }
+    .hero-shloka {
+      margin-top: 0.85rem !important;
+      margin-bottom: 0.65rem !important;
+      font-size: 1.25rem !important;
+      position: relative !important;
+      z-index: 12 !important;
+    }
+  }
+
 </style>
 
 <!-- Production SEO & Canonical -->
@@ -2234,17 +2251,23 @@
 <!-- ─── LENIS & INTERACTION SCRIPTS ─── -->
 <script src="js/lenis.min.js"></script>
 <script>
-  // 1. Lenis Smooth Scroll Engine
+  // 1. Lenis Smooth Scroll Engine (Full Mobile & Desktop Animation Support)
   let lenis = null;
-  const isTouchSafari = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 860);
-  if (typeof Lenis !== 'undefined' && !isTouchSafari) {
+  if (typeof Lenis !== 'undefined') {
     lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      syncTouch: false,
-      respectReducedMotion: true,
-      anchors: false
+      syncTouch: true,              // Syncs touch momentum with Lenis virtual scroll for buttery mobile animations
+      touchMultiplier: 1.15,        // Natural 1:1 finger tracking on mobile
+      touchInertiaMultiplier: 25,   // Smooth kinetic glide after finger release
+      wheelMultiplier: 1.0,
+      infinite: false,
+      autoResize: true,
+      prevent: (node) => {
+        // Prevent Lenis from intercepting the interactive Dinacharya card deck swipes
+        return node && (node.classList?.contains('deck-stack') || (typeof node.closest === 'function' && node.closest('#dinacharyaDeck')));
+      }
     });
     window.lenis = lenis;
 
@@ -2261,8 +2284,21 @@
     lenis.on('scroll', ({ scroll, limit, progress }) => {
       const bar = document.getElementById('scroll-progress');
       if (bar) bar.style.width = (progress * 100) + '%';
+      
       const navEl = document.getElementById('mainNav');
-      if (navEl) navEl.classList.toggle('scrolled', scroll > 40);
+      const heroContainer = document.getElementById('scrollExpandContainer');
+      const heroHeight = heroContainer ? heroContainer.offsetHeight : window.innerHeight;
+      const hasTargetHash = window.location.hash && window.location.hash !== '#home' && window.location.hash.length > 1;
+
+      // Only reveal the white #mainNav once scrolled past the hero landing, keeping the shloka clear!
+      if (navEl) {
+        if (scroll > heroHeight * 0.7 || hasTargetHash) {
+          navEl.classList.add('nav-visible');
+        } else {
+          navEl.classList.remove('nav-visible');
+        }
+        navEl.classList.toggle('scrolled', scroll > heroHeight * 0.9);
+      }
     });
   }
 
@@ -2270,15 +2306,26 @@
   if (!lenis) {
     const bar = document.getElementById('scroll-progress');
     const navEl = document.getElementById('mainNav');
+    const heroContainer = document.getElementById('scrollExpandContainer');
     let isScrolling = false;
     window.addEventListener('scroll', () => {
       if (!isScrolling) {
         window.requestAnimationFrame(() => {
+          const scrollPos = window.scrollY;
           const total = document.documentElement.scrollHeight - window.innerHeight;
           if (total > 0 && bar) {
-            bar.style.width = (window.scrollY / total * 100) + '%';
+            bar.style.width = (scrollPos / total * 100) + '%';
           }
-          if (navEl) navEl.classList.toggle('scrolled', window.scrollY > 40);
+          const heroHeight = heroContainer ? heroContainer.offsetHeight : window.innerHeight;
+          const hasTargetHash = window.location.hash && window.location.hash !== '#home' && window.location.hash.length > 1;
+          if (navEl) {
+            if (scrollPos > heroHeight * 0.7 || hasTargetHash) {
+              navEl.classList.add('nav-visible');
+            } else {
+              navEl.classList.remove('nav-visible');
+            }
+            navEl.classList.toggle('scrolled', scrollPos > heroHeight * 0.9);
+          }
           isScrolling = false;
         });
         isScrolling = true;
@@ -2347,7 +2394,10 @@
     const shouldDirectLand = hasTargetHash || hasPlanParam || hasLandParam;
 
     function landOnHero() {
-      document.getElementById('mainNav')?.classList.add('nav-visible');
+      // Keep mainNav tucked away while on the hero landing so the Sanskrit shloka is 100% visible
+      if (window.location.hash && window.location.hash !== '#home' && window.location.hash.length > 1) {
+        document.getElementById('mainNav')?.classList.add('nav-visible');
+      }
       if (isLanded || animating) return;
       animating = true;
       isLanded = true;
