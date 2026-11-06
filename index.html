@@ -605,13 +605,24 @@
 
 
 <style id="diwali-refined-styles">
+  /* ─── SAFE AREA & HEADER CO-ORDINATION FOR SAFARI & MOBILE ─── */
+  :root {
+    --diwali-bar-h: 36px;
+  }
+  @media (max-width: 768px) {
+    :root {
+      --diwali-bar-h: 34px;
+    }
+  }
+
   /* ─── CLEAN LIVE ANIMATED DIWALI OFFER LINE ─── */
   .diwali-live-bar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 36px;
+    height: calc(var(--diwali-bar-h) + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
     background: #0A1B36;
     border-bottom: 1px solid rgba(201, 168, 76, 0.35);
     box-shadow: 0 2px 14px rgba(6, 18, 36, 0.35);
@@ -619,15 +630,35 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     font-family: var(--sans, 'Jost', sans-serif);
     color: #FDFAF3;
     overflow: hidden;
+    box-sizing: border-box;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
-  /* Offset fixed mainNav cleanly when visible */
+  /* Offset fixed mainNav cleanly so it NEVER overlaps on desktop or mobile */
+  nav#mainNav,
   #mainNav {
-    top: 36px !important;
+    top: calc(var(--diwali-bar-h) + env(safe-area-inset-top, 0px)) !important;
+  }
+
+  /* Prevent anchor links from hiding under fixed headers */
+  html {
+    scroll-padding-top: calc(var(--diwali-bar-h) + 65px + env(safe-area-inset-top, 0px)) !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Adjust drawer top when open on mobile */
+  .nav-drawer {
+    top: calc(var(--diwali-bar-h) + env(safe-area-inset-top, 0px)) !important;
+    height: calc(100vh - var(--diwali-bar-h) - env(safe-area-inset-top, 0px)) !important;
   }
 
   .diwali-bar-label {
@@ -720,13 +751,84 @@
     color: rgba(253, 250, 243, 0.55);
   }
 
+  /* ─── PROMINENT & HIGH-CONTRAST DINACHARYA DECK CONTROLS ─── */
+  .deck-controls {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-top: 1.25rem !important;
+    gap: 0.75rem !important;
+    position: relative !important;
+    z-index: 30 !important;
+  }
+  .deck-nav-btn {
+    min-height: 46px !important;
+    min-width: 96px !important;
+    background: #0F2347 !important;
+    border: 1.5px solid #C9A84C !important;
+    color: #FDFAF3 !important;
+    border-radius: 4px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    font-size: 0.76rem !important;
+    letter-spacing: 0.1em !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 14px rgba(15, 35, 71, 0.16) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+  .deck-nav-btn svg {
+    color: #E8C97A !important;
+    stroke-width: 2.4 !important;
+  }
+  .deck-nav-btn:active {
+    background: #C9A84C !important;
+    color: #0F2347 !important;
+    transform: scale(0.97) !important;
+  }
+  .deck-nav-btn:active svg {
+    color: #0F2347 !important;
+  }
+  .deck-nav-btn:disabled {
+    opacity: 0.38 !important;
+    cursor: not-allowed !important;
+    background: rgba(15, 35, 71, 0.5) !important;
+    border-color: rgba(201, 168, 76, 0.25) !important;
+    color: rgba(253, 250, 243, 0.45) !important;
+    box-shadow: none !important;
+  }
+  .deck-reset-btn {
+    min-height: 46px !important;
+    padding: 0 1.2rem !important;
+    background: #FAF7F0 !important;
+    border: 1.5px solid #C9A84C !important;
+    color: #0F2347 !important;
+    border-radius: 4px !important;
+    font-size: 0.76rem !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    display: none;
+    box-shadow: 0 4px 14px rgba(15, 35, 71, 0.08) !important;
+    transition: all 0.2s !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+  .deck-reset-btn.visible {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
   @media (max-width: 768px) {
     .diwali-live-bar {
-      height: 34px;
-      padding: 0 0.75rem;
-    }
-    #mainNav {
-      top: 34px !important;
+      height: calc(34px + env(safe-area-inset-top, 0px));
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
     }
     .diwali-ticker-wrapper {
       margin: 0 0.65rem;
@@ -738,6 +840,7 @@
       font-size: 0.72rem;
     }
   }
+
 </style>
 
 </head>
@@ -1074,7 +1177,7 @@
       <!-- 2: Meditation -->
       <div class="svc-card fade-up stagger-1" id="svc-card-1" role="tabpanel" aria-labelledby="disc-tab-1" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
         <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
-          <img src="images/meditation.webp" alt="Vedic Dhyana & Trataka Meditation" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
+          <img src="images/trataka-meditation-v2.webp" alt="Vedic Dhyana & Trataka Meditation" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
         </div>
         <div style="padding: 1.35rem 1.25rem;">
           <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Vedic Dhyana &amp; Trataka</h3>
@@ -1180,7 +1283,7 @@
 
       <div class="deck-hint">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M3 12h18"/></svg>
-        <span>Swipe right for next moment &bull; Swipe left for previous</span>
+        <span>Swipe left for next moment &bull; Swipe right for previous</span>
       </div>
 
       <div class="deck-stack" id="deckStack">
@@ -2133,7 +2236,8 @@
 <script>
   // 1. Lenis Smooth Scroll Engine
   let lenis = null;
-  if (typeof Lenis !== 'undefined') {
+  const isTouchSafari = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 860);
+  if (typeof Lenis !== 'undefined' && !isTouchSafari) {
     lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -2858,16 +2962,16 @@
       const activeCard = deckCards[deckCurrentIndex];
       if (!activeCard) return;
 
-      if (deltaX > 0) {
-        // SWIPING RIGHT: Toward next moment
+      if (deltaX < 0) {
+        // SWIPING LEFT: Advance to NEXT moment (Natural Mobile Gesture)
         if (deckCurrentIndex < deckCards.length - 1) {
-          const rot = deltaX * 0.08;
-          activeCard.style.transform = 'translate3d(' + deltaX + 'px, ' + (deltaY * 0.15) + 'px, 0) rotate(' + rot + 'deg)';
-          activeCard.style.opacity = '' + (1 - Math.min(0.5, deltaX / 360));
+          const rot = deltaX * 0.05;
+          activeCard.style.transform = 'translate3d(' + deltaX + 'px, ' + (deltaY * 0.1) + 'px, 0) rotate(' + rot + 'deg)';
+          activeCard.style.opacity = '' + (1 - Math.min(0.6, Math.abs(deltaX) / 320));
 
           const nextCard = deckCards[deckCurrentIndex + 1];
           if (nextCard) {
-            const pullFactor = Math.min(1, deltaX / 140);
+            const pullFactor = Math.min(1, Math.abs(deltaX) / 130);
             const nextY = 14 - (14 * pullFactor);
             const nextScale = 0.95 + (0.05 * pullFactor);
             const nextOpacity = 0.78 + (0.22 * pullFactor);
@@ -2875,24 +2979,24 @@
             nextCard.style.opacity = '' + nextOpacity;
           }
         } else {
-          // At end of deck, apply subtle resistance
-          const resistX = deltaX * 0.3;
+          // End of deck resistance
+          const resistX = deltaX * 0.25;
           activeCard.style.transform = 'translate3d(' + resistX + 'px, 0, 0)';
         }
-      } else if (deltaX < 0) {
-        // SWIPING LEFT: Toward previous moment
+      } else if (deltaX > 0) {
+        // SWIPING RIGHT: Return to PREVIOUS moment (Natural Mobile Gesture)
         if (deckCurrentIndex > 0) {
           const prevCard = deckCards[deckCurrentIndex - 1];
           if (prevCard) {
-            const pullFactor = Math.min(1, Math.abs(deltaX) / 140);
-            const prevX = -140 + (140 * pullFactor);
-            const prevRot = -20 + (20 * pullFactor);
+            const pullFactor = Math.min(1, deltaX / 130);
+            const prevX = -130 + (130 * pullFactor);
+            const prevRot = -10 + (10 * pullFactor);
             prevCard.style.zIndex = '15';
             prevCard.style.opacity = '' + (pullFactor);
             prevCard.style.transform = 'translate3d(' + prevX + '%, 0, 0) rotate(' + prevRot + 'deg)';
           }
         } else {
-          const resistX = deltaX * 0.3;
+          const resistX = deltaX * 0.25;
           activeCard.style.transform = 'translate3d(' + resistX + 'px, 0, 0)';
         }
       }
@@ -2907,10 +3011,10 @@
       const isQuickFlick = Math.abs(velocityX) > 0.35;
 
       if (isHorizontal) {
-        if (deltaX < 0 && (absDeltaX > 50 || (isQuickFlick && velocityX < -0.2))) {
+        if (deltaX < 0 && (absDeltaX > 45 || (isQuickFlick && velocityX < -0.18))) {
           swipeDeckCard('next');
           return;
-        } else if (deltaX > 0 && (deltaX > 50 || (isQuickFlick && velocityX > 0.2))) {
+        } else if (deltaX > 0 && (deltaX > 45 || (isQuickFlick && velocityX > 0.18))) {
           swipeDeckCard('prev');
           return;
         }
