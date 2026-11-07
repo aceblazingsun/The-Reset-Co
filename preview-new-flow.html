@@ -3360,6 +3360,9 @@
         unlockScroll();
         if (window.lenis) window.lenis.start();
         animating = false;
+        if (window.onFirstWelcomeUnfold) {
+          window.onFirstWelcomeUnfold();
+        }
         if (window.location.hash && window.location.hash !== '#' && !window.location.hash.startsWith('#sanctuary-accord')) {
           try {
             const target = document.querySelector(window.location.hash);
@@ -4544,7 +4547,16 @@
 
 
 <script>
-  // 1. Philosophy Entrance Modal Controller
+  // ─── EXACT POPUP LINEUP CONTROLLER ───
+  // Step 1: User enters via "Scroll to enter"
+  // Step 2: Philosophy of the retreat pops up right after the first animation
+  // Step 3: Discover Your Prakriti pops up ONLY after 10 seconds spent on site + scrolled a little down
+  // Step 4: If scrolled back up to top & re-entered, popup does NOT re-appear; comes only after reloading the website
+
+  let hasShownPhilosophyThisPageLoad = false;
+  let hasShownPrakritiThisPageLoad = false;
+  const pageLoadTimestamp = Date.now();
+
   function openPhilosophyModal() {
     const modal = document.getElementById('philosophyModal');
     if (modal) modal.classList.add('open');
@@ -4554,52 +4566,57 @@
     if (e && e.target && e.target.closest('.philosophy-modal-box') && !e.target.classList.contains('philosophy-modal-close')) return;
     const modal = document.getElementById('philosophyModal');
     if (modal) modal.classList.remove('open');
-    sessionStorage.setItem('trc_philosophy_viewed', 'true');
   }
 
-  // Auto trigger Philosophy modal on initial welcome landing
-  window.addEventListener('DOMContentLoaded', () => {
-    // Check if user already saw philosophy modal this session
-    const viewed = sessionStorage.getItem('trc_philosophy_viewed');
-    if (!viewed) {
-      // Trigger 1.2s after entering
+  // Step 2: Trigger Philosophy pop-up ONLY once per page load, right after the first unfold animation
+  window.onFirstWelcomeUnfold = function() {
+    if (!hasShownPhilosophyThisPageLoad) {
+      hasShownPhilosophyThisPageLoad = true;
       setTimeout(() => {
         openPhilosophyModal();
-      }, 1200);
+      }, 550);
     }
-  });
+  };
 
-  // 2. Prakriti Side Toast Controller (Occasional Slide-out)
-  let toastDismissed = false;
+  // Step 3: Discover Your Prakriti Slide-out Toast Controller
   function showPrakritiToast() {
-    if (toastDismissed) return;
     const toast = document.getElementById('prakritiSideToast');
     if (toast) toast.classList.add('show');
   }
 
   function dismissPrakritiToast() {
-    toastDismissed = true;
     const toast = document.getElementById('prakritiSideToast');
     if (toast) toast.classList.remove('show');
-    // Allow re-trigger after 45 seconds for demonstration
-    setTimeout(() => { toastDismissed = false; }, 45000);
   }
 
-  // Trigger side toast on scroll past 500px or after 5 seconds
-  let toastTriggered = false;
-  window.addEventListener('scroll', () => {
-    if (!toastTriggered && window.scrollY > 450) {
-      toastTriggered = true;
-      setTimeout(showPrakritiToast, 600);
-    }
-  }, { passive: true });
+  function checkPrakritiTrigger() {
+    if (hasShownPrakritiThisPageLoad) return;
+    const timeSpentMs = Date.now() - pageLoadTimestamp;
+    const hasSpent10Seconds = timeSpentMs >= 10000;
+    const hasScrolledDown = window.scrollY > 250;
 
-  setTimeout(() => {
-    if (!toastTriggered) {
-      toastTriggered = true;
+    if (hasSpent10Seconds && hasScrolledDown) {
+      hasShownPrakritiThisPageLoad = true;
       showPrakritiToast();
     }
-  }, 7000);
+  }
+
+  // Check scroll position
+  window.addEventListener('scroll', () => {
+    checkPrakritiTrigger();
+  }, { passive: true });
+
+  // Check timer once 10 seconds have elapsed
+  setTimeout(() => {
+    checkPrakritiTrigger();
+  }, 10000);
+
+  // Periodic safety check every second after 10s mark
+  setInterval(() => {
+    if (!hasShownPrakritiThisPageLoad) {
+      checkPrakritiTrigger();
+    }
+  }, 1000);
 </script>
 
 </body>
