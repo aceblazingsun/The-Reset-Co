@@ -25,7 +25,7 @@ When the user types `/graphify` or `$graphify`, use the installed graphify skill
 - **Contact Numbers:** `+91 78885 40046` &bull; `+91 94184 92145` (Direct / WhatsApp Concierge)
 - **Official Instagram:** `@thereset_co_`
 - **Location:** Vaikunth Mud House, Upper Bir Khas Pine Valley, Bir Billing, Kangra, Himachal Pradesh (PIN 176077) at 1,525m altitude.
-- **Founders & Clinical Directors:** Dr. Himanshu Bhatt & Dr. Aditya Kaundal (Licensed BAMS Vaidyas, Rajiv Gandhi Govt. Post Graduate Ayurvedic College, Paprola). Lineage rooted in Caraka Samhita.
+- **Founders & Clinical Directors:** Dr. Himanshu Bhatt & Dr. Aditya Kaundal (Licensed BAMS Vaidyas, Rajiv Gandhi Govt. Post Graduate Ayurvedic College, Paprola). Lineage rooted in Charak Samhita.
 - **Regulatory Status:** Authentic non-prescriptive restorative Ayush wellness sanctuary (not a hospital/diagnostic clinic).
 
 ### 2. Confirmed Business Rules (Strict Source of Truth)
