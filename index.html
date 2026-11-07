@@ -447,6 +447,481 @@
 
 
   
+  
+  /* ─── PREVIEW FEATURE 1: ENHANCED RETREAT STRIP WITH PROPERTY PHOTO & LINK ─── */
+  .retreat-strip-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .retreat-strip-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .retreat-strip-prop-thumb {
+    width: 68px;
+    height: 68px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--gold);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    flex-shrink: 0;
+    cursor: pointer;
+    position: relative;
+    background: #0F2347;
+  }
+  .retreat-strip-prop-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .retreat-strip-prop-thumb:hover img {
+    transform: scale(1.12);
+  }
+  .retreat-strip-prop-thumb .thumb-badge {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background: rgba(15, 35, 71, 0.85);
+    color: var(--gold-light);
+    font-size: 0.55rem;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .retreat-strip-right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .btn-property-link {
+    background: rgba(201, 168, 76, 0.12);
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+    padding: 0.55rem 1.15rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+  .btn-property-link:hover {
+    background: rgba(201, 168, 76, 0.24);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(201, 168, 76, 0.2);
+  }
+
+  /* ─── PREVIEW FEATURE 3: PHILOSOPHY ENTRANCE POPUP MODAL ─── */
+  .philosophy-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 18, 36, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 2500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .philosophy-modal-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .philosophy-modal-box {
+    background: #FAF7F0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    max-width: 620px;
+    width: 100%;
+    padding: 2.75rem 2.25rem 2.25rem;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(6, 18, 36, 0.6);
+    transform: translateY(20px) scale(0.96);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .philosophy-modal-backdrop.open .philosophy-modal-box {
+    transform: translateY(0) scale(1);
+  }
+  .philosophy-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    font-size: 1.85rem;
+    line-height: 1;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .philosophy-modal-close:hover {
+    color: var(--royal-deep);
+  }
+  .philosophy-shloka {
+    font-family: var(--devanagari, serif);
+    font-size: 1.35rem;
+    color: var(--gold-dark);
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.04em;
+  }
+  .philosophy-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
+    margin-bottom: 0.85rem;
+  }
+  .philosophy-title {
+    font-family: var(--serif);
+    font-size: clamp(1.65rem, 3.2vw, 2.25rem);
+    color: var(--royal-deep);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  .philosophy-title em {
+    font-style: italic;
+    color: var(--gold-dark);
+  }
+  .philosophy-desc {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 1.25rem 0 1.5rem;
+  }
+  .philosophy-pillars-summary {
+    display: flex;
+    justify-content: center;
+    gap: 1.15rem;
+    font-size: 0.76rem;
+    color: var(--royal-mid);
+    font-weight: 600;
+    margin-bottom: 1.75rem;
+    flex-wrap: wrap;
+  }
+  .philosophy-enter-btn {
+    display: inline-block;
+    padding: 0.85rem 2.25rem;
+    font-size: 0.84rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--royal-deep);
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 18px rgba(15, 35, 71, 0.25);
+    transition: all 0.25s ease;
+  }
+  .philosophy-enter-btn:hover {
+    background: var(--royal);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(15, 35, 71, 0.35);
+  }
+
+  /* ─── PREVIEW FEATURE 4: FLOATING PRAKRITI SIDE BUTTON & OCCASIONAL TOAST ─── */
+  .floating-prakriti-tab {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 900;
+    background: var(--royal-deep);
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    padding: 0.75rem 0.65rem;
+    box-shadow: -4px 6px 25px rgba(6, 18, 36, 0.35);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .floating-prakriti-tab:hover {
+    background: var(--royal-mid);
+    color: #FFFFFF;
+    transform: translateY(-50%) translateX(-4px);
+    box-shadow: -6px 8px 30px rgba(6, 18, 36, 0.45);
+  }
+  .floating-prakriti-tab .tab-glyph {
+    writing-mode: horizontal-tb;
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  /* Occasional Side Slide-out Toast Card */
+  .prakriti-side-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 1.5rem;
+    z-index: 950;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 8px;
+    width: 320px;
+    padding: 1.25rem 1.25rem 1.15rem;
+    box-shadow: 0 15px 45px rgba(6, 18, 36, 0.22);
+    transform: translateX(380px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .prakriti-side-toast.show {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .toast-close-btn {
+    position: absolute;
+    top: 0.65rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    line-height: 1;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+  .toast-close-btn:hover {
+    color: var(--royal-deep);
+  }
+  .toast-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0.35rem;
+  }
+  .toast-sparkle {
+    color: var(--gold-dark);
+    font-size: 0.8rem;
+  }
+  .toast-eyebrow {
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 700;
+  }
+  .toast-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--royal-deep);
+    line-height: 1.25;
+    margin-bottom: 0.45rem;
+    font-weight: 600;
+  }
+  .toast-body {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin-bottom: 0.85rem;
+  }
+  .toast-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--royal-deep);
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+    padding: 0.45rem 0.95rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+  }
+  .toast-cta-btn:hover {
+    background: var(--royal-mid);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .floating-prakriti-tab {
+      top: auto;
+      bottom: 5.5rem;
+      transform: none;
+      padding: 0.5rem 0.45rem;
+      font-size: 0.65rem;
+    }
+    .floating-prakriti-tab:hover {
+      transform: translateX(-3px);
+    }
+    .prakriti-side-toast {
+      bottom: 5rem;
+      right: 0.75rem;
+      left: 0.75rem;
+      width: auto;
+    }
+    .retreat-strip-left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  }
+
+  
+  /* ─── APPLE-GRADE FLUID CARD SCROLLER & BI-DIRECTIONAL PILL SYNC ─── */
+  @media (max-width: 768px) {
+    .disc-tabs-mobile {
+      display: flex !important;
+      gap: 0.5rem !important;
+      overflow-x: auto !important;
+      padding: 0.5rem 1rem 0.75rem !important;
+      scrollbar-width: none !important;
+      -webkit-overflow-scrolling: touch !important;
+      scroll-behavior: smooth !important;
+      margin-bottom: 0.75rem !important;
+    }
+    .disc-tabs-mobile::-webkit-scrollbar {
+      display: none !important;
+    }
+    .disc-tab-btn {
+      flex: 0 0 auto !important;
+      background: #FFFFFF !important;
+      border: 1px solid rgba(201, 168, 76, 0.35) !important;
+      color: var(--royal-deep) !important;
+      padding: 0.45rem 1rem !important;
+      font-size: 0.74rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.04em !important;
+      border-radius: 20px !important;
+      cursor: pointer !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      box-shadow: 0 2px 8px rgba(15, 35, 71, 0.04) !important;
+    }
+    .disc-tab-btn.active {
+      background: var(--royal-deep) !important;
+      color: var(--gold-light) !important;
+      border-color: var(--gold) !important;
+      box-shadow: 0 4px 14px rgba(15, 35, 71, 0.2) !important;
+      transform: scale(1.03) !important;
+    }
+    .svc-grid {
+      display: flex !important;
+      flex-direction: row !important;
+      overflow-x: auto !important;
+      scroll-snap-type: x mandatory !important;
+      scroll-behavior: smooth !important;
+      -webkit-overflow-scrolling: touch !important;
+      gap: 1rem !important;
+      padding: 0.5rem 1rem 1.25rem !important;
+      scrollbar-width: none !important;
+    }
+    .svc-grid::-webkit-scrollbar {
+      display: none !important;
+    }
+    .svc-card {
+      flex: 0 0 84% !important;
+      max-width: 320px !important;
+      scroll-snap-align: center !important;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, box-shadow 0.35s ease !important;
+      border-radius: 8px !important;
+      will-change: transform, opacity !important;
+      transform: scale(0.96) !important;
+      opacity: 0.88 !important;
+    }
+    .svc-card.active-card {
+      transform: scale(1) !important;
+      opacity: 1 !important;
+      box-shadow: 0 12px 32px rgba(15, 35, 71, 0.14) !important;
+      border-color: var(--gold) !important;
+    }
+  }
+
+  
+  /* ─── COMPACT MOBILE FAQ WITH CATEGORY TABS & SPACE SAVER ─── */
+  .faq-category-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .faq-cat-btn {
+    background: #FFFFFF;
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    color: var(--royal-deep);
+    padding: 0.45rem 1.15rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .faq-cat-btn.active {
+    background: var(--royal-deep);
+    color: var(--gold-light);
+    border-color: var(--gold);
+    box-shadow: 0 4px 14px rgba(15, 35, 71, 0.15);
+  }
+  @media (max-width: 768px) {
+    .faq-accordion-item {
+      margin-bottom: 0.65rem !important;
+      border-radius: 6px !important;
+    }
+    .faq-question-btn {
+      padding: 0.85rem 1rem !important;
+      font-size: 1.02rem !important;
+      line-height: 1.3 !important;
+    }
+    .faq-answer-panel {
+      padding: 0.75rem 1rem 1rem !important;
+      font-size: 0.82rem !important;
+      line-height: 1.5 !important;
+    }
+    .faq-category-bar {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding: 0.25rem 0.25rem 0.5rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1.25rem;
+    }
+    .faq-category-bar::-webkit-scrollbar {
+      display: none;
+    }
+    .faq-cat-btn {
+      flex: 0 0 auto;
+      font-size: 0.72rem;
+      padding: 0.35rem 0.85rem;
+    }
+  }
+
   /* ─── INLINE SANCTUARY PHOTO SHOWCASE ─── */
   .sanctuary-gallery-wrap {
     margin: 2rem 0;
@@ -1386,352 +1861,29 @@
 <!-- ─── 4. UPCOMING RETREAT STRIP (PHASE 2) ─── -->
 <div class="retreat-strip fade-up">
   <div class="retreat-strip-inner">
-    <div>
-      <div class="strip-col-title">Next Scheduled Residency</div>
-      <div class="strip-dates">26 &ndash; 30 November 2026</div>
-      <div class="strip-details">Thursday Check-in &bull; Monday Handover &amp; Departure (4N / 5D)</div>
-    </div>
-    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-      <div style="font-size: 0.8rem; color: var(--gold-dark); font-weight: 600;">
-        Vaikunth Mud Cottages &bull; Bir Billing (1,525m)
+    <div class="retreat-strip-left">
+      <div class="retreat-strip-prop-thumb" onclick="openPropertyGallery(0)" title="Click to view Vaikunth Mud House Sanctuary Grounds">
+        <picture>
+          <source srcset="images/vaikunth_facade.webp" type="image/webp">
+          <img src="images/vaikunth_facade.jpg" alt="Vaikunth Mud House Facade" width="68" height="68" loading="eager" decoding="async">
+        </picture>
+        <div class="thumb-badge">8 Photos</div>
       </div>
+      <div>
+        <div class="strip-col-title">Next Scheduled Residency &bull; Vaikunth Mud House</div>
+        <div class="strip-dates">26 &ndash; 30 November 2026</div>
+        <div class="strip-details">Thursday Check-in &bull; Monday Handover &amp; Departure (4N / 5D &bull; 8–10 Seekers Max)</div>
+      </div>
+    </div>
+    <div class="retreat-strip-right">
+      <a href="#portals" class="btn-property-link" title="Explore Vaikunth Mud House Sanctuary Photos & Grounds">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>View Property Photos &amp; Grounds &rarr;</span>
+      </a>
       <a href="#enquiry" class="btn-primary" style="padding: 0.55rem 1.4rem; font-size: 0.76rem;">Reserve Intake</a>
     </div>
   </div>
 </div>
-
-<!-- ─── 5. SANCTUARY PHILOSOPHY & ABOUT ─── -->
-<section class="section-pad" id="about">
-  <div class="container">
-    <div class="sec-header fade-up">
-      <div class="sec-shloka">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
-      <p class="sec-eyebrow">Lineage &amp; Sanctuary Philosophy</p>
-      <h2 class="sec-title">Stillness is not a luxury.<br><em>It is a prescription.</em></h2>
-      <div class="gold-divider"></div>
-      <p class="sec-desc">
-        Modern exhaustion is not solved by passive rest; it requires the deliberate realignment of circadian biological clocks. Rooted in the foundational teachings of the <em>Charak Samhita</em> and <em>Sushruta Samhita</em>, our sanctuaries remove you from synthetic stimulation to restore natural biological balance.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ─── 6. MEET THE FOUNDING PHYSICIANS (STRICTLY B.A.M.S.) ─── -->
-<section class="section-pad doctors-sec" id="doctors">
-  <div class="container">
-    <div class="sec-header fade-up">
-      <p class="sec-eyebrow">Classical Lineage &bull; Authentic Ayurvedic Guidance</p>
-      <h2 class="sec-title">Personally Directed by<br><em>Licensed B.A.M.S. Vaidyas</em></h2>
-      <div class="gold-divider"></div>
-      <p class="sec-desc">
-        Every therapy, consultation, and herbal formulation is guided on-site by registered Ayurvedic Vaidyas. Authentic restorative retreat care.
-      </p>
-    </div>
-
-    <div class="doctors-grid">
-      <!-- Doctor 1: Dr. Himanshu Bhatt -->
-      <div class="doctor-card fade-up">
-        <div class="doctor-avatar">
-          <picture>
-            <source srcset="images/dr-himanshu.webp" type="image/webp">
-            <img src="images/dr-himanshu.jpg" alt="Dr. Himanshu Bhatt, BAMS Founding Vaidya" width="140" height="140" loading="lazy" decoding="async">
-          </picture>
-        </div>
-        <h3 class="doctor-title">Dr. Himanshu Bhatt</h3>
-        <p class="doctor-role">Founder &bull; B.A.M.S. Doctor</p>
-        <div class="doctor-creds">
-          <strong>Credentials:</strong> Bachelor of Ayurvedic Medicine and Surgery (B.A.M.S.) &bull; State Council Registered Physician
-        </div>
-        <p class="doctor-bio">
-          Educated in Mandi and Paprola, Dr. Himanshu holds a 5.5-year BAMS degree in classical Ayurveda. He designs each retreat curriculum with care, ensuring every traditional practice is authentic and deeply restorative.
-        </p>
-      </div>
-
-      <!-- Doctor 2: Dr. Aditya Kaundal -->
-      <div class="doctor-card fade-up stagger-1">
-        <div class="doctor-avatar">
-          <picture>
-            <source srcset="images/dr-aditya.webp" type="image/webp">
-            <img src="images/dr-aditya.jpg" alt="Dr. Aditya Kaundal, BAMS Founding Vaidya" width="140" height="140" loading="lazy" decoding="async">
-          </picture>
-        </div>
-        <h3 class="doctor-title">Dr. Aditya Kaundal</h3>
-        <p class="doctor-role">Founder &bull; B.A.M.S. Doctor</p>
-        <div class="doctor-creds">
-          <strong>Credentials:</strong> Bachelor of Ayurvedic Medicine and Surgery (B.A.M.S.) &bull; State Council Registered Physician
-        </div>
-        <p class="doctor-bio">
-          Dr. Aditya completed his 5.5-year BAMS Ayurvedic education in Mandi, followed by extensive traditional wellness practice with Patanjali institutions. His work focuses on relieving nervous exhaustion, everyday stress, and dosha imbalances.
-        </p>
-      </div>
-    </div>
-
-    <div style="text-align: center;" class="fade-up stagger-2">
-      <a href="meet-the-doctors.html" class="btn-dossier" style="display: inline-block; padding: 0.8rem 1.8rem;">
-        Read Dedicated Vaidya Biographies &amp; Sanctuary Boundaries &rarr;
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ─── 7. THE FOUR CLASSICAL PILLARS & DAILY RHYTHM ─── -->
-<section class="section-pad" id="approach">
-  <div class="container">
-    <div class="sec-header fade-up">
-      <p class="sec-eyebrow">The Classical Sanctuary Pillars</p>
-      <h2 class="sec-title">Four disciplines of <em>vital restoration</em></h2>
-      <div class="gold-divider"></div>
-      <p class="sec-desc">
-        Restorative Ayurvedic therapy operates across four interwoven sciences, conducted in direct synchrony with Himalayan circadian daylight.
-      </p>
-    </div>
-
-        <!-- THE FOUR CLASSICAL PILLARS (RESTORED VISUAL GRID) -->
-    <div class="disc-tabs-mobile" id="discTabsMobile" role="tablist" aria-label="Select Classical Discipline">
-        <button type="button" class="disc-tab-btn active" role="tab" id="disc-tab-0" aria-selected="true" aria-controls="svc-card-0" onclick="selectDiscipline(0)">Adaptive Yoga</button>
-        <button type="button" class="disc-tab-btn" role="tab" id="disc-tab-1" aria-selected="false" aria-controls="svc-card-1" onclick="selectDiscipline(1)">Vedic Dhyana</button>
-        <button type="button" class="disc-tab-btn" role="tab" id="disc-tab-2" aria-selected="false" aria-controls="svc-card-2" onclick="selectDiscipline(2)">Shatkarma</button>
-        <button type="button" class="disc-tab-btn" role="tab" id="disc-tab-3" aria-selected="false" aria-controls="svc-card-3" onclick="selectDiscipline(3)">Bahya Basti</button>
-      </div>
-
-    <div class="svc-grid" id="discGrid">
-      <!-- 1: Yoga -->
-      <div class="svc-card fade-up" id="svc-card-0" role="tabpanel" aria-labelledby="disc-tab-0" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
-        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
-          <img src="images/yoga.webp" alt="Condition-Adaptive Yoga in Himalayas" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
-        </div>
-        <div style="padding: 1.35rem 1.25rem;">
-          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Condition-Adaptive Yoga</h3>
-          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Hatha &bull; Pranayama &bull; Restorative Asana</div>
-          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Classical Hatha yoga taught as restorative therapy. Practiced in fresh Himalayan mountain air with every posture and breath cycle tailored to joint health.</p>
-        </div>
-      </div>
-      <!-- 2: Meditation -->
-      <div class="svc-card fade-up stagger-1" id="svc-card-1" role="tabpanel" aria-labelledby="disc-tab-1" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
-        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
-          <img src="images/trataka-flame-altar.webp" alt="Vedic Dhyana & Trataka Meditation - Sacred Flame Altar" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
-        </div>
-        <div style="padding: 1.35rem 1.25rem;">
-          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Vedic Dhyana &amp; Trataka</h3>
-          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Dharana &bull; Trataka &bull; Deep Nervous Reset</div>
-          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Guided mindfulness rooted in classical yogic science: steady concentration (Dharana), candle gazing (Trataka), and evening stillness to settle neural overactivity.</p>
-        </div>
-      </div>
-      <!-- 3: Shatkarma -->
-      <div class="svc-card fade-up stagger-2" id="svc-card-2" role="tabpanel" aria-labelledby="disc-tab-2" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
-        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
-          <img src="images/dinacharya_ritual.webp" alt="Classical Shatkarma Purification" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
-        </div>
-        <div style="padding: 1.35rem 1.25rem;">
-          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Classical Shatkarma Purification</h3>
-          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Jal Neti &bull; Kapalabhati &bull; Trataka</div>
-          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Traditional internal cleansing kriyas guided step-by-step by doctors: gentle nasal cleansing (Jal Neti), rhythmic breathwork, and sensory clarity rituals.</p>
-        </div>
-      </div>
-      <!-- 4: Basti Procedures -->
-      <div class="svc-card fade-up stagger-3" id="svc-card-3" role="tabpanel" aria-labelledby="disc-tab-3" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
-        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
-          <img src="images/ayurveda.webp" alt="Localized Bahya Bastis" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
-        </div>
-        <div style="padding: 1.35rem 1.25rem;">
-          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Localized Bahya Bastis</h3>
-          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Kati &bull; Greeva &bull; Nabhi &bull; Netra Tarpana</div>
-          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Warm medicated oil reservoirs held in handcrafted herbal dough rings. Relieves lumbar back strain (Kati), cervical neck ache (Greeva), and screen fatigue (Netra).</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile Swipe Dots for 4 Disciplines -->
-    <div class="disc-dots-mobile" id="discDotsMobile">
-      <div class="disc-dot active" onclick="selectDiscipline(0)"></div>
-      <div class="disc-dot" onclick="selectDiscipline(1)"></div>
-      <div class="disc-dot" onclick="selectDiscipline(2)"></div>
-      <div class="disc-dot" onclick="selectDiscipline(3)"></div>
-    </div>
-
-    <div class="rhythm-wrap desktop-rhythm fade-up" id="rhythm">
-      <div class="rhythm-img-box">
-        <img src="images/dinacharya_ritual.webp" alt="Dinacharya Ritual at The Reset Co." loading="lazy" width="800" height="447" style="width: 100%; height: auto; object-fit: cover; display: block;">
-      </div>
-      <div>
-        <h3 style="font-family: var(--serif); font-size: 1.8rem; color: var(--royal-deep); margin-bottom: 0.5rem;">
-          The Dinacharya <em>Circadian Rhythm</em>
-        </h3>
-        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">
-          Your days align with solar progression to recalibrate cortisol production and deep sleep architecture:
-        </p>
-        <div class="rhythm-list">
-          <div class="rhythm-step">
-            <div class="rhythm-time">06:30 AM</div>
-            <div class="rhythm-info">
-              <strong>Brahma Muhurta Awakening &amp; Herbal Decoctions</strong>
-              <p>Gentle Himalayan dawn waking, digestive warm infusions, and quiet contemplation.</p>
-            </div>
-          </div>
-          <div class="rhythm-step">
-            <div class="rhythm-time">07:30 AM</div>
-            <div class="rhythm-info">
-              <strong>Shatkarma Kriyas &amp; Therapeutic Pranayama</strong>
-              <p>Jala Neti saline nasal reset and diaphragmatic breathwork guided by physicians.</p>
-            </div>
-          </div>
-          <div class="rhythm-step">
-            <div class="rhythm-time">10:30 AM</div>
-            <div class="rhythm-info">
-              <strong>Physician Directed Bahya Basti &amp; Abhyanga</strong>
-              <p>Vaidya-curated restorative oil applications, warm herbal fomentation, and localized relief.</p>
-            </div>
-          </div>
-          <div class="rhythm-step">
-            <div class="rhythm-time">07:30 PM</div>
-            <div class="rhythm-info">
-              <strong>Arya Mauna (Noble Silence) &amp; Digital Sundown</strong>
-              <p>Light Sattvic dinner, device switch-off, and restorative herbal milk before deep rest.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ─── MOBILE DINACHARYA 8-MOMENT TINDER-STYLE CARD DECK (<= 768px) ─── -->
-    <div class="flow-deck-mobile fade-up" id="dinacharyaDeck" aria-label="Dinacharya 8-Moment Interactive Journey">
-      <div class="deck-top-bar">
-        <div class="deck-badge" aria-live="polite">
-          <span>Moment</span>
-          <strong id="deckStepNum">01</strong>
-          <span>of 08</span>
-        </div>
-        <div class="deck-indicator-segments" id="deckSegments" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="8" aria-label="Moment 1 of 8">
-          <span class="seg active"></span>
-          <span class="seg"></span>
-          <span class="seg"></span>
-          <span class="seg"></span>
-          <span class="seg"></span>
-          <span class="seg"></span>
-          <span class="seg"></span>
-          <span class="seg"></span>
-        </div>
-      </div>
-
-      <div class="deck-hint">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M3 12h18"/></svg>
-        <span>Swipe left for next moment &bull; Swipe right for previous</span>
-      </div>
-
-      <div class="deck-stack" id="deckStack">
-        <!-- Card 1 -->
-        <div class="deck-card" data-index="0">
-          <div class="deck-card-top">
-            <span class="deck-num">01</span>
-            <span class="deck-tag">Dawn Waking</span>
-          </div>
-          <h3 class="deck-title">Morning Dinacharya &amp; Hydration</h3>
-          <div class="deck-divider"></div>
-          <p class="deck-desc">Waking gently to crisp mountain air. Warm water resting overnight in your copper bottle, classical tongue scraping to clear oral toxins, and quiet grounding before sunrise.</p>
-          <div class="deck-footer-tag">&#10022; Phase 1: Cleansing &amp; Awakening</div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="deck-card" data-index="1">
-          <div class="deck-card-top">
-            <span class="deck-num">02</span>
-            <span class="deck-tag">Morning Practice</span>
-          </div>
-          <h3 class="deck-title">Condition-Adaptive Yoga &amp; Pranayama</h3>
-          <div class="deck-divider"></div>
-          <p class="deck-desc">Restorative classical Hatha asanas and conscious breathwork practiced outdoors facing the Dhauladhar peaks, tailored to spinal comfort and joint ease.</p>
-          <div class="deck-footer-tag">&#10022; Phase 2: Spinal Flow &amp; Prana</div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="deck-card" data-index="2">
-          <div class="deck-card-top">
-            <span class="deck-num">03</span>
-            <span class="deck-tag">Nourishment</span>
-          </div>
-          <h3 class="deck-title">Wholesome Sattvic Breakfast</h3>
-          <div class="deck-divider"></div>
-          <p class="deck-desc">Warm roasted grains, stewed seasonal mountain fruits, and freshly prepared herbal decoctions served in quiet mindfulness.</p>
-          <div class="deck-footer-tag">&#10022; Phase 3: Mountain Sustenance</div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="deck-card" data-index="3">
-          <div class="deck-card-top">
-            <span class="deck-num">04</span>
-            <span class="deck-tag">04 • Vaidya Interaction</span>
-          </div>
-          <h3 class="deck-title">Personal Constitution Guidance &amp; Shatkarma</h3>
-          <div class="deck-divider"></div>
-          <p class="deck-desc">Individual 1:1 Vaidya wellness interaction with Dr. Himanshu and Dr. Aditya. Instruction and guided practice of classical Jal Neti and gentle Kapalabhati purification.</p>
-          <div class="deck-footer-tag">&#10022; Phase 4: Mind-Body Alignment</div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="deck-card" data-index="4">
-          <div class="deck-card-top">
-            <span class="deck-num">05</span>
-            <span class="deck-tag">Midday Pause</span>
-          </div>
-          <h3 class="deck-title">Sattvic Lunch &amp; Unhurried Rest</h3>
-          <div class="deck-divider"></div>
-          <p class="deck-desc">Wholesome, easily digestible meal followed by dedicated downtime: quiet reading, pine terrace contemplation, or gentle unhurried walking.</p>
-          <div class="deck-footer-tag">&#10022; Phase 5: Midday Assimilation</div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="deck-card" data-index="5">
-          <div class="deck-card-top">
-            <span class="deck-num">06</span>
-            <span class="deck-tag">06 • Restorative Bodywork</span>
-          </div>
-          <h3 class="deck-title">Traditional Warm Oil Bastis &amp; Ocular Care</h3>
-          <div class="deck-divider"></div>
-          <p class="deck-desc">Traditional warm herbal oil reservoirs (Kati, Greeva, or Nabhi Basti) paired with restorative Netra Tarpana ghee eye pools and soothing Ashchyotana.</p>
-          <div class="deck-footer-tag">&#10022; Phase 6: Deep Relaxation</div>
-        </div>
-
-        <!-- Card 7 -->
-        <div class="deck-card" data-index="6">
-          <div class="deck-card-top">
-            <span class="deck-num">07</span>
-            <span class="deck-tag">Experiential Discovery</span>
-          </div>
-          <h3 class="deck-title">Pottery Workshop &amp; Pine Nature Trek</h3>
-          <div class="deck-divider"></div>
-          <p class="deck-desc">Tactile clay grounding sessions with local Himalayan artisans and guided mindful treks through fragrant pine trails and mountain monastery paths.</p>
-          <div class="deck-footer-tag">&#10022; Phase 7: Earth Connection</div>
-        </div>
-
-        <!-- Card 8 -->
-        <div class="deck-card" data-index="7">
-          <div class="deck-card-top">
-            <span class="deck-num">08</span>
-            <span class="deck-tag">Night Reflection</span>
-          </div>
-          <h3 class="deck-title">Stargazing, Fireside &amp; Acoustic Music</h3>
-          <div class="deck-divider"></div>
-          <p class="deck-desc">Evening Sattvic supper, contemplation under clear mountain skies, acoustic fireside conversations, and gentle post-dinner melodies under the stars.</p>
-          <div class="deck-footer-tag">&#10022; Phase 8: Deep Cellular Rest</div>
-        </div>
-      </div>
-
-      <div class="deck-controls">
-        <button class="deck-nav-btn" id="deckPrevBtn" aria-label="Previous Dinacharya moment" onclick="swipeDeckCard('prev')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-          <span>Prev</span>
-        </button>
-        <button class="deck-reset-btn" id="deckResetBtn" onclick="resetDeckStack()">
-          <span>Restart Dawn &#8634;</span>
-        </button>
-        <button class="deck-nav-btn" id="deckNextBtn" aria-label="Next Dinacharya moment" onclick="swipeDeckCard('next')">
-          <span>Next</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-      </div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ─── 8. THE THREE PROGRAMME CARDS (APPROVED VISUAL REFERENCE) ─── -->
 <section class="section-pad" id="programmes" style="background: #FAF7F0;">
@@ -2097,6 +2249,273 @@
   </div>
 </section>
 
+
+<div id="about"></div>
+
+
+<!-- ─── 7. THE FOUR CLASSICAL PILLARS & DAILY RHYTHM ─── -->
+<section class="section-pad" id="approach">
+  <div class="container">
+    <div class="sec-header fade-up">
+      <p class="sec-eyebrow">The Classical Sanctuary Pillars</p>
+      <h2 class="sec-title">Four disciplines of <em>vital restoration</em></h2>
+      <div class="gold-divider"></div>
+      <p class="sec-desc">
+        Restorative Ayurvedic therapy operates across four interwoven sciences, conducted in direct synchrony with Himalayan circadian daylight.
+      </p>
+    </div>
+
+        <!-- THE FOUR CLASSICAL PILLARS (RESTORED VISUAL GRID) -->
+    <div class="disc-tabs-mobile" id="discTabsMobile" role="tablist" aria-label="Select Classical Discipline">
+        <button type="button" class="disc-tab-btn active" role="tab" id="disc-tab-0" aria-selected="true" aria-controls="svc-card-0" onclick="selectDiscipline(0)">Adaptive Yoga</button>
+        <button type="button" class="disc-tab-btn" role="tab" id="disc-tab-1" aria-selected="false" aria-controls="svc-card-1" onclick="selectDiscipline(1)">Vedic Dhyana</button>
+        <button type="button" class="disc-tab-btn" role="tab" id="disc-tab-2" aria-selected="false" aria-controls="svc-card-2" onclick="selectDiscipline(2)">Shatkarma</button>
+        <button type="button" class="disc-tab-btn" role="tab" id="disc-tab-3" aria-selected="false" aria-controls="svc-card-3" onclick="selectDiscipline(3)">Bahya Basti</button>
+      </div>
+
+    <div class="svc-grid" id="discGrid">
+      <!-- 1: Yoga -->
+      <div class="svc-card fade-up" id="svc-card-0" role="tabpanel" aria-labelledby="disc-tab-0" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+        <div style="height: 175px; position: relative; overflow: hidden; background: #FAF7F0;">
+          <picture>
+            <source srcset="images/yoga.webp" type="image/webp">
+            <img src="images/yoga.jpg" alt="Condition-Adaptive Yoga in Himalayas" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="eager" decoding="auto">
+          </picture>
+        </div>
+        <div style="padding: 1.35rem 1.25rem;">
+          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Condition-Adaptive Yoga</h3>
+          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Hatha &bull; Pranayama &bull; Restorative Asana</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Classical Hatha yoga taught as restorative therapy. Practiced in fresh Himalayan mountain air with every posture and breath cycle tailored to joint health.</p>
+        </div>
+      </div>
+      <!-- 2: Meditation -->
+      <div class="svc-card fade-up stagger-1" id="svc-card-1" role="tabpanel" aria-labelledby="disc-tab-1" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
+          <img src="images/trataka-flame-altar.webp" alt="Vedic Dhyana & Trataka Meditation - Sacred Flame Altar" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
+        </div>
+        <div style="padding: 1.35rem 1.25rem;">
+          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Vedic Dhyana &amp; Trataka</h3>
+          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Dharana &bull; Trataka &bull; Deep Nervous Reset</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Guided mindfulness rooted in classical yogic science: steady concentration (Dharana), candle gazing (Trataka), and evening stillness to settle neural overactivity.</p>
+        </div>
+      </div>
+      <!-- 3: Shatkarma -->
+      <div class="svc-card fade-up stagger-2" id="svc-card-2" role="tabpanel" aria-labelledby="disc-tab-2" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
+          <img src="images/dinacharya_ritual.webp" alt="Classical Shatkarma Purification" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
+        </div>
+        <div style="padding: 1.35rem 1.25rem;">
+          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Classical Shatkarma Purification</h3>
+          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Jal Neti &bull; Kapalabhati &bull; Trataka</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Traditional internal cleansing kriyas guided step-by-step by doctors: gentle nasal cleansing (Jal Neti), rhythmic breathwork, and sensory clarity rituals.</p>
+        </div>
+      </div>
+      <!-- 4: Basti Procedures -->
+      <div class="svc-card fade-up stagger-3" id="svc-card-3" role="tabpanel" aria-labelledby="disc-tab-3" style="background: white; border: 1px solid rgba(201,168,76,0.22); border-radius: 4px; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.04);">
+        <div style="height: 175px; position: relative; overflow: hidden; background: var(--royal-deep);">
+          <img src="images/ayurveda.webp" alt="Localized Bahya Bastis" width="600" height="400" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" decoding="async">
+        </div>
+        <div style="padding: 1.35rem 1.25rem;">
+          <h3 style="font-family: var(--serif); font-size: 1.3rem; color: var(--royal-deep); font-weight: 600; margin-bottom: 0.25rem;">Localized Bahya Bastis</h3>
+          <div style="font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 0.65rem;">Kati &bull; Greeva &bull; Nabhi &bull; Netra Tarpana</div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.55; margin: 0;">Warm medicated oil reservoirs held in handcrafted herbal dough rings. Relieves lumbar back strain (Kati), cervical neck ache (Greeva), and screen fatigue (Netra).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Swipe Dots for 4 Disciplines -->
+    <div class="disc-dots-mobile" id="discDotsMobile">
+      <div class="disc-dot active" onclick="selectDiscipline(0)"></div>
+      <div class="disc-dot" onclick="selectDiscipline(1)"></div>
+      <div class="disc-dot" onclick="selectDiscipline(2)"></div>
+      <div class="disc-dot" onclick="selectDiscipline(3)"></div>
+    </div>
+
+    <div class="rhythm-wrap desktop-rhythm fade-up" id="rhythm">
+      <div class="rhythm-img-box">
+        <img src="images/dinacharya_ritual.webp" alt="Dinacharya Ritual at The Reset Co." loading="lazy" width="800" height="447" style="width: 100%; height: auto; object-fit: cover; display: block;">
+      </div>
+      <div>
+        <h3 style="font-family: var(--serif); font-size: 1.8rem; color: var(--royal-deep); margin-bottom: 0.5rem;">
+          The Dinacharya <em>Circadian Rhythm</em>
+        </h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">
+          Your days align with solar progression to recalibrate cortisol production and deep sleep architecture:
+        </p>
+        <div class="rhythm-list">
+          <div class="rhythm-step">
+            <div class="rhythm-time">06:30 AM</div>
+            <div class="rhythm-info">
+              <strong>Brahma Muhurta Awakening &amp; Herbal Decoctions</strong>
+              <p>Gentle Himalayan dawn waking, digestive warm infusions, and quiet contemplation.</p>
+            </div>
+          </div>
+          <div class="rhythm-step">
+            <div class="rhythm-time">07:30 AM</div>
+            <div class="rhythm-info">
+              <strong>Shatkarma Kriyas &amp; Therapeutic Pranayama</strong>
+              <p>Jala Neti saline nasal reset and diaphragmatic breathwork guided by physicians.</p>
+            </div>
+          </div>
+          <div class="rhythm-step">
+            <div class="rhythm-time">10:30 AM</div>
+            <div class="rhythm-info">
+              <strong>Physician Directed Bahya Basti &amp; Abhyanga</strong>
+              <p>Vaidya-curated restorative oil applications, warm herbal fomentation, and localized relief.</p>
+            </div>
+          </div>
+          <div class="rhythm-step">
+            <div class="rhythm-time">07:30 PM</div>
+            <div class="rhythm-info">
+              <strong>Arya Mauna (Noble Silence) &amp; Digital Sundown</strong>
+              <p>Light Sattvic dinner, device switch-off, and restorative herbal milk before deep rest.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── MOBILE DINACHARYA 8-MOMENT TINDER-STYLE CARD DECK (<= 768px) ─── -->
+    <div class="flow-deck-mobile fade-up" id="dinacharyaDeck" aria-label="Dinacharya 8-Moment Interactive Journey">
+      <div class="deck-top-bar">
+        <div class="deck-badge" aria-live="polite">
+          <span>Moment</span>
+          <strong id="deckStepNum">01</strong>
+          <span>of 08</span>
+        </div>
+        <div class="deck-indicator-segments" id="deckSegments" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="8" aria-label="Moment 1 of 8">
+          <span class="seg active"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+          <span class="seg"></span>
+        </div>
+      </div>
+
+      <div class="deck-hint">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M3 12h18"/></svg>
+        <span>Swipe left for next moment &bull; Swipe right for previous</span>
+      </div>
+
+      <div class="deck-stack" id="deckStack">
+        <!-- Card 1 -->
+        <div class="deck-card" data-index="0">
+          <div class="deck-card-top">
+            <span class="deck-num">01</span>
+            <span class="deck-tag">Dawn Waking</span>
+          </div>
+          <h3 class="deck-title">Morning Dinacharya &amp; Hydration</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Waking gently to crisp mountain air. Warm water resting overnight in your copper bottle, classical tongue scraping to clear oral toxins, and quiet grounding before sunrise.</p>
+          <div class="deck-footer-tag">&#10022; Phase 1: Cleansing &amp; Awakening</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="deck-card" data-index="1">
+          <div class="deck-card-top">
+            <span class="deck-num">02</span>
+            <span class="deck-tag">Morning Practice</span>
+          </div>
+          <h3 class="deck-title">Condition-Adaptive Yoga &amp; Pranayama</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Restorative classical Hatha asanas and conscious breathwork practiced outdoors facing the Dhauladhar peaks, tailored to spinal comfort and joint ease.</p>
+          <div class="deck-footer-tag">&#10022; Phase 2: Spinal Flow &amp; Prana</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="deck-card" data-index="2">
+          <div class="deck-card-top">
+            <span class="deck-num">03</span>
+            <span class="deck-tag">Nourishment</span>
+          </div>
+          <h3 class="deck-title">Wholesome Sattvic Breakfast</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Warm roasted grains, stewed seasonal mountain fruits, and freshly prepared herbal decoctions served in quiet mindfulness.</p>
+          <div class="deck-footer-tag">&#10022; Phase 3: Mountain Sustenance</div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="deck-card" data-index="3">
+          <div class="deck-card-top">
+            <span class="deck-num">04</span>
+            <span class="deck-tag">04 • Vaidya Interaction</span>
+          </div>
+          <h3 class="deck-title">Personal Constitution Guidance &amp; Shatkarma</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Individual 1:1 Vaidya wellness interaction with Dr. Himanshu and Dr. Aditya. Instruction and guided practice of classical Jal Neti and gentle Kapalabhati purification.</p>
+          <div class="deck-footer-tag">&#10022; Phase 4: Mind-Body Alignment</div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="deck-card" data-index="4">
+          <div class="deck-card-top">
+            <span class="deck-num">05</span>
+            <span class="deck-tag">Midday Pause</span>
+          </div>
+          <h3 class="deck-title">Sattvic Lunch &amp; Unhurried Rest</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Wholesome, easily digestible meal followed by dedicated downtime: quiet reading, pine terrace contemplation, or gentle unhurried walking.</p>
+          <div class="deck-footer-tag">&#10022; Phase 5: Midday Assimilation</div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="deck-card" data-index="5">
+          <div class="deck-card-top">
+            <span class="deck-num">06</span>
+            <span class="deck-tag">06 • Restorative Bodywork</span>
+          </div>
+          <h3 class="deck-title">Traditional Warm Oil Bastis &amp; Ocular Care</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Traditional warm herbal oil reservoirs (Kati, Greeva, or Nabhi Basti) paired with restorative Netra Tarpana ghee eye pools and soothing Ashchyotana.</p>
+          <div class="deck-footer-tag">&#10022; Phase 6: Deep Relaxation</div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="deck-card" data-index="6">
+          <div class="deck-card-top">
+            <span class="deck-num">07</span>
+            <span class="deck-tag">Experiential Discovery</span>
+          </div>
+          <h3 class="deck-title">Pottery Workshop &amp; Pine Nature Trek</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Tactile clay grounding sessions with local Himalayan artisans and guided mindful treks through fragrant pine trails and mountain monastery paths.</p>
+          <div class="deck-footer-tag">&#10022; Phase 7: Earth Connection</div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="deck-card" data-index="7">
+          <div class="deck-card-top">
+            <span class="deck-num">08</span>
+            <span class="deck-tag">Night Reflection</span>
+          </div>
+          <h3 class="deck-title">Stargazing, Fireside &amp; Acoustic Music</h3>
+          <div class="deck-divider"></div>
+          <p class="deck-desc">Evening Sattvic supper, contemplation under clear mountain skies, acoustic fireside conversations, and gentle post-dinner melodies under the stars.</p>
+          <div class="deck-footer-tag">&#10022; Phase 8: Deep Cellular Rest</div>
+        </div>
+      </div>
+
+      <div class="deck-controls">
+        <button class="deck-nav-btn" id="deckPrevBtn" aria-label="Previous Dinacharya moment" onclick="swipeDeckCard('prev')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          <span>Prev</span>
+        </button>
+        <button class="deck-reset-btn" id="deckResetBtn" onclick="resetDeckStack()">
+          <span>Restart Dawn &#8634;</span>
+        </button>
+        <button class="deck-nav-btn" id="deckNextBtn" aria-label="Next Dinacharya moment" onclick="swipeDeckCard('next')">
+          <span>Next</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ─── 9. THE SACRED WELCOME KIT SHOWCASE ─── -->
 <section class="section-pad welcome-kit-sec" id="welcome-kit">
   <div class="container">
@@ -2340,29 +2759,8 @@
   </div>
 </section>
 
-<!-- ─── 11. PRAKRITI PARIKSHAN ASSESSMENT GATEWAY ─── -->
-<section class="section-pad" id="prakriti-intro">
-  <div class="container">
-    <div class="prakriti-banner fade-up">
-      <div style="max-width: 650px;">
-        <span class="intl-badge" style="background: rgba(201,168,76,0.12); color: var(--gold-dark); border-color: var(--gold);">
-          Comprehensive 30-Question Prakriti Assessment
-        </span>
-        <h3 style="font-family: var(--serif); font-size: 2.1rem; color: var(--royal-deep); margin-bottom: 0.6rem;">
-          Discover Your Ayurvedic <em>Prakriti Profile</em>
-        </h3>
-        <p style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6;">
-          Take our comprehensive 30-question Prakriti questionnaire based on the classical criteria of the <em>Charak Samhita</em>. Calculate your exact Vata, Pitta, and Kapha constitution before your physician consultation call.
-        </p>
-      </div>
-      <div>
-        <a href="dosha-prakriti-assessment.html" class="btn-primary" style="padding: 1rem 2rem;">
-          Start Prakriti Parikshan &rarr;
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
+<div id="prakriti-intro"></div>
+
 
 <!-- ─── 12. INTERNATIONAL GUESTS CALLOUT ─── -->
 <section class="section-pad" id="international" style="padding-top: 0;">
@@ -2443,9 +2841,18 @@
       </p>
     </div>
 
+    
+    <!-- CATEGORY FILTER BAR FOR MOBILE SPACE SAVER -->
+    <div class="faq-category-bar fade-up" role="tablist" aria-label="FAQ Categories">
+      <button type="button" class="faq-cat-btn active" onclick="filterFaq('all', this)">All Questions (6)</button>
+      <button type="button" class="faq-cat-btn" onclick="filterFaq('cohort', this)">Residency &amp; Cohort (2)</button>
+      <button type="button" class="faq-cat-btn" onclick="filterFaq('therapies', this)">Therapies &amp; Care (2)</button>
+      <button type="button" class="faq-cat-btn" onclick="filterFaq('tariffs', this)">Policies &amp; Travel (2)</button>
+    </div>
+
     <div class="faq-accordion-container fade-up" style="max-width: 880px; margin: 0 auto;">
       <!-- FAQ Item 1 -->
-      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+      <div class="faq-accordion-item" data-category="cohort" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
         <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
           <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
             <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">01</span>
@@ -2459,7 +2866,7 @@
       </div>
 
       <!-- FAQ Item 2 -->
-      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+      <div class="faq-accordion-item" data-category="therapies" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
         <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
           <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
             <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">02</span>
@@ -2473,7 +2880,7 @@
       </div>
 
       <!-- FAQ Item 3 -->
-      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+      <div class="faq-accordion-item" data-category="therapies" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
         <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
           <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
             <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">03</span>
@@ -2487,7 +2894,7 @@
       </div>
 
       <!-- FAQ Item 4 -->
-      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+      <div class="faq-accordion-item" data-category="tariffs" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
         <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
           <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
             <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">04</span>
@@ -2501,7 +2908,7 @@
       </div>
 
       <!-- FAQ Item 5 -->
-      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+      <div class="faq-accordion-item" data-category="cohort" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
         <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
           <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
             <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">05</span>
@@ -2515,7 +2922,7 @@
       </div>
 
       <!-- FAQ Item 6 -->
-      <div class="faq-accordion-item" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
+      <div class="faq-accordion-item" data-category="tariffs" style="background: #FFFFFF; border: 1px solid rgba(201,168,76,0.22); border-left: 3.5px solid rgba(201,168,76,0.4); border-radius: 10px; margin-bottom: 1.15rem; overflow: hidden; box-shadow: 0 4px 18px rgba(15,35,71,0.03);">
         <button type="button" class="faq-question-btn" aria-expanded="false" onclick="toggleFaq(this)" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; padding: 1.45rem 1.85rem; background: transparent; border: none; cursor: pointer; text-align: left; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 600; color: var(--royal-deep); line-height: 1.35;">
           <div class="faq-q-left" style="display: flex; align-items: baseline; gap: 0.95rem; flex: 1;">
             <span class="faq-q-num" style="font-family: var(--sans); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--gold-dark); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0;">06</span>
@@ -2616,6 +3023,68 @@
     </div>
   </div>
 </section>
+
+
+<!-- ─── MEET THE FOUNDING PHYSICIANS (REPOSITIONED AFTER BOOKING) ─── -->
+<!-- ─── 6. MEET THE FOUNDING PHYSICIANS (STRICTLY B.A.M.S.) ─── -->
+<section class="section-pad doctors-sec" id="doctors">
+  <div class="container">
+    <div class="sec-header fade-up">
+      <p class="sec-eyebrow">Classical Lineage &bull; Authentic Ayurvedic Guidance</p>
+      <h2 class="sec-title">Personally Directed by<br><em>Licensed B.A.M.S. Vaidyas</em></h2>
+      <div class="gold-divider"></div>
+      <p class="sec-desc">
+        Every therapy, consultation, and herbal formulation is guided on-site by registered Ayurvedic Vaidyas. Authentic restorative retreat care.
+      </p>
+    </div>
+
+    <div class="doctors-grid">
+      <!-- Doctor 1: Dr. Himanshu Bhatt -->
+      <div class="doctor-card fade-up">
+        <div class="doctor-avatar">
+          <picture>
+            <source srcset="images/dr-himanshu.webp" type="image/webp">
+            <img src="images/dr-himanshu.jpg" alt="Dr. Himanshu Bhatt, BAMS Founding Vaidya" width="140" height="140" loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <h3 class="doctor-title">Dr. Himanshu Bhatt</h3>
+        <p class="doctor-role">Founder &bull; B.A.M.S. Doctor</p>
+        <div class="doctor-creds">
+          <strong>Credentials:</strong> Bachelor of Ayurvedic Medicine and Surgery (B.A.M.S.) &bull; State Council Registered Physician
+        </div>
+        <p class="doctor-bio">
+          Educated in Mandi and Paprola, Dr. Himanshu holds a 5.5-year BAMS degree in classical Ayurveda. He designs each retreat curriculum with care, ensuring every traditional practice is authentic and deeply restorative.
+        </p>
+      </div>
+
+      <!-- Doctor 2: Dr. Aditya Kaundal -->
+      <div class="doctor-card fade-up stagger-1">
+        <div class="doctor-avatar">
+          <picture>
+            <source srcset="images/dr-aditya.webp" type="image/webp">
+            <img src="images/dr-aditya.jpg" alt="Dr. Aditya Kaundal, BAMS Founding Vaidya" width="140" height="140" loading="lazy" decoding="async">
+          </picture>
+        </div>
+        <h3 class="doctor-title">Dr. Aditya Kaundal</h3>
+        <p class="doctor-role">Founder &bull; B.A.M.S. Doctor</p>
+        <div class="doctor-creds">
+          <strong>Credentials:</strong> Bachelor of Ayurvedic Medicine and Surgery (B.A.M.S.) &bull; State Council Registered Physician
+        </div>
+        <p class="doctor-bio">
+          Dr. Aditya completed his 5.5-year BAMS Ayurvedic education in Mandi, followed by extensive traditional wellness practice with Patanjali institutions. His work focuses on relieving nervous exhaustion, everyday stress, and dosha imbalances.
+        </p>
+      </div>
+    </div>
+
+    <div style="text-align: center;" class="fade-up stagger-2">
+      <a href="meet-the-doctors.html" class="btn-dossier" style="display: inline-block; padding: 0.8rem 1.8rem;">
+        Read Dedicated Vaidya Biographies &amp; Sanctuary Boundaries &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+
 
 <!-- ─── 16. NON-CONFIRMATORY RECEIPT MODAL ─── -->
 <div class="receipt-modal" id="receiptModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -2891,6 +3360,9 @@
         unlockScroll();
         if (window.lenis) window.lenis.start();
         animating = false;
+        if (window.onFirstWelcomeUnfold) {
+          window.onFirstWelcomeUnfold();
+        }
         if (window.location.hash && window.location.hash !== '#' && !window.location.hash.startsWith('#sanctuary-accord')) {
           try {
             const target = document.querySelector(window.location.hash);
@@ -3149,6 +3621,23 @@
   }
 
   // 5. FAQ Accordion Toggle
+  
+  // FAQ Category Filter Controller
+  function filterFaq(category, btn) {
+    document.querySelectorAll('.faq-cat-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    const items = document.querySelectorAll('.faq-accordion-item');
+    items.forEach(item => {
+      const cat = item.getAttribute('data-category');
+      if (category === 'all' || cat === category) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
   function toggleFaq(btn) {
     const item = btn.closest('.faq-accordion-item');
     if (!item) return;
@@ -3801,9 +4290,41 @@
     }
   }
 
+  // Apple-grade smooth synchronized scrolling for Four Disciplines
+  function selectDiscipline(index) {
+    const tabs = document.querySelectorAll('.disc-tab-btn');
+    const tabsBar = document.getElementById('discTabsMobile');
+    const grid = document.getElementById('discGrid');
+    const cards = grid ? grid.querySelectorAll('.svc-card') : [];
+    
+    // Update active state on tabs
+    tabs.forEach((t, i) => {
+      const isActive = i === index;
+      t.classList.toggle('active', isActive);
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Auto-scroll the upper tabs bar to keep selected pill centered
+    if (tabsBar && tabs[index]) {
+      const activeTab = tabs[index];
+      const targetLeft = activeTab.offsetLeft - (tabsBar.offsetWidth - activeTab.offsetWidth) / 2;
+      tabsBar.scrollTo({ left: targetLeft, behavior: 'smooth' });
+    }
+
+    // Scroll the lower cards grid smoothly to target card
+    if (grid && cards[index]) {
+      const activeCard = cards[index];
+      cards.forEach((c, i) => c.classList.toggle('active-card', i === index));
+      const cardLeft = activeCard.offsetLeft - (grid.offsetWidth - activeCard.offsetWidth) / 2;
+      grid.scrollTo({ left: cardLeft, behavior: 'smooth' });
+    }
+  }
+
   (function initDisciplineScroll() {
     const grid = document.getElementById('discGrid');
+    const tabsBar = document.getElementById('discTabsMobile');
     if (!grid) return;
+    
     let scrollTimer = null;
     grid.addEventListener('scroll', function() {
       clearTimeout(scrollTimer);
@@ -3812,6 +4333,7 @@
         const scrollCenter = grid.scrollLeft + grid.offsetWidth / 2;
         let closestIndex = 0;
         let minDiff = Infinity;
+        
         cards.forEach((card, i) => {
           const cardCenter = card.offsetLeft + card.offsetWidth / 2;
           const diff = Math.abs(scrollCenter - cardCenter);
@@ -3820,16 +4342,28 @@
             closestIndex = i;
           }
         });
+
+        // Set active card scale & active tab
+        cards.forEach((c, i) => c.classList.toggle('active-card', i === closestIndex));
         const tabs = document.querySelectorAll('.disc-tab-btn');
-        const dots = document.querySelectorAll('.disc-dot');
         tabs.forEach((t, i) => {
           const isActive = i === closestIndex;
           t.classList.toggle('active', isActive);
           t.setAttribute('aria-selected', isActive ? 'true' : 'false');
         });
-        dots.forEach((d, i) => d.classList.toggle('active', i === closestIndex));
-      }, 50);
+
+        // AUTO-SCROLL UPPER PILLS CONTAINER IN REAL TIME!
+        if (tabsBar && tabs[closestIndex]) {
+          const activeTab = tabs[closestIndex];
+          const tabLeft = activeTab.offsetLeft - (tabsBar.offsetWidth - activeTab.offsetWidth) / 2;
+          tabsBar.scrollTo({ left: tabLeft, behavior: 'smooth' });
+        }
+      }, 30);
     }, { passive: true });
+
+    // Initial state: first card active
+    const firstCard = grid.querySelector('.svc-card');
+    if (firstCard) firstCard.classList.add('active-card');
   })();
 
   // B. Swipe-Right Feature on Navigation Drawer to Go Back
@@ -3966,6 +4500,124 @@
   <!-- Vercel Telemetry & Speed Insights -->
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
+
+
+<!-- ─── SANCTUARY PHILOSOPHY ENTRANCE MODAL ─── -->
+<div id="philosophyModal" class="philosophy-modal-backdrop" onclick="closePhilosophyModal(event)">
+  <div class="philosophy-modal-box" onclick="event.stopPropagation()">
+    <button class="philosophy-modal-close" onclick="closePhilosophyModal()" aria-label="Close Philosophy Modal">&times;</button>
+    <div class="philosophy-shloka">स्वस्थस्य स्वास्थ्यरक्षणम्</div>
+    <div class="philosophy-eyebrow">Charak Samhita Lineage &bull; Sanctuary Philosophy</div>
+    <h2 class="philosophy-title">Stillness is not a luxury.<br><em>It is a prescription.</em></h2>
+    <div class="gold-divider" style="margin: 0.85rem auto;"></div>
+    <p class="philosophy-desc">
+      Modern exhaustion is not solved by passive rest; it requires the deliberate realignment of circadian biological clocks. Rooted in the foundational teachings of the <em>Charak Samhita</em> and <em>Sushruta Samhita</em>, our sanctuaries remove you from synthetic stimulation to restore natural biological balance.
+    </p>
+    <div class="philosophy-pillars-summary">
+      <span>✦ 8–10 Seekers Max</span>
+      <span>✦ 2 On-Site Vaidyas</span>
+      <span>✦ Pure Electromagnetic Grounding</span>
+    </div>
+    <button class="philosophy-enter-btn" onclick="closePhilosophyModal()">
+      Step Into the Sanctuary &rarr;
+    </button>
+  </div>
+</div>
+
+
+<!-- ─── PERSISTENT FLOATING PRAKRITI SIDE BUTTON ─── -->
+<a href="dosha-prakriti-assessment.html" class="floating-prakriti-tab" id="floatingPrakritiTab" title="Discover Your Constitutional Prakriti (3-Min Vaidya Assessment)">
+  <span class="tab-glyph">&#10022;</span>
+  <span>Discover Your Prakriti</span>
+</a>
+
+<!-- ─── OCCASIONAL SLIDE-OUT PRAKRITI SIDE TOAST ─── -->
+<div class="prakriti-side-toast" id="prakritiSideToast">
+  <button class="toast-close-btn" onclick="dismissPrakritiToast()" aria-label="Dismiss">&times;</button>
+  <div class="toast-header">
+    <span class="toast-sparkle">&#10022;</span>
+    <span class="toast-eyebrow">Constitutional Diagnosis</span>
+  </div>
+  <div class="toast-title">Discover Your Prakriti</div>
+  <p class="toast-body">
+    Uncover your unique Vata, Pitta, and Kapha baseline through our founding Vaidyas' 30-question clinical assessment before your retreat.
+  </p>
+  <a href="dosha-prakriti-assessment.html" class="toast-cta-btn">Take 3-Min Assessment &rarr;</a>
+</div>
+
+
+<script>
+  // ─── EXACT POPUP LINEUP CONTROLLER ───
+  // Step 1: User enters via "Scroll to enter"
+  // Step 2: Philosophy of the retreat pops up right after the first animation
+  // Step 3: Discover Your Prakriti pops up ONLY after 10 seconds spent on site + scrolled a little down
+  // Step 4: If scrolled back up to top & re-entered, popup does NOT re-appear; comes only after reloading the website
+
+  let hasShownPhilosophyThisPageLoad = false;
+  let hasShownPrakritiThisPageLoad = false;
+  const pageLoadTimestamp = Date.now();
+
+  function openPhilosophyModal() {
+    const modal = document.getElementById('philosophyModal');
+    if (modal) modal.classList.add('open');
+  }
+
+  function closePhilosophyModal(e) {
+    if (e && e.target && e.target.closest('.philosophy-modal-box') && !e.target.classList.contains('philosophy-modal-close')) return;
+    const modal = document.getElementById('philosophyModal');
+    if (modal) modal.classList.remove('open');
+  }
+
+  // Step 2: Trigger Philosophy pop-up ONLY once per page load, right after the first unfold animation
+  window.onFirstWelcomeUnfold = function() {
+    if (!hasShownPhilosophyThisPageLoad) {
+      hasShownPhilosophyThisPageLoad = true;
+      setTimeout(() => {
+        openPhilosophyModal();
+      }, 550);
+    }
+  };
+
+  // Step 3: Discover Your Prakriti Slide-out Toast Controller
+  function showPrakritiToast() {
+    const toast = document.getElementById('prakritiSideToast');
+    if (toast) toast.classList.add('show');
+  }
+
+  function dismissPrakritiToast() {
+    const toast = document.getElementById('prakritiSideToast');
+    if (toast) toast.classList.remove('show');
+  }
+
+  function checkPrakritiTrigger() {
+    if (hasShownPrakritiThisPageLoad) return;
+    const timeSpentMs = Date.now() - pageLoadTimestamp;
+    const hasSpent10Seconds = timeSpentMs >= 10000;
+    const hasScrolledDown = window.scrollY > 250;
+
+    if (hasSpent10Seconds && hasScrolledDown) {
+      hasShownPrakritiThisPageLoad = true;
+      showPrakritiToast();
+    }
+  }
+
+  // Check scroll position
+  window.addEventListener('scroll', () => {
+    checkPrakritiTrigger();
+  }, { passive: true });
+
+  // Check timer once 10 seconds have elapsed
+  setTimeout(() => {
+    checkPrakritiTrigger();
+  }, 10000);
+
+  // Periodic safety check every second after 10s mark
+  setInterval(() => {
+    if (!hasShownPrakritiThisPageLoad) {
+      checkPrakritiTrigger();
+    }
+  }, 1000);
+</script>
 
 </body>
 </html>
