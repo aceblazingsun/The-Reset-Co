@@ -1870,12 +1870,6 @@
           document.getElementById('auth-screen').style.display = 'none';
           input.value = '';
           fetchBookings();
-        } else if (validFallbackKeys.includes(normVal)) {
-          // Fallback if server environment variable is undergoing rotation
-          sessionStorage.setItem('trc_session_token', 'direct_sanctuary_session');
-          document.getElementById('auth-screen').style.display = 'none';
-          input.value = '';
-          fetchBookings();
         } else {
           err.innerText = data.error || 'Incorrect passkey. Please check with your founding partner.';
           err.style.display = 'block';
@@ -1883,16 +1877,8 @@
           input.focus();
         }
       } catch (networkErr) {
-        // Fallback for CORS, proxy or network anomalies
-        if (validFallbackKeys.includes(normVal)) {
-          sessionStorage.setItem('trc_session_token', 'direct_sanctuary_session');
-          document.getElementById('auth-screen').style.display = 'none';
-          input.value = '';
-          fetchBookings();
-        } else {
-          err.innerText = 'Authentication error. Please check connection.';
-          err.style.display = 'block';
-        }
+        err.innerText = 'Authentication error. Please check your network connection.';
+        err.style.display = 'block';
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = originalText;

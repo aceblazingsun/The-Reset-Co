@@ -2954,6 +2954,12 @@
 
     <div class="enquiry-card fade-up">
       <form id="previewForm" onsubmit="handleUnifiedEnquiry(event)">
+        <!-- Anti-bot honeypot field (invisible to humans, traps automated scrapers) -->
+        <div style="display:none !important; position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+          <label for="fSanctuaryGuardian">Sanctuary Guardian Verification (Leave empty)</label>
+          <input type="text" id="fSanctuaryGuardian" name="sanctuary_guardian" tabindex="-1" autocomplete="off" value="">
+        </div>
+
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="fName">Full Name *</label>
@@ -3747,6 +3753,7 @@
     const country = document.getElementById('fCountry').value.trim();
     const dietAllergies = (document.getElementById('fDietAllergies') ? document.getElementById('fDietAllergies').value.trim() : '');
     const notes = document.getElementById('fNotes').value.trim();
+    const sanctuaryGuardian = document.getElementById('fSanctuaryGuardian') ? document.getElementById('fSanctuaryGuardian').value.trim() : '';
 
     let planName = 'The Deep Rejuvenation (Rs 35,990)';
     if (plan === 'awakening') planName = 'The Awakening Pathway (Rs 27,990)';
@@ -3774,6 +3781,7 @@
           dates: dates,
           notes: fullNotesPayload,
           refCode: assignedRef,
+          sanctuary_guardian: sanctuaryGuardian,
           prakritiProfile: (typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('trc_prakriti_dosha') : null) || null
         })
       });

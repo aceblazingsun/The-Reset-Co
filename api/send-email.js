@@ -30,10 +30,35 @@ export default async function handler(req, res) {
       dates,
       notes,
       refCode,
-      prakritiProfile
+      prakritiProfile,
+      sanctuary_guardian,
+      honeypot
     } = req.body || {};
 
-    // 2. Strict Input Validation
+    // 2. Anti-Bot Honeypot Guard: Silently discard automated scraper submissions
+    const trapValue = String(sanctuary_guardian || honeypot || '').trim();
+    if (trapValue) {
+      console.warn('Bot submission trapped via honeypot:', { ip: clientIp, name: sanitizeString(name, 50) });
+      return res.status(200).json({
+        success: true,
+        refCode: sanitizeString(refCode || 'TRC-ENQ-BOT', 50),
+        message: 'Reservation received and recorded.'
+      });
+    }
+
+    // 2.1 Heuristic Spam Trap: Drop submissions containing unsolicited promo/crypto links in notes
+    const notesStr = String(notes || '');
+    const spamLinkRegex = /https?:\/\/|www\.|\.com\/|\.ru\/|\.xyz\/|telegram\s*@|t\.me\/|crypto|loans|backlink/i;
+    if (spamLinkRegex.test(notesStr)) {
+      console.warn('Spam content trapped via heuristic filter:', { ip: clientIp, name: sanitizeString(name, 50) });
+      return res.status(200).json({
+        success: true,
+        refCode: sanitizeString(refCode || 'TRC-ENQ-FILTERED', 50),
+        message: 'Reservation received and recorded.'
+      });
+    }
+
+    // 3. Strict Input Validation
     if (!name || !email || !phone) {
       return res.status(400).json({
         success: false,

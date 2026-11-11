@@ -27,8 +27,17 @@ export default async function handler(req, res) {
       return res.status(400).json({ success: false, error: 'Sanctuary passkey is required.' });
     }
 
-    // Configured server-side passkey
-    const configuredKey = (process.env.DASHBOARD_PASSKEY || 'reset2026').toLowerCase().trim();
+    // Configured server-side passkey (Strict production enforcement)
+    const envKey = process.env.DASHBOARD_PASSKEY;
+    if (!envKey && (process.env.NODE_ENV === 'production' || process.env.VERCEL)) {
+      console.error('CRITICAL: DASHBOARD_PASSKEY environment variable is not configured.');
+      return res.status(503).json({
+        success: false,
+        error: 'Sanctuary passkey authentication is not configured. Please set DASHBOARD_PASSKEY in Vercel settings.'
+      });
+    }
+
+    const configuredKey = (envKey || 'reset2026').toLowerCase().trim();
     const cleanInput = passkey.trim().toLowerCase();
 
     const isValid = safeEqual(cleanInput, configuredKey);
