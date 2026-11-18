@@ -432,7 +432,7 @@
   /* ─── HERO LANDING SHLOKA TOP CLEARANCE (PREVENTS ANY HEADER OVERLAP) ─── */
   @media (max-width: 768px) {
     .scroll-expand__hero-landing {
-      padding-top: calc(var(--diwali-bar-h, 34px) + env(safe-area-inset-top, 0px) + 2.5rem) !important;
+      padding-top: calc(env(safe-area-inset-top, 0px) + 2.5rem) !important;
       padding-bottom: 3.5rem !important;
       justify-content: center !important;
     }
@@ -1221,7 +1221,7 @@
       transform: translateY(20px) !important;
       pointer-events: none !important;
       min-height: 100svh !important;
-      padding-top: calc(var(--diwali-bar-h, 34px) + env(safe-area-inset-top, 0px) + 1.5rem) !important;
+      padding-top: calc(env(safe-area-inset-top, 0px) + 1.5rem) !important;
       padding-bottom: 2.5rem !important;
       justify-content: center !important;
       z-index: 5 !important;
@@ -1410,153 +1410,7 @@
   <meta name="ICBM" content="32.0463, 76.7202">
 
 
-<style id="diwali-refined-styles">
-  /* ─── SAFE AREA & HEADER CO-ORDINATION FOR SAFARI & MOBILE ─── */
-  :root {
-    --diwali-bar-h: 36px;
-  }
-  @media (max-width: 768px) {
-    :root {
-      --diwali-bar-h: 34px;
-    }
-  }
-
-  /* ─── CLEAN LIVE ANIMATED DIWALI OFFER LINE ─── */
-  .diwali-live-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: calc(var(--diwali-bar-h) + env(safe-area-inset-top, 0px));
-    padding-top: env(safe-area-inset-top, 0px);
-    background: #0A1B36;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.35);
-    box-shadow: 0 2px 14px rgba(6, 18, 36, 0.35);
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    font-family: var(--sans, 'Jost', sans-serif);
-    color: #FDFAF3;
-    overflow: hidden;
-    box-sizing: border-box;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-  }
-
-  /* Offset fixed mainNav cleanly so it NEVER overlaps on desktop or mobile */
-  nav#mainNav,
-  #mainNav {
-    top: calc(var(--diwali-bar-h) + env(safe-area-inset-top, 0px)) !important;
-  }
-
-  /* Prevent anchor links from hiding under fixed headers */
-  html {
-    scroll-padding-top: calc(var(--diwali-bar-h) + 65px + env(safe-area-inset-top, 0px)) !important;
-    -webkit-overflow-scrolling: touch;
-  }
-  body {
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Adjust drawer top when open on mobile */
-  .nav-drawer {
-    top: calc(var(--diwali-bar-h) + env(safe-area-inset-top, 0px)) !important;
-    height: calc(100vh - var(--diwali-bar-h) - env(safe-area-inset-top, 0px)) !important;
-  }
-
-  .diwali-bar-label {
-    font-family: var(--display, 'Cinzel', serif);
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold-light, #E8C97A);
-    font-weight: 700;
-    background: rgba(201, 168, 76, 0.15);
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    padding: 0.18rem 0.65rem;
-    border-radius: 2px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .diwali-ticker-wrapper {
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-    margin: 0 1.5rem;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 2%, #000 98%, transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 2%, #000 98%, transparent 100%);
-  }
-
-  .diwali-ticker-track {
-    display: flex;
-    width: max-content;
-    will-change: transform;
-    animation: diwaliTickerSlide 34s linear infinite;
-  }
-
-  .diwali-ticker-wrapper:hover .diwali-ticker-track {
-    animation-play-state: paused;
-  }
-
-  @keyframes diwaliTickerSlide {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  .diwali-ticker-group {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding-right: 1.5rem;
-    white-space: nowrap;
-  }
-
-  .diwali-ticker-text {
-    font-size: 0.78rem;
-    color: rgba(253, 250, 243, 0.92);
-    letter-spacing: 0.035em;
-  }
-
-  .diwali-ticker-dot {
-    color: var(--gold, #C9A84C);
-    font-size: 0.8rem;
-  }
-
-  .diwali-bar-link {
-    font-family: var(--sans, 'Jost', sans-serif);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--gold-light, #E8C97A);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.5);
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: all 0.2s ease;
-  }
-  .diwali-bar-link:hover {
-    color: #FFFFFF;
-    border-color: #FFFFFF;
-  }
-
-  /* Pricing strikethrough & styling */
-  .strike-orig-price {
-    text-decoration: line-through;
-    opacity: 0.5;
-    font-size: 0.95rem;
-    font-weight: 400;
-    margin-right: 0.45rem;
-    color: var(--text-muted, #5C6779);
-  }
-  .prog-card.featured .strike-orig-price {
-    color: rgba(253, 250, 243, 0.55);
-  }
-
+<style id="deck-refined-styles">
   /* ─── PROMINENT & HIGH-CONTRAST DINACHARYA DECK CONTROLS ─── */
   .deck-controls {
     display: flex !important;
@@ -1629,62 +1483,10 @@
     align-items: center !important;
     justify-content: center !important;
   }
-
-  @media (max-width: 768px) {
-    .diwali-live-bar {
-      height: calc(34px + env(safe-area-inset-top, 0px));
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-    }
-    .diwali-ticker-wrapper {
-      margin: 0 0.65rem;
-    }
-    .diwali-bar-link {
-      display: none;
-    }
-    .diwali-ticker-text {
-      font-size: 0.72rem;
-    }
-  }
-
 </style>
 
 </head>
 <body>
-
-  <!-- TOP ANIMATED DIWALI OFFER LINE -->
-  <div class="diwali-live-bar" id="diwaliLiveBar" aria-label="Diwali Festive Offer">
-    <div class="diwali-bar-label">Diwali Offer</div>
-    <div class="diwali-ticker-wrapper">
-      <div class="diwali-ticker-track">
-        <div class="diwali-ticker-group">
-          
-        <span class="diwali-ticker-text">Diwali Offer: 15% Discount across all Retreat Residencies</span>
-        <span class="diwali-ticker-dot">&bull;</span>
-        <span class="diwali-ticker-text">Children below 15 years stay free</span>
-        <span class="diwali-ticker-dot">&bull;</span>
-        <span class="diwali-ticker-text">Confirmed Residency: December 23&ndash;27, 2026 (Bir Billing)</span>
-        <span class="diwali-ticker-dot">&bull;</span>
-        <span class="diwali-ticker-text">Capped at 8&ndash;10 guests across 5 earthen suites</span>
-        <span class="diwali-ticker-dot">&bull;</span>
-
-        </div>
-        <div class="diwali-ticker-group" aria-hidden="true">
-          
-        <span class="diwali-ticker-text">Diwali Offer: 15% Discount across all Retreat Residencies</span>
-        <span class="diwali-ticker-dot">&bull;</span>
-        <span class="diwali-ticker-text">Children below 15 years stay free</span>
-        <span class="diwali-ticker-dot">&bull;</span>
-        <span class="diwali-ticker-text">Confirmed Residency: December 23&ndash;27, 2026 (Bir Billing)</span>
-        <span class="diwali-ticker-dot">&bull;</span>
-        <span class="diwali-ticker-text">Capped at 8&ndash;10 guests across 5 earthen suites</span>
-        <span class="diwali-ticker-dot">&bull;</span>
-
-        </div>
-      </div>
-    </div>
-    <a href="#programmes" class="diwali-bar-link" onclick="document.getElementById('programmes').scrollIntoView({behavior:'smooth'}); return false;">View Programmes &rarr;</a>
-  </div>
 
   <a href="#main-content" class="skip-to-content">Skip to main content</a>
 
@@ -1892,7 +1694,7 @@
       <p class="sec-eyebrow">Preserved Visual Reference &bull; Distinct Card Colors</p>
       <h2 class="sec-title">Vaidya-Led 5-Day Retreat Cohorts (4N / 5D)</h2>
       <div class="gold-divider"></div>
-      <p class="sec-desc" style="max-width: 960px; margin: 0 auto; white-space: normal; letter-spacing: 0.01em; line-height: 1.6;">Confirmed Cohort: December 23–27, 2026 at Vaikunth Mud House, Bir Billing.<br>Strictly capped at 8–10 seekers across 5 handcrafted earthen suites to maintain genuine clinical depth and unhurried doctor-patient interaction.<br><span style="color:var(--gold-dark); font-weight:600; display:inline-block; margin-top:0.4rem;">Diwali Offer: 15% discount reflected in programme tariffs below &bull; Children below 15 years stay free with accompanying parents.</span></p>
+      <p class="sec-desc" style="max-width: 960px; margin: 0 auto; white-space: normal; letter-spacing: 0.01em; line-height: 1.6;">Confirmed Cohort: December 23–27, 2026 at Vaikunth Mud House, Bir Billing.<br>Strictly capped at 8–10 seekers across 5 handcrafted earthen suites to maintain genuine clinical depth and unhurried doctor-patient interaction.</p>
     </div>
 
           <!-- Mobile Segmented Tabs -->
@@ -1961,38 +1763,34 @@
             <div class="card-scope-badge" style="margin-top:0.35rem;">Circadian rhythm reset, nervous system rest &amp; screen fatigue recovery</div>
             
             <div class="pricing-stack">
-              <div class="price-tier-box primary-tier" style="border-left: 3px solid var(--gold);">
+              <div class="price-tier-box primary-tier">
                 <div class="tier-label-row">
                   <span class="tier-name">Twin-Sharing / Curated Pairing</span>
-                  <span class="tier-badge-recommended" style="background:#C9A84C; color:#0F2347; font-weight:700;">Diwali 15% Off</span>
+                  <span class="tier-badge-recommended">Standard Tariff</span>
                 </div>
                 <div class="tier-price-row">
-                  <span class="tier-amount" style="color:var(--gold-dark);"><del style="font-size:1rem; opacity:0.5; font-weight:400; text-decoration:line-through; margin-right:6px; color:var(--text-muted);">&#8377;27,990</del>&#8377;23,790</span>
+                  <span class="tier-amount">&#8377;27,990</span>
                   <span class="tier-scope">all-inclusive per guest &bull; 4N / 5D</span>
                 </div>
-                <div style="font-size:0.74rem; color:#8C651E; font-style:italic; font-weight:500; margin-top:-2px; margin-bottom:4px;">(Diwali Festive Benefit: &#8377;4,200)</div>
                 <p class="tier-desc">Separate single bed in handcrafted suite with mindful same-gender pairing.</p>
               </div>
 
               <div class="price-tier-box upgrade-tier">
                 <div class="tier-label-row">
                   <span class="tier-name">Guaranteed Private Single Suite</span>
-                  <span class="tier-badge-limited">Diwali 15% Off</span>
+                  <span class="tier-badge-limited">Strictly Max 2 Suites</span>
                 </div>
                 <div class="tier-price-row">
-                  <span class="tier-amount" style="color:var(--gold-dark);"><del style="font-size:1rem; opacity:0.5; font-weight:400; text-decoration:line-through; margin-right:6px; color:var(--text-muted);">&#8377;35,990</del>&#8377;30,590</span>
-                  <span class="tier-scope">private suite &bull; 4N / 5D</span>
+                  <span class="tier-amount">&#8377;35,990</span>
+                  <span class="tier-scope">(+&#8377;8,000 private suite upgrade)</span>
                 </div>
-                <div style="font-size:0.74rem; color:#8C651E; font-style:italic; font-weight:500; margin-top:-2px; margin-bottom:4px;">(Diwali Festive Benefit: &#8377;5,400)</div>
                 <p class="tier-desc">Entire 2-guest earthen suite reserved exclusively for solo occupancy.</p>
               </div>
 
-              <div class="couple-note">* Couples or friends booking together receive a private suite at &#8377;23,790 per person.</div>
-              <div style="font-size:0.75rem; color:#2E7D32; font-weight:600; margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed rgba(46,125,50,0.35);">Children below 15 years stay free with accompanying adults (includes suite &amp; sattvic dining).</div>
+              <div class="couple-note">* Couples or friends booking together receive a private suite at &#8377;27,990 per person.</div>
             </div>
           </div>
           <div class="card-bullets">
-            <div class="bullet-item" style="color:var(--ivory); font-weight:600;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><span><strong>Children below 15 years:</strong> Complimentary stay &amp; sattvic dining</span></div>
               <div class="bullet-item highlight-bullet">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
               <span><strong>2 Days Bahya Basti:</strong> Soothing localized warm herbal oil pooling for neck or back comfort*</span>
@@ -2053,34 +1851,31 @@
             <div class="card-scope-badge" style="margin-top:0.35rem; color: var(--gold-light);">Postural stiffness, cervical decompression &amp; deep sensory renewal</div>
             
             <div class="pricing-stack">
-              <div class="price-tier-box primary-tier" style="border-left: 3px solid var(--gold);">
+              <div class="price-tier-box primary-tier">
                 <div class="tier-label-row">
                   <span class="tier-name">Twin-Sharing / Curated Pairing</span>
-                  <span class="tier-badge-recommended" style="background:var(--gold-light); color:#0F2347; font-weight:700;">Diwali 15% Off</span>
+                  <span class="tier-badge-recommended">Standard Tariff</span>
                 </div>
                 <div class="tier-price-row">
-                  <span class="tier-amount" style="color:var(--gold-light);"><del style="font-size:1rem; opacity:0.6; font-weight:400; text-decoration:line-through; margin-right:6px; color:rgba(253,250,243,0.65);">&#8377;35,990</del>&#8377;30,590</span>
+                  <span class="tier-amount" style="color:var(--gold-light);">&#8377;35,990</span>
                   <span class="tier-scope">all-inclusive per guest &bull; 4N / 5D</span>
                 </div>
-                <div style="font-size:0.74rem; color:var(--gold-light); font-style:italic; font-weight:500; margin-top:-2px; margin-bottom:4px; opacity:0.9;">(Diwali Festive Benefit: &#8377;5,400)</div>
                 <p class="tier-desc" style="color:rgba(253,250,243,0.85);">Separate single bed in handcrafted suite with mindful same-gender pairing.</p>
               </div>
 
               <div class="price-tier-box upgrade-tier" style="background:rgba(255,255,255,0.06); border-color:rgba(201,168,76,0.35);">
                 <div class="tier-label-row">
                   <span class="tier-name" style="color:var(--ivory);">Guaranteed Private Single Suite</span>
-                  <span class="tier-badge-limited" style="background:rgba(201,168,76,0.25); color:var(--gold-light);">Diwali 15% Off</span>
+                  <span class="tier-badge-limited" style="background:rgba(201,168,76,0.25); color:var(--gold-light);">Strictly Max 2 Suites</span>
                 </div>
                 <div class="tier-price-row">
-                  <span class="tier-amount" style="color:var(--gold-light);"><del style="font-size:1rem; opacity:0.6; font-weight:400; text-decoration:line-through; margin-right:6px; color:rgba(253,250,243,0.65);">&#8377;43,990</del>&#8377;37,390</span>
-                  <span class="tier-scope" style="color:rgba(253,250,243,0.7);">private suite &bull; 4N / 5D</span>
+                  <span class="tier-amount" style="color:var(--gold-light);">&#8377;43,990</span>
+                  <span class="tier-scope" style="color:rgba(253,250,243,0.7);">(+&#8377;8,000 private suite upgrade)</span>
                 </div>
-                <div style="font-size:0.74rem; color:var(--gold-light); font-style:italic; font-weight:500; margin-top:-2px; margin-bottom:4px; opacity:0.9;">(Diwali Festive Benefit: &#8377;6,600)</div>
                 <p class="tier-desc" style="color:rgba(253,250,243,0.85);">Entire 2-guest earthen suite reserved exclusively for solo occupancy.</p>
               </div>
 
-              <div class="couple-note" style="color:rgba(253,250,243,0.85);">* Couples or friends booking together receive a private suite at &#8377;30,590 per person.</div>
-              <div style="font-size:0.75rem; color:var(--gold-light); font-weight:600; margin-top:0.4rem; padding-top:0.4rem; border-top:1px dashed rgba(232,201,122,0.35);">Children below 15 years stay free with accompanying adults (includes suite &amp; sattvic dining).</div>
+              <div class="couple-note" style="color:rgba(253,250,243,0.85);">* Couples or friends booking together receive a private suite at &#8377;35,990 per person.</div>
             </div>
           </div>
           <div class="card-bullets">
@@ -2980,10 +2775,10 @@
           <div class="form-group">
             <label class="form-label" for="fPlan">Selected Pathway *</label>
             <select id="fPlan" class="form-select" required>
-              <option value="rejuvenation-twin" selected>The Deep Rejuvenation &mdash; Twin Sharing (&#8377;30,590 &bull; Diwali 15% Tariff)</option>
-              <option value="rejuvenation-single">The Deep Rejuvenation &mdash; Private Single Suite (&#8377;37,390 &bull; Diwali 15% Tariff)</option>
-              <option value="awakening-twin">The Awakening Pathway &mdash; Twin Sharing (&#8377;23,790 &bull; Diwali 15% Tariff)</option>
-              <option value="awakening-single">The Awakening Pathway &mdash; Private Single Suite (&#8377;30,590 &bull; Diwali 15% Tariff)</option>
+              <option value="rejuvenation-twin" selected>The Deep Rejuvenation &mdash; Twin Sharing (&#8377;35,990)</option>
+              <option value="rejuvenation-single">The Deep Rejuvenation &mdash; Private Single Suite (&#8377;43,990)</option>
+              <option value="awakening-twin">The Awakening Pathway &mdash; Twin Sharing (&#8377;27,990)</option>
+              <option value="awakening-single">The Awakening Pathway &mdash; Private Single Suite (&#8377;35,990)</option>
               <option value="couple-shared">Couple / Friends Booking Together (Private Suite at Base Rate)</option>
             </select>
           </div>
@@ -3716,6 +3511,8 @@
 
   function selectPlanInForm(planKey) {
     if (planKey === "reset") planKey = "rejuvenation";
+    if (planKey === "awakening") planKey = "awakening-twin";
+    if (planKey === "rejuvenation") planKey = "rejuvenation-twin";
     const select = document.getElementById('fPlan');
     if (select) {
       select.value = planKey;
@@ -3755,9 +3552,12 @@
     const notes = document.getElementById('fNotes').value.trim();
     const sanctuaryGuardian = document.getElementById('fSanctuaryGuardian') ? document.getElementById('fSanctuaryGuardian').value.trim() : '';
 
-    let planName = 'The Deep Rejuvenation (Rs 35,990)';
-    if (plan === 'awakening') planName = 'The Awakening Pathway (Rs 27,990)';
-    if (plan === 'reset') planName = 'The Deep Rejuvenation (Rs 35,990)';
+    let planName = 'The Deep Rejuvenation — Twin Sharing (Rs 35,990)';
+    if (plan === 'awakening-twin' || plan === 'awakening') planName = 'The Awakening Pathway — Twin Sharing (Rs 27,990)';
+    if (plan === 'awakening-single') planName = 'The Awakening Pathway — Private Single Suite (Rs 35,990)';
+    if (plan === 'rejuvenation-twin' || plan === 'rejuvenation' || plan === 'reset') planName = 'The Deep Rejuvenation — Twin Sharing (Rs 35,990)';
+    if (plan === 'rejuvenation-single') planName = 'The Deep Rejuvenation — Private Single Suite (Rs 43,990)';
+    if (plan === 'couple-shared') planName = 'Couple / Friends Booking Together (Private Suite at Base Rate)';
 
     let assignedRef = 'ENQ-' + Math.floor(10000 + Math.random() * 90000);
 
