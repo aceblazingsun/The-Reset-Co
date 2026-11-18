@@ -29,7 +29,7 @@ When the user types `/graphify` or `$graphify`, use the installed graphify skill
 - **Regulatory Status:** Authentic non-prescriptive restorative Ayush wellness sanctuary (not a hospital/diagnostic clinic).
 
 ### 2. Confirmed Business Rules (Strict Source of Truth)
-- **Confirmed Residency Dates:** November 26–30, 2026 (4 Nights / 5 Days). Check-in Nov 26 (12 PM), Check-out Nov 30 (11 AM).
+- **Confirmed Residency Dates:** December 23–27, 2026 (4 Nights / 5 Days). Check-in Dec 23 (12 PM), Check-out Dec 27 (11 AM).
 - **Cohort Capacity:** Strictly capped at **8–10 guests across 5 handcrafted earthen mud suites** to maintain clinical depth and unhurried doctor-patient interaction. Minimum confirmation threshold: 6 guests.
 - **Domestic All-Inclusive Pricing (2 Pathways Only):**
   1. *The Awakening Pathway:* **₹27,990** (General burnout, modern screen fatigue & circadian reset, 2 days Bahya Basti, high-altitude stargazing, trails with Daisy 🐾, Tratak flame meditation, and Reflective Samvada mindful life dialogue)
